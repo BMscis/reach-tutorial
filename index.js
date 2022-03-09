@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {view: 'ConnectAccount', ...defaults};
   }
   async componentDidMount() {
-    const acc = await reach.getDefaultAccount();
+    const acc = await reach.newTestAccount(100);
     const balAtomic = await reach.balanceOf(acc);
     const bal = reach.formatCurrency(balAtomic, 4);
     this.setState({acc, bal});
