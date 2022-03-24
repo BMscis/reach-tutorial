@@ -1,63 +1,82 @@
+:root{
+	--primary-color:#377300;
+	--primary-mono:#50A600;
+	--primary-comp:#3F08A6;
+
+	--font-heading:bold 55px 'poppins';
+	--font-subscript:16px 'poppins';
+	--font-body:regular 16px 'poppins';
+	--font-body-title:bold 40px 'poppins';
+	--font-menu-label:thin 16px 'poppins';
+  
+	--transition-navigation:.3s cubic-bezier(0.4,0,0.2,1);
+	--animation-navigation: highlights ease-in-out .5s normal forwards;
+	--animation-dropdown: dropdown ease-in-out .5s normal forwards;
+  
+	--border-inactive-input:2px solid #00000038;
+	--border-active-input:2px solid var(--primary-color-mono-2);
+	--border-success-input:2px solid var(--indicator-color-positive);
+	--border-unsuccessful-input:2px solid var(--indicator-color-negative);
+  
+	--label-padding: 0 10px;
+  }
+*{
+	transition: var(--transition-navigation);
+}
 html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
 }
-
+svg{
+	margin: auto;
+}
 body {
 	color: #333;
+	background-color: var(--primary-mono);
 	margin: 0;
-	padding: 8px;
+	padding: 0;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
-
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+button,a{
+	pointer-events: all;
+	cursor: pointer;
+}
+button{
+	border: none;
+	background-color:transparent;
+	padding: 0;
 }
 
-a:hover {
-	text-decoration: underline;
+#top-bar{
+	background-color: var(--primary-color);
+	display: flex;
 }
 
-a:visited {
-	color: rgb(0,80,160);
+#menu-block,
+#title-block,
+#anchor-block{
+	background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	color: white;
 }
-
-label {
-	display: block;
+#anchor-block{
+	display: flex;
+	justify-content: flex-end;
 }
-
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	-webkit-padding: 0.4em 0;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+h1,h2{
+	color: white;
 }
-
-input:disabled {
-	color: #ccc;
+sub{
+	font:var(--font-subscript);
+	color:#FF7700;
 }
-
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+a:hover{
+	color:#FF7700;
 }
-
-button:disabled {
-	color: #999;
-}
-
-button:not(:disabled):active {
-	background-color: #ddd;
-}
-
-button:focus {
-	border-color: #666;
+#upper-mid-bar{
+	position: relative;
 }

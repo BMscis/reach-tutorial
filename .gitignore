@@ -1,3 +1,5 @@
 node_modules/
 tls/
 .reach/
+/src/nftea-assets
+/.vscode
