@@ -1,15 +1,22 @@
 <script>
+    import { onMount } from "svelte";
+    import { windowSize } from "../../Stores/dimensions";
     import CardImage from "../CardImage.svelte";
     import CardHeader from "./CardHeader.svelte";
-    let isLarge = false
+    export let isLarge = false
+    export let labelDark = false
     let cardHeight
     let cardWidth
-    isLarge? [cardHeight=516,cardWidth=406] : [cardHeight=211,cardWidth=166] 
-    console.log
+    isLarge? cardWidth=406 : [cardHeight=200,cardWidth=166] 
+    onMount(()=> {
+        return windowSize.subscribe((value) => {
+            value.isLarge && isLarge ? cardHeight = Math.floor(value.height * 0.6) : cardHeight = 200
+        })
+    })
 </script>
-<div id="nft-card" style="width:{cardWidth}px;height:{cardHeight}px;background-color:var(--primary-comp);">
-    <CardImage isLarge={isLarge}></CardImage>
-    <CardHeader isLarge={isLarge}></CardHeader>
+<div id="nft-card" style="width:{cardWidth}px;height:{cardHeight}px;margin:auto;background-color:var(--primary-comp);position:relative;">
+    <CardImage isLarge={isLarge} imageHeight={Math.floor(cardHeight * 0.64)}></CardImage>
+    <CardHeader isLarge={isLarge} labelDark={labelDark} labelMargin={0}></CardHeader>
 </div>
 <style>
     #nft-card{

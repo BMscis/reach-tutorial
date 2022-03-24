@@ -15,7 +15,7 @@
         })
     })
 </script>
-<div id="upper-mid-bar" style="width:{midWidth}px;height:{midHeight}px;">
+<div id="upper-right-bar" style="width:{midWidth}px;height:{midHeight}px;">
     <BodyTitle label="Featured"></BodyTitle>
     <ImageBlock {midWidth} {midHeight}></ImageBlock>
     <ImageHeaderContainer imageWidth={midWidth} isLarge={isLarge}></ImageHeaderContainer>

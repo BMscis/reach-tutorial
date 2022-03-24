@@ -1,5 +1,5 @@
 <script>
-    let isLarge = true
+    export let isLarge = true
     export let isRound = false
     export let isSmall = false
     export let innerComponent

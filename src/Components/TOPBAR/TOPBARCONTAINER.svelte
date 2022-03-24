@@ -30,6 +30,10 @@ let topHeight = window.innerHeight * 0.13
     </div>
 </div>
 <style>
+    #top-bar{
+        position: sticky;
+        top:0;
+    }
 #create-nft{
     margin-right: 32px;
 }

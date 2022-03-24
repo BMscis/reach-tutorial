@@ -77,6 +77,22 @@ sub{
 a:hover{
 	color:#FF7700;
 }
-#upper-mid-bar{
+#upper-right-bar{
 	position: relative;
+}
+p{
+	font-family: poppins;
+	font-weight: 300;
+	font-size: 12px;
+	margin:auto;
+}
+::-webkit-scrollbar{
+	width: 0.85px;
+}
+#nft-list::-webkit-scrollbar {
+	height: 2px;
+	background-color: #5c4c47;
+}
+#nft-list::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 255, 255, 0.329);
 }

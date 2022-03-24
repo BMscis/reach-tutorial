@@ -1,19 +1,13 @@
 <script>
     export let label;
     export let isLarge = true
+    export let margin = "auto"
+    export let dark = false
     let labelWidth;
     let labelHeight;
-    isLarge? [labelWidth=124,labelHeight=70] : [labelWidth=70,labelHeight=24]
+    isLarge? labelWidth=124 : labelWidth=70
 </script>
 
-<p style="width:{labelWidth}px;height:{labelHeight}px;color:white;margin:0;text-align:center;">
+<p style="width:{labelWidth}px;height:24px;color:white;text-align:center;margin:{margin};color:{dark?"black":"white"};">
     {label}
 </p>
-
-<style>
-    p {
-        font-family: poppins;
-        font-weight: 100;
-        font-size: 12px;
-    }
-</style>
