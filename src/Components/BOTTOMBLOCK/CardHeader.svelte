@@ -6,32 +6,42 @@
     export let isLarge = true;
     export let labelDark = false;
     export let labelMargin = "auto";
+    export let position = "absolute";
+    export let label
+    export let price
     let cardWidth;
-    let cardHeight;
+    export let cardHeight;
 
     isLarge
-        ? [(cardWidth = 406), (cardHeight = 70)]
-        : [(cardWidth = 166), (cardHeight = 48)];
+        ? [cardWidth = 406, cardHeight = 70]
+        : cardWidth = 166
 </script>
 
 <div
     id="card-header"
-    style="width:100%;display:grid;justify-content:center;grid-template-columns: 20% 60% 20%;height:{cardHeight}px;position:absolute;border-radius:0 0 24px 24px;bottom:0;background-color:{isLarge ? 'white' : '#00000042'}"
+    style="width:100%;display:grid;justify-content:center;grid-template-columns:.6fr 40% 1fr;height:{cardHeight}px;position:{position};border-radius:0 0 12px 12px;bottom:0;background-color:{isLarge ? 'white' : '#00000042'}"
 >
     <Avatar {isLarge} />
     <div id="card-label-box" style="margin: auto;">
         <MenuLabel
-            label="Bmscis"
+            label={label}
             {isLarge}
             dark={labelDark}
             margin={labelMargin}
+            fontSize=9
         />
         <MenuSubLabel
-            label="$1000"
+            label="${price}"
             {isLarge}
             dark={labelDark}
             margin={labelMargin}
+            fontSize=9
         />
     </div>
     <CardButton {isLarge} {cardHeight} />
 </div>
+<style>
+    #card-header{
+        box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+    }
+</style>

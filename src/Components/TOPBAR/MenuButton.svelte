@@ -16,7 +16,7 @@
 </button>
 <style>
       button:hover #_Color{
-        fill:#FF7700;
+        fill:var(--spectacular-orange);
     }
 </style>
   

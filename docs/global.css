@@ -2,11 +2,14 @@
 	--primary-color:#377300;
 	--primary-mono:#50A600;
 	--primary-comp:#3F08A6;
+	--primary-bright:#75F200;
+	--inactive-component:#A6BCD0;
+	--spectacular-orange:#FF7700;
 
-	--font-heading:bold 55px 'poppins';
+	--font-heading:bold 'poppins';
 	--font-subscript:16px 'poppins';
 	--font-body:regular 16px 'poppins';
-	--font-body-title:bold 40px 'poppins';
+	--font-body-title:bold 'poppins';
 	--font-menu-label:thin 16px 'poppins';
   
 	--transition-navigation:.3s cubic-bezier(0.4,0,0.2,1);
@@ -22,6 +25,8 @@
   }
 *{
 	transition: var(--transition-navigation);
+	box-sizing: border-box;
+	-webkit-tap-highlight-color:transparent;
 }
 html, body {
 	position: relative;
@@ -69,15 +74,17 @@ button{
 }
 h1,h2{
 	color: white;
+	font-family: 'poppins';
+	font-weight: bold;
 }
 sub{
 	font:var(--font-subscript);
-	color:#FF7700;
+	color:var(--spectacular-orange);
 }
 a:hover{
-	color:#FF7700;
+	color:var(--spectacular-orange);
 }
-#upper-right-bar{
+#upper-right-block{
 	position: relative;
 }
 p{
@@ -89,10 +96,14 @@ p{
 ::-webkit-scrollbar{
 	width: 0.85px;
 }
-#nft-list::-webkit-scrollbar {
-	height: 2px;
+ul::-webkit-scrollbar {
+	display: none;
 	background-color: #5c4c47;
 }
-#nft-list::-webkit-scrollbar-thumb {
+ul::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 255, 255, 0.329);
 }
+#card-label-box{
+	width: 100%;
+}
+

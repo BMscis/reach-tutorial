@@ -8,6 +8,6 @@
         margin-right: 32px;
     }
     button:hover #wallet{
-        fill:#FF7700;
+        fill:var(--spectacular-orange);
     }
 </style>

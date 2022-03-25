@@ -1,22 +1,34 @@
 <script>
-    import { onMount } from "svelte";
+    import { onDestroy } from "svelte";
     import BodyTitle from "../BodyTitle.svelte";
     import ImageBlock from "./ImageBlock.svelte";
-    import { windowSize } from "../../Stores/dimensions";
+    import { upperRightContainer } from "../../Stores/dimensions";
     import ImageHeaderContainer from "./ImageHeaderContainer.svelte"
-    let midWidth = Math.floor(window.innerWidth * 0.57)
-    let midHeight = Math.floor(window.innerHeight * 0.5)
+    
+    let upperRightBlockWidth
+    let upperRightBlockHeight
+    let BodyTitleWidth
+    let BodyTitleHeight
+    let imageBlockWidth
+    let imageBlockHeight
+    let imageHeaderContainerWidth
+    let imageHeaderContainerHeight
     let isLarge = true
-    onMount(()=>{
-        windowSize.subscribe((value) => {
-            midWidth = Math.floor(value.width * 0.57)
-            midHeight= Math.floor(value.height * 0.5)
-            isLarge= value.isLarge
+
+    const unsubsrcibe = upperRightContainer.subscribe((value) => {
+            upperRightBlockWidth = value.upperRightBlock.width
+            upperRightBlockHeight = value.upperRightBlock.height
+            BodyTitleWidth = value.bodyTitle.width
+            BodyTitleHeight = value.bodyTitle.height
+            imageBlockWidth = value.imageBlock.width
+            imageBlockHeight = value.imageBlock.height
+            imageHeaderContainerWidth = value.imageHeaderContainer.width
+            imageHeaderContainerHeight = value.imageHeaderContainer.height
         })
-    })
+    onDestroy(() => unsubsrcibe)
 </script>
-<div id="upper-right-bar" style="width:{midWidth}px;height:{midHeight}px;">
+<div id="upper-right-block" style="width:{upperRightBlockWidth}px;height:{upperRightBlockHeight}px;">
     <BodyTitle label="Featured"></BodyTitle>
-    <ImageBlock {midWidth} {midHeight}></ImageBlock>
-    <ImageHeaderContainer imageWidth={midWidth} isLarge={isLarge}></ImageHeaderContainer>
+    <ImageBlock midWidth={imageBlockWidth} midHeight={imageBlockHeight}></ImageBlock>
+    <ImageHeaderContainer imageWidth={imageHeaderContainerWidth} imageHeight={imageHeaderContainerHeight} isLarge={isLarge}></ImageHeaderContainer>
 </div>

@@ -1,16 +1,17 @@
 <script>
-import image from "../nftea-assets/assets/tcCycle.png"
+import images from "../nftea-assets/assets/tcCycle.png"
+    export let image
     export let isLarge
     export let imageHeight
-    let imageWidth 
+    export let imageWidth
     let clicked = false
-    isLarge ? imageWidth = 406 : [imageWidth,imageHeight] = [166,146] 
+    
 </script>
-<button style="background-image:url({image});background-repeat:no-repeat;background-size: contain;background-position: center;width:{imageWidth}px;height:{imageHeight}px;" class:active={clicked} on:click={() => {clicked = !clicked}}>
+<button style="width:{imageWidth}px;height:{imageHeight}px;background-image:url({image? image:images});background-repeat:no-repeat;background-size: contain;background-position: center;outline:none;" class:active={clicked} on:click={() => {clicked = !clicked}}>
 </button>
 <style>
     button.active{
-        border: 4px solid var(--primary-mono);
+        border-bottom: 4px solid var(--primary-mono);
         border-radius: 24px;
     }
 </style>

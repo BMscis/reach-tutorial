@@ -1,36 +1,34 @@
 <script>
-    import NftCard from "./NftCard.svelte"
-    import {windowSize} from "../../Stores/dimensions"
-    import { onMount } from "svelte";
-import BodyNav from "../BodyNav.svelte";
+    import { onDestroy } from "svelte";
+    import NftList from "./NftList.svelte";
+    import BodyNav from "../BodyNav.svelte";
+    import {bottomContainer} from "../../Stores/dimensions"
     let isLarge = true
-    let bottomWidth = Math.floor(window.innerWidth * 0.57)
-    let bottomHeight = Math.floor(window.innerHeight * 0.37)
-    let cards = [1,2,3,4,5,6,7]
-    onMount(() => {
-        windowSize.subscribe((value) => {
-            bottomWidth = Math.floor(value.width * 0.57)
-            bottomHeight= Math.floor(value.height * 0.37)
-            isLarge = value.isLarge
+    let bottomBlockWidth
+    let bottomBlockHeight
+    let bodyNavWidth
+    let bodyNavHeight
+    let nftListWidth
+    let nftListHeight
+    let nftContainerListWidth
+    let nftContainerListHeight
+    let nftCardWidth
+    let nftCardHeight
+    const unsubscribe = bottomContainer.subscribe((value) => {
+            bottomBlockWidth = value.bottomBlock.width
+            bottomBlockHeight = value.bottomBlock.height
+            bodyNavWidth = value.bodyNav.width
+            bodyNavHeight = value.bodyNav.height
+            nftListWidth = value.nftList.width
+            nftListHeight = value.nftList.height
+            nftCardWidth = value.nftCard.width
+            nftCardHeight = value.nftCard.height
+            nftContainerListWidth = value.nftListContainer.width
+            nftContainerListHeight = value.nftListContainer.height
         })
-    })
+    onDestroy(() => unsubscribe)
 </script>
-<div id="bottom-bar" style="width:{bottomWidth}px;height:{bottomHeight}px;">
-    <BodyNav width={bottomWidth - 54} name="Latest"></BodyNav>
-    <div id="nft-list" style="width:{bottomWidth - 54}px;height:{bottomHeight - 40}px">
-        {#each cards as card}
-            <NftCard ></NftCard>
-        {/each}
-    </div>
+<div id="bottom-block" style="width:{bottomBlockWidth}px;height:{bottomBlockHeight}px;">
+    <BodyNav width={bodyNavWidth} height={bodyNavHeight} name="Latest"></BodyNav>
+    <NftList nftListWidth={nftListWidth} nftListHeight={nftListHeight} nftContainerListWidth={nftContainerListWidth} nftContainerListHeight={nftContainerListHeight} nftCardWidth={nftCardWidth} nftCardHeight={nftCardHeight}  ></NftList>
 </div>
-<style>
-    #nft-list{
-        display: grid;
-        grid-auto-flow: column;
-        grid-gap: 20px;
-        margin: auto;
-        overflow: auto;
-        overflow-y: hidden;
-        background-color: #00000087;
-    }
-</style>

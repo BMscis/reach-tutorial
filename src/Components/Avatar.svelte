@@ -2,7 +2,7 @@
 export let isLarge
 </script>
 {#if isLarge}
-<svg id="contact-avatar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40" isLarge={isLarge}>
+<svg id="contact-avatar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 40 40" isLarge={isLarge}>
   <defs>
     <clipPath id="clip-path-large">
       <circle id="Ellipse_2" data-name="Ellipse 2" cx="20" cy="20" r="20" fill="#fff" stroke="#707070" stroke-width="1"/>
@@ -24,7 +24,7 @@ export let isLarge
 </svg>
 
 {:else}
-<svg id="contact-avatar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+<svg id="contact-avatar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 20 20">
     <defs>
       <clipPath id="clip-path">
         <circle id="Ellipse_2" data-name="Ellipse 2" cx="10" cy="10" r="10" transform="translate(10 10)" fill="#fff" stroke="#707070" stroke-width="1"/>
