@@ -1,9 +1,9 @@
 <script>
-import image from "../../nftea-assets/assets/avatarts.png"
-import { onDestroy} from "svelte";
+import { onDestroy, onMount} from "svelte";
 import BodyNav from "../BodyNav.svelte"
 import NftCard from "../BOTTOMBLOCK/NftCard.svelte";
 import { upperLeftContainer } from "../../Stores/dimensions";
+import { nftCardList } from "../../Stores/nftCard";
 
 let upperLeftBlockWidth
 let upperLeftBlockHeight
@@ -13,7 +13,12 @@ let bodyNavWidth
 let bodyNavHeight
 let nftCardWidth
 let nftCardHeight
+let hasActiveNft = false
 
+let label
+let price
+let owner
+let image
 
 const unsubsrcibe = upperLeftContainer.subscribe((value) => {
         upperLeftBlockWidth = value.upperLeftBlock.width
@@ -25,14 +30,28 @@ const unsubsrcibe = upperLeftContainer.subscribe((value) => {
         nftCardWidth = value.nftCard.width
         nftCardHeight = value.nftCard.height
     })
-
+onMount(() => {
+    return nftCardList.subscribe((value) => {
+        console.log("UpperCont: ",value)
+        let activeComp = value.find((v) => v.active === true);
+        if(activeComp){
+            hasActiveNft = activeComp.active
+            label = activeComp.label
+            price = activeComp.price
+            owner = activeComp.owner
+            image = activeComp.pic
+        }
+    })
+})
 let isLarge = false
 onDestroy(() => unsubsrcibe)
 </script>
 <div id="upper-left-block" style="width:{upperLeftBlockWidth}px;height:{upperLeftBlockHeight}px; background:transparent;positon:relative;display:flex;">
 <div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;background-color:#6418F2;border-radius:40px;position:relative;">
     <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#F21842" name="Bid Space"></BodyNav>
-    <NftCard label = "Aspel" price="2000" {image} cardWidth={nftCardWidth} cardHeight={nftCardHeight} isLarge={true} labelDark={true}></NftCard>
+    {#if hasActiveNft}
+        <NftCard {label} {price} {owner} {image} cardWidth={nftCardWidth} cardHeight={nftCardHeight} isLarge={true} labelDark={true}></NftCard>
+    {/if}
     <button>BID</button>
 </div>
 </div>

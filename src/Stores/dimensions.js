@@ -148,7 +148,6 @@ const setupBottomContainer = ((value) => {
       nftWidth = blockSize(blockWidth,0.85)
       break;
   }
-  console.log("DD: ", nftWidth)
   bottomContainer.set(
     {
       bottomBlock: {
@@ -178,7 +177,5 @@ const setupBottomContainer = ((value) => {
       }
     }
   )
-  console.log("LIST: ",blockSize(blockWidth,0.95))
-  console.log("CONT: ",blockSize(blockWidth,0.87))
 })
 const blockSize = ((num,by) => {return Math.floor(num * by) })
