@@ -4,6 +4,7 @@ import MenuButton from "./MenuButton.svelte";
 import WalletButton from "./WalletButton.svelte";
 import IconContainer from "../IconContainer.svelte";
 import { topContainer} from "../../Stores/dimensions";
+import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
 
 let isLarge = true
 let topBarWidth
@@ -32,7 +33,7 @@ onDestroy(()=> {unsubscribe})
     </div>
     <div id="anchor-block" style="width: {anchorBlockWidth}px;height:{anchorBlockHeight}px">
         <a id="create-nft" >Create NFT</a>
-        <WalletButton></WalletButton>
+        <ConnectedWallet></ConnectedWallet>
     </div>
 </div>
 <style>
