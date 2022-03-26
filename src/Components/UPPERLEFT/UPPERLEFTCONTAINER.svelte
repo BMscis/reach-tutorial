@@ -32,7 +32,7 @@ const unsubsrcibe = upperLeftContainer.subscribe((value) => {
     })
 onMount(() => {
     return nftCardList.subscribe((value) => {
-        console.log("UpperCont: ",value)
+        //console.log("UpperCont: ",value)
         let activeComp = value.find((v) => v.active === true);
         if(activeComp){
             hasActiveNft = activeComp.active

@@ -3,7 +3,7 @@
     import {createNft} from "../../Stores/nftCard"
     import CardImage from "../CardImage.svelte";
     import CardHeader from "./CardHeader.svelte";
-import { onDestroy } from "svelte";
+    import { onDestroy } from "svelte";
     export let label
     export let isLarge = false
     export let labelDark = false
@@ -15,9 +15,6 @@ import { onDestroy } from "svelte";
     let active = false
 
     const [nftSubscriber,nftValidator] = createNft(image,owner,label,price,active)
-    nftSubscriber.subscribe((value) => {
-        console.log("CARD: ",value)
-    })
     onDestroy(()=> {nftSubscriber})
 </script>
 <div id="nft-card" style="width:{cardWidth}px;height:{cardHeight}px;margin:auto;background-color:var(--primary-comp);position:relative;">

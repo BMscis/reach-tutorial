@@ -21,27 +21,27 @@ export const createNft = ((pic,owner,label,price,active)=>{
     function action(node, binding) {
         function validate(value) {
             set({pic:pic,owner:owner,label:label,price:price,active:value})
-            setActive(value)   
+            setActive(value)
             //get nftCardList
             //Make active false for all
             function getNftCardList(){
-                let cardList = get(nftCardList)
-                cardList.forEach((v)=>{
-                    v.active = false
-                })
-                return cardList
-            }
-            //get nftCardList
-            //find label where label === label
-            //try make active true
-            //update nftCardList
-           function setActive(value){
-                let cardList = getNftCardList()
-                let component = cardList.find((v) => v.label === label);
-                component.active = value
-                nftCardList.set(cardList)
-           }
-
+              let cardList = get(nftCardList)
+              cardList.forEach((v)=>{
+                  v.active = false
+              })
+              nftCardList.update((n) => (n = n));
+              return cardList
+          }
+          //get nftCardList
+          //find label where label === label
+          //try make active true
+          //update nftCardList
+         function setActive(value){
+              let cardList = getNftCardList()
+              let component = cardList.find((v) => v.label === label);
+              component.active = value
+              nftCardList.set(cardList)
+         }
           return
         }
         validate(node,binding)
