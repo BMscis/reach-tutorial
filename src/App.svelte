@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	import { Auth, Hub } from "aws-amplify";
+	import { Hub } from "aws-amplify";
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
 	import SIGNIN from "./AUTH/SIGNIN.svelte";
 	import { cyberuser } from "./AUTH/AuthStore";
@@ -11,7 +11,7 @@
 	import UPPERLEFTCONTAINER from "./Components/UPPERLEFT/UPPERLEFTCONTAINER.svelte";
 	import UPPERMIDBARCONTAINER from "./Components/UPPERRIGHT/UPPERRIGHTCONTAINER.svelte";
 
-	let noCurrentUser
+	let noCurrentUser =  true
 	let mobile = checkDevice()
 	isMobile.set({isMob:mobile})
 
@@ -26,14 +26,20 @@
 		}),
 		cyberuser.subscribe((value) => {
 			//if value.user.signInUserSession is null, then no current user
-			if(value.user.signInUserSession === null) {
+			try {
+				if(value.user.signInUserSession === null) {
 				console.log("NO CURRENT USER")
 				noCurrentUser = true
 			} else {
 				console.log("CURRENT USER")
 				noCurrentUser = false
-			}}),
-		]
+			}
+			} catch(e) {
+				console.log("NO CURRENT USER")
+				noCurrentUser = true
+			}
+		}),
+	]
 	})
 </script>
 <svelte:window on:resize={() => {resize()}}></svelte:window>
