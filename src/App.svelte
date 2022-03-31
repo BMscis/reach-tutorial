@@ -2,7 +2,6 @@
 	import { onMount } from "svelte";
 	import { Hub } from "aws-amplify";
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
-	import SIGNIN from "./AUTH/SIGNIN.svelte";
 	import { cyberuser } from "./AUTH/AuthStore";
 	import {isMobile, SetWindowSize} from "./Stores/dimensions";
 	import {checkDevice, checkUser} from "./Utilities/utilities";
@@ -21,17 +20,27 @@
 
 	onMount(() => {
 		return [
+		Hub.listen("auth", (data) => {
+			if (data.payload.event === "signIn") {
+				//noCurrentUser = false
+			}
+			if (data.payload.event === "signOut") {
+				cyberuser.set("")
+				noCurrentUser = true
+			}
+		}),
 		Hub.listen('storage',(event) => {
 			console.log("STORE EVENT", event)
 		}),
 		cyberuser.subscribe((value) => {
-			//if value.user.signInUserSession is null, then no current user
+			//if value.signInUserSession is null, then no current user
 			try {
-				if(value.user.signInUserSession === null) {
-				console.log("NO CURRENT USER")
-				noCurrentUser = true
-			} else {
-				console.log("CURRENT USER")
+				if(value.signInUserSession === null || value.signInUserSession === undefined) {
+					noCurrentUser = true
+					console.log("NO CURRENT USER")
+				}
+			 else {
+				console.log("CURRENT USER",value.signInUserSession)
 				noCurrentUser = false
 			}
 			} catch(e) {
@@ -50,7 +59,6 @@
 <main >
 {#if noCurrentUser}
 	<SIGNUP></SIGNUP>
-	<SIGNIN></SIGNIN>	
 {:else if !noCurrentUser} 
 	<div style="float: left;">
 		<UPPERMIDBARCONTAINER></UPPERMIDBARCONTAINER>

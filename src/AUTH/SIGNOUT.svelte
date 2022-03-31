@@ -9,4 +9,4 @@ async function signOut() {
     }
 }
 </script>
-<button on:click={()=>{signOut()}}></button>
+<button on:click={()=>{signOut()}}>signout</button>

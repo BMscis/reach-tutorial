@@ -1,5 +1,5 @@
 import { Auth } from "aws-amplify"
-import { Hub, Logger } from 'aws-amplify';
+import {cyberuser} from "../AUTH/AuthStore"
 
 export const checkDevice = () => {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){

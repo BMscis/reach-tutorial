@@ -1,66 +1,35 @@
 <script>
-import { Auth } from 'aws-amplify';
-import { checkUser } from '../Utilities/utilities';
+import {signUp,confirmSignUp,signIn} from "./AuthUtils"
 import InputContainer from '../Components/INPUTS/InputContainer.svelte'
-
+let try_sign_up = true
+let try_sign_in = !try_sign_up
+let try_verify = false
 let name
 let code
 let email
-let username
 let password
 let phone_number
-let showLoading = false
 
-async function signUp() {
-    username = email
-    try {
-        const { user } = await Auth.signUp({username,password,attributes: {name,email,phone_number,}});
-        console.log(user)
-        showLoading = true
-
-    } catch (error) {
-        if(error.code == "UsernameExistsException"){
-            alert("UserName Already Exists")
-        }
-        else{
-            alert('error signing up:', error.message);
-        }
-    }
+const trySignUp = async () => {
+    const result = await signUp(password, name, email, phone_number)
+    try_sign_up = !result
+    try_verify = result
+    return
 }
-async function confirmSignUp() {
-    try {
-      let confirm = await Auth.confirmSignUp(username, code);
-      console.log("Confirm:: ",confirm)
-      checkUser()
-    } catch (error) {
-        switch (error.code) {
-            case "CodeMismatchException":
-                alert('Missmatch', error);
-                break;
-            case "UserLambdaValidationException":
-                alert('User except', error);
-                break
-            case "NotAuthorizedException":
-                alert('Not Auth', error);
-                break
-            default:
-                alert('error confirming sign up', error);
-                break;
-        }
-    }
+const verifySignUp = async () => {
+    try_sign_in = await confirmSignUp(email,code)
+    try_verify = !try_sign_in
+    console.log("VERIFY SIGN UP",try_sign_in)
+    try_sign_in? await trySignIn() : null
+    return
+}
+const trySignIn = async () => {
+    await signIn(email,password)
 }
 </script>
-{#if showLoading}
-<form on:submit|preventDefault={confirmSignUp}>
-    <InputContainer>
-    <input type="text" slot="input-slot" class="input-rect-input" bind:value={code} name="authCode">
-    </InputContainer>
-    <InputContainer>
-    <button slot="input-slot" class="input-rect-input" type="submit">Enter Code</button>
-    </InputContainer>
-</form>
-{:else}
-<form on:submit|preventDefault={signUp}>
+{#if try_sign_up}
+<h2>Already Have an account? <section><button on:click={()=>{try_sign_in = try_sign_up; try_sign_up = !try_sign_up}}>SignIn</button></section></h2>
+<form on:submit|preventDefault={trySignUp}>
     <InputContainer>
         <input slot="input-slot" class="input-rect-input" type="text" name="name" bind:value={name} placeholder="name" />
     </InputContainer>
@@ -78,3 +47,34 @@ async function confirmSignUp() {
     </InputContainer>
 </form>
 {/if}
+{#if try_verify}
+<form on:submit|preventDefault={verifySignUp}>
+    <h2>Please check your Email</h2>
+    <InputContainer>
+    <input type="text" slot="input-slot" class="input-rect-input" bind:value={code} name="authCode">
+    </InputContainer>
+    <InputContainer>
+    <button slot="input-slot" class="input-rect-input" type="submit">Enter Code</button>
+    </InputContainer>
+</form>
+{/if}
+{#if try_sign_in}
+<form on:submit|preventDefault={trySignIn}>
+    <h2>Sign In with your email</h2>
+    <InputContainer>
+        <input type="text" name="email" slot="input-slot" class="input-rect-input" bind:value={email} placeholder="email" />
+    </InputContainer>
+    <InputContainer>
+        <input type="password" name="password" slot="input-slot" class="input-rect-input" bind:value={password} placeholder="password" />
+    </InputContainer>
+    <InputContainer>
+        <button type="submit" slot="input-slot" class="input-rect-input" >Sign In</button>
+    </InputContainer>
+</form>
+{/if}
+<style>
+    h2{
+        margin: auto;
+        width: 50vw;
+    }
+</style>
