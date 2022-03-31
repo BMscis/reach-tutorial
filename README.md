@@ -24,10 +24,8 @@ REACH_CONNECTOR_MODE=ALGO ./reach react
 REACH_CONNECTOR_MODE=ETH ./reach react
 ```
 2. For a quick tutorial make sure you have **Metamask** and **MYALGOCONNECT SDK**.
->To download Algowhatever
-```shell
-npm i -g ganache-cli && ganache-cli
-```
+>To download MYALGOCONNECT SDK
+
 3. Start the Svelte project
 ```shell
 CD into svelte-project
