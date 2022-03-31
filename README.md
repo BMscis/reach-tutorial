@@ -9,8 +9,8 @@ Please install or have installed the following:
 
 - [nodejs and npm](https://nodejs.org/en/download/)
 - [Reach](https://docs.reach.sh/)
--[AWS Cognito](https://aws.amazon.com/cognito/)
--[AWS S3](https://aws.amazon.com/s3/)
+- [AWS Cognito](https://aws.amazon.com/cognito/)
+- [AWS S3](https://aws.amazon.com/s3/)
 
 ## Installation
 ___
@@ -23,12 +23,12 @@ REACH_CONNECTOR_MODE=ALGO ./reach react
 ```shell
 REACH_CONNECTOR_MODE=ETH ./reach react
 ```
-2. For a quick tutorial make sure you have **Metamask** and **MYALGOCONNECT SDK**.
+2. For the quick tutorial make sure you have **Metamask** and **MYALGOCONNECT SDK**.
 >To download MYALGOCONNECT SDK
 
 3. Start the Svelte project
-```shell
-CD into svelte-project
+```shel
+CD into the svelte-project
 
 Run npm install
 
