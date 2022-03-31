@@ -1,7 +1,7 @@
 {
-  "resourceName": "NFTeaStore",
-  "policyUUID": "318aba9b",
-  "bucketName": "nfteastorage",
+  "resourceName": "NFTeaBackendStorage",
+  "policyUUID": "e4399fcb",
+  "bucketName": "nfteabackendstorage",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "READ"
@@ -10,6 +10,6 @@
     "CREATE_AND_UPDATE",
     "READ"
   ],
-  "triggerFunction": "S3Triggerc8bdd296",
+  "triggerFunction": "S3Triggerd765a61e",
   "groupAccess": {}
 }

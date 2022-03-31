@@ -20,12 +20,20 @@
 	windowSizeSetter()
 
 	onMount(() => {
-		Hub.listen('auth',(event) => {
-			console.log("AUTH EVENT", event)
-		})
+		return [
 		Hub.listen('storage',(event) => {
 			console.log("STORE EVENT", event)
-		})
+		}),
+		cyberuser.subscribe((value) => {
+			//if value.user.signInUserSession is null, then no current user
+			if(value.user.signInUserSession === null) {
+				console.log("NO CURRENT USER")
+				noCurrentUser = true
+			} else {
+				console.log("CURRENT USER")
+				noCurrentUser = false
+			}}),
+		]
 	})
 </script>
 <svelte:window on:resize={() => {resize()}}></svelte:window>
@@ -34,7 +42,7 @@
 	<h1>Loading</h1>
 {:then result}
 <main >
-{#if result}
+{#if noCurrentUser}
 	<SIGNUP></SIGNUP>
 	<SIGNIN></SIGNIN>	
 {:else if !noCurrentUser} 

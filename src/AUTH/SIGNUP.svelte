@@ -1,8 +1,7 @@
 <script>
 import { Auth } from 'aws-amplify';
-import {cyberuser} from './AuthStore';
-import InputContainer from '../Components/INPUTS/InputContainer.svelte'
 import { checkUser } from '../Utilities/utilities';
+import InputContainer from '../Components/INPUTS/InputContainer.svelte'
 
 let name
 let code
@@ -18,7 +17,6 @@ async function signUp() {
         const { user } = await Auth.signUp({username,password,attributes: {name,email,phone_number,}});
         console.log(user)
         showLoading = true
-        cyberuser.set(user)
 
     } catch (error) {
         if(error.code == "UsernameExistsException"){
@@ -33,6 +31,7 @@ async function confirmSignUp() {
     try {
       let confirm = await Auth.confirmSignUp(username, code);
       console.log("Confirm:: ",confirm)
+      checkUser()
     } catch (error) {
         switch (error.code) {
             case "CodeMismatchException":

@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "NFTeaIdentities",
+    "identityPoolName": "NFTeaIdentity",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "nftea4489802a",
-    "userPoolName": "NFTeaUserPools",
+    "resourceNameTruncated": "nfteabf39e18ad",
+    "userPoolName": "NFTeaUser",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -12,10 +12,10 @@
     "mfaTypes": [
       "SMS Text Message"
     ],
-    "smsAuthenticationMessage": "Copy this code to the NFTea Authenticator '{####}'",
+    "smsAuthenticationMessage": "Copy this code onto NFTeaAuthenticator '{####}'",
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "NFTea Authentication",
-    "emailVerificationMessage": "Copy this code to the NFTea Authenticator '{####}'",
+    "emailVerificationMessage": "Copy this code onto NFTeaAuthenticator '{####}'",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -28,15 +28,24 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-      "email"
+      "picture",
+      "profile",
+      "website",
+      "email",
+      "name",
+      "phone_number"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "email",
+      "name",
+      "phone_number",
+      "picture",
+      "profile"
     ],
-    "userpoolClientLambdaRole": "NFTeaA4489802a_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
-    "sharedId": "4489802a",
-    "resourceName": "NFTeaAuthenticator",
+    "userpoolClientLambdaRole": "NFTeaBf39e18ad_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "f39e18ad",
+    "resourceName": "NFTeaBackendAuthentication",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "thirdPartyAuth": true,
@@ -45,7 +54,7 @@
       "email"
     ],
     "userPoolGroups": false,
-    "adminQueries": false,
+    "adminQueries": true,
     "triggers": {},
     "hostedUI": false,
     "userPoolGroupList": [],

@@ -1,14 +1,14 @@
 <script>
-import { Auth, Cache } from 'aws-amplify';
-import InputContainer from '../Components/INPUTS/InputContainer.svelte';
+import { Auth } from 'aws-amplify';
 import { checkUser } from '../Utilities/utilities';
-import { cyberuser } from './AuthStore';
+import InputContainer from '../Components/INPUTS/InputContainer.svelte';
 let username;
 let password;
 async function signIn() {
     try {
         const user = await Auth.signIn(username, password);
         console.log("SUCCESS: ", user);
+        checkUser()
     } catch (error) {
         switch (error.code) {
             case "UserNotFoundException":

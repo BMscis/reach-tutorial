@@ -1,6 +1,6 @@
 {
   "auth": {
-    "NFTeaAuthenticator": {
+    "NFTeaBackendAuthentication": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -30,20 +30,20 @@
     }
   },
   "function": {
-    "S3Triggerc8bdd296": {
+    "S3Triggerd765a61e": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true
     }
   },
   "storage": {
-    "NFTeaStore": {
+    "NFTeaBackendStorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "S3Triggerc8bdd296",
+          "resourceName": "S3Triggerd765a61e",
           "attributes": [
             "Name",
             "Arn",

@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "NFTeaAuthenticator": {
+        "NFTeaBackendAuthentication": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -12,7 +12,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "S3Triggerc8bdd296": {
+        "S3Triggerd765a61e": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
@@ -20,7 +20,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "NFTeaStore": {
+        "NFTeaBackendStorage": {
             "BucketName": "string",
             "Region": "string"
         }
