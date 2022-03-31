@@ -1,12 +1,12 @@
 <script>
 import { onMount } from "svelte";
 import { reachWallet } from "../../Stores/walletStore";
-import { connectWallet } from "../../Utilities/connectWallet";
+import { connectMyAlgo } from "../../Utilities/connectALGOWallet";
 
 let accountName;
 let clicked = false;
 async function getAccountName() {
-  let result = await connectWallet();
+  let result = await connectMyAlgo();
   return result;
 }
 onMount(() => {

@@ -1,5 +1,5 @@
 <script>
-    import baseImage from "../../nftea-assets/assets/coaWeb.png"
+    import baseImage from "../../nftea-assets/assets/coaWeb.webp"
     //export let image
     export let midWidth
     export let midHeight

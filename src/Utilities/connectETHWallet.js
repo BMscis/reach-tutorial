@@ -6,7 +6,7 @@ import { reachWallet } from "../Stores/walletStore"
 //get default account
 //get balance
 //return account
-export async function connectWallet(){
+export async function connectETHWallet(){
     const reach = loadStdlib("ETH")
     const account = await reach.getDefaultAccount()
     const balance = await getBalance(account)

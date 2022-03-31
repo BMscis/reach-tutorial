@@ -1,0 +1,56 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "NFTeaIdentities",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "nftea4489802a",
+    "userPoolName": "NFTeaUserPools",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OPTIONAL",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Copy this code to the NFTea Authenticator '{####}'",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "NFTea Authentication",
+    "emailVerificationMessage": "Copy this code to the NFTea Authenticator '{####}'",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email",
+      "name",
+      "phone_number"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "NFTeaA4489802a_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "4489802a",
+    "resourceName": "NFTeaAuthenticator",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "manual",
+    "thirdPartyAuth": true,
+    "authProviders": [],
+    "usernameAttributes": [
+      "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {},
+    "hostedUI": false,
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true
+  }
+}

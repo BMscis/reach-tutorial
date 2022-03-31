@@ -1,0 +1,15 @@
+{
+  "resourceName": "NFTeaStore",
+  "policyUUID": "318aba9b",
+  "bucketName": "nfteastorage",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "S3Triggerc8bdd296",
+  "groupAccess": {}
+}

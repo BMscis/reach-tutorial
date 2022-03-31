@@ -1,0 +1,105 @@
+:root{
+--border-inactive-input:2px solid #00000038;
+--border-active-input:2px solid var(--primary-color-mono-2);
+--border-success-input:2px solid var(--indicator-color-positive);
+--border-unsuccessful-input:2px solid var(--indicator-color-negative);
+}
+input::-webkit-input-placeholder{
+font:var(--font-top-label);
+padding: var(--label-padding);
+}
+input::-ms-input-placeholder{
+font:var(--font-top-label);
+padding: var(--label-padding);
+}
+input:-ms-input-placeholder{
+font:var(--font-top-label);
+padding: var(--label-padding);
+}
+input:-webkit-autofill{
+font:var(--font-top-label);
+padding: var(--label-padding);
+}
+input,button{
+cursor: pointer;
+transition: var(--transition-navigation);
+-webkit-tap-highlight-color: transparent;
+}
+.input-container {
+width: 328px;
+height: 74px;
+position: relative;
+z-index: 11;
+margin: 10px auto;
+display: flex;
+}
+.input-container[disabled=true]{
+display: none;
+}
+.input-slot {
+width: 280px;
+height: 60px;
+z-index: 1;
+margin: auto;
+}
+.input-rect-input{
+width: 280px;
+height: 60px;
+border-radius: 4px;
+outline: var(--border-inactive-input);
+font:var(--font-placeholder);
+padding: var(--label-padding);
+font:var(--font-heading);
+}
+.input-rect-input:focus-within,
+.input-rect-input:focus-visible
+{
+outline: var(--border-active-input);
+}
+.input-rect-input:focus-within ~ .top-label-slot,
+.input-rect-input:focus-visible ~ .top-label-slot
+{
+visibility: visible;
+}
+.input-rect-input[isinputok=true]{
+outline: var(--border-success-input);
+}
+.input-rect-input[isinputok=false]{
+outline: var(--border-unsuccessful-input);
+}
+.input-dialog{
+z-index: 11;
+font:var(--font-top-label);
+white-space: nowrap;
+background: white;
+position: absolute;
+bottom: 0;
+left: 50px;
+padding: var(--label-padding);
+visibility: hidden;
+}
+.input-dialog.visible{
+visibility: visible;
+color:var(--indicator-color-negative)
+}
+input[type="checkbox"],
+input[type="radio"]{
+width: 37px;
+height: 26px;
+position: absolute;
+appearance: none;  
+}
+input[type="checkbox"]:checked ~ svg #checkbox-button{
+transform: translate(3px);
+}
+input[type="checkbox"]:checked ~ svg #checkbox-button #checkbox-thumb{
+fill: var(--indicator-color-positive);
+}
+input[type="checkbox"]:checked ~ svg #checkbox-track{
+fill:var(--indicator-color-positive-light)
+}
+input[type="checkbox"]:hover ~ svg #checkbox-button #checkbox-thumb-hover,
+input[type="checkbox"]:active ~ svg #checkbox-button #checkbox-thumb-hover
+{
+animation: var(--animation-navigation);
+}

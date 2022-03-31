@@ -1,7 +1,7 @@
 <script>
 import { onDestroy } from "svelte";
 
-import images from "../nftea-assets/assets/tcCycle.png"
+import images from "../nftea-assets/assets/tcCycle.webp"
 import { nftCardList } from "../Stores/nftCard";
     export let image
     export let isLarge

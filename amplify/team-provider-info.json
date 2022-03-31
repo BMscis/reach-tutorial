@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nftea-dev-124612-authRole",
+      "UnauthRoleArn": "arn:aws:iam::040732739798:role/amplify-nftea-dev-124612-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::040732739798:role/amplify-nftea-dev-124612-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-nftea-dev-124612-deployment",
+      "UnauthRoleName": "amplify-nftea-dev-124612-unauthRole",
+      "StackName": "amplify-nftea-dev-124612",
+      "StackId": "arn:aws:cloudformation:eu-west-2:040732739798:stack/amplify-nftea-dev-124612/8f381660-b0f0-11ec-955b-06f904c277a4",
+      "AmplifyAppId": "dkpt4yoefrr9y"
+    },
+    "categories": {
+      "auth": {
+        "NFTeaAuthenticator": {}
+      },
+      "function": {
+        "S3Triggerc8bdd296": {
+          "deploymentBucketName": "amplify-nftea-dev-124612-deployment",
+          "s3Key": "amplify-builds/S3Triggerc8bdd296-6c2f4179514b56586a38-build.zip"
+        }
+      }
+    }
+  }
+}

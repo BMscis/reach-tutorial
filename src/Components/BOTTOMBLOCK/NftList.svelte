@@ -1,16 +1,18 @@
 <script>
 import NftCard from "./NftCard.svelte"
-import img1 from "../../nftea-assets/assets/avatarts.png"
-import img2 from "../../nftea-assets/assets/tcCycle.png"
-import img3 from "../../nftea-assets/assets/tg.png"
-import img4 from "../../nftea-assets/assets/tguifr.png"
-import img5 from "../../nftea-assets/assets/coaWeb.png"
+import img1 from "../../nftea-assets/assets/avatarts.webp"
+import img2 from "../../nftea-assets/assets/tcCycle.webp"
+import img3 from "../../nftea-assets/assets/tg.webp"
+import img4 from "../../nftea-assets/assets/tguifr.webp"
+import img5 from "../../nftea-assets/assets/coaWeb.webp"
+import img6 from "../../nftea-assets/assets/dunk.webp"
 let cards = [
         {pic:img1,owner:"Aspel", label:"chain",price:2000,active:false},
         {pic:img2,owner:"Don",   label:"tavern man",price:1000,active:false},
         {pic:img3,owner:"Doc",   label:"ta gu",price:550 ,active:false},
         {pic:img4,owner:"Bono",  label:"gator",price:440 ,active:false},
         {pic:img5,owner:"Bmscis",label:"shield",price:1000,active:false},
+        {pic:img6,owner:"Bmscis",label:"dunk",price:3000,active:false},
 ]
 export let nftListWidth
 export let nftListHeight

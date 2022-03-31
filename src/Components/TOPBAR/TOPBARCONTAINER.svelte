@@ -1,11 +1,10 @@
 <script>
 import { onDestroy} from "svelte";
 import MenuButton from "./MenuButton.svelte";
-import WalletButton from "./WalletButton.svelte";
 import IconContainer from "../IconContainer.svelte";
 import { topContainer} from "../../Stores/dimensions";
 import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
-
+import STORAGEPUT from "../../STORAGE/STORAGEPUT.svelte";
 let isLarge = true
 let topBarWidth
 let topBarHeight
@@ -32,7 +31,8 @@ onDestroy(()=> {unsubscribe})
         <h1 id="title"> nft<sub>ea</sub></h1>
     </div>
     <div id="anchor-block" style="width: {anchorBlockWidth}px;height:{anchorBlockHeight}px">
-        <a id="create-nft" >Create NFT</a>
+        <STORAGEPUT></STORAGEPUT>
+        <button id="create-nft" on:click={()=>{console.log("CLICKED CREATE NFT")}} >Create NFT</button>
         <ConnectedWallet></ConnectedWallet>
     </div>
 </div>

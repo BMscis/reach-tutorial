@@ -1,10 +1,11 @@
+import json from "@rollup/plugin-json"; 
+import css from 'rollup-plugin-css-only';
+import image from '@rollup/plugin-image';
 import svelte from 'rollup-plugin-svelte';
+import { terser } from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
-import css from 'rollup-plugin-css-only';
-import image from '@rollup/plugin-image';
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -34,7 +35,10 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'docs/bundle.js'
+		file: 'docs/bundle.js',
+		globals: {
+			'crypto': 'crypto'
+			}
 	},
 	plugins: [
 		svelte({
@@ -43,10 +47,10 @@ export default {
 				dev: !production
 			}
 		}),
+		commonjs(),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		css({ output: 'bundle.css' }),
-
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
 		// some cases you'll need additional configuration -
@@ -54,9 +58,10 @@ export default {
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
+			preferBuiltins: false,
 			dedupe: ['svelte']
 		}),
-		commonjs(),
+		json(),
 		image(),
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
