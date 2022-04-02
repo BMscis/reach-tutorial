@@ -187,9 +187,6 @@ const setupBottomContainer = ((value) => {
 const setupSidebarContainer = ((value) => {
   let blockWidth
   let blockHeight
-  console.log("MATH: ",(value[0]/value[1]).toFixed(2)>= 0.7)
-  console.log("MATH: ",(value[0]/value[1]).toFixed(2))
-  console.log("MATH: ",value[0],value[1])
   switch ((value[0]/value[1]).toFixed(2) >= 0.7) {
     case true:
       blockWidth = 300

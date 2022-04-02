@@ -11,6 +11,8 @@
 	import UPPERMIDBARCONTAINER from "./Components/UPPERRIGHT/UPPERRIGHTCONTAINER.svelte";
 import Images from "./Components/IMAGE/IMAGES.svelte";
 import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
+import Loading from "./Components/Loading.svelte";
+import ImageViewer from "./Components/IMAGE/ImageViewer.svelte";
 
 	let noCurrentUser =  true
 	let mobile = checkDevice()
@@ -59,7 +61,7 @@ import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
 <svelte:window on:resize={() => {resize()}}></svelte:window>
 <TOPBARCONTAINER></TOPBARCONTAINER>
 {#await checkUser()}
-	<h1>Loading</h1>
+	<Loading></Loading>
 {:then result}
 <SIDEBARCONTAINER></SIDEBARCONTAINER>
 <main >
@@ -67,6 +69,7 @@ import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
 {#if noCurrentUser}
 	<SIGNUP></SIGNUP>
 {:else if !noCurrentUser}
+	<ImageViewer></ImageViewer>
 	<div style="float: left;">
 		<UPPERMIDBARCONTAINER></UPPERMIDBARCONTAINER>
 		<BOTTOMCONTAINER></BOTTOMCONTAINER>

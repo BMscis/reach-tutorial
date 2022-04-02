@@ -20,3 +20,14 @@ export const getStore = async () => {
     console.log("Storage put results:", results)
     return results
 }
+export const getImage = async (img) => {
+    const results = await Storage.get(img,
+        {
+            progressCallback(progress) {
+            console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
+          },
+        }
+    )
+    console.log("Storage put results:", results)
+    return results
+}
