@@ -40,7 +40,6 @@ import { nftCardList } from "../Stores/nftCard";
 </button>
 <style>
     button.active{
-        border-bottom: 4px solid var(--primary-mono);
-        border-radius: 24px;
+        border-bottom: 4px solid #4a90b9;
     }
 </style>

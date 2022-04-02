@@ -11,13 +11,13 @@
         <image width="{midWidth}" height="{midHeight}" href={baseImage}/>
       </pattern>
     </defs>
-    <rect id="basetst4" width="{midWidth}" height="{midHeight}" rx="48" fill="url(#pattern-featured)"/>
+    <rect id="basetst4" width="{midWidth}" height="{midHeight}" rx="0" fill="url(#pattern-featured)"/>
   </svg>
 </button>
 <style>
   button{
-    background-color: #0000009e;
-    border-radius: 48px;
+    background-color: transparent;
+    border-bottom: 2px inset;
   }
 </style>
   

@@ -47,8 +47,8 @@ let isLarge = false
 onDestroy(() => unsubsrcibe)
 </script>
 <div id="upper-left-block" style="width:{upperLeftBlockWidth}px;height:{upperLeftBlockHeight}px; background:transparent;positon:relative;display:flex;">
-<div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;background-color:#6418F2;border-radius:40px;position:relative;">
-    <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#F21842" name="Bid Space"></BodyNav>
+<div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;background-color:#0d5c8c6b;border-radius:40px;position:relative;">
+    <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#a9d5f4" name="Bid Space"></BodyNav>
     {#if hasActiveNft}
         <NftCard {label} {price} {owner} {image} cardWidth={nftCardWidth} cardHeight={nftCardHeight} isLarge={true} labelDark={true}></NftCard>
     {/if}

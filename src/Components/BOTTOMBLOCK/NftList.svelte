@@ -4,7 +4,7 @@ import img1 from "../../nftea-assets/assets/avatarts.webp"
 import img2 from "../../nftea-assets/assets/tcCycle.webp"
 import img3 from "../../nftea-assets/assets/tg.webp"
 import img4 from "../../nftea-assets/assets/tguifr.webp"
-import img5 from "../../nftea-assets/assets/coaWeb.webp"
+import img5 from "../../nftea-assets/assets/nft.jpg"
 import img6 from "../../nftea-assets/assets/dunk.webp"
 let cards = [
         {pic:img1,owner:"Aspel", label:"chain",price:2000,active:false},
@@ -24,7 +24,7 @@ export let nftCardHeight
 <div id="nft-list" style="width:{nftListWidth}px;height:{nftListHeight}px;">
     <ul style="height:{nftContainerListHeight}px;width: {nftContainerListWidth}px;padding:0;grid-auto-flow: column;grid-gap: 18px;overflow: auto;margin: auto;display:grid;">
     {#each cards as card}
-        <NftCard owner={card.owner} active={card.active} image={card.pic} price={card.price} label={card.label}  cardWidth={nftCardWidth} cardHeight={nftCardHeight}></NftCard>
+        <NftCard owner={card.owner}  image={card.pic} price={card.price} label={card.label}  cardWidth={nftCardWidth} cardHeight={nftCardHeight}></NftCard>
     {/each}
     </ul>
 </div>

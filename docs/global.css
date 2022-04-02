@@ -1,11 +1,12 @@
 @import url(./inputs.css);
 :root{
-	--primary-color:#377300;
-	--primary-mono:#50A600;
-	--primary-comp:#3F08A6;
+	--primary-color:#10ABB4;
+	--primary-mono:#004C50;
+	--primary-comp:#00939C;
 	--primary-bright:#75F200;
 	--inactive-component:#A6BCD0;
 	--spectacular-orange:#FF7700;
+	--purp-vybe:#9C3E00;
 
 	--font-heading:bold 'poppins';
 	--font-subscript:16px 'poppins';
@@ -34,7 +35,8 @@ html, body {
 	width: 100%;
 	height: 100%;
 	color: white;
-}
+	background-image: linear-gradient(45deg, #0f304a, #0c164f);
+	display: grid;}
 svg{
 	margin: auto;
 }
@@ -58,7 +60,7 @@ button{
 }
 
 #top-bar{
-	background-color: var(--primary-color);
+	background-color: #4a90b9;
 	display: flex;
 }
 
@@ -79,6 +81,7 @@ h1,h2{
 	color: white;
 	font-family: 'poppins';
 	font-weight: bold;
+	text-align: center;
 }
 sub{
 	font:var(--font-subscript);
@@ -109,4 +112,16 @@ ul::-webkit-scrollbar-thumb {
 #card-label-box{
 	width: 100%;
 }
-
+@keyframes slideIn {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+#sidebarBlock.open{
+    animation: slideIn 0.5s ease-in-out;
+	animation-fill-mode: forwards;
+    transform: translate(0,0);
+}

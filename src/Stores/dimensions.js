@@ -25,7 +25,12 @@ export const bottomContainer = writable({
   nftListContainer: {width:0,height:0,isLarge:0},
   nftCard: {width:0,height:0,isLarge:0}
 })
-
+export const sideBarContainer = writable({
+  sidebarBlock: {width:0,height:0,isLarge:0,top:0},
+  sidebar: {width:0,height:0,isLarge:0},
+  contactBar: {width:0,height:0,isLarge:0},
+  menuBarContainer: {width:0,height:0,isLarge:0},
+})
 export const SetWindowSize = (() =>{
     const {subscribe,set} = windowSize
     function action(node, binding) {
@@ -35,6 +40,7 @@ export const SetWindowSize = (() =>{
             setupperLeftContainer(value)
             setupperRightContainer(value)
             setupBottomContainer(value)
+            setupSidebarContainer(value)
           return
         }
         validate([window.innerWidth,window.innerHeight])
@@ -59,7 +65,7 @@ const setTopContainer = ((value) => {
 const setupperLeftContainer = ((value) => {
   let blockWidth
   let blockHeight
-  switch (Math.floor(value[0]/value[1]) >= 1) {
+  switch ((value[0]/value[1].toFixed(2)) >= 1) {
     case true:
       blockWidth = blockSize(value[0],0.43)
       blockHeight = blockSize(value[1],0.87)
@@ -97,7 +103,7 @@ const setupperLeftContainer = ((value) => {
 const setupperRightContainer = ((value) => {
   let blockWidth
   let blockHeight
-  switch (Math.floor(value[0]/value[1]) >= 1) {
+  switch ((value[0]/value[1]).toFixed(2) >= 1) {
     case true:
       blockWidth = blockSize(value[0],0.57)
       blockHeight = blockSize(value[1],0.5)
@@ -136,7 +142,7 @@ const setupBottomContainer = ((value) => {
   let blockWidth
   let blockHeight
   let nftWidth
-  switch (Math.floor(value[0]/value[1]) >= 1) {
+  switch ((value[0]/value[1]).toFixed(2) >= 1) {
     case true:
       blockWidth = blockSize(value[0],0.57)
       blockHeight = blockSize(value[1],0.37)
@@ -145,7 +151,7 @@ const setupBottomContainer = ((value) => {
     case false:
       blockWidth = blockSize(value[0],0.90)
       blockHeight = blockSize(value[1],0.55)
-      nftWidth = blockSize(blockWidth,0.85)
+      nftWidth = blockSize(blockWidth,0.4)
       break;
   }
   bottomContainer.set(
@@ -178,4 +184,46 @@ const setupBottomContainer = ((value) => {
     }
   )
 })
-const blockSize = ((num,by) => {return Math.floor(num * by) })
+const setupSidebarContainer = ((value) => {
+  let blockWidth
+  let blockHeight
+  console.log("MATH: ",(value[0]/value[1]).toFixed(2)>= 0.7)
+  console.log("MATH: ",(value[0]/value[1]).toFixed(2))
+  console.log("MATH: ",value[0],value[1])
+  switch ((value[0]/value[1]).toFixed(2) >= 0.7) {
+    case true:
+      blockWidth = 300
+      blockHeight = blockSize(value[1],0.9)
+      break;
+    case false:
+      blockWidth = blockSize(value[0],0.96)
+      blockHeight = blockSize(value[1],0.9)
+      break;
+  }
+  sideBarContainer.set(
+    {
+      sidebarBlock: {
+        width:blockWidth,
+        height:blockHeight,
+        isLarge:value[0] > 750,
+        top:value[1] - blockHeight
+      },
+      sidebar: {
+        width: blockSize(blockWidth,0.84),
+        height:blockHeight,
+        isLarge:value[0] > 732
+      },
+      contactBar: {
+        width: blockSize(blockWidth,0.84),
+        height:blockSize(blockHeight,0.23),
+        isLarge:value[0] > 732
+      },
+      menuBarContainer: {
+        width: blockSize(blockWidth,0.84),
+        height:blockSize(blockHeight,0.78),
+        isLarge:value[0] > 732
+      }
+    }
+  )
+})
+const blockSize = ((num,by) => {return (num * by).toFixed(2) })

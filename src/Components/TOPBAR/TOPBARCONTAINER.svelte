@@ -4,8 +4,8 @@ import MenuButton from "./MenuButton.svelte";
 import IconContainer from "../IconContainer.svelte";
 import { topContainer} from "../../Stores/dimensions";
 import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
-import STORAGEPUT from "../../STORAGE/STORAGEPUT.svelte";
-import SIGNOUT from "../../AUTH/SIGNOUT.svelte";
+import MenuLabel from "../MenuLabel.svelte";
+import { openSidebar, tryMountImage } from "../../Stores/movment";
 let isLarge = true
 let topBarWidth
 let topBarHeight
@@ -22,6 +22,11 @@ const unsubscribe = topContainer.subscribe((value) => {
             anchorBlockWidth = value.anchorBlock.width
             anchorBlockHeight = value.anchorBlock.height
     })
+const createNft = () => {
+    openSidebar.set(true)
+    tryMountImage.set(true)
+    return
+}
 onDestroy(()=> {unsubscribe})
 </script>
 <div id="top-bar" style="width:{topBarWidth}px;height:{topBarHeight}px;z-index: 111;">
@@ -32,9 +37,9 @@ onDestroy(()=> {unsubscribe})
         <h1 id="title"> nft<sub>ea</sub></h1>
     </div>
     <div id="anchor-block" style="width: {anchorBlockWidth}px;height:{anchorBlockHeight}px">
-        <SIGNOUT></SIGNOUT>
-        <STORAGEPUT></STORAGEPUT>
-        <button id="create-nft" on:click={()=>{console.log("CLICKED CREATE NFT")}} >Create NFT</button>
+        <button id="create-nft" on:click={()=>{createNft()}} >
+            <MenuLabel label={"Create NFT"} dark={false}></MenuLabel>
+        </button>
         <ConnectedWallet></ConnectedWallet>
     </div>
 </div>

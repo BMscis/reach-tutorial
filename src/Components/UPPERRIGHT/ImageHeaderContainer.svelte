@@ -8,14 +8,20 @@
     export let imageHeight
 </script>
 <div id="image-header-container" style="position: absolute;bottom:27px;left:54px;height:{imageHeight}px;">
-    <ImageHeader imageWidth={Math.floor(imageWidth * 0.95)}>
-        <MenuLabel isLarge={isLarge} label="Name"  slot="slot1" margin=0></MenuLabel>
-        <MenuLabel isLarge={isLarge} label="Owner" slot="slot2" margin=0></MenuLabel>
-        <MenuLabel isLarge={isLarge} label="Price" slot="slot3" margin=0></MenuLabel>
+    <ImageHeader imageWidth={(imageWidth * 0.95).toFixed(2)}>
+        <MenuLabel label="Name"  slot="slot1" margin=0></MenuLabel>
+        <MenuLabel label="Owner" slot="slot2" margin=0></MenuLabel>
+        <MenuLabel label="Price" slot="slot3" margin=0></MenuLabel>
     </ImageHeader>
-    <ImageHeader imageWidth={Math.floor(imageWidth * 0.95)}>
-        <MenuSubLabel margin=0 isLarge={isLarge} label="Coat of Arms"  slot="slot1"></MenuSubLabel>
-        <MenuSubLabel margin=0 isLarge={isLarge} label="Bmsic" slot="slot2"></MenuSubLabel>
-        <MenuSubLabel margin=0 isLarge={isLarge} label="$1000" slot="slot3"></MenuSubLabel>
+    <ImageHeader imageWidth={(imageWidth * 0.95).toFixed(2)}>
+        <MenuSubLabel margin=0 label="Coat of Arms"  slot="slot1"></MenuSubLabel>
+        <MenuSubLabel margin=0 label="Bmsic" slot="slot2"></MenuSubLabel>
+        <MenuSubLabel margin=0 label="$1000" slot="slot3"></MenuSubLabel>
     </ImageHeader>
 </div>
+<style>
+    #image-header-container{
+        display: flex;
+        flex-direction: row;
+    }
+</style>

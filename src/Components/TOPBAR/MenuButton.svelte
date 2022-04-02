@@ -1,8 +1,21 @@
 <script>
-    let open = true
+import { afterUpdate, onMount } from "svelte";
+import {openSidebar} from "../../Stores/movment"
+
+    let open = false
+    const sideBar = () => {
+        const sideBar = document.querySelector('#sidebarBlock')
+        open ? sideBar.classList.add('open') : sideBar.classList.remove('open')
+    }
+    onMount(() => {
+        openSidebar.subscribe((value) => {
+            value || value == false ? open = value : null
+            value || value == false ? sideBar() : null
+        })
+    })
 </script>
-<button id="menu-button" style="width:24px;height:24px;" on:click={() => {open = !open}}>
-    {#if open}
+<button id="menu-button" style="width:24px;height:24px;" on:click={() => {openSidebar.set(!open)}}>
+    {#if !open}
         <svg id="icon_navigation_menu_24px" data-name="icon/navigation/menu_24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <rect id="Boundary" width="24" height="24" fill="none"/>
             <path id="_Color" data-name=" ↳Color" d="M18,12H0V10H18v2Zm0-5H0V5H18V7Zm0-5H0V0H18V2Z" transform="translate(3 6)" fill="#fff"/>

@@ -21,21 +21,23 @@
     id="card-header"
     style="width:100%;display:grid;justify-content:center;grid-template-columns:.6fr 40% 1fr;height:{cardHeight}px;position:{position};border-radius:0 0 12px 12px;bottom:0;background-color:{isLarge ? 'white' : '#00000042'}"
 >
-    <Avatar {isLarge} />
-    <div id="card-label-box" style="margin: auto;">
+    <Avatar {isLarge} height = {cardHeight} />
+    <div id="card-label-box" style="margin: auto;display:flex; flex-direction:{isLarge? "column":"row"}">
         <MenuLabel
             label={label}
-            {isLarge}
             dark={labelDark}
             margin={labelMargin}
             fontSize=9
+            labelWidth = {isLarge?124:(cardWidth * 0.4).toFixed(2)}
+            labelHeight = {(cardHeight/2).toFixed(2)}
         />
         <MenuSubLabel
             label="${price}"
-            {isLarge}
             dark={labelDark}
             margin={labelMargin}
             fontSize=9
+            labelWidth = {isLarge?124:(cardWidth * 0.4).toFixed(2)}
+            labelHeight = {(cardHeight/2).toFixed(2)}
         />
     </div>
     <CardButton {isLarge} {cardHeight} />

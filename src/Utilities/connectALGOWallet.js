@@ -1,4 +1,5 @@
 import MyAlgoConnect from '@randlabs/myalgo-connect';
+import {walletAccount,walletName} from '../AUTH/AuthStore'
 const createAccount = function() {
     try {  
         const myaccount = algosdk.generateAccount();
@@ -34,11 +35,15 @@ export async function firstTransaction() {
 export async function connectMyAlgo(){
     const myAlgoConnect = new MyAlgoConnect();
     console.log("Connecting to MyAlgo...");
-    const accountsSharedByUser = await myAlgoConnect.connect();
-    console.log("Connected to MyAlgo");
-    console.log("Accounts shared by user:", accountsSharedByUser);
-    return {
-        account: accountsSharedByUser[0].name,
-        balance: accountsSharedByUser[0].address
-    };
+    try{
+        const accountsSharedByUser = await myAlgoConnect.connect();
+        console.log("Connected to MyAlgo");
+        console.log("Accounts shared by user:", accountsSharedByUser);
+        walletName.set(accountsSharedByUser[0].name)
+        walletAccount.set(accountsSharedByUser[0].address)
+        return false
+
+    }catch(error){
+        console.log("Error connecting to MyAlgo:", error);
+    }
 }

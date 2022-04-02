@@ -2,13 +2,15 @@
 	import { onMount } from "svelte";
 	import { Hub } from "aws-amplify";
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
-	import { cyberuser } from "./AUTH/AuthStore";
+	import { cyberuser, userName } from "./AUTH/AuthStore";
 	import {isMobile, SetWindowSize} from "./Stores/dimensions";
 	import {checkDevice, checkUser} from "./Utilities/utilities";
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
 	import BOTTOMCONTAINER from "./Components/BOTTOMBLOCK/BOTTOMCONTAINER.svelte";
 	import UPPERLEFTCONTAINER from "./Components/UPPERLEFT/UPPERLEFTCONTAINER.svelte";
 	import UPPERMIDBARCONTAINER from "./Components/UPPERRIGHT/UPPERRIGHTCONTAINER.svelte";
+import Images from "./Components/IMAGE/IMAGES.svelte";
+import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
 
 	let noCurrentUser =  true
 	let mobile = checkDevice()
@@ -26,6 +28,7 @@
 			}
 			if (data.payload.event === "signOut") {
 				cyberuser.set("")
+				userName.set("")
 				noCurrentUser = true
 			}
 		}),
@@ -41,6 +44,7 @@
 				}
 			 else {
 				console.log("CURRENT USER",value.signInUserSession)
+				userName.set(value.attributes.name)
 				noCurrentUser = false
 			}
 			} catch(e) {
@@ -50,21 +54,24 @@
 		}),
 	]
 	})
+	console.log("NO CURRENT USER: ",noCurrentUser)
 </script>
 <svelte:window on:resize={() => {resize()}}></svelte:window>
 <TOPBARCONTAINER></TOPBARCONTAINER>
 {#await checkUser()}
 	<h1>Loading</h1>
 {:then result}
+<SIDEBARCONTAINER></SIDEBARCONTAINER>
 <main >
+<!-- <Images></Images> -->
 {#if noCurrentUser}
 	<SIGNUP></SIGNUP>
-{:else if !noCurrentUser} 
+{:else if !noCurrentUser}
 	<div style="float: left;">
 		<UPPERMIDBARCONTAINER></UPPERMIDBARCONTAINER>
 		<BOTTOMCONTAINER></BOTTOMCONTAINER>
 	</div>
-	<div >
+	<div style="float: right;">
 		<UPPERLEFTCONTAINER></UPPERLEFTCONTAINER>
 	</div>
 {/if}
@@ -73,12 +80,9 @@
 
 <style>
 	main{
-		display: block;
-	}
-	@media only screen and (max-width: 600px) {
-  	main {
-    		display: flex;
-			flex-direction:column;
-  		}
+		display: flex;
+    	flex-wrap: wrap;
+    	justify-content: center;
+    	align-items: flex-start;
 	}
 </style>
