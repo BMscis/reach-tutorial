@@ -85,7 +85,8 @@ $ node -v
 ``` bash
 $ npm -v
 ```
-___
+
+
 ## Start
 1. Start Reach with connector mode. Either *ETH* or *ALGO*.
 ```shell
