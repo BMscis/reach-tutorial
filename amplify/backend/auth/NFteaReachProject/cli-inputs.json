@@ -1,0 +1,69 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "testAuthIdentityPool",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "nftear1a8ee413",
+    "userPoolName": "NFteaReachProject",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "NFTea Authentication",
+    "emailVerificationMessage": "Copy this code to NFTea {####}.",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [
+      "Requires Lowercase",
+      "Requires Numbers",
+      "Requires Symbols",
+      "Requires Uppercase"
+    ],
+    "requiredAttributes": [
+      "email",
+      "phone_number",
+      "name"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
+    "userpoolClientLambdaRole": "NFteaR1a8ee413_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "1a8ee413",
+    "resourceName": "NFteaReachProject",
+    "authSelections": "identityPoolAndUserPool",
+    "serviceName": "Cognito",
+    "usernameAttributes": [
+      "email"
+    ],
+    "useDefault": "manual",
+    "userPoolGroups": false,
+    "userPoolGroupList": [],
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
+  }
+}

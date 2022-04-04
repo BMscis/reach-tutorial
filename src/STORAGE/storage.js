@@ -23,6 +23,9 @@ export const getStore = async () => {
 export const getImage = async (img) => {
     const results = await Storage.get(img,
         {
+            level: 'public',
+          },
+        {
             progressCallback(progress) {
             console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
           },

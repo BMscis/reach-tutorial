@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify1f5d98d9cf994-staging-171809-authRole",
+      "UnauthRoleArn": "arn:aws:iam::040732739798:role/amplify-amplify1f5d98d9cf994-staging-171809-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::040732739798:role/amplify-amplify1f5d98d9cf994-staging-171809-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-amplify1f5d98d9cf994-staging-171809-deployment",
+      "UnauthRoleName": "amplify-amplify1f5d98d9cf994-staging-171809-unauthRole",
+      "StackName": "amplify-amplify1f5d98d9cf994-staging-171809",
+      "StackId": "arn:aws:cloudformation:eu-west-2:040732739798:stack/amplify-amplify1f5d98d9cf994-staging-171809/335e7020-b43b-11ec-894e-06188e2a5322",
+      "AmplifyAppId": "d2yjylibx2n9uh"
+    },
+    "categories": {
+      "auth": {
+        "NFteaReachProject": {}
+      }
+    }
+  }
+}

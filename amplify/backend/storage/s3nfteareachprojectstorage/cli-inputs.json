@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3nfteareachprojectstorage",
+  "bucketName": "nftea-reach-project-storage",
+  "policyUUID": "ad3de2a4",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ]
+}

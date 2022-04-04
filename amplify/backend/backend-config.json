@@ -1,6 +1,6 @@
 {
   "auth": {
-    "NFTeaBackendAuthentication": {
+    "NFteaReachProject": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -12,14 +12,19 @@
         ],
         "signupAttributes": [
           "EMAIL",
-          "NAME",
-          "PHONE_NUMBER"
+          "PHONE_NUMBER",
+          "NAME"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ]
         },
-        "mfaConfiguration": "OPTIONAL",
+        "mfaConfiguration": "OFF",
         "mfaTypes": [
           "SMS"
         ],
@@ -29,28 +34,11 @@
       }
     }
   },
-  "function": {
-    "S3Triggerd765a61e": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
   "storage": {
-    "NFTeaBackendStorage": {
+    "s3nfteareachprojectstorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Triggerd765a61e",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
+      "dependsOn": []
     }
   }
 }

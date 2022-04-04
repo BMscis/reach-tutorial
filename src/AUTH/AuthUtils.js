@@ -12,11 +12,16 @@ export const signUp = async (Upassword, Uname, Uemail, Uphone_number) => {
         console.log(user)
         return true
     } catch (error) {
-        if(error.code == "UsernameExistsException"){
-            console.log("UserName Already Exists")
-        }
-        else{
-            console.log('error signing up:', error);
+        switch (error.code) {
+            case "InvalidPasswordException":
+                console.log("PasswordError")
+                break;
+            case "UsernameExistsException":
+                console.log("UserName Already Exists")
+                break;
+            default:
+                console.log('error signing up:', error);
+                break;
         }
         return false
     }
