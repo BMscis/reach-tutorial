@@ -40,7 +40,7 @@ $ mkdir -p ~/reach && cd ~/reach
 Clone the repository using the following commands.
 
 ```bash
-git clone https://github.com/algorand/reach-auction.git 
+git clone https://github.com/BMscis/reach-tutorial.git
 
 ```
 
@@ -73,9 +73,9 @@ You’ll know that everything is in order if you can run
 ``` bash
 $ ./reach compile --help
 ```
-# Install NPM
+# Install nodejs and npm
 
-Navigate to [NPM INSTALLER LINK]( https://nodejs.org/en/download/.)
+Navigate to [npm installation guide]( https://nodejs.org/en/download/.)
 
 To verify Open a command prompt (or PowerShell), and enter the following:
 
@@ -85,7 +85,7 @@ $ node -v
 ``` bash
 $ npm -v
 ```
-___
+
 ## Start
 1. Start Reach with connector mode. Either *ETH* or *ALGO*.
 ```shell
