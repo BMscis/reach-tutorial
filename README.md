@@ -13,6 +13,78 @@ Please install or have installed the following:
 - [AWS S3](https://aws.amazon.com/s3/)
 
 ## Installation
+
+## Install Reach
+
+Reach is designed to work on POSIX systems with [make](https://en.wikipedia.org/wiki/Make_(software)), [Docker](https://www.docker.com/get-started), and [Docker Compose](https://docs.docker.com/compose/install/) installed. The best way to install Docker on Mac and Windows is with [Docker Desktop](https://www.docker.com/products/docker-desktop).
+
+
+To confirm everything is installed try to run the following three commands and see no errors
+
+``` bash
+$ make --version
+$ docker --version
+$ docker-compose --version
+```
+
+If you’re using Windows, consult [the guide to using Reach on Windows](https://docs.reach.sh/guide-windows.html).
+
+Once you've confirmed that the Reach prerequisites are installed, choose a directory for this project such as:
+
+``` bash
+$ mkdir -p ~/reach && cd ~/reach
+```
+
+## Clone the Reach Auction demo application
+
+Clone the repository using the following commands.
+
+```bash
+git clone https://github.com/algorand/reach-auction.git 
+
+```
+
+Navigate to the project folder
+
+``` bash
+cd reach_auction
+```
+
+Next, download Reach by running
+
+``` bash
+$ curl https://docs.reach.sh/reach -o reach ; chmod +x reach
+```
+
+Confirm the download worked by running
+
+``` bash
+$ ./reach version
+```
+
+Since Reach is Dockerized, when first used, the images it uses need to be downloaded. This will happen automatically when used for the first time, but can be done manually now by running
+
+``` bash
+$ ./reach update
+```
+
+You’ll know that everything is in order if you can run
+
+``` bash
+$ ./reach compile --help
+```
+# Install NPM
+
+Navigate to [NPM INSTALLER LINK]( https://nodejs.org/en/download/.)
+
+To verify Open a command prompt (or PowerShell), and enter the following:
+
+``` bash
+$ node -v
+```
+``` bash
+$ npm -v
+```
 ___
 ## Start
 1. Start Reach with connector mode. Either *ETH* or *ALGO*.
