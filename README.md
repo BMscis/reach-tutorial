@@ -47,7 +47,7 @@ git clone https://github.com/BMscis/reach-tutorial.git
 Navigate to the project folder
 
 ``` bash
-cd reach_auction
+cd reach-tutorial
 ```
 
 Next, download Reach by running
