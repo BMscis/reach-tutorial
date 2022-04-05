@@ -1,4 +1,7 @@
-<div class="wrapper"> 
+<script>
+    export let position = "relative"
+</script>
+<div class="successicon" style="position: {position};left:0;right:0;bottom:0;top:0;"> 
     <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <circle class="checkmark__circle" cx="12" cy="12" r="12" style="fill:none" />
         <path class="checkmark__check" d="M20.3,26.6,23.7,30l8-8" transform="translate(-14 -14)" style="fill:none" />
@@ -10,8 +13,8 @@
     margin: 0
 }
 
-.wrapper {
-    height: 100vh;
+.successicon {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

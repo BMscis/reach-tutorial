@@ -3,7 +3,7 @@
   export let isLarge = true
   export let margin = "auto"
 </script>
-<div class="lds-ring" class:small={!isLarge} style="margin: {margin};">
+<div class="lds-ring" class:small={!isLarge} style="margin: {margin};position:{isLarge?"absolute":"relative"};top: 0;right: 0;left: 0;bottom: 0;">
     <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>
     <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>
     <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>

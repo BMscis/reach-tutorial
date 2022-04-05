@@ -2,12 +2,13 @@ import json from "@rollup/plugin-json";
 import css from 'rollup-plugin-css-only';
 import image from '@rollup/plugin-image';
 import svelte from 'rollup-plugin-svelte';
+import replace from 'rollup-plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 const production = !process.env.ROLLUP_WATCH;
-
+const { PRODUCT } = process.env
 function serve() {
 	let server;
 
@@ -47,6 +48,11 @@ export default {
 				dev: !production
 			}
 		}),
+		replace({
+			'process.env.NODE_ENV': JSON.stringify(
+				PRODUCT ? 'production' : 'development'
+			 )
+		  }),
 		commonjs(),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance

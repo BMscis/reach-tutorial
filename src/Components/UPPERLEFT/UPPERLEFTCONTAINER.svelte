@@ -7,6 +7,7 @@ import { nftCardList } from "../../Stores/nftCard";
 
 let upperLeftBlockWidth
 let upperLeftBlockHeight
+let upperLeftBlockTop
 let bidBoxWidth
 let bidBoxHeight
 let bodyNavWidth
@@ -23,6 +24,7 @@ let image
 const unsubsrcibe = upperLeftContainer.subscribe((value) => {
         upperLeftBlockWidth = value.upperLeftBlock.width
         upperLeftBlockHeight = value.upperLeftBlock.height
+        upperLeftBlockTop = value.upperLeftBlock.top
         bidBoxWidth = value.bidBox.width
         bidBoxHeight = value.bidBox.height
         bodyNavWidth = value.bodyNav.width
@@ -32,7 +34,7 @@ const unsubsrcibe = upperLeftContainer.subscribe((value) => {
     })
 onMount(() => {
     return nftCardList.subscribe((value) => {
-        //console.log("UpperCont: ",value)
+        console.log("UpperCont: ",value)
         let activeComp = value.find((v) => v.active === true);
         if(activeComp){
             hasActiveNft = activeComp.active
@@ -46,9 +48,9 @@ onMount(() => {
 let isLarge = false
 onDestroy(() => unsubsrcibe)
 </script>
-<div id="upper-left-block" style="width:{upperLeftBlockWidth}px;height:{upperLeftBlockHeight}px; background:transparent;positon:relative;display:flex;">
-<div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;background-color:#0d5c8c6b;border-radius:40px;position:relative;">
-    <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#a9d5f4" name="Bid Space"></BodyNav>
+<div id="upper-left-block" class:active={hasActiveNft} style="width:{upperLeftBlockWidth}px;height:{upperLeftBlockHeight}px;">
+<div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;background-color:#0b213b;position:relative;">
+    <!-- <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#a9d5f4" name="Bid Space"></BodyNav> -->
     {#if hasActiveNft}
         <NftCard {label} {price} {owner} {image} cardWidth={nftCardWidth} cardHeight={nftCardHeight} isLarge={true} labelDark={true}></NftCard>
     {/if}
@@ -71,6 +73,15 @@ onDestroy(() => unsubsrcibe)
     #upper-left-block{
         justify-content: center;
         align-items: center;
+        position: relative;
+        /* transform: translate(100%,0); */
+        grid-column-start: 3;
+        background: #0b213b;
+        display: flex;
+        border-radius: 8px 0 0 8px;
+    }
+    #upper-left-block.active{
+        transform: translate(0,0);
     }
     #bid-box{
         display: flex;

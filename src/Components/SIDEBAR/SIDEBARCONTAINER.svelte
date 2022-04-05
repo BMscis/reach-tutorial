@@ -32,7 +32,8 @@ onMount(() => {
         menuBarContainerHeight = value.menuBarContainer.height
     }),
     userName.subscribe((value) => {
-            username = value
+            username = value.name
+            console.log("USERNAME: ",value)
         }),
     walletAccount.subscribe((value) => {
             walletAddress = value
@@ -43,7 +44,7 @@ onMount(() => {
 ]
 })
 </script>
-<div id = "sidebarBlock" style="width:{sidebarBlockWidth}px;height:{sidebarBlockHeight}px;top:{sidebarBlockTop}px">
+<div id = "sidebarBlock" style="width:{sidebarBlockWidth}px;height:{sidebarBlockHeight}px;">
     <div id="sidebar" style="width:{sidebarWidth}px ;height:{sidebarHeight}px ;">
         <ContanctBar {username} {walletAddress} {walletname} {contactBarWidth} {contactBarHeight}/>
         <MenuBarContainer {username} {menuBarContainerWidth} {menuBarContainerHeight} ></MenuBarContainer>
@@ -51,11 +52,11 @@ onMount(() => {
 </div>
 <style>
 #sidebarBlock{
-        position: fixed;
-        left: 0;
+        position: relative;
         background: #00000036;
-        transform: translate(-100%,0);
+        /* transform: translate(-100%,0); */
         z-index: 111;
+        grid-column-start: 1;
 }
 #sidebar{
     background: white;

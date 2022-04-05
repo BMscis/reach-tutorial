@@ -19,7 +19,7 @@
 
 <div
     id="card-header"
-    style="width:100%;display:grid;justify-content:center;grid-template-columns:.6fr 40% 1fr;height:{cardHeight}px;position:{position};border-radius:0 0 12px 12px;bottom:0;background-color:{isLarge ? 'white' : '#00000042'}"
+    style="height:{cardHeight}px;position:{position};background-color:{isLarge ? 'white' : '#00000042'}"
 >
     <Avatar {isLarge} height = {cardHeight} />
     <div id="card-label-box" style="margin: auto;display:flex; flex-direction:{isLarge? "column":"row"}">
@@ -31,19 +31,35 @@
             labelWidth = {isLarge?124:(cardWidth * 0.4).toFixed(2)}
             labelHeight = {(cardHeight/2).toFixed(2)}
         />
-        <MenuSubLabel
+        {#if isLarge}
+            <MenuSubLabel
             label="${price}"
             dark={labelDark}
             margin={labelMargin}
             fontSize=9
             labelWidth = {isLarge?124:(cardWidth * 0.4).toFixed(2)}
             labelHeight = {(cardHeight/2).toFixed(2)}
-        />
+            />
+        {/if}
     </div>
     <CardButton {isLarge} {cardHeight} />
 </div>
 <style>
     #card-header{
         box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+        width: 100%;
+        display: grid;
+        justify-content: space-around;
+        grid-auto-flow: column;
+        grid-template-columns: 30% 1fr 30%;
+        height: 49.68px;
+        position: relative;
+        border-radius: 0px 0px 12px 12px;
+        bottom: 0px;
+        background-color: rgba(0, 0, 0, 0.26);
+        align-items: center;
+    }
+    #card-label-box{
+        max-width: 50%;
     }
 </style>

@@ -22,7 +22,7 @@ const unsubscribe = topContainer.subscribe((value) => {
             anchorBlockWidth = value.anchorBlock.width
             anchorBlockHeight = value.anchorBlock.height
     })
-const createNft = () => {
+const createNftSide = () => {
     openSidebar.set(true)
     tryMountImage.set(true)
     return
@@ -37,7 +37,7 @@ onDestroy(()=> {unsubscribe})
         <h1 id="title"> nft<sub>ea</sub></h1>
     </div>
     <div id="anchor-block" style="width: {anchorBlockWidth}px;height:{anchorBlockHeight}px">
-        <button id="create-nft" on:click={()=>{createNft()}} >
+        <button id="create-nft" on:click={()=>{createNftSide()}} >
             <MenuLabel label={"Create NFT"} dark={false}></MenuLabel>
         </button>
         <ConnectedWallet></ConnectedWallet>

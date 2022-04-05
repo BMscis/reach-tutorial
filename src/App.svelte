@@ -2,21 +2,22 @@
 	import { onMount } from "svelte";
 	import { Hub } from "aws-amplify";
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
+	import Loading from "./Components/Loading.svelte";
 	import { cyberuser, userName } from "./AUTH/AuthStore";
-	import {isMobile, SetWindowSize} from "./Stores/dimensions";
 	import {checkDevice, checkUser} from "./Utilities/utilities";
+	import {isMobile, setMain, SetWindowSize} from "./Stores/dimensions";
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
+	import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
 	import BOTTOMCONTAINER from "./Components/BOTTOMBLOCK/BOTTOMCONTAINER.svelte";
 	import UPPERLEFTCONTAINER from "./Components/UPPERLEFT/UPPERLEFTCONTAINER.svelte";
 	import UPPERMIDBARCONTAINER from "./Components/UPPERRIGHT/UPPERRIGHTCONTAINER.svelte";
-import Images from "./Components/IMAGE/IMAGES.svelte";
-import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
-import Loading from "./Components/Loading.svelte";
-import ImageViewer from "./Components/IMAGE/ImageViewer.svelte";
 
 	let noCurrentUser =  true
 	let mobile = checkDevice()
 	isMobile.set({isMob:mobile})
+	let gridCenter
+	let gridRight
+	let gridLeft
 
 	const [windowSizeSubscriber, windowSizeSetter] = SetWindowSize()
 	const resize = () => {windowSizeSetter()}
@@ -30,62 +31,59 @@ import ImageViewer from "./Components/IMAGE/ImageViewer.svelte";
 			}
 			if (data.payload.event === "signOut") {
 				cyberuser.set("")
-				userName.set("")
+				userName.set({name:""})
 				noCurrentUser = true
 			}
 		}),
 		Hub.listen('storage',(event) => {
-			console.log("STORE EVENT", event)
+			//console.log("STORE EVENT", event)
 		}),
 		cyberuser.subscribe((value) => {
 			//if value.signInUserSession is null, then no current user
 			try {
 				if(value.signInUserSession === null || value.signInUserSession === undefined) {
 					noCurrentUser = true
-					console.log("NO CURRENT USER")
+					//console.log("NO CURRENT USER")
 				}
 			 else {
-				console.log("CURRENT USER",value.signInUserSession)
-				userName.set(value.attributes.name)
+				//console.log("CURRENT USER",value.signInUserSession)
+				userName.set({name:value.attributes.name})
 				noCurrentUser = false
 			}
 			} catch(e) {
-				console.log("NO CURRENT USER")
+				//console.log("NO CURRENT USER")
 				noCurrentUser = true
 			}
 		}),
+		setMain.subscribe(value => {
+			gridLeft = value.left
+			gridCenter = value.center
+			gridRight = value.right
+		})
 	]
 	})
-	console.log("NO CURRENT USER: ",noCurrentUser)
+	//console.log("NO CURRENT USER: ",noCurrentUser)
 </script>
 <svelte:window on:resize={() => {resize()}}></svelte:window>
 <TOPBARCONTAINER></TOPBARCONTAINER>
 {#await checkUser()}
 	<Loading></Loading>
 {:then result}
-<SIDEBARCONTAINER></SIDEBARCONTAINER>
-<main >
-<!-- <Images></Images> -->
-{#if noCurrentUser}
+<main style="grid-template-columns: {gridLeft}px {gridCenter}px {gridRight}px;">
+	{#if noCurrentUser}
 	<SIGNUP></SIGNUP>
-{:else if !noCurrentUser}
-	<ImageViewer></ImageViewer>
-	<div style="float: left;">
-		<UPPERMIDBARCONTAINER></UPPERMIDBARCONTAINER>
-		<BOTTOMCONTAINER></BOTTOMCONTAINER>
-	</div>
-	<div style="float: right;">
-		<UPPERLEFTCONTAINER></UPPERLEFTCONTAINER>
-	</div>
+	{:else if !noCurrentUser}
+	<SIDEBARCONTAINER></SIDEBARCONTAINER>
+	<BOTTOMCONTAINER></BOTTOMCONTAINER>
+	<UPPERLEFTCONTAINER></UPPERLEFTCONTAINER>
 {/if}
 </main>
 {/await}
 
 <style>
 	main{
-		display: flex;
-    	flex-wrap: wrap;
+		display: grid;
+		align-items: center;
     	justify-content: center;
-    	align-items: flex-start;
 	}
 </style>

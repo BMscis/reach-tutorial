@@ -24,7 +24,7 @@ const verifySignUp = async () => {
     try_sign_in = await confirmSignUp(email,code)
     loading = false
     try_verify = !try_sign_in
-    console.log("VERIFY SIGN UP",try_sign_in)
+    //console.log("VERIFY SIGN UP",try_sign_in)
     try_sign_in? await trySignIn() : null
     return
 }
@@ -35,6 +35,7 @@ const trySignIn = async () => {
     return
 }
 </script>
+<div id="form-container">
 {#if loading}
 <Loading></Loading>
 {/if}
@@ -83,13 +84,19 @@ const trySignIn = async () => {
     </InputContainer>
 </form>
 {/if}
+</div>
 <style>
+    #form-container{
+        display: flex;
+        flex-direction: column;
+        flex-direction: column;
+        align-items: center;
+    }
     button{
         letter-spacing: 2px;
     }
     h5{
         margin: auto;
-        width: 50vw;
         text-align: center;
         color: white;
         letter-spacing: 5px;

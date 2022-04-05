@@ -2,25 +2,25 @@ import { get } from 'svelte/store'
 import { writable} from 'svelte/store'
 export const nftCardList = writable([])
 
-export const createNft = ((pic,owner,label,price,active)=>{
-    const { subscribe, set, update} = writable({pic:"",owner:"",label:"",price:"",active:""})
+export const createNft = ((id,description,image,price,wallet,ownerName,previousOwner)=>{
+    const { subscribe, set} = writable({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner,active:false})
     //const validator
      let cardList = get(nftCardList)
      let component
      try {
-         component = cardList.find((v) => v.label === label);
+         component = cardList.find((v) => v.id === id);
      } catch (error) {
          component = false
      }
      if(!component){
          nftCardList.update((n) => (
-          n.concat({pic:pic,owner:owner,label:label,price:price,active:active})
+          n.concat({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner})
          ));
      }
-    set({pic:pic,owner:owner,label:label,price:price,active:active})
+    set({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner})
     function action(node, binding) {
         function validate(value) {
-            set({pic:pic,owner:owner,label:label,price:price,active:value})
+            set({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner})
             setActive(value)
             //get nftCardList
             //Make active false for all
@@ -38,7 +38,7 @@ export const createNft = ((pic,owner,label,price,active)=>{
           //update nftCardList
          function setActive(value){
               let cardList = getNftCardList()
-              let component = cardList.find((v) => v.label === label);
+              let component = cardList.find((v) => v.id === id);
               component.active = value
               nftCardList.set(cardList)
          }

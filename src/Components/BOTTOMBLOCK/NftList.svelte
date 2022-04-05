@@ -1,41 +1,45 @@
 <script>
 import NftCard from "./NftCard.svelte"
-import img1 from "../../nftea-assets/assets/avatarts.webp"
-import img2 from "../../nftea-assets/assets/tcCycle.webp"
-import img3 from "../../nftea-assets/assets/tg.webp"
-import img4 from "../../nftea-assets/assets/tguifr.webp"
-import img5 from "../../nftea-assets/assets/nft.jpg"
-import img6 from "../../nftea-assets/assets/dunk.webp"
-let cards = [
-        {pic:img1,owner:"Aspel", label:"chain",price:2000,active:false},
-        {pic:img2,owner:"Don",   label:"tavern man",price:1000,active:false},
-        {pic:img3,owner:"Doc",   label:"ta gu",price:550 ,active:false},
-        {pic:img4,owner:"Bono",  label:"gator",price:440 ,active:false},
-        {pic:img5,owner:"Bmscis",label:"shield",price:1000,active:false},
-        {pic:img6,owner:"Bmscis",label:"dunk",price:3000,active:false},
-]
+import { nftCardList } from "../../Stores/nftCard";
+import { onMount } from "svelte";
+import { getStore } from "../../STORAGE/storage";
+import Loading from "../Loading.svelte";
+let cards
 export let nftListWidth
+export let nftCardWidth
 export let nftListHeight
+export let nftCardHeight
 export let nftContainerListWidth
 export let nftContainerListHeight
-export let nftCardWidth
-export let nftCardHeight
+
+onMount(() => {
+    nftCardList.subscribe(value => {
+        console.log("NFTLIST: ", value)
+        if(value){
+            cards = value
+        }
+    })
+})
+
 </script>
-<div id="nft-list" style="width:{nftListWidth}px;height:{nftListHeight}px;">
-    <ul style="height:{nftContainerListHeight}px;width: {nftContainerListWidth}px;padding:0;grid-auto-flow: column;grid-gap: 18px;overflow: auto;margin: auto;display:grid;">
-    {#each cards as card}
-        <NftCard owner={card.owner}  image={card.pic} price={card.price} label={card.label}  cardWidth={nftCardWidth} cardHeight={nftCardHeight}></NftCard>
-    {/each}
-    </ul>
-</div>
+{#await getStore()}
+    <Loading></Loading>
+{:then result} 
+    <div id="nft-list" style="width:{nftListWidth}px;height:{nftListHeight}px;">
+        <ul style="height:{nftListHeight}px;width: {nftListWidth}px;padding:0;grid-auto-flow: row;grid-gap: 18px;overflow: auto;margin: auto;display:grid;justify-content: center;">
+        {#each cards as card}
+        <NftCard id={card.id} description={card.description} image={card.image} price={card.price} wallet={card.wallet} ownerName={card.ownerName} previousOwner={card.previousOwner}></NftCard>
+        {/each}
+        </ul>
+        <button></button>
+    </div>
+{/await}
 <style>
     #nft-list{
-        display: grid;
-        grid-auto-flow: column;
-        grid-gap: 20px;
+        display: flex;
         margin: auto;
-        overflow: auto;
+        overflow-x: auto;
         overflow-y: hidden;
-        background-color: #00000087;
+        background-color: transparent;
     }
 </style>

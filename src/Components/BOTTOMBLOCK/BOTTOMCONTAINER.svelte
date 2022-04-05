@@ -29,6 +29,12 @@
     onDestroy(() => unsubscribe)
 </script>
 <div id="bottom-block" style="width:{bottomBlockWidth}px;height:{bottomBlockHeight}px;">
-    <BodyNav width={bodyNavWidth} height={bodyNavHeight} name="Latest"></BodyNav>
-    <NftList nftListWidth={nftListWidth} nftListHeight={nftListHeight} nftContainerListWidth={nftContainerListWidth} nftContainerListHeight={nftContainerListHeight} nftCardWidth={nftCardWidth} nftCardHeight={nftCardHeight}  ></NftList>
+    <!-- <BodyNav width={bottomBlockWidth} height={bodyNavHeight/2} name="Latest"></BodyNav> -->
+    <NftList nftListWidth={bottomBlockWidth} nftListHeight={bottomBlockHeight} nftContainerListWidth={nftContainerListWidth} nftContainerListHeight={nftContainerListHeight} nftCardWidth={nftCardWidth} nftCardHeight={nftCardHeight}  ></NftList>
 </div>
+<style>
+    #bottom-block{
+        background-color: #0b213b;
+        grid-column-start: 2;
+    }
+</style>

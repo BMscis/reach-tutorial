@@ -29,6 +29,7 @@
 	transition: var(--transition-navigation);
 	box-sizing: border-box;
 	-webkit-tap-highlight-color:transparent;
+	scroll-behavior: smooth;
 }
 html, body {
 	position: relative;
@@ -36,7 +37,8 @@ html, body {
 	height: 100%;
 	color: white;
 	background-image: linear-gradient(45deg, #0f304a, #0c164f);
-	display: grid;}
+	display: grid;
+}
 svg{
 	margin: auto;
 }
@@ -92,6 +94,7 @@ a:hover{
 }
 #upper-right-block{
 	position: relative;
+	background-color: black;
 }
 p{
 	font-family: poppins;
@@ -100,14 +103,21 @@ p{
 	margin:auto;
 }
 ::-webkit-scrollbar{
-	width: 0.85px;
+	display: none;
 }
 ul::-webkit-scrollbar {
-	display: none;
+	display: block;
+	width: 1px;
 	background-color: #5c4c47;
 }
 ul::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 255, 255, 0.329);
+}
+ul{
+	scroll-snap-type: y mandatory;
+}
+li{
+	scroll-snap-align: start;
 }
 #card-label-box{
 	width: 100%;

@@ -9,7 +9,7 @@ import { nftCardList } from "../Stores/nftCard";
     export let imageWidth
     export let nftValidator
     export let nftSubscriber
-    let label
+    let id
     let clicked = false
     const enlarge = () => {
         nftValidator(!clicked)
@@ -18,8 +18,21 @@ import { nftCardList } from "../Stores/nftCard";
         //find label in value where value.label === label
         //if value.active === true
         //set clicked to true
-        value.forEach(element => {
-            if(element.label === label){
+        function returnTrue(value){
+            try {
+                if(value.id === id){
+                    return true
+                }else{
+                    return false
+                }
+            } catch (error) {
+                console.log("No Element", error,value)
+                return false
+            }
+        }
+        if(value){
+            value.forEach(element => {
+            if(returnTrue(element)){
                 if(element.active){
                     clicked = true
                 }
@@ -28,11 +41,12 @@ import { nftCardList } from "../Stores/nftCard";
                 }
             }
         });
+        }
     })
 
     nftSubscriber.subscribe((value) => {
-        //console.log("CARDIMAGE: ",value)
-        label = value.label
+        ////console.log("CARDIMAGE: ",value)
+        id = value.id
     })
     onDestroy(()=> {return [nftSubscriber,nftValidator,nftCardList]})
 </script>

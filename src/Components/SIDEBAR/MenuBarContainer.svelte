@@ -25,7 +25,7 @@ async function signOut() {
     try {
         await Auth.signOut();
     } catch (error) {
-        console.log('error signing out: ', error);
+        //console.log('error signing out: ', error);
     }
 }
 const sendImage = async () => {
@@ -33,14 +33,19 @@ const sendImage = async () => {
 }
 const listNFT = async () => {
     await getStore().then(async (value) => {
-        if (value.length > 0) {
+        try {
+            if (value.length > 0) {
             console.log("LISTNFT: ", value);
+        }
+        } catch (error) {
+            console.log("LISTNFT: ", error);   
         }
     })
 }
 const closeImage = async () => {
     setTimeout(() => {
         tryUpload = false
+        trySend = false
     }, 2000);
     return false
 }
@@ -53,8 +58,10 @@ onMount(() => {
 </script>
 <div id="menubar-container" style="width:{menuBarContainerWidth}px ;height:{menuBarContainerHeight}px ;">
 <div id=first-container>
+    {#if !trySend}
     <button on:click={()=>{listNFT()}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "List NFT"  margin={0}></MenuBar></button>
     <button on:click={()=>{tryUpload = !tryUpload}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
+    {/if}
     {#if tryUpload}
     <form on:submit|preventDefault={sendImage}>
             <InputContainer  containerWidth={menuBarContainerWidth} inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}>
@@ -65,18 +72,19 @@ onMount(() => {
             </InputContainer>
         </form>
         {#if trySend}
-            {#await sendToStore(uploadImage)}
-                <Loading isLarge={false} dark={true}></Loading>
+        <div id="result-container">
+            {#await sendToStore(uploadImage,'public')}
+            <Loading isLarge={true} dark={true}></Loading>
             {:then result} 
-                {#if result}
-                <SuccessIcon></SuccessIcon>
+            {#if result}
+                <SuccessIcon position="absolute"></SuccessIcon>
                 {#await closeImage()}
                         <p></p>
                     {:then result} 
                         <p></p>
                 {/await}
                 {:else}
-                <p>Something went wrong</p>
+                <p class="message">Something went wrong</p>
                 {#await closeImage()}
                         <p></p>
                     {:then result} 
@@ -84,23 +92,31 @@ onMount(() => {
                 {/await}
                 {/if}
             {/await}
-
+        </div>
         {/if}
     {/if}
+    {#if !trySend}
     <button>
         <MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SettingsIcon} menuBarWidth={"unset"} val = "Privacy & Settings"  margin={0}></MenuBar>
     </button>
-</div>
+    {/if}
+    </div>
+{#if !trySend}
 <div id = "second-container">
-<button><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val="About US" margin={0}></MenuBar></button>
-{#if username.length > 0}
-<button on:click={()=>{signOut()}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SignOutIcon} menuBarWidth={"unset"}  val="SignOut" margin={0}></MenuBar></button>
+    <button><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val="About US" margin={0}></MenuBar></button>
+    {#if username.length > 0}
+    <button on:click={()=>{signOut()}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SignOutIcon} menuBarWidth={"unset"}  val="SignOut" margin={0}></MenuBar></button>
+    {/if}
+</div>
 {/if}
 </div>
-</div>
 <style>
+    div#second-container {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    }
     #first-container,#second-container{
-        height: 75%;
         display: flex;
         flex-direction: column;
     }
@@ -108,6 +124,14 @@ onMount(() => {
         background: #ff77005c;
     }
     #menubar-container{
-        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    p{
+        display: none;
+    }
+    p.message{
+        display: block;
     }
 </style>
