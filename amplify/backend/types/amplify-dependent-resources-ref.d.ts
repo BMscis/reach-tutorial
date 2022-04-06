@@ -12,7 +12,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "s3nfteareachprojectstorage": {
+        "s3storagenft": {
             "BucketName": "string",
             "Region": "string"
         }

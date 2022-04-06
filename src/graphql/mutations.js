@@ -1,12 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createImageStore = /* GraphQL */ `
-  mutation CreateImageStore(
-    $input: CreateImageStoreInput!
-    $condition: ModelImageStoreConditionInput
+export const createNFTSQL = /* GraphQL */ `
+  mutation CreateNFTSQL(
+    $input: CreateNFTSQLInput!
+    $condition: ModelNFTSQLConditionInput
   ) {
-    createImageStore(input: $input, condition: $condition) {
+    createNFTSQL(input: $input, condition: $condition) {
       id
       owner
       description
@@ -18,7 +18,7 @@ export const createImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version
@@ -27,12 +27,12 @@ export const createImageStore = /* GraphQL */ `
     }
   }
 `;
-export const updateImageStore = /* GraphQL */ `
-  mutation UpdateImageStore(
-    $input: UpdateImageStoreInput!
-    $condition: ModelImageStoreConditionInput
+export const updateNFTSQL = /* GraphQL */ `
+  mutation UpdateNFTSQL(
+    $input: UpdateNFTSQLInput!
+    $condition: ModelNFTSQLConditionInput
   ) {
-    updateImageStore(input: $input, condition: $condition) {
+    updateNFTSQL(input: $input, condition: $condition) {
       id
       owner
       description
@@ -44,7 +44,7 @@ export const updateImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version
@@ -53,12 +53,12 @@ export const updateImageStore = /* GraphQL */ `
     }
   }
 `;
-export const deleteImageStore = /* GraphQL */ `
-  mutation DeleteImageStore(
-    $input: DeleteImageStoreInput!
-    $condition: ModelImageStoreConditionInput
+export const deleteNFTSQL = /* GraphQL */ `
+  mutation DeleteNFTSQL(
+    $input: DeleteNFTSQLInput!
+    $condition: ModelNFTSQLConditionInput
   ) {
-    deleteImageStore(input: $input, condition: $condition) {
+    deleteNFTSQL(input: $input, condition: $condition) {
       id
       owner
       description
@@ -70,7 +70,7 @@ export const deleteImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version

@@ -1,26 +1,29 @@
 import { Auth } from "aws-amplify";
+import { uploadToS3 } from "../STORAGE/storage";
 import { checkUser } from "../Utilities/utilities";
 
-export const signUp = async (Upassword, Uname, Uemail, Uphone_number) => {
-    const password = Upassword;
-    const name = Uname;
+export const signUp = async (Upassword, Uname, Uemail, Uphone_number,Uimage) => {
     const email = Uemail;
+    const uploadImage = Uimage[0].name
+    //console.log("Upload Image: ", Uimage[0].type)
+    const name = Uname;
     const phone_number = Uphone_number;
+    const password = Upassword;
     const username = email
     try {
-        const { user } = await Auth.signUp({username,password,attributes: {name,email,phone_number,}});
-        //console.log(user)
+        const  user  = await Auth.signUp({username:username,password:password,attributes: {name:name,picture:uploadImage,phone_number:phone_number,email:email}});
+        const uploadImageR = await uploadToS3(uploadImage,Uimage,Uimage[0].type,"private")
         return true
     } catch (error) {
         switch (error.code) {
             case "InvalidPasswordException":
-                //console.log("PasswordError")
+                console.log("PasswordError")
                 break;
             case "UsernameExistsException":
-                //console.log("UserName Already Exists")
+                console.log("UserName Already Exists")
                 break;
             default:
-                //console.log('error signing up:', error);
+                console.log('error signing up:', error);
                 break;
         }
         return false

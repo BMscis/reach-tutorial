@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "NFteaReachProject",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-f96c62a9-1624-464f-ac5c-fb5d598d808d/amplify/backend/api/NFteaReachProject/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-a48aa253-4d45-488d-b028-fe6f3236a7b4/amplify/backend/api/NFteaReachProject/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",
@@ -12,6 +12,10 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
+      },
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authNFteaReachProject"
       }
     ],
     "conflictResolution": {

@@ -11,9 +11,10 @@ let email
 let password
 let phone_number
 let loading = false
+let uploadImage
 const trySignUp = async () => {
     loading = true
-    const result = await signUp(password, name, email, phone_number)
+    const result = await signUp(password, name, email, phone_number,uploadImage)
     loading = false
     try_sign_up = !result
     try_verify = result
@@ -40,24 +41,29 @@ const trySignIn = async () => {
 <Loading></Loading>
 {/if}
 {#if try_sign_up}
-<form on:submit|preventDefault={trySignUp}>
-    <InputContainer>
-        <input slot="input-slot" class="input-rect-input" type="text" name="name" bind:value={name} placeholder="username" />
-    </InputContainer>
-    <InputContainer>
-        <input slot="input-slot"  class="input-rect-input" type="password" name="password"      bind:value={password} placeholder="password" />
-    </InputContainer>
-    <InputContainer>
-        <input slot="input-slot"  class="input-rect-input" type="email" name="email"            bind:value={email} placeholder="email" />
-    </InputContainer>
-    <InputContainer>
-        <input slot="input-slot"  class="input-rect-input" type="telephone" name="phone_number" bind:value={phone_number} placeholder="Mobile" />
-    </InputContainer>
-    <InputContainer>
-        <button id="sign-up" slot="input-slot"  class="input-rect-input" type="submit">Sign Up</button>
-    </InputContainer>
-</form>
-<h5>Already Have an account? <section><button id="signup-text" on:click={()=>{try_sign_in = try_sign_up; try_sign_up = !try_sign_up}}><h6>SignIn</h6></button></section></h5>
+<div id="signup-container">
+    <form on:submit|preventDefault={trySignUp}>
+        <InputContainer>
+            <input slot="input-slot" class="input-rect-input" type="text" name="name" bind:value={name} placeholder="username" />
+        </InputContainer>
+        <InputContainer>
+            <input slot="input-slot"  class="input-rect-input" type="password" name="password"      bind:value={password} placeholder="password" />
+        </InputContainer>
+        <InputContainer>
+            <input slot="input-slot"  class="input-rect-input" type="email" name="email"            bind:value={email} placeholder="email" />
+        </InputContainer>
+        <InputContainer>
+            <input slot="input-slot"  class="input-rect-input" type="telephone" name="phone_number" bind:value={phone_number} placeholder="Mobile" />
+        </InputContainer>
+        <InputContainer >
+            <input slot="input-slot" class="input-rect-input" type="file" id="image" name="image" accept="image/*" bind:files={uploadImage}/>
+        </InputContainer>
+        <InputContainer >
+            <input slot="input-slot" class="input-rect-input" type="submit" value="Sign Up"/>
+        </InputContainer>
+    </form>
+    <h5>Already Have an account? <section><button id="signup-text" on:click={()=>{try_sign_in = try_sign_up; try_sign_up = !try_sign_up}}><h6>SignIn</h6></button></section></h5>
+</div>
 {/if}
 {#if try_verify}
 <form on:submit|preventDefault={verifySignUp}>
@@ -86,6 +92,9 @@ const trySignIn = async () => {
 {/if}
 </div>
 <style>
+    #signup-container{
+        grid-column-start: 2;
+    }
     #form-container{
         display: flex;
         flex-direction: column;

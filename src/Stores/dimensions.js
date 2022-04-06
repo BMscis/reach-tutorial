@@ -264,9 +264,9 @@ const setMainGrid = ((value) => {
 const blockSize = ((num,by) => {return (num * by).toFixed(2) })
 const NFTwindowRatio = ((width,height) => {
   let ratio = width/250
-  console.log("RATIO ",ratio)
-  console.log("RATIO ",ratio > 2)
+  //console.log("RATIO ",ratio)
+  //console.log("RATIO ",ratio > 2)
   ratio >= 2 ? width = 375 : width = width
-  console.log(width,height)
+  //console.log(width,height)
   return [width,height]
 })

@@ -33,7 +33,7 @@ onMount(() => {
     }),
     userName.subscribe((value) => {
             username = value.name
-            console.log("USERNAME: ",value)
+            //console.log("USERNAME: ",value)
         }),
     walletAccount.subscribe((value) => {
             walletAddress = value
@@ -60,6 +60,6 @@ onMount(() => {
 }
 #sidebar{
     background: white;
-    border-radius: 0 24px 24px 0;
+    border-radius: 0 8px 8px 0;
 }
 </style>

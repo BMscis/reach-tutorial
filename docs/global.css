@@ -36,19 +36,20 @@ html, body {
 	width: 100%;
 	height: 100%;
 	color: white;
-	background-image: linear-gradient(45deg, #0f304a, #0c164f);
+	background-repeat: no-repeat;
+	background-size: contain;
 	display: grid;
 }
 svg{
 	margin: auto;
 }
 body {
-	color: #333;
-	background-color: var(--primary-mono);
+	color: white;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
 }
 button,a{
 	pointer-events: all;

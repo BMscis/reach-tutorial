@@ -13,7 +13,7 @@ export let walletAddress = ""
 let showHidden = true
 </script>
 <div id="contact-bar" style="width:{contactBarWidth}px ;height:{contactBarHeight}px ;">
-    <div id="contact-avatar-block" style="width:24px ;height:24px ;">
+    <div id="contact-avatar-block" style="width:40px ;height:40px ;">
         <Avatar isLarge={true}></Avatar>
     </div>
     <div id="contact-block">
@@ -26,23 +26,21 @@ let showHidden = true
             <button id="showhidden" on:click={()=>{showHidden = !showHidden}}>
             <PrivacyEye {showHidden} ></PrivacyEye>
             </button>
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="1" viewBox="0 0 304 1">
-            <rect id="Devider_Light_" data-name="Devider / Light 🌕" width="100%" height="1" fill="rgba(0,0,0,0.12)"/>
-          </svg>      
+        </div>     
     </div>
 </div>
 <style>
     #contact-bar{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 10px;
-        max-width: 300px;
+        display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    grid-template-rows: 40px 1fr;
     }
     #contact-block{
         display: grid;
-        grid-template-columns: 70% 1fr;
+        grid-template-columns: 1fr 48px;
+        grid-column-start: 2;
+    grid-row-start: 2;
+    grid-column-end: 4;
     }
     #contact-label-block{
         height: 100%;

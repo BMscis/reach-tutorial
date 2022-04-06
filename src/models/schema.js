@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "ImageStore": {
-            "name": "ImageStore",
+        "NFTSQL": {
+            "name": "NFTSQL",
             "fields": {
                 "id": {
                     "name": "id",
@@ -14,14 +14,14 @@ export const schema = {
                     "name": "owner",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "description": {
                     "name": "description",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "image": {
@@ -34,8 +34,8 @@ export const schema = {
                 "price": {
                     "name": "price",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
+                    "type": "Float",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "wallet": {
@@ -80,8 +80,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "ownerProfile": {
-                    "name": "ownerProfile",
+                "userPicture": {
+                    "name": "userPicture",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -105,7 +105,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "ImageStores",
+            "pluralName": "NFTSQLS",
             "attributes": [
                 {
                     "type": "model",
@@ -123,6 +123,25 @@ export const schema = {
                                     "delete",
                                     "read"
                                 ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "create",
+                                    "read",
+                                    "update"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "read",
+                                    "update"
+                                ]
                             }
                         ]
                     }
@@ -132,5 +151,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "ce8c32682b1f72816ba22da8848d584e"
+    "version": "b66f0ab5de8eac59672ace72ca878fed"
 };

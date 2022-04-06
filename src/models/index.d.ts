@@ -4,25 +4,25 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-type ImageStoreMetaData = {
+type NFTSQLMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class ImageStore {
+export declare class NFTSQL {
   readonly id: string;
-  readonly owner?: string | null;
-  readonly description?: string | null;
+  readonly owner: string;
+  readonly description: string;
   readonly image?: string | null;
-  readonly price?: string | null;
+  readonly price: number;
   readonly wallet?: string | null;
   readonly prevOwner?: string | null;
   readonly blockTime?: string | null;
   readonly nonce?: string | null;
   readonly likes?: number | null;
   readonly ownerName?: string | null;
-  readonly ownerProfile?: string | null;
+  readonly userPicture?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<ImageStore, ImageStoreMetaData>);
-  static copyOf(source: ImageStore, mutator: (draft: MutableModel<ImageStore, ImageStoreMetaData>) => MutableModel<ImageStore, ImageStoreMetaData> | void): ImageStore;
+  constructor(init: ModelInit<NFTSQL, NFTSQLMetaData>);
+  static copyOf(source: NFTSQL, mutator: (draft: MutableModel<NFTSQL, NFTSQLMetaData>) => MutableModel<NFTSQL, NFTSQLMetaData> | void): NFTSQL;
 }

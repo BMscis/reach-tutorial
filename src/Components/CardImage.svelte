@@ -18,6 +18,7 @@ import { nftCardList } from "../Stores/nftCard";
         //find label in value where value.label === label
         //if value.active === true
         //set clicked to true
+        console.log("UPPERLEFT: ",value)
         function returnTrue(value){
             try {
                 if(value.id === id){
@@ -50,7 +51,7 @@ import { nftCardList } from "../Stores/nftCard";
     })
     onDestroy(()=> {return [nftSubscriber,nftValidator,nftCardList]})
 </script>
-<button style="width:{imageWidth}px;height:{imageHeight}px;background-image:url({image? image:images});background-repeat:no-repeat;background-size: contain;background-position: center;outline:none;" class:active={clicked} on:click={() => {enlarge()}}>
+<button style="width:{isLarge?imageWidth/2:imageWidth}px;height:{imageHeight}px;background-image:url({image? image:images});background-repeat:no-repeat;background-size: contain;background-position: center;outline:none;" class:active={clicked} on:click={() => {enlarge()}}>
 </button>
 <style>
     button.active{

@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 import { writable} from 'svelte/store'
 export const nftCardList = writable([])
 
-export const createNft = ((id,description,image,price,wallet,ownerName,previousOwner)=>{
+export const createNft = ((id,description,image,price,wallet,ownerName,previousOwner,active=false)=>{
     const { subscribe, set} = writable({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner,active:false})
     //const validator
      let cardList = get(nftCardList)
@@ -14,13 +14,12 @@ export const createNft = ((id,description,image,price,wallet,ownerName,previousO
      }
      if(!component){
          nftCardList.update((n) => (
-          n.concat({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner})
+          n.concat({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner,active:active})
          ));
      }
-    set({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner})
     function action(node, binding) {
         function validate(value) {
-            set({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner})
+            set({id:id,description:description,image:image,price:price,wallet:wallet,ownerName:ownerName,previousOwner:previousOwner,active:value})
             setActive(value)
             //get nftCardList
             //Make active false for all

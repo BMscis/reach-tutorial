@@ -16,10 +16,13 @@ let nftCardWidth
 let nftCardHeight
 let hasActiveNft = false
 
-let label
-let price
-let owner
+let id
+let description
 let image
+let price
+let wallet
+let ownerName
+let previousOwner
 
 const unsubsrcibe = upperLeftContainer.subscribe((value) => {
         upperLeftBlockWidth = value.upperLeftBlock.width
@@ -34,14 +37,17 @@ const unsubsrcibe = upperLeftContainer.subscribe((value) => {
     })
 onMount(() => {
     return nftCardList.subscribe((value) => {
-        console.log("UpperCont: ",value)
+        console.log("UPPERCONTAINER: ",value)
         let activeComp = value.find((v) => v.active === true);
         if(activeComp){
             hasActiveNft = activeComp.active
-            label = activeComp.label
+            id = activeComp.id
+            description = activeComp.description
+            image = activeComp.image
             price = activeComp.price
-            owner = activeComp.owner
-            image = activeComp.pic
+            wallet = activeComp.wallet
+            ownerName = activeComp.ownerName
+            previousOwner = activeComp.previousOwner
         }
     })
 })
@@ -49,34 +55,24 @@ let isLarge = false
 onDestroy(() => unsubsrcibe)
 </script>
 <div id="upper-left-block" class:active={hasActiveNft} style="width:{upperLeftBlockWidth}px;height:{upperLeftBlockHeight}px;">
-<div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;background-color:#0b213b;position:relative;">
+<div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;position:relative;">
     <!-- <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#a9d5f4" name="Bid Space"></BodyNav> -->
     {#if hasActiveNft}
-        <NftCard {label} {price} {owner} {image} cardWidth={nftCardWidth} cardHeight={nftCardHeight} isLarge={true} labelDark={true}></NftCard>
+        <NftCard id={id} description={description} image={image} price={price} wallet={wallet} ownerName={ownerName} previousOwner={previousOwner}
+        cardWidth={bidBoxWidth} cardHeight={bidBoxHeight} isLarge={true} labelDark={true}></NftCard>
     {/if}
-    <button>BID</button>
+    
 </div>
 </div>
 <style>
-    button{
-        border-radius: 24px;
-        background-color: var(--primary-bright);
-        width: 124px;
-        height: 40px;
-        margin: auto;
-        color: white;
-        font: 500 poppins;
-    }
-    button:hover{
-        background-color: var(--spectacular-orange);
-    }
+
     #upper-left-block{
         justify-content: center;
         align-items: center;
         position: relative;
         /* transform: translate(100%,0); */
         grid-column-start: 3;
-        background: #0b213b;
+        background: transparent;
         display: flex;
         border-radius: 8px 0 0 8px;
     }

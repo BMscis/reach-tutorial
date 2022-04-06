@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getImageStore = /* GraphQL */ `
-  query GetImageStore($id: ID!) {
-    getImageStore(id: $id) {
+export const getNFTSQL = /* GraphQL */ `
+  query GetNFTSQL($id: ID!) {
+    getNFTSQL(id: $id) {
       id
       owner
       description
@@ -15,7 +15,7 @@ export const getImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version
@@ -24,13 +24,13 @@ export const getImageStore = /* GraphQL */ `
     }
   }
 `;
-export const listImageStores = /* GraphQL */ `
-  query ListImageStores(
-    $filter: ModelImageStoreFilterInput
+export const listNFTSQLS = /* GraphQL */ `
+  query ListNFTSQLS(
+    $filter: ModelNFTSQLFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listImageStores(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listNFTSQLS(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         owner
@@ -43,7 +43,7 @@ export const listImageStores = /* GraphQL */ `
         nonce
         likes
         ownerName
-        ownerProfile
+        userPicture
         createdAt
         updatedAt
         _version
@@ -55,14 +55,14 @@ export const listImageStores = /* GraphQL */ `
     }
   }
 `;
-export const syncImageStores = /* GraphQL */ `
-  query SyncImageStores(
-    $filter: ModelImageStoreFilterInput
+export const syncNFTSQLS = /* GraphQL */ `
+  query SyncNFTSQLS(
+    $filter: ModelNFTSQLFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncImageStores(
+    syncNFTSQLS(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -80,7 +80,7 @@ export const syncImageStores = /* GraphQL */ `
         nonce
         likes
         ownerName
-        ownerProfile
+        userPicture
         createdAt
         updatedAt
         _version

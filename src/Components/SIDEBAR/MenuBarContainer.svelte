@@ -4,13 +4,14 @@ import MenuBar from "../MenuBar.svelte";
 import ListPointer from "../ListPointer.svelte";
 import SignOutIcon from "../SignOutIcon.svelte";
 import SettingsIcon from "../SettingsIcon.svelte";
-import { getStore, sendToStore } from "../../STORAGE/storage";
+import { sendToStore } from "../../STORAGE/storage";
 import IconContainer from "../IconContainer.svelte";
 import InputContainer from "../INPUTS/InputContainer.svelte";
 import Loading from "../Loading.svelte";
 import SuccessIcon from "../SuccessIcon.svelte";
 import { onMount } from "svelte";
 import { tryMountImage } from "../../Stores/movment";
+import UploadImage from "../UploadImage.svelte";
 
 export let username = "";
 export let menuBarContainerWidth
@@ -31,17 +32,6 @@ async function signOut() {
 const sendImage = async () => {
     trySend = true
 }
-const listNFT = async () => {
-    await getStore().then(async (value) => {
-        try {
-            if (value.length > 0) {
-            console.log("LISTNFT: ", value);
-        }
-        } catch (error) {
-            console.log("LISTNFT: ", error);   
-        }
-    })
-}
 const closeImage = async () => {
     setTimeout(() => {
         tryUpload = false
@@ -59,19 +49,37 @@ onMount(() => {
 <div id="menubar-container" style="width:{menuBarContainerWidth}px ;height:{menuBarContainerHeight}px ;">
 <div id=first-container>
     {#if !trySend}
-    <button on:click={()=>{listNFT()}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "List NFT"  margin={0}></MenuBar></button>
     <button on:click={()=>{tryUpload = !tryUpload}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
     {/if}
     {#if tryUpload}
     <form on:submit|preventDefault={sendImage}>
-            <InputContainer  containerWidth={menuBarContainerWidth} inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}>
-                <input slot = "input-slot" class="input-rect-input" type="file" id="image" name="image" accept="image/*"  bind:files={uploadImage}/>
-            </InputContainer>
-            <InputContainer containerWidth={menuBarContainerWidth} inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}>
-                <input slot = "input-slot" class="input-rect-input" type="submit" value="Upload"/>
-            </InputContainer>
-        </form>
-        {#if trySend}
+        <InputContainer
+            containerWidth={menuBarContainerWidth}
+            inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}
+        >
+            <input
+                slot="input-slot"
+                class="input-rect-input"
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                bind:files={uploadImage}
+            />
+        </InputContainer>
+        <InputContainer
+            containerWidth={menuBarContainerWidth}
+            inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}
+        >
+            <input
+                slot="input-slot"
+                class="input-rect-input"
+                type="submit"
+                value="Upload"
+            />
+        </InputContainer>
+    </form>
+    {#if trySend}
         <div id="result-container">
             {#await sendToStore(uploadImage,'public')}
             <Loading isLarge={true} dark={true}></Loading>

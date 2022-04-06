@@ -1,15 +1,14 @@
-type ImageStore @model @auth(rules: [{allow: public}]) {
+type NFTSQL @model @auth(rules: [{allow: public}, {allow: owner, operations: [create, read, update]}, {allow: private, operations: [create, read, update]}]) {
   id: ID!
-  owner: String
-  description: String
+  owner: String!
+  description: String!
   image: String
-  price: String
+  price: Float!
   wallet: String
   prevOwner: String
   blockTime: String
   nonce: String
   likes: Int
   ownerName: String
-  ownerProfile: String
-}
- 
+  userPicture: String
+} 

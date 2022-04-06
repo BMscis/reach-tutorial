@@ -11,7 +11,7 @@
 	import BOTTOMCONTAINER from "./Components/BOTTOMBLOCK/BOTTOMCONTAINER.svelte";
 	import UPPERLEFTCONTAINER from "./Components/UPPERLEFT/UPPERLEFTCONTAINER.svelte";
 	import UPPERMIDBARCONTAINER from "./Components/UPPERRIGHT/UPPERRIGHTCONTAINER.svelte";
-
+	import bgImg from "./nftea-assets/assets/w22.png"
 	let noCurrentUser =  true
 	let mobile = checkDevice()
 	isMobile.set({isMob:mobile})
@@ -24,6 +24,7 @@
 	windowSizeSetter()
 
 	onMount(() => {
+		document.body.setAttribute("style", "background-image: url("+bgImg+");background-repeat: no-repeat;background-size: cover;")
 		return [
 		Hub.listen("auth", (data) => {
 			if (data.payload.event === "signIn") {
@@ -85,5 +86,8 @@
 		display: grid;
 		align-items: center;
     	justify-content: center;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size:cover;
 	}
 </style>

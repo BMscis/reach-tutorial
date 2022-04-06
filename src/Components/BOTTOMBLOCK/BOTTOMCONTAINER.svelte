@@ -34,7 +34,7 @@
 </div>
 <style>
     #bottom-block{
-        background-color: #0b213b;
+        background-color: transparent;
         grid-column-start: 2;
     }
 </style>

@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateImageStore = /* GraphQL */ `
-  subscription OnCreateImageStore {
-    onCreateImageStore {
+export const onCreateNFTSQL = /* GraphQL */ `
+  subscription OnCreateNFTSQL($owner: String) {
+    onCreateNFTSQL(owner: $owner) {
       id
       owner
       description
@@ -15,7 +15,7 @@ export const onCreateImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version
@@ -24,9 +24,9 @@ export const onCreateImageStore = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateImageStore = /* GraphQL */ `
-  subscription OnUpdateImageStore {
-    onUpdateImageStore {
+export const onUpdateNFTSQL = /* GraphQL */ `
+  subscription OnUpdateNFTSQL($owner: String) {
+    onUpdateNFTSQL(owner: $owner) {
       id
       owner
       description
@@ -38,7 +38,7 @@ export const onUpdateImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version
@@ -47,9 +47,9 @@ export const onUpdateImageStore = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteImageStore = /* GraphQL */ `
-  subscription OnDeleteImageStore {
-    onDeleteImageStore {
+export const onDeleteNFTSQL = /* GraphQL */ `
+  subscription OnDeleteNFTSQL($owner: String) {
+    onDeleteNFTSQL(owner: $owner) {
       id
       owner
       description
@@ -61,7 +61,7 @@ export const onDeleteImageStore = /* GraphQL */ `
       nonce
       likes
       ownerName
-      ownerProfile
+      userPicture
       createdAt
       updatedAt
       _version

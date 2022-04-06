@@ -4,8 +4,8 @@ import { schema } from './schema';
 
 
 
-const { ImageStore } = initSchema(schema);
+const { NFTSQL } = initSchema(schema);
 
 export {
-  ImageStore
+  NFTSQL
 };

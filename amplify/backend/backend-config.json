@@ -12,8 +12,9 @@
         ],
         "signupAttributes": [
           "EMAIL",
-          "PHONE_NUMBER",
-          "NAME"
+          "PICTURE",
+          "NAME",
+          "PHONE_NUMBER"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
@@ -24,9 +25,10 @@
             "REQUIRES_UPPERCASE"
           ]
         },
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "SMS",
+          "TOTP"
         ],
         "verificationMechanisms": [
           "EMAIL"
@@ -35,7 +37,7 @@
     }
   },
   "storage": {
-    "s3nfteareachprojectstorage": {
+    "s3storagenft": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
@@ -57,6 +59,12 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authNFteaReachProject"
+              }
             }
           ]
         }

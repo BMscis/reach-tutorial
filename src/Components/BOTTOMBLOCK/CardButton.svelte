@@ -17,3 +17,8 @@
       </svg>          
     {/if}          
 </div>
+<style>
+  #sold {
+    transform: scale(var(--ggs,.6));
+}
+</style>

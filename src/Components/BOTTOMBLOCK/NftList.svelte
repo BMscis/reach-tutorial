@@ -26,9 +26,12 @@ onMount(() => {
     <Loading></Loading>
 {:then result} 
     <div id="nft-list" style="width:{nftListWidth}px;height:{nftListHeight}px;">
-        <ul style="height:{nftListHeight}px;width: {nftListWidth}px;padding:0;grid-auto-flow: row;grid-gap: 18px;overflow: auto;margin: auto;display:grid;justify-content: center;">
+        <ul style="height:{nftListHeight}px;width: {nftListWidth}px;padding:0;grid-auto-flow: row;grid-gap: 18px;margin: auto;display:grid;justify-content: center;">
         {#each cards as card}
-        <NftCard id={card.id} description={card.description} image={card.image} price={card.price} wallet={card.wallet} ownerName={card.ownerName} previousOwner={card.previousOwner}></NftCard>
+        <NftCard containerWidth={nftListWidth} containerHeight={nftContainerListHeight}
+        cardWidth={nftCardWidth} cardHeight={nftCardHeight} 
+        id={card.id} description={card.description} image={card.image} price={card.price} wallet={card.wallet} ownerName={card.ownerName} previousOwner={card.previousOwner}
+        ></NftCard>
         {/each}
         </ul>
         <button></button>
@@ -41,5 +44,10 @@ onMount(() => {
         overflow-x: auto;
         overflow-y: hidden;
         background-color: transparent;
+        backdrop-filter: blur(10px);
+    }
+    ul{
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 </style>
