@@ -19,17 +19,15 @@
 
 <div
     id="card-header"
-    style="height:{cardHeight}px;position:{position};background-color:{isLarge ? 'white' : '#00000042'}"
+    style="position:{position};background-color:{isLarge ? 'white' : '#00000042'}"
 >
-    <Avatar {isLarge} height = {cardHeight} />
+    <Avatar {isLarge}  />
     <div id="card-label-box" style="margin: auto;display:flex; flex-direction:{isLarge? "column":"row"}">
         <MenuLabel
             label={label}
             dark={labelDark}
             margin={labelMargin}
             fontSize=9
-            labelWidth = {isLarge?124:(cardWidth * 0.4).toFixed(2)}
-            labelHeight = {(cardHeight/2).toFixed(2)}
         />
         {#if isLarge}
             <MenuSubLabel
@@ -37,12 +35,10 @@
             dark={labelDark}
             margin={labelMargin}
             fontSize=9
-            labelWidth = {isLarge?124:(cardWidth * 0.4).toFixed(2)}
-            labelHeight = {(cardHeight/2).toFixed(2)}
             />
         {/if}
     </div>
-    <CardButton {isLarge} {cardHeight} />
+    <CardButton {isLarge}  />
 </div>
 <style>
     #card-header{

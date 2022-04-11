@@ -12,7 +12,7 @@ export let walletAddress = ""
 
 let showHidden = true
 </script>
-<div id="contact-bar" style="width:{contactBarWidth}px ;height:{contactBarHeight}px ;">
+<div id="contact-bar" >
     <div id="contact-avatar-block" style="width:40px ;height:40px ;">
         <Avatar isLarge={true}></Avatar>
     </div>

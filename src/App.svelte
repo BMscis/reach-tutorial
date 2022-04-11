@@ -4,8 +4,9 @@
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
 	import Loading from "./Components/Loading.svelte";
 	import { cyberuser, userName } from "./AUTH/AuthStore";
+	import {mainGridTemplate,SetWindowSize} from "./Stores/allDimension"
 	import {checkDevice, checkUser} from "./Utilities/utilities";
-	import {isMobile, setMain, SetWindowSize} from "./Stores/dimensions";
+	import {isMobile, MainContainer} from "./Stores/dimensions";
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
 	import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
 	import BOTTOMCONTAINER from "./Components/BOTTOMBLOCK/BOTTOMCONTAINER.svelte";
@@ -15,16 +16,23 @@
 	let noCurrentUser =  true
 	let mobile = checkDevice()
 	isMobile.set({isMob:mobile})
+	let hideSidebar = false
+	let gridDirection
 	let gridCenter
 	let gridRight
 	let gridLeft
-
+	let gridStyle
 	const [windowSizeSubscriber, windowSizeSetter] = SetWindowSize()
 	const resize = () => {windowSizeSetter()}
 	windowSizeSetter()
 
 	onMount(() => {
-		document.body.setAttribute("style", "background-image: url("+bgImg+");background-repeat: no-repeat;background-size: cover;")
+		document.body.setAttribute("style", 
+		`background-image: url("${bgImg}");\
+		background-repeat: no-repeat;\
+		background-size: cover;\
+		background-repeat-y: repeat;`
+		)
 		return [
 		Hub.listen("auth", (data) => {
 			if (data.payload.event === "signIn") {
@@ -56,10 +64,16 @@
 				noCurrentUser = true
 			}
 		}),
-		setMain.subscribe(value => {
+		MainContainer.subscribe(value => {
 			gridLeft = value.left
 			gridCenter = value.center
 			gridRight = value.right
+			gridDirection = value.direction
+		}),
+		mainGridTemplate.subscribe(value => {
+			gridStyle = value.style
+			hideSidebar = !value.sideBarVisible
+			console.log("GRID STYLE", gridStyle)
 		})
 	]
 	})
@@ -70,12 +84,12 @@
 {#await checkUser()}
 	<Loading></Loading>
 {:then result}
-<main style="grid-template-columns: {gridLeft}px {gridCenter}px {gridRight}px;">
+<main style={gridStyle}>
 	{#if noCurrentUser}
 	<SIGNUP></SIGNUP>
 	{:else if !noCurrentUser}
-	<SIDEBARCONTAINER></SIDEBARCONTAINER>
-	<BOTTOMCONTAINER></BOTTOMCONTAINER>
+	<SIDEBARCONTAINER isVisible={hideSidebar}></SIDEBARCONTAINER>
+	<BOTTOMCONTAINER ></BOTTOMCONTAINER>
 	<UPPERLEFTCONTAINER></UPPERLEFTCONTAINER>
 {/if}
 </main>
@@ -84,10 +98,5 @@
 <style>
 	main{
 		display: grid;
-		align-items: center;
-    	justify-content: center;
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size:cover;
 	}
 </style>

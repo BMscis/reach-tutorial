@@ -2,7 +2,7 @@
 import { onDestroy, onMount} from "svelte";
 import BodyNav from "../BodyNav.svelte"
 import NftCard from "../BOTTOMBLOCK/NftCard.svelte";
-import { upperLeftContainer } from "../../Stores/dimensions";
+import { rightBlock } from "../../Stores/allDimension";
 import { nftCardList } from "../../Stores/nftCard";
 
 let upperLeftBlockWidth
@@ -19,26 +19,21 @@ let hasActiveNft = false
 let id
 let description
 let image
+let style
 let price
 let wallet
 let ownerName
 let previousOwner
-
-const unsubsrcibe = upperLeftContainer.subscribe((value) => {
-        upperLeftBlockWidth = value.upperLeftBlock.width
-        upperLeftBlockHeight = value.upperLeftBlock.height
-        upperLeftBlockTop = value.upperLeftBlock.top
-        bidBoxWidth = value.bidBox.width
-        bidBoxHeight = value.bidBox.height
-        bodyNavWidth = value.bodyNav.width
-        bodyNavHeight = value.bodyNav.height
-        nftCardWidth = value.nftCard.width
-        nftCardHeight = value.nftCard.height
+let opacity = false
+const unsubsrcibe = rightBlock.subscribe((value) => {
+        style = value.style
+        opacity= value.opacity
     })
 onMount(() => {
     return nftCardList.subscribe((value) => {
         console.log("UPPERCONTAINER: ",value)
         let activeComp = value.find((v) => v.active === true);
+        hasActiveNft = false
         if(activeComp){
             hasActiveNft = activeComp.active
             id = activeComp.id
@@ -54,11 +49,11 @@ onMount(() => {
 let isLarge = false
 onDestroy(() => unsubsrcibe)
 </script>
-<div id="upper-left-block" class:active={hasActiveNft} style="width:{upperLeftBlockWidth}px;height:{upperLeftBlockHeight}px;">
+<div id="upper-left-block" class:active={hasActiveNft} style={style}>
 <div id="bid-box" style="width:{bidBoxWidth}px;height:{bidBoxHeight}px;position:relative;">
     <!-- <BodyNav width={bodyNavWidth} height={bodyNavHeight} backgroundColor="#a9d5f4" name="Bid Space"></BodyNav> -->
     {#if hasActiveNft}
-        <NftCard id={id} description={description} image={image} price={price} wallet={wallet} ownerName={ownerName} previousOwner={previousOwner}
+        <NftCard {opacity} id={id} description={description} image={image} price={price} wallet={wallet} ownerName={ownerName} previousOwner={previousOwner}
         cardWidth={bidBoxWidth} cardHeight={bidBoxHeight} isLarge={true} labelDark={true}></NftCard>
     {/if}
     
@@ -75,9 +70,11 @@ onDestroy(() => unsubsrcibe)
         background: transparent;
         display: flex;
         border-radius: 8px 0 0 8px;
+        z-index: 0;
     }
     #upper-left-block.active{
         transform: translate(0,0);
+        z-index: 111;
     }
     #bid-box{
         display: flex;

@@ -89,6 +89,7 @@ const trySignIn = async () => {
         <button id="sign-up" type="submit" slot="input-slot" class="input-rect-input" >Sign In</button>
     </InputContainer>
 </form>
+<h5>Already Have an account? <section><button id="signup-text" on:click={()=>{try_sign_in = try_sign_up; try_sign_up = !try_sign_up}}><h6>SignUp</h6></button></section></h5>
 {/if}
 </div>
 <style>
@@ -103,6 +104,7 @@ const trySignIn = async () => {
     }
     button{
         letter-spacing: 2px;
+        
     }
     h5{
         margin: auto;

@@ -27,7 +27,7 @@ export const sendToStore = async (image, protectionLevel) => {
     const uploadResult = await uploadNFT(
         get(cyberuser).username,
         "This is the first nft",
-        imageName,
+        `https://storagenft171809-staging.s3.eu-west-2.amazonaws.com/public/${imageName}`,
         1000,
         "0x0",
         "0x0",
@@ -106,7 +106,11 @@ const queryNFT = async () => {
             let img = await getImages(modl)
             return img
         }
+        models.forEach(element => {
+            console.log("MOD: ", JSON.stringify(element))
+        });
         //map models onto nftStore
+        //https://storagenft171809-staging.s3.eu-west-2.amazonaws.com/public/20398325_121403475156189_1200702775256678400_a.jpg
         models.map( async (model) => {
             createNft(
                 model.id,

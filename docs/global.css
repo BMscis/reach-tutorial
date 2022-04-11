@@ -1,4 +1,5 @@
 @import url(./inputs.css);
+@import url(./dimensions.css);
 :root{
 	--primary-color:#10ABB4;
 	--primary-mono:#004C50;
@@ -38,12 +39,12 @@ html, body {
 	color: white;
 	background-repeat: no-repeat;
 	background-size: contain;
-	display: grid;
 }
 svg{
 	margin: auto;
 }
 body {
+	display: grid;
 	color: white;
 	margin: 0;
 	padding: 0;
@@ -54,7 +55,8 @@ body {
 button,a{
 	pointer-events: all;
 	cursor: pointer;
-	color:white
+	color:white;
+	cursor: pointer;
 }
 button{
 	border: none;

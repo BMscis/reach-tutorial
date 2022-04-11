@@ -3,13 +3,14 @@ import { onMount } from "svelte";
 
 import ContanctBar from "./ContanctBar.svelte";
 import MenuBarContainer from "./MenuBarContainer.svelte";
-import {sideBarContainer} from "../../Stores/dimensions";
+import {sideBar} from "../../Stores/allDimension";
 import { userName, walletAccount, walletName } from "../../AUTH/AuthStore";
 
+export let isVisible = true
 let sidebarBlockWidth
 let sidebarBlockHeight
 let sidebarBlockTop
-let sidebarWidth
+let sidebarWidth = 300
 let sidebarHeight
 let contactBarWidth
 let contactBarHeight
@@ -20,16 +21,10 @@ let walletAddress = ""
 let walletname = ""
 onMount(() => {
     return [
-        sideBarContainer.subscribe((value) => {
-        sidebarBlockWidth = value.sidebarBlock.width
-        sidebarBlockHeight = value.sidebarBlock.height
-        sidebarBlockTop = value.sidebarBlock.top
-        sidebarWidth = value.sidebar.width
-        sidebarHeight = value.sidebar.height
-        contactBarWidth = value.contactBar.width
-        contactBarHeight = value.contactBar.height
-        menuBarContainerWidth = value.menuBarContainer.width
-        menuBarContainerHeight = value.menuBarContainer.height
+        sideBar.subscribe((value) => {
+            sidebarHeight = value.height
+            sidebarWidth = (sidebarHeight * 0.55).toFixed(2)
+
     }),
     userName.subscribe((value) => {
             username = value.name
@@ -44,19 +39,19 @@ onMount(() => {
 ]
 })
 </script>
-<div id = "sidebarBlock" style="width:{sidebarBlockWidth}px;height:{sidebarBlockHeight}px;">
-    <div id="sidebar" style="width:{sidebarWidth}px ;height:{sidebarHeight}px ;">
-        <ContanctBar {username} {walletAddress} {walletname} {contactBarWidth} {contactBarHeight}/>
-        <MenuBarContainer {username} {menuBarContainerWidth} {menuBarContainerHeight} ></MenuBarContainer>
+<div id = "sidebarBlock" 
+style="width:{sidebarWidth}px;height:{sidebarHeight}px;transform: translate({isVisible? "-100%":"0"},0);position:{isVisible?"absolute":"relative"};">
+    <div id="sidebar" style="width:{sidebarWidth}px ">
+        <ContanctBar {username} {walletAddress} {walletname} />
+        <MenuBarContainer {username}  ></MenuBarContainer>
     </div>
 </div>
 <style>
 #sidebarBlock{
-        position: relative;
         background: #00000036;
         /* transform: translate(-100%,0); */
         z-index: 111;
-        grid-column-start: 1;
+        width: 300px;
 }
 #sidebar{
     background: white;

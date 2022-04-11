@@ -2,7 +2,7 @@
 import { onDestroy} from "svelte";
 import MenuButton from "./MenuButton.svelte";
 import IconContainer from "../IconContainer.svelte";
-import { topContainer} from "../../Stores/dimensions";
+import { topContainer} from "../../Stores/allDimension";
 import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
 import MenuLabel from "../MenuLabel.svelte";
 import { openSidebar, tryMountImage } from "../../Stores/movment";
