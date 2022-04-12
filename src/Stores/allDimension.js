@@ -125,7 +125,7 @@ const setMainGridTemplate = ((gridDirection, gridColumns,vW,vH) => {
                 gridDirection: gridDirection,
                 gridColumns: gridColumns,
                 style: `grid-template-columns:100%;
-                        grid-template-rows: ${gridLeft}px ${gridCenter}px ${gridright}px;
+                        grid-template-rows: ${gridright}px;
                         `,
                 sideBarVisible:sideIsVisible,
                 centralBlockPosition:cBlockStart,
@@ -150,7 +150,7 @@ const setCentralBlock = ((gridDirection, gridColumns,vW,vH) => {
         case "rows":
             style = `
             height:${blockSize(vH,0.9)}px;
-            grid-row-start:2;
+            grid-row-start:1;
             grid-column-start: 1;
             `
             opacity = true
@@ -183,7 +183,7 @@ const setRightBlock = ((gridDirection, gridColumns,vW,vH) => {
         case "rows":
             style = `
             height:${blockSize(vH,0.9)}px;
-            grid-row-start:2;
+            grid-row-start:1;
             grid-column-start: 1;
             `
             opacity = true
