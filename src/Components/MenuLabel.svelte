@@ -3,8 +3,6 @@ export let hide = false
 export let label
 export let margin = "auto"
 export let dark = false
-export let labelWidth = 124
-export let labelHeight = 28
 export let fontSize = 12
 </script>
 <p style="-webkit-text-security:{hide?'circle':'none'};margin:{margin};color:{dark?"black":"white"};font-size:{fontSize}px;{hide?"circle":"none"};"> {label}</p>

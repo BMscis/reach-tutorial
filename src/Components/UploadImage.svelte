@@ -1,7 +1,6 @@
 <script>
-import InputContainer from "./INPUTS/InputContainer.svelte";
-
-
+    import InputContainer from "./INPUTS/InputContainer.svelte";
+    
     export let sendImage;
     export let uploadImage;
     export let menuBarContainerWidth

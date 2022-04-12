@@ -99,28 +99,32 @@ const deleteNFT = async () => {
     const modelToDelete = await DataStore.query(NFTSQL, 123456789);
     DataStore.delete(modelToDelete);
 }
+const pic =async (modl) => {
+    let img = await getImages(modl)
+    return img
+}
 const queryNFT = async () => {
     try {
         const models = await DataStore.query(NFTSQL);
-        const pic =async (modl) => {
-            let img = await getImages(modl)
-            return img
-        }
         models.forEach(element => {
-            console.log("MOD: ", JSON.stringify(element))
+            //console.log("MOD: ", JSON.stringify(element))
         });
         //map models onto nftStore
-        //https://storagenft171809-staging.s3.eu-west-2.amazonaws.com/public/20398325_121403475156189_1200702775256678400_a.jpg
         models.map( async (model) => {
             createNft(
                 model.id,
+                model.owner,
                 model.description,
                 await pic(model.image),
                 model.price,
                 model.wallet,
+                model.prevOwner,
+                model.blockTime,
+                model.nonce,
+                model.likes,
                 model.ownerName,
-                model.previousOwner,
-            )
+                model.userPicture
+                )
         })
         return models
     } catch (error) {

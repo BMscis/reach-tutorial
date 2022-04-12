@@ -1,18 +1,18 @@
 <script>
-import { afterUpdate, onMount } from "svelte";
-import {openSidebar} from "../../Stores/movment"
+import { onMount } from "svelte";
+import {openSidebar} from "../../Stores/movment";
 
-    let open = false
-    const sideBar = () => {
-        const sideBar = document.querySelector('#sidebarBlock')
-        open ? sideBar.classList.add('open') : sideBar.classList.remove('open')
-    }
-    onMount(() => {
-        openSidebar.subscribe((value) => {
-            value || value == false ? open = value : null
-            value || value == false ? sideBar() : null
-        })
+let open = false
+const sideBar = () => {
+    const sideBar = document.querySelector('#sidebarBlock')
+    open ? sideBar.classList.add('open') : sideBar.classList.remove('open')
+}
+onMount(() => {
+    openSidebar.subscribe((value) => {
+        value || value == false ? open = value : null
+        value || value == false ? sideBar() : null
     })
+})
 </script>
 <button id="menu-button" style="width:24px;height:24px;" on:click={() => {openSidebar.set(!open)}}>
     {#if !open}

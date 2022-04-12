@@ -25,6 +25,12 @@ export const rightBlock = writable({
 export const sideBar = writable({
     height:0
 })
+export const featureBlock = writable({
+    upperRightBlock: { width: 0, height: 0, isLarge: 0 },
+    bodyTitle: { width: 0, height: 0, isLarge: 0 },
+    imageBlock: { width: 0, height: 0, isLarge: 0 },
+    imageHeaderContainer: { width: 0, height: 0, isLarge: 0 }
+  })
 export const SetWindowSize = (() => {
     const { subscribe, set } = windowSize
     function action(node, binding) {
@@ -60,11 +66,6 @@ const MainGridDisplay = ((width, height) => {
     let mainFitting = fittingScreen(width, height)
     mainFitting == 0 ? mainFitting = 1 : mainFitting = mainFitting
     return mainFitting > 1 ? ["columns", mainFitting] : ["rows", 1]
-})
-const cardDisplay = ((width, height) => {
-    let cardRatioCheck = fittingScreen(width, height)
-    cardRatioCheck > screenCardRatio ? width = height * 0.55 : width = width
-    return [width, height]
 })
 const blockSize = ((num, by) => { return (num * by).toFixed(2) })
 const gridSizePx = ((columnNumber,widthPx,heightPx) => {
@@ -196,3 +197,41 @@ const setRightBlock = ((gridDirection, gridColumns,vW,vH) => {
 const setSidebar = ((vH) => {
     sideBar.set({height: blockSize(vH,0.9)})
 })
+const setfeatureBlock = ((width,height) => {
+    let blockWidth
+    let blockHeight
+    switch ((width / height).toFixed(2) >= 1) {
+      case true:
+        blockWidth = blockSize(width, 0.57)
+        blockHeight = blockSize(height, 0.5)
+        break;
+      case false:
+        blockWidth = blockSize(width, 0.90)
+        blockHeight = blockSize(height, 0.55)
+        break;
+    }
+    featureBlock.set(
+      {
+        upperRightBlock: {
+          width: blockWidth,
+          height: blockHeight,
+          isLarge: width > 732
+        },
+        bodyTitle: {
+          width: blockSize(blockWidth, 0.26),
+          height: blockSize(blockHeight, 0.15),
+          isLarge: width > 732
+        },
+        imageBlock: {
+          width: blockSize(blockWidth, 0.95),
+          height: blockSize(blockHeight, 0.95),
+          isLarge: width > 732
+        },
+        imageHeaderContainer: {
+          width: blockWidth,
+          height: blockSize(blockHeight, 0.18),
+          isLarge: width > 732
+        }
+      }
+    )
+  })

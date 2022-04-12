@@ -1,32 +1,27 @@
 <script>
+import { onMount } from "svelte";
 import { Auth } from "aws-amplify";
 import MenuBar from "../MenuBar.svelte";
-import ListPointer from "../ListPointer.svelte";
+import Loading from "../Loading.svelte";
 import SignOutIcon from "../SignOutIcon.svelte";
+import ListPointer from "../ListPointer.svelte";
+import SuccessIcon from "../SuccessIcon.svelte";
 import SettingsIcon from "../SettingsIcon.svelte";
 import { sendToStore } from "../../STORAGE/storage";
-import IconContainer from "../IconContainer.svelte";
-import InputContainer from "../INPUTS/InputContainer.svelte";
-import Loading from "../Loading.svelte";
-import SuccessIcon from "../SuccessIcon.svelte";
-import { onMount } from "svelte";
 import { tryMountImage } from "../../Stores/movment";
-import UploadImage from "../UploadImage.svelte";
+import InputContainer from "../INPUTS/InputContainer.svelte";
 
 export let username = "";
-export let menuBarContainerWidth
-export let menuBarContainerHeight
 
 let uploadImage
 let tryUpload = false
 let trySend = false
-let loading = true
-let success = false
+
 async function signOut() {
     try {
         await Auth.signOut();
     } catch (error) {
-        //console.log('error signing out: ', error);
+        console.log('error signing out: ', error);
     }
 }
 const sendImage = async () => {
@@ -46,37 +41,18 @@ onMount(() => {
     })
 })
 </script>
-<div id="menubar-container" style="width:{menuBarContainerWidth}px ;height:{menuBarContainerHeight}px ;">
+<div id="menubar-container">
 <div id=first-container>
     {#if !trySend}
     <button on:click={()=>{tryUpload = !tryUpload}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
     {/if}
     {#if tryUpload}
     <form on:submit|preventDefault={sendImage}>
-        <InputContainer
-            containerWidth={menuBarContainerWidth}
-            inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}
-        >
-            <input
-                slot="input-slot"
-                class="input-rect-input"
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                bind:files={uploadImage}
-            />
+        <InputContainer >
+            <input slot="input-slot" class="input-rect-input" type="file" id="image" name="image" accept="image/*" bind:files={uploadImage}/>
         </InputContainer>
-        <InputContainer
-            containerWidth={menuBarContainerWidth}
-            inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}
-        >
-            <input
-                slot="input-slot"
-                class="input-rect-input"
-                type="submit"
-                value="Upload"
-            />
+        <InputContainer >
+            <input slot="input-slot" class="input-rect-input" type="submit" value="Upload"/>
         </InputContainer>
     </form>
     {#if trySend}
@@ -120,9 +96,9 @@ onMount(() => {
 </div>
 <style>
     div#second-container {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
     }
     #first-container,#second-container{
         display: flex;

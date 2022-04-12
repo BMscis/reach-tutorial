@@ -31,6 +31,7 @@
 	box-sizing: border-box;
 	-webkit-tap-highlight-color:transparent;
 	scroll-behavior: smooth;
+	scrollbar-width: thin;
 }
 html, body {
 	position: relative;
@@ -44,6 +45,7 @@ svg{
 	margin: auto;
 }
 body {
+	display: -ms-grid;
 	display: grid;
 	color: white;
 	margin: 0;
@@ -95,7 +97,7 @@ sub{
 a:hover{
 	color:var(--spectacular-orange);
 }
-#upper-right-block{
+#feature-block{
 	position: relative;
 	background-color: black;
 }
@@ -117,9 +119,11 @@ ul::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 255, 255, 0.329);
 }
 ul{
+	-ms-scroll-snap-type: y mandatory;
 	scroll-snap-type: y mandatory;
 }
 li{
+	-ms-scroll-snap-align: start;
 	scroll-snap-align: start;
 }
 #card-label-box{

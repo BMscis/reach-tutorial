@@ -13,6 +13,8 @@ main{
 }
 ul{
     grid-template-columns: 100%;
+    -ms-grid-column: 100%;
+    grid-column: 100%;
 }
 #nft-list,ul{
     pointer-events: none;

@@ -4,7 +4,6 @@ import { connectMyAlgo } from "../../Utilities/connectALGOWallet";
 
 let clicked = false;
 </script>
-<!-- create html that displays value of reachWallet -->
 {#if clicked}
     {#await connectMyAlgo()}
         <Loading margin="20px" isLarge={false}></Loading>

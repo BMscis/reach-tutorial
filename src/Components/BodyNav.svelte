@@ -1,8 +1,8 @@
 <script>
     import NavButton from "./NavButton.svelte"
     export let width
-    export let height = 40
     export let name
+    export let height = 40
     export let backgroundColor = "#4a90b9"
 </script>
 <div style="width: {width}px;height:{height}px;margin:0 auto;">
