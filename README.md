@@ -8,9 +8,6 @@ Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
 Please install or have installed the following:
 - [vs-code](https://code.visualstudio.com/download)
 - [nodejs and npm](https://nodejs.org/en/download/)
-- [Reach](https://docs.reach.sh/)
-- [AWS Cognito](https://aws.amazon.com/cognito/)
-- [AWS S3](https://aws.amazon.com/s3/)
 
 ## Installation
 ___
@@ -33,6 +30,20 @@ ___
 Run npm run dev
 ```
 2. Open the localhost link on the browser.
-3. Sign up and wait for authentication code on yout email.
+3. Sign up and wait for authentication code on your email.
+> Make sure your password includes digits.
+> Alternatively sign in with:
+```
+email - nfteareachtut@gmail.com
+password - 123nftReachTutorial@gmail.com
+```
+> Once logged in please reload the screen until images appear.
 4. Connect to wallet.
 6. Create NFT.
+> Alternatively go to [NFTea](https://bmscis.github.io/reach-tutorial/) to see the web version.
+
+### ISSUES
+> Check for code sent to your email
+> If you are having trouble signing up or signing in.
+1. Make sure your signin username is your email.
+> If no Images appear on the home screen, please reload screen.
