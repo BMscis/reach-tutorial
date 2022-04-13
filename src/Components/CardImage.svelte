@@ -1,5 +1,5 @@
 <script>
-import images from "../nftea-assets/assets/tcCycle.webp"
+let images
 export let image
 export let imageHeight
 </script>

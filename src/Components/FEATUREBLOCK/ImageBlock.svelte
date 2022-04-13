@@ -1,8 +1,7 @@
 <script>
-    import baseImage from "../../nftea-assets/assets/coaWeb.webp"
-    
     export let midWidth
     export let midHeight
+    let baseImage
 </script>
 <button id="image-block" style="width:{midWidth}px;height:{midHeight}px;position:absolute;margin: auto;left: 0;right: 0;top: 0;bottom: 0;">
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{midWidth}" height="{midHeight}" viewBox="0 0 {midWidth} {midHeight}">

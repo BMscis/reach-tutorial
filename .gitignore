@@ -1,9 +1,6 @@
-node_modules/
-tls/
-.reach/
-/src/nftea-assets
-/.vscode
-
+node_modules
+.vscode
+package-lock.json
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
