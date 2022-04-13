@@ -43,7 +43,7 @@ password - 123nftReachTutorial@gmail.com
 > Alternatively go to [NFTea](https://bmscis.github.io/reach-tutorial/) to see the web version.
 
 ### ISSUES
-> Check for code sent to your email
-> If you are having trouble signing up or signing in.
-1. Make sure your signin username is your email.
-> If no Images appear on the home screen, please reload screen.
+1. Check for code sent to your email
+2. If you are having trouble signing up or signing in.
+- Make sure your signin username is your email.
+3. If no Images appear on the home screen, make sure your **system-time** is right and reload screen.
