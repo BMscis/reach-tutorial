@@ -1,5 +1,5 @@
 import { Auth } from "aws-amplify";
-import { uploadToS3 } from "../STORAGE/storage";
+import { updateNFT, uploadToS3 } from "../STORAGE/storage";
 import { checkUser } from "../Utilities/utilities";
 
 export const signUp = async (Upassword, Uname, Uemail, Uphone_number,Uimage) => {
@@ -12,7 +12,6 @@ export const signUp = async (Upassword, Uname, Uemail, Uphone_number,Uimage) => 
     const username = email
     try {
         const  user  = await Auth.signUp({username:username,password:password,attributes: {name:name,picture:uploadImage,phone_number:phone_number,email:email}});
-        const uploadImageR = await uploadToS3(uploadImage,Uimage,Uimage[0].type,"private")
         return true
     } catch (error) {
         switch (error.code) {
@@ -54,13 +53,17 @@ export const confirmSignUp = async (Username,Ucode) => {
         return false
     }
 }
-export const signIn = async (Uusername, Upassword) => {
+export const signIn = async (Uusername, Upassword,fromSignUp = false,Uimage="") => {
     const Susername = Uusername;
     const Spassword = Upassword;
     try {
         const user = await Auth.signIn(Susername, Spassword);
-        //console.log("SUCCESS: ", user);
-        checkUser()
+        const isUser = await checkUser()
+        if(fromSignUp && !isUser){
+            const uploadImage = Uimage[0].name
+            const uploadImageR = await uploadToS3(uploadImage,Uimage,Uimage[0].type,"protected")
+            console.log("AUTH Upload Image Result: ", uploadImageR)
+        }
     } catch (error) {
         switch (error.code) {
             case "UserNotFoundException":
@@ -96,3 +99,23 @@ export const resendConfirmationCode = async () => {
         }
     }
 }
+export const updateUser = async (image) => {
+    const imageName = image[0].name
+    const imageType = image[0].type
+    const imageValue = image[0]
+    try {
+        const user = await Auth.currentAuthenticatedUser();
+        const updateRes = await Auth.updateUserAttributes(user, {
+          'picture': imageName
+        });
+        console.log("AUTH Update User Result: ", updateRes)
+        const updateToS3 = await uploadToS3(imageName,imageValue,imageType,"protected")
+        console.log("AUTH Upload Image Result: ", updateToS3)
+        const replaceImage = await updateNFT(imageName)
+        console.log("AUTH Replace Image Result: ", replaceImage)
+        return true
+    } catch (error) {
+        console.log("Error updating user: ", error);
+        return false
+    }   
+  }

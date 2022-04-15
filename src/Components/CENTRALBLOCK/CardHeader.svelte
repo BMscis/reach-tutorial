@@ -1,19 +1,28 @@
 <script>
     import Avatar from "../Avatar.svelte";
+    import Loading from "../Loading.svelte"
     import MenuLabel from "../MenuLabel.svelte";
     import CardButton from "./CardButton.svelte";
     import MenuSubLabel from "../MenuSubLabel.svelte";
+    import {getImagesProtected} from "../../STORAGE/storage"
+    export let owner
     export let label
     export let price
+    export let ownerName
+    export let userPicture
     export let isLarge = true;
     export let labelDark = false;
     export let labelMargin = "auto";
     export let position = "absolute";
-
 </script>
 
 <div id="card-header" style="position:{position};background-color:{isLarge ? 'white' : '#00000042'}">
-    <Avatar {isLarge}  />
+    <!-- {#if userPicture}
+        <Avatar image={userPicture}></Avatar>
+    {:else}
+        <Avatar ></Avatar>
+    {/if} -->
+    <Avatar image={false} isLarge={false} ></Avatar>
     <div id="card-label-box" style="margin: auto;display:flex; flex-direction:{isLarge? "column":"row"}">
         <MenuLabel label={label} dark={labelDark} margin={labelMargin} fontSize=9/>
         {#if isLarge}

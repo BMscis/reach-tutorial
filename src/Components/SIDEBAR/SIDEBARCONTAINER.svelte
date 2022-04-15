@@ -1,12 +1,13 @@
 <script>
 import { onDestroy, onMount } from "svelte";
-import ContanctBar from "./ContanctBar.svelte";
+import ContactBar from "./ContactBar.svelte";
 import {sideBar} from "../../Stores/allDimension";
 import MenuBarContainer from "./MenuBarContainer.svelte";
 import { userName, walletAccount, walletName } from "../../AUTH/AuthStore";
+import { setEditProfile } from "./sideBarStore";
 
 export let isVisible = true
-
+let editProfile
 let username = ""
 let sidebarHeight
 let walletname = ""
@@ -19,6 +20,10 @@ const unsubscribe = sideBar.subscribe((value) => {
             sidebarWidth = (sidebarHeight * 0.55).toFixed(2)
             innerSideBarWidth = (sidebarWidth * 0.86).toFixed(2)
         })
+const unsubscribeProf = setEditProfile.subscribe(value => {
+    editProfile = value.edit
+    return
+})
 onMount(() => {
     return [
         userName.subscribe((value) => {
@@ -33,14 +38,14 @@ onMount(() => {
     ]
 })
 onDestroy(() => {
-    return unsubscribe
+    return [unsubscribe, unsubscribeProf]
 })
 </script>
 <div id = "sidebarBlock" 
 style="width:{sidebarWidth}px;height:{sidebarHeight}px;transform: translate({isVisible? "-100%":"0"},0);position:{isVisible?"absolute":"relative"};">
     <div id="sidebar" style="width:{innerSideBarWidth}px ">
-        <ContanctBar width={innerSideBarWidth} {username} {walletAddress} {walletname} />
-        <MenuBarContainer {username}  ></MenuBarContainer>
+        <ContactBar {editProfile} width={innerSideBarWidth} {username} {walletAddress} {walletname} />
+        <MenuBarContainer {editProfile} {username}  ></MenuBarContainer>
     </div>
 </div>
 <style>

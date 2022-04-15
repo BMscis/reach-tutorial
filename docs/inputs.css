@@ -20,6 +20,9 @@ input:-webkit-autofill{
 font:var(--font-top-label);
 padding: var(--label-padding);
 }
+input,button,a{
+    pointer-events: all;
+}
 input,button{
 cursor: pointer;
 transition: var(--transition-navigation);
@@ -33,8 +36,9 @@ z-index: 11;
 margin: 10px auto;
 display: flex;
 max-width: 100%;
+pointer-events: none;
 }
-.input-container:hover{
+input:hover{
     background-color: var(--spectacular-orange);
 }
 .input-container[disabled=true]{
@@ -45,6 +49,7 @@ width: 280px;
 height: 60px;
 z-index: 1;
 margin: auto;
+pointer-events: none;
 }
 .input-rect-input{
 width: 100%;
@@ -55,6 +60,7 @@ border:none;
 font:var(--font-placeholder);
 padding: var(--label-padding);
 font:var(--font-heading);
+color: black;
 }
 .input-rect-input:focus-within,
 .input-rect-input:focus-visible

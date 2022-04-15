@@ -11,7 +11,7 @@
         containerWidth={menuBarContainerWidth}
         inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}
     >
-        <input
+        <input autocomplete 
             slot="input-slot"
             class="input-rect-input"
             type="file"
@@ -25,7 +25,7 @@
         containerWidth={menuBarContainerWidth}
         inputWidth={(menuBarContainerWidth * 0.85).toFixed(2)}
     >
-        <input
+        <input autocomplete 
             slot="input-slot"
             class="input-rect-input"
             type="submit"

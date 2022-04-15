@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import NftCard from "./NftCard.svelte";
     import Loading from "../Loading.svelte";
-    import { getStore } from "../../STORAGE/storage";
+    import { getImagesProtected, getStore } from "../../STORAGE/storage";
     import { nftCardList } from "../../Stores/nftCard";
 
     let cards
@@ -25,9 +25,9 @@
     <div id="nft-list"style="height:{blockHeight}px;">
         <ul style="width:100%;height:{blockHeight}px;padding:0;grid-auto-flow: row;grid-gap: 18px;margin:auto auto auto 0;display:grid;justify-content: center;">
         {#each cards as card}
-        <NftCard {blockHeight} opacity={false}
-        id = {card.id} owner = {card.owner} description = {card.description} image = {card.image} price = {card.price} wallet = {card.wallet} prevOwner = {card.prevOwner} blockTime = {card.blockTime} nonce = {card.nonce} likes = {card.likes} ownerName = {card.ownerName} userPicture = {card.userPicture} 
-        ></NftCard>
+            <NftCard {blockHeight} opacity={false}
+            userPicture={card.userPicture} id = {card.id} owner = {card.owner} description = {card.description} image = {card.image} price = {card.price} wallet = {card.wallet} prevOwner = {card.prevOwner} blockTime = {card.blockTime} nonce = {card.nonce} likes = {card.likes} ownerName = {card.ownerName} 
+            ></NftCard>
         {/each}
         </ul>
         <button></button>

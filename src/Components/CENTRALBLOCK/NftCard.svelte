@@ -3,23 +3,23 @@
     import Timer from "../Timer.svelte";
     import MenuBar from "../MenuBar.svelte";
     import CardImage from "../CardImage.svelte";
+    import MenuLabel from "../MenuLabel.svelte";
     import HeartIcon from "../HeartIcon.svelte";
     import CardHeader from "./CardHeader.svelte";
     import CommentIcon from "../CommentIcon.svelte";
     import {setBottomBlockView} from "./setBottomBlockView";
     import {createNft, nftCardList} from "../../Stores/nftCard";
-import MenuLabel from "../MenuLabel.svelte";
     export let id
+    export let likes
     export let owner
     export let image
     export let price
+    export let nonce
     export let wallet
-    export let ownerName
-    export let description
     export let prevOwner
     export let blockTime
-    export let nonce
-    export let likes
+    export let ownerName
+    export let description
     export let userPicture
     export let isLarge = false
     export let opacity = false
@@ -31,7 +31,6 @@ import MenuLabel from "../MenuLabel.svelte";
     let cardHeight = (blockHeight*0.8).toFixed(2)
     let cardWidth = (cardHeight*0.55).toFixed(2)
     let imageHeight = (cardWidth*0.9).toFixed(2)
-
     const enlarge = () => {
         nftValidator(!clicked)
         clicked ? setBottomBlockView.set({visibility:0}) : setBottomBlockView.set({visibility:1})
@@ -79,7 +78,7 @@ import MenuLabel from "../MenuLabel.svelte";
 class:active={clicked} on:click={() => {enlarge()}}>
     <div id="nft-card" style="height:{cardHeight}px;width:{cardWidth}px;background-image:linear-gradient(58deg, rgb(15 48 74 / 0%), rgb(14, 39, 75));position:relative;">
         <CardImage {imageHeight}  {image}   ></CardImage>
-        <CardHeader {price} label={ownerName} isLarge={isLarge} labelDark={labelDark} labelMargin={0} position="relative" ></CardHeader>
+        <CardHeader {ownerName} {userPicture} {owner} {price} label={ownerName} isLarge={isLarge} labelDark={labelDark} labelMargin={0} position="relative" ></CardHeader>
         {#if isLarge}
         <Timer></Timer>
         <button id="bid">BID</button>

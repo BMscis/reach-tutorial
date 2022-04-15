@@ -13,13 +13,12 @@ export const checkUser = async () => {
   //console.log("checkUser")
   try {
       const user = await Auth.currentAuthenticatedUser()
-      //console.log("Current Sess: ", user)
-      // //console.log("Current User: ", await Auth.currentUserInfo())
-      // //console.log("Authent User: ", await Auth.currentAuthenticatedUser())
       cyberuser.set(user)
+      //console.log("checkUser: ", user)
+      //console.log("checkUser: ", user.identityId)
       return false
   } catch (error) {
-      //console.log("ChUser Error: ", error)
+      console.log("ChUser Error: ", error)
       return true
   }
 }

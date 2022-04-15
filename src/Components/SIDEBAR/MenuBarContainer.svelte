@@ -1,5 +1,5 @@
 <script>
-import { onMount } from "svelte";
+import { onDestroy, onMount } from "svelte";
 import { Auth } from "aws-amplify";
 import MenuBar from "../MenuBar.svelte";
 import Loading from "../Loading.svelte";
@@ -10,12 +10,13 @@ import SettingsIcon from "../SettingsIcon.svelte";
 import { sendToStore } from "../../STORAGE/storage";
 import { tryMountImage } from "../../Stores/movment";
 import InputContainer from "../INPUTS/InputContainer.svelte";
-
+import UploadProfile from "../UploadProfile.svelte";
 export let username = "";
 
 let uploadImage
-let tryUpload = false
 let trySend = false
+let tryUpload = false
+export let editProfile = false
 
 async function signOut() {
     try {
@@ -34,65 +35,71 @@ const closeImage = async () => {
     }, 2000);
     return false
 }
-onMount(() => {
-    tryMountImage.subscribe(value => {
+const unsubscribeMount = tryMountImage.subscribe(value => {
         value  ? tryUpload = value : null
         return
-    })
+})
+
+onDestroy(() => {
+    return unsubscribeMount
 })
 </script>
 <div id="menubar-container">
-<div id=first-container>
-    {#if !trySend}
-    <button on:click={()=>{tryUpload = !tryUpload}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
-    {/if}
-    {#if tryUpload}
-    <form on:submit|preventDefault={sendImage}>
-        <InputContainer >
-            <input slot="input-slot" class="input-rect-input" type="file" id="image" name="image" accept="image/*" bind:files={uploadImage}/>
-        </InputContainer>
-        <InputContainer >
-            <input slot="input-slot" class="input-rect-input" type="submit" value="Upload"/>
-        </InputContainer>
-    </form>
-    {#if trySend}
-        <div id="result-container">
-            {#await sendToStore(uploadImage,'public')}
-            <Loading isLarge={true} dark={true}></Loading>
-            {:then result} 
-            {#if result}
-                <SuccessIcon position="absolute"></SuccessIcon>
-                {#await closeImage()}
-                        <p></p>
+    {#if !editProfile}
+        <div id=first-container>
+            {#if !trySend}
+            <button on:click={()=>{tryUpload = !tryUpload}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
+            {/if}
+            {#if tryUpload}
+            <form on:submit|preventDefault={sendImage}>
+                <InputContainer >
+                    <input autocomplete  slot="input-slot" class="input-rect-input" type="file" id="image" name="image" accept="image/*" bind:files={uploadImage}/>
+                </InputContainer>
+                <InputContainer >
+                    <input autocomplete  slot="input-slot" class="input-rect-input" type="submit" value="Upload"/>
+                </InputContainer>
+            </form>
+            {#if trySend}
+                <div id="result-container">
+                    {#await sendToStore(uploadImage,'public')}
+                    <Loading isLarge={true} dark={true}></Loading>
                     {:then result} 
-                        <p></p>
-                {/await}
-                {:else}
-                <p class="message">Something went wrong</p>
-                {#await closeImage()}
-                        <p></p>
-                    {:then result} 
-                        <p></p>
-                {/await}
+                    {#if result}
+                        <SuccessIcon position="absolute"></SuccessIcon>
+                        {#await closeImage()}
+                                <p></p>
+                            {:then result} 
+                                <p></p>
+                        {/await}
+                        {:else}
+                        <p class="message">Something went wrong</p>
+                        {#await closeImage()}
+                                <p></p>
+                            {:then result} 
+                                <p></p>
+                        {/await}
+                        {/if}
+                    {/await}
+                </div>
                 {/if}
-            {/await}
+            {/if}
+            {#if !trySend}
+            <button>
+                <MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SettingsIcon} menuBarWidth={"unset"} val = "Privacy & Settings"  margin={0}></MenuBar>
+            </button>
+            {/if}
+            </div>
+        {#if !trySend}
+        <div id = "second-container">
+            <button><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val="About US" margin={0}></MenuBar></button>
+            {#if username.length > 0}
+            <button on:click={()=>{signOut()}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SignOutIcon} menuBarWidth={"unset"}  val="SignOut" margin={0}></MenuBar></button>
+            {/if}
         </div>
         {/if}
+    {:else}
+    <UploadProfile></UploadProfile>
     {/if}
-    {#if !trySend}
-    <button>
-        <MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SettingsIcon} menuBarWidth={"unset"} val = "Privacy & Settings"  margin={0}></MenuBar>
-    </button>
-    {/if}
-    </div>
-{#if !trySend}
-<div id = "second-container">
-    <button><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val="About US" margin={0}></MenuBar></button>
-    {#if username.length > 0}
-    <button on:click={()=>{signOut()}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SignOutIcon} menuBarWidth={"unset"}  val="SignOut" margin={0}></MenuBar></button>
-    {/if}
-</div>
-{/if}
 </div>
 <style>
     div#second-container {

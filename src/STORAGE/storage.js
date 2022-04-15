@@ -1,8 +1,6 @@
 import { get } from 'svelte/store'
 import { Storage, API } from "aws-amplify"
 import { cyberuser, userName } from "../AUTH/AuthStore"
-import { createImageStore } from "../graphql/mutations"
-import { listImageStores } from '../graphql/queries'
 import { DataStore } from '@aws-amplify/datastore';
 import { NFTSQL } from '../models';
 import { nftStore } from './storageStore'
@@ -27,7 +25,7 @@ export const sendToStore = async (image, protectionLevel) => {
     const uploadResult = await uploadNFT(
         get(cyberuser).username,
         "This is the first nft",
-        `https://storagenft171809-staging.s3.eu-west-2.amazonaws.com/public/${imageName}`,
+        imageName,
         1000,
         "0x0",
         "0x0",
@@ -35,7 +33,7 @@ export const sendToStore = async (image, protectionLevel) => {
         "0",
         0,
         get(userName).name,
-        "profile"
+        get(userName).picture
     )
     const uploadToS3Result = await uploadToS3(imageName, image[0],imageType,level)
     return (uploadResult == null || uploadResult == undefined) && (uploadToS3Result == null || uploadToS3Result == undefined) ? false : true
@@ -53,9 +51,10 @@ export const getStore = async () => {
 
 }
 export const uploadToS3 = async (fileName, file,type,level) => {
+    console.log("Upload to S3: ", fileName, file,type,level)
     try {
         const storageResult = await Storage.put(fileName, file,
-            { level: "public", contentType: `image/${type}`, },
+            { level: level, contentType: `image/${type}`, },
             )
         console.log("Upload to S3 Result: ", storageResult)
         return storageResult
@@ -88,12 +87,37 @@ const uploadNFT = async(owner, description, image, price, wallet = "0x0", prevOw
             return error
         }
     }
-const updateNFT = async () => {
+export const updateNFT = async (new_val) => {
     /* Models in DataStore are immutable. To update a record you must use the copyOf function
      to apply updates to the item’s fields rather than mutating the instance directly */
-    await DataStore.save(NFTSQL.copyOf(CURRENT_ITEM, item => {
-        // Update the values on {item} variable to update DataStore entry
-    }));
+    try {
+        const returnModel = await queryDataStore()
+        if (returnModel){
+            returnModel.forEach( async(element) => {
+                const result = await DataStore.save(NFTSQL.copyOf(element, item => {
+                    // Update the values on {item} variable to update DataStore entry
+                    item.userPicture = new_val
+                }));
+                console.log("Update NFT Result: ", result)
+            });
+        }else{
+            console.log("No models found")
+            return false
+        }
+    } catch (error) {
+        console.log("Update NFT Error: ", error)
+    }
+}
+const queryDataStore = async () => {
+    const userId = get(cyberuser).username
+    try {
+        const result = await DataStore.query(NFTSQL,m => m.owner("eq",userId));
+        console.log("Query DataStore Result: ", result)
+        return result
+    } catch (error) {
+        console.log("Query DataStore Error: ", error)
+        return false
+    }
 }
 const deleteNFT = async () => {
     const modelToDelete = await DataStore.query(NFTSQL, 123456789);
@@ -123,7 +147,7 @@ const queryNFT = async () => {
                 model.nonce,
                 model.likes,
                 model.ownerName,
-                model.userPicture
+                await getImagesProtected(model.userPicture,model.owner)
                 )
         })
         return models
@@ -143,6 +167,27 @@ const getImages = async (imageName) => {
             contentType: `image/${imageType}` // set return content type, eg "text/html"
           }
         )
+        //console.log("Get Images Result: ", imageResult)
+        return imageResult
+    } catch (error) {
+        console.log("Get Image Error: ", error)
+        return error
+    }
+}
+export const getImagesProtected = async (imageName,id) => {
+    const [imageSplit, imageType] = imageName.split('.')
+    const ident = id
+    //console.log("ident: ", ident)
+    try {
+        const imageResult = await Storage.get(imageName, {
+            level: "protected", // defaults to `public`
+            identityId: ident, // id of another user, if `level: protected`
+            download: false, // defaults to false
+            //expires?: number, // validity of the URL, in seconds. defaults to 900 (15 minutes)
+            contentType: `image/${imageType}` // set return content type, eg "text/html"
+          }
+        )
+        //console.log("Get Image Protected Result: ", imageResult)
         return imageResult
     } catch (error) {
         console.log("Get Image Error: ", error)
