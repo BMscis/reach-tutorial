@@ -12,6 +12,7 @@ import { tryMountImage } from "../../Stores/movment";
 import InputContainer from "../INPUTS/InputContainer.svelte";
 import UploadProfile from "../UploadProfile.svelte";
 export let username = "";
+export let menuBarHeight
 
 let uploadImage
 let trySend = false
@@ -44,7 +45,7 @@ onDestroy(() => {
     return unsubscribeMount
 })
 </script>
-<div id="menubar-container">
+<div id="menubar-container" style="height: {menuBarHeight}px;">
     {#if !editProfile}
         <div id=first-container>
             {#if !trySend}
@@ -83,13 +84,13 @@ onDestroy(() => {
                 </div>
                 {/if}
             {/if}
-            {#if !trySend}
+            {#if !trySend && !tryUpload}
             <button>
                 <MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {SettingsIcon} menuBarWidth={"unset"} val = "Privacy & Settings"  margin={0}></MenuBar>
             </button>
             {/if}
             </div>
-        {#if !trySend}
+        {#if !trySend && !tryUpload}
         <div id = "second-container">
             <button><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val="About US" margin={0}></MenuBar></button>
             {#if username.length > 0}
@@ -104,7 +105,7 @@ onDestroy(() => {
 <style>
     div#second-container {
         position: absolute;
-        bottom: 10px;
+        bottom: 80px;
         width: 100%;
     }
     #first-container,#second-container{

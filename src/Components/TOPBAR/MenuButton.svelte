@@ -29,7 +29,7 @@ onMount(() => {
 </button>
 <style>
       button:hover #_Color{
-        fill:var(--spectacular-orange);
+        fill:var(--spectacular-orange-hover);
     }
 </style>
   

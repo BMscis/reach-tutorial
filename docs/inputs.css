@@ -29,8 +29,6 @@ transition: var(--transition-navigation);
 -webkit-tap-highlight-color: transparent;
 }
 .input-container {
-width: 328px;
-height: 74px;
 position: relative;
 z-index: 11;
 margin: 10px auto;
@@ -39,17 +37,17 @@ max-width: 100%;
 pointer-events: none;
 }
 input:hover{
-    background-color: var(--spectacular-orange);
+    background-color: var(--spectacular-orange-hover);
 }
 .input-container[disabled=true]{
 display: none;
 }
 .input-slot {
-width: 280px;
-height: 60px;
 z-index: 1;
 margin: auto;
 pointer-events: none;
+display: flex;
+justify-content: center;
 }
 .input-rect-input{
 width: 100%;

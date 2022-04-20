@@ -1,5 +1,6 @@
 main{
     overflow: auto;
+    position: relative;
 }
 #sidebar{
     width: 80%;
@@ -7,6 +8,8 @@ main{
 }
 #contact-bar{
     height: 30%;
+    align-items: center;
+    justify-content: center;
 }
 #menubar-container{
     height: 65%;
@@ -21,7 +24,6 @@ ul{
 }
 .gg-backspace {
     box-sizing: border-box;
-    position: relative;
     display: block;
     width: 14px;
     height: 14px;
@@ -29,7 +31,10 @@ ul{
     border: 2px solid;
     border-left: 0;
     border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px
+    border-bottom-right-radius: 2px;
+    position:absolute;
+    top: 12px;
+    right: 12px;
     }
    
     .gg-backspace::after,
@@ -65,3 +70,7 @@ ul{
     top: 0;
     left: -5px
     } 
+#result-container{
+    height:80px;
+    position: relative;
+}

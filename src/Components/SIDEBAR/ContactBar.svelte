@@ -6,29 +6,31 @@ import PrivacyEye from "../PrivacyEye.svelte";
 import MenuSubLabel from "../MenuSubLabel.svelte";
 import EditIcon from "../EditIcon.svelte";
 
+export let bal
 export let width
 export let editProfile
 export let username = ""
 export let walletname = ""
-export let walletAddress = ""
+export let walletAddr = ""
+export let contactBarHeight
 let contactBlockWidth
 let showHidden = true
 
 onMount(()=> {
     contactBlockWidth = (width * 0.86).toFixed(2)
-    console.log("contactBlockWidth", contactBlockWidth)
 })
 </script>
-<div id="contact-bar" style="width:{width}px;">
+<div id="contact-bar" style="width:{width}px;height:{contactBarHeight}px">
     <div id="contact-avatar-block" style="width:40px ;height:40px ;">
         <Avatar isLarge={true}></Avatar>
     </div>
     <EditIcon {editProfile}></EditIcon>
     <div id="contact-block" style="width:{contactBlockWidth}px;">
         <div id="contact-label-block" style="width:{contactBlockWidth}px;">
-            <MenuLabel label={username} dark={true}></MenuLabel>
-            <MenuSubLabel hide={!showHidden} label={walletAddress} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
-            <MenuSubLabel hide={!showHidden} label={walletname} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
+            <MenuLabel margin={0} label={username} dark={true}></MenuLabel>
+            <MenuSubLabel margin={0} hide={!showHidden} label={walletAddr} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
+            <MenuSubLabel margin={0} hide={!showHidden} label={walletname} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
+            <MenuSubLabel margin={0} hide={!showHidden} label={bal} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
         </div>
         <div id="privacy-block">
             <button id="showhidden" on:click={()=>{showHidden = !showHidden}}>
@@ -42,6 +44,7 @@ onMount(()=> {
         display: grid;
         grid-template-columns: 40px 1fr 40px;
         grid-template-rows: 40px 1fr;
+        margin:20px;
     }
     #contact-block{
         display: grid;

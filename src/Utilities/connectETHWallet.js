@@ -1,29 +1,32 @@
-import {loadStdlib} from "@reach-sh/stdlib"
-import { reachWallet } from "../Stores/walletStore"
-
+import { get } from "svelte/store"
+import { balance } from "../Wallet/WalletStore"
+import { fundAccount,getBalance,loadLib } from "./utilities"
+import { wallet, walletAddress} from "../Wallet/WalletStore"
 //export connect wallet
 //load stdlib with ETH
 //get default account
 //get balance
 //return account
+
 export async function connectETHWallet(){
-    const reach = loadStdlib("ETH")
-    const account = await reach.getDefaultAccount()
-    const balance = await getBalance(account)
-    // reachWallet.set({
-    //     account: account.address,
-    //     balance: balance
-    // })
-    return {
-        account: account.getAddress(),
-        balance: balance
+    console.log("CONNECT:::::::ETH WALLET")
+    const reach = loadLib("ETH")
+    try {
+        const account = await reach.getDefaultAccount()
+        const balance = await getBalance(account,"ETH")
+        //console.log("Account: ", account)
+        walletAddress.set(account.getAddress())
+        wallet.set(account)
+        //console.log("Account: ",get(walletAddress))
+        const canfund = await fundAccount()
+        //canfund = true
+        if(!canfund)return false
+        return true
+    } catch (error) {
+        console.log("ETH Fund: ",error)
+        return false
     }
 }
 //get balance
 //reach balance of address
 //return balance
-async function getBalance(address){
-    let balAtomic = await reach.balanceOf(address)
-    const balance = reach.formatCurrency(balAtomic,4)
-    return balance
-}

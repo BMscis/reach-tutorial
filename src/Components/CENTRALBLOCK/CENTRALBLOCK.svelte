@@ -1,32 +1,34 @@
 <script>
-    import { onDestroy } from "svelte";
-    import NftList from "./NftList.svelte";
-    import { centralBlock } from "../../Stores/allDimension";
-    import { setBottomBlockView } from "./setBottomBlockView";
-    let blockHeight
-    let style
-    let opacity = false
-    let visibility = 1
-    let hideOnClick = false
+import { afterUpdate, onDestroy } from "svelte";
+import NftList from "./NftList.svelte";
+import { centralBlock } from "../../Stores/allDimension";
 
-    const unsubscribeCB = centralBlock.subscribe((value) => {
-            blockHeight = value.height
-            style = value.style
-            opacity = value.opacity
-        })
-    const unsubscribeBB = setBottomBlockView.subscribe(value => {
-        visibility = value.visibility
-        hideOnClick = opacity && visibility === 0 ? true: false
+export let cards
+export let hasActiveNft
+let style
+let blockHeight
+let opacity = false
+let visibility = 1
+let hideOnClick = false
+
+const unsubscribeCB = centralBlock.subscribe((value) => {
+        style = value.style
+        opacity = value.opacity
+        blockHeight = value.height
     })
-    onDestroy(() => {return [unsubscribeCB, unsubscribeBB]})
+afterUpdate(() => {
+    hideOnClick = opacity && hasActiveNft
+})
+onDestroy(() => {return [unsubscribeCB]})
 </script>
-<div id="central-block" style={style + `opacity:${hideOnClick? visibility : 1}`} >
-    <NftList {blockHeight} ></NftList>
+<div id="central-block" style={style +`display:${hideOnClick?"none":"block"};` } >
+    <NftList {blockHeight} {cards} ></NftList>
 </div>
 <style>
     #central-block{
         background-color: transparent;
         overflow: auto;
         z-index: 110;
+        grid-row-start: 1;
     }
 </style>

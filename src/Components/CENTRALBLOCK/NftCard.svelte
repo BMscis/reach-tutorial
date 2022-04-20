@@ -1,155 +1,107 @@
 <script>
-    import { afterUpdate, onDestroy } from "svelte";
-    import Timer from "../Timer.svelte";
-    import MenuBar from "../MenuBar.svelte";
-    import CardImage from "../CardImage.svelte";
-    import MenuLabel from "../MenuLabel.svelte";
-    import HeartIcon from "../HeartIcon.svelte";
-    import CardHeader from "./CardHeader.svelte";
-    import CommentIcon from "../CommentIcon.svelte";
-    import {setBottomBlockView} from "./setBottomBlockView";
-    import {createNft, nftCardList} from "../../Stores/nftCard";
-    export let id
-    export let likes
-    export let owner
-    export let image
-    export let price
-    export let nonce
-    export let wallet
-    export let prevOwner
-    export let blockTime
-    export let ownerName
-    export let description
-    export let userPicture
-    export let isLarge = false
-    export let opacity = false
-    export let labelDark = false
-    export let blockHeight = 500
+import { onDestroy } from "svelte";
+import CardImage from "../CardImage.svelte";
+import CardHeader from "./CardHeader.svelte";
+import {createNft} from "../../Stores/nftCard";
+import Bidder from "../../Participants/Bidder.svelte";
+import CardDescription from "./CardDescription.svelte";
 
-    let count = 0
-    let clicked = false
-    let cardHeight = (blockHeight*0.8).toFixed(2)
-    let cardWidth = (cardHeight*0.55).toFixed(2)
-    let imageHeight = (cardWidth*0.9).toFixed(2)
-    const enlarge = () => {
-        nftValidator(!clicked)
-        clicked ? setBottomBlockView.set({visibility:0}) : setBottomBlockView.set({visibility:1})
-    }
-    const [nftSubscriber,nftValidator] = createNft(id,owner,description,image,price,wallet,prevOwner,blockTime,nonce,likes,ownerName,userPicture)
-    nftSubscriber.subscribe((value) => {
-        id = value.id
-    })
-    nftCardList.subscribe((value)=>{
-        //find label in value where value.label === label
-        //if value.active === true
-        //set clicked to true
-        //console.log("UPPERLEFT: ",value)
-        function returnTrue(value){
-            try {
-                if(value.id === id){
-                    return true
-                }else{
-                    return false
-                }
-            } catch (error) {
-                console.log("No Element", error,value)
-                return false
-            }
-        }
-        if(value){
-            value.forEach(element => {
-            if(returnTrue(element)){
-                if(element.active){
-                    clicked = true
-                }
-                else{
-                    clicked = false
-                }
-            }
-        });
-        }
-    })
-    onDestroy(()=> {return [nftSubscriber,nftValidator,nftCardList]})
+export let id
+export let likes
+export let owner
+export let image
+export let price
+export let nonce
+export let wallet
+export let prevOwner
+export let blockTime
+export let ownerName
+export let description
+export let userPicture
+export let clicked = false
+export let isLarge = false
+export let labelDark = false
+export let blockHeight = 500
+
+let nftCard
+let cardHeight = (blockHeight*0.7).toFixed(2)
+let cardCotnainerHeight = (blockHeight*0.75).toFixed(2)
+let cardWidth = (cardHeight*0.55).toFixed(2)
+let imageHeight = (cardWidth*0.9).toFixed(2)
+
+const enlarge = () => {
+nftCard.scrollIntoView(true)
+nftValidator(!clicked)
+}
+
+const [nftSubscriber,nftValidator] = 
+createNft(id,owner,description,image,price,wallet,prevOwner,blockTime,nonce,likes,ownerName,userPicture)
+
+const unsubNFT = nftSubscriber.subscribe((value) => {id = value.id})
+
+
+onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
+
 </script>
-{#if clicked && opacity}
+<div id="nft-block" bind:this={nftCard}>
+<div id="nft-card-container" style="width:{cardWidth}px;height:{cardCotnainerHeight}px;"class:active={clicked}>
+<div id="nft-card" style="height:{cardHeight}px;width:{cardWidth}px;background-image:linear-gradient(58deg, #4a90b9, rgb(14, 39, 75));position:relative;">
+<CardImage {imageHeight}{image}></CardImage>
+<CardDescription {isLarge} {description} {prevOwner} {price} {wallet} ></CardDescription>
+<CardHeader {ownerName} {userPicture} {owner} {price} label={ownerName} isLarge={isLarge} labelDark={labelDark} labelMargin={0} position="relative" ></CardHeader>
+{#if clicked && isLarge}
 <button class="gg-backspace" on:click={() => {enlarge()}}></button>
 {/if}
-<button id="nft-card-container" style="width:100%;height:{blockHeight}px;"
-class:active={clicked} on:click={() => {enlarge()}}>
-    <div id="nft-card" style="height:{cardHeight}px;width:{cardWidth}px;background-image:linear-gradient(58deg, rgb(15 48 74 / 0%), rgb(14, 39, 75));position:relative;">
-        <CardImage {imageHeight}  {image}   ></CardImage>
-        <CardHeader {ownerName} {userPicture} {owner} {price} label={ownerName} isLarge={isLarge} labelDark={labelDark} labelMargin={0} position="relative" ></CardHeader>
-        {#if isLarge}
-        <Timer></Timer>
-        <button id="bid">BID</button>
-        {/if}
-        {#if isLarge}
-        <MenuBar margin="0 auto"  backgroundColor="var(--primary-bright)" val="$1000"></MenuBar>
-        <MenuBar margin="0 auto"  backgroundColor="var(--inactive-component)" val="$900"></MenuBar> 
-        {/if}
-    </div>
-    {#if !isLarge}
-    <div id="card-helper">
-        <HeartIcon></HeartIcon>
-        <CommentIcon></CommentIcon>        
-    </div>
-    <div>
-        <MenuLabel label={description}
-        ></MenuLabel>
-        <MenuLabel label={wallet}
-        ></MenuLabel>
-        <MenuLabel label={prevOwner}
-        ></MenuLabel>
-        <MenuLabel label={price}
-        ></MenuLabel>
-    </div>
-    {/if}
-</button>
+{#if !clicked && !isLarge}
+<button id="bid" on:click={()=>{enlarge()}}>BID</button>
+{/if}
+</div>
+</div>
+{#if isLarge && clicked}
+<Bidder {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Bidder>
+{/if}
+</div>
 <style>
-    #bid{
-        border-radius: 8px;
-        margin: auto;
-        color: white;
-        font: 500 poppins;
-        background-color: var(--primary-bright);
-        width: 124px;
-        height: 40px;
-        top:12px;
-        right:12px;
-        transform: scale(var(--ggs,.6));
-        position: absolute;
+#nft-block{
+display: flex;
+flex-direction: row;
+position: relative;
+width: 100%;
+}
+#bid{
+border-radius: 8px;
+margin: auto;
+color: white;
+font: 500 poppins;
+background:var(--inactive-component);
+width: 124px;
+height: 40px;
+top:12px;
+right:12px;
+transform: scale(var(--ggs,.6));
+position: absolute;
 
-    }
-    #bid:hover{
-        background-color: var(--spectacular-orange);
-    }
-    #nft-card{
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        flex-wrap: nowrap;
-        margin:auto 0;
-    }
-    #nft-card-container{
-        display: grid;
-        align-items: center;
-        justify-content: start;
-        grid-auto-flow: column;
-        background: radial-gradient(black, transparent);
-        z-index: 111;
-    }
-    #nft-card-container.active{
-        border-bottom: 1px solid var(--spectacular-orange);
-        z-index: 0;
-    }
-    #card-helper{
-        display: grid;
-        grid-gap: 40px;
-        grid-auto-flow: row;
-        height: 80px;
-        width: 80px;
-        align-items: center;
-        justify-content: center;
-    }
+}
+#bid:hover{
+background-color: var(--spectacular-orange-hover);
+}
+#nft-card{
+border-radius: 8px;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+flex-wrap: nowrap;
+margin:auto 0;
+}
+#nft-card-container{
+display: grid;
+align-items: center;
+justify-content: start;
+grid-auto-flow: column;
+z-index: 111;
+}
+#nft-card-container.active{
+border-bottom: 1px solid var(--spectacular-orange);
+z-index: 1;
+}
 </style>

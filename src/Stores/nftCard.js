@@ -19,8 +19,8 @@ export const createNft = ((id,owner,description,image,price,wallet,prevOwner,blo
      }
     function action(node, binding) {
         function validate(value) {
-            set({id:id,owner:owner,description:description,image:image,price:price,wallet:wallet,prevOwner:prevOwner,blockTime:blockTime,nonce:nonce,likes:likes,ownerName:ownerName,userPicture:userPicture,active:value})
             setActive(value)
+            //set({id:id,owner:owner,description:description,image:image,price:price,wallet:wallet,prevOwner:prevOwner,blockTime:blockTime,nonce:nonce,likes:likes,ownerName:ownerName,userPicture:userPicture,active:value})
             //get nftCardList
             //Make active false for all
             function getNftCardList(){
@@ -39,7 +39,7 @@ export const createNft = ((id,owner,description,image,price,wallet,prevOwner,blo
               let cardList = getNftCardList()
               let component = cardList.find((v) => v.id === id);
               component.active = value
-              nftCardList.set(cardList)
+              nftCardList.update((n) => (n = n));
          }
           return
         }

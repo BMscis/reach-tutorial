@@ -1,41 +1,36 @@
 import { get } from 'svelte/store'
 import { Storage, API } from "aws-amplify"
-import { cyberuser, userName } from "../AUTH/AuthStore"
+import { cyberuser, userName,nftContractId } from "../Wallet/WalletStore"
 import { DataStore } from '@aws-amplify/datastore';
 import { NFTSQL } from '../models';
 import { nftStore } from './storageStore'
 import { createNft } from '../Stores/nftCard'
+import { Creator } from '../ReachContract/pt';
 export const sendToStore = async (image, protectionLevel) => {
-    let level
+    let level = protectionLevel
     let imageName = image[0].name
-    //console.log("@@@@@@@@@@@@@@@Image Name: ", imageName)
-    //console.log("@@@@@@@@@@@@@@@Image: ", image)
     let [imageSplit, imageType] = imageName.split('.')
-    switch (protectionLevel) {
-        case "public":
-            level = "public"
-            break;
-        case "private":
-            level = "private"
-            break;
-        case "protected":
-            level = "protected"
-            break;
+
+    // const uploadResult = await uploadNFT(
+    //     get(cyberuser).username,
+    //     "This is the first nft",
+    //     imageName,
+    //     1000,
+    //     "0x0",
+    //     "0x0",
+    //     "0",
+    //     get(nftContractId).contractId,
+    //     0,
+    //     get(userName).name,
+    //     get(userName).picture
+    // )
+    //const uploadToS3Result = await uploadToS3(imageName, image[0],imageType,level)
+    const create = new Creator()
+    if(create.wallet != undefined){
+        const contractCreated = await create.getContract()
+        contractCreated? await create.deployContract() : null
     }
-    const uploadResult = await uploadNFT(
-        get(cyberuser).username,
-        "This is the first nft",
-        imageName,
-        1000,
-        "0x0",
-        "0x0",
-        "0",
-        "0",
-        0,
-        get(userName).name,
-        get(userName).picture
-    )
-    const uploadToS3Result = await uploadToS3(imageName, image[0],imageType,level)
+    let uploadResult = ""
     return (uploadResult == null || uploadResult == undefined) && (uploadToS3Result == null || uploadToS3Result == undefined) ? false : true
 }
 export const getStore = async () => {

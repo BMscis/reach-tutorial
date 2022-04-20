@@ -4,8 +4,7 @@
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
 	import {isMobile} from "./Stores/isMobile";
 	import Loading from "./Components/Loading.svelte";
-	import bgImg from "./nftea-assets/assets/w22.png";
-	import { cyberuser, userName } from "./AUTH/AuthStore";
+	import { cyberuser, userName } from "./Wallet/WalletStore";
 	import {checkDevice, checkUser} from "./Utilities/utilities";
 	import RIGHTBLOCK from "./Components/RIGHTBLOCK/RIGHTBLOCK.svelte";
 	import {mainGridTemplate,SetWindowSize} from "./Stores/allDimension";
@@ -13,6 +12,7 @@
 	import CENTRALBLOCK from "./Components/CENTRALBLOCK/CENTRALBLOCK.svelte";
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
 	import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
+import MainComponent from "./Components/MainComponent.svelte";
 
 	let gridStyle
 	let hideSidebar = false
@@ -26,8 +26,7 @@
 
 	onMount(() => {
 		document.body.setAttribute("style", 
-		`background-image: url("${bgImg}");\
-		background-repeat: no-repeat;\
+		`background-repeat: no-repeat;\
 		background-size: cover;\
 		background-repeat-y: repeat;`
 		)
@@ -79,8 +78,7 @@
 	<SIGNUP></SIGNUP>
 	{:else if !noCurrentUser}
 	<SIDEBARCONTAINER isVisible={hideSidebar}></SIDEBARCONTAINER>
-	<CENTRALBLOCK ></CENTRALBLOCK>
-	<RIGHTBLOCK></RIGHTBLOCK>
+	<MainComponent></MainComponent>
 {/if}
 </main>
 {/await}

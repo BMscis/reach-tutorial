@@ -16,11 +16,13 @@ export const mainGridTemplate = writable(
 )
 export const centralBlock = writable({
     style:'',
-    opacity:false
+    opacity:false,
+    height: 0
 })
 export const rightBlock = writable({
     style:'',
-    opacity:false
+    opacity:false,
+    height : 0
 })
 export const sideBar = writable({
     height:0
@@ -74,14 +76,16 @@ const gridSizePx = ((columnNumber,widthPx,heightPx) => {
     let gridRight
     let sideVisible = true
     let centerBlockStart = 2
+    let leftThirds = blockSize(widthPx,0.23)
+    let rightThirds = blockSize(widthPx,0.43)
     let thirds = blockSize(widthPx,0.33)
     let halves = blockSize(widthPx,0.5)
     let singles = blockSize(heightPx,0.9)
     switch (columnNumber) {
         case 3:
-            gridLeft = columnNumber > 2 ? thirds : 0
+            gridLeft = leftThirds
             gridCenter = columnNumber > 2 ? thirds : 0
-            gridRight = columnNumber > 2 ? thirds: 0
+            gridRight = rightThirds
             break;
         case 2:
             sideVisible = false
@@ -99,9 +103,9 @@ const gridSizePx = ((columnNumber,widthPx,heightPx) => {
             centerBlockStart = 1
             break;
         default:
-            gridLeft = columnNumber > 2 ? thirds : 0
+            gridLeft = leftThirds
             gridCenter = columnNumber > 2 ? thirds : 0
-            gridRight = columnNumber > 2 ? thirds: 0
+            gridRight = rightThirds
             break;
     }
     return [gridLeft,gridCenter,gridRight,sideVisible,centerBlockStart]
@@ -138,6 +142,7 @@ const setMainGridTemplate = ((gridDirection, gridColumns,vW,vH) => {
 })
 const setCentralBlock = ((gridDirection, gridColumns,vW,vH) => {
     let style
+    let height
     let opacity
     switch (gridDirection) {
         case "columns":
@@ -146,6 +151,7 @@ const setCentralBlock = ((gridDirection, gridColumns,vW,vH) => {
             grid-column-start:${gridColumns - 1};
             `
             opacity = false
+            height = blockSize(vH,0.9)
             break;
         case "rows":
             style = `
@@ -154,11 +160,13 @@ const setCentralBlock = ((gridDirection, gridColumns,vW,vH) => {
             grid-column-start: 1;
             `
             opacity = true
+            height = blockSize(vH,0.9)
             break;
     }
     centralBlock.set({
         style:style,
-        opacity:opacity
+        opacity:opacity,
+        height:parseFloat(height)
     })
 })
 const setTopContainer = ((width,height) => {
@@ -172,6 +180,7 @@ const setTopContainer = ((width,height) => {
 })
 const setRightBlock = ((gridDirection, gridColumns,vW,vH) => {
     let style
+    let height = 0
     let opacity = false
     switch (gridDirection) {
         case "columns":
@@ -179,6 +188,7 @@ const setRightBlock = ((gridDirection, gridColumns,vW,vH) => {
             height:${blockSize(vH,0.9)}px;
             grid-column-start:${gridColumns};
             `
+            height = blockSize(vH,0.9)
             break;
         case "rows":
             style = `
@@ -187,11 +197,13 @@ const setRightBlock = ((gridDirection, gridColumns,vW,vH) => {
             grid-column-start: 1;
             `
             opacity = true
+            height = blockSize(vH,0.9)
             break;
     }
     rightBlock.set({
         style:style,
-        opacity:opacity
+        opacity:opacity,
+        height:parseFloat(height)
     })
 })
 const setSidebar = ((vH) => {

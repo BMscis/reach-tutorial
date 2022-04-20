@@ -7,6 +7,7 @@
 	--primary-bright:#75F200;
 	--inactive-component:#A6BCD0;
 	--spectacular-orange:#FF7700;
+	--spectacular-orange-hover:#ff77005b;
 	--purp-vybe:#9C3E00;
 
 	--font-heading:bold 'poppins';
@@ -59,6 +60,7 @@ button,a{
 	cursor: pointer;
 	color:white;
 	cursor: pointer;
+	outline: none;
 }
 button{
 	border: none;

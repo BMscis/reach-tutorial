@@ -1,5 +1,5 @@
 <script>
-  export let dark = false
+  export let dark = true
   export let isLarge = true
   export let margin = "auto"
 </script>
