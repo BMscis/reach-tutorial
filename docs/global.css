@@ -165,7 +165,7 @@ a:hover{
 div#signup-container {
     margin: auto;
     border-radius: 8px;
-	background: var(--background);
+	background: var(--primary);
     box-shadow: var(--m-shadow, .4rem .4rem 10.2rem .2rem) var(--shadow-1);
 }
 #feature-block{
@@ -226,4 +226,10 @@ li{
 }
 #menu-bar.mtr{
 	background-color:transparent;
+}
+#sidebarBlock{
+	padding: 20px 0;
+}
+#right-block,#central-block{
+	padding: 20px;
 }

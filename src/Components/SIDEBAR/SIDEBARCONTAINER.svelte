@@ -55,7 +55,7 @@ onDestroy(() => {
 </script>
 <div id = "sidebarBlock" 
 style="width:100%;height:{sidebarHeight}px;transform: translate({isVisible? "-100%":"0"},0);position:{isVisible?"absolute":"relative"};">
-    <div id="sidebar" style="width:{innerSideBarWidth1}px;height:{sidebarHeight}px;position:absolute;">
+    <div id="sidebar" style="width:{innerSideBarWidth1}px;height:{sidebarHeight - 40}px;position:absolute;">
         <ContactBar {contactBarHeight} {bal} {editProfile} width={innerSideBarWidth} {username} {nftAssetOwnerAddr} {nftAssetOwnerName} />
         <MenuBarContainer {menuBarHeight} {editProfile} {username}  ></MenuBarContainer>
     </div>

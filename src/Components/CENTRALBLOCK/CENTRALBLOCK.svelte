@@ -30,6 +30,6 @@ onDestroy(() => {return [unsubscribeCB]})
         overflow: auto;
         z-index: 110;
         grid-row-start: 1;
-        margin:20px;
+        margin:0;
     }
 </style>

@@ -3,7 +3,10 @@ node_modules
 package-lock.json
 src/nftea-assets/xd
 SvelteToDelete
-
+/Reach/.reach
+/Reach/rTest
+/Reach/NftSale
+/Reach/i.rsh
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

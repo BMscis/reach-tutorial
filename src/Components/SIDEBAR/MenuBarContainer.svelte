@@ -64,7 +64,7 @@ onDestroy(() => {
     {#if !editProfile}
         <div id=first-container>
             {#if !trySend}
-            <button class="tr" on:click={()=>{tryUpload = !tryUpload}}><MenuBar backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
+            <button class="tr" on:click={()=>{tryUpload = !tryUpload}}><MenuBar setTransparent={true} backgroundColor="transparent" gridGap=0 innerComponent = {ListPointer} menuBarWidth={"unset"} val = "Create NFT"  margin={0}></MenuBar></button>
             {/if}
             {#if tryUpload}
             <form on:submit|preventDefault={sendImage}>

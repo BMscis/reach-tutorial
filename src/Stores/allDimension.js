@@ -121,6 +121,7 @@ const setMainGridTemplate = ((gridDirection, gridColumns,vW,vH) => {
                 gridColumns: gridColumns,
                 style: `grid-template-rows:100%;
                         grid-template-columns: ${gridLeft}px ${gridCenter}px ${gridright}px;
+                        height:${blockSize(vH,0.9)}px;
                        `,
                 sideBarVisible:sideIsVisible,
                 centralBlockPosition:cBlockStart,

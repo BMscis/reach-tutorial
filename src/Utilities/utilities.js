@@ -23,7 +23,6 @@ export const checkUser = async () => {
       cyberuser.set(user)
       return false
   } catch (error) {
-      alert("ChUser Error: ", error)
       return true
   }
 }
