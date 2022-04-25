@@ -1,42 +1,48 @@
 import { get } from 'svelte/store'
 import { Storage, API } from "aws-amplify"
-import { cyberuser, userName,nftContractId } from "../Wallet/WalletStore"
+import { cyberuser, userName,nftContractId, walletAddress, nftId } from "../Stores/Wallet/WalletStore"
 import { DataStore } from '@aws-amplify/datastore';
-import { NFTSQL } from '../models';
+import { ASKNFTEA } from '../models';
 import { nftStore } from './storageStore'
 import { createNft } from '../Stores/nftCard'
 import { Creator } from '../ReachContract/pt';
+import { nftDescription, nftName, nftPrice } from '../Components/CREATENFT/nftFormSvelte';
 export const sendToStore = async (image, protectionLevel) => {
     let level = protectionLevel
     let imageName = image[0].name
     let [imageSplit, imageType] = imageName.split('.')
 
-    // const uploadResult = await uploadNFT(
-    //     get(cyberuser).username,
-    //     "This is the first nft",
-    //     imageName,
-    //     1000,
-    //     "0x0",
-    //     "0x0",
-    //     "0",
-    //     get(nftContractId).contractId,
-    //     0,
-    //     get(userName).name,
-    //     get(userName).picture
-    // )
-    //const uploadToS3Result = await uploadToS3(imageName, image[0],imageType,level)
-    const create = new Creator()
-    if(create.wallet != undefined){
-        const contractCreated = await create.getContract()
-        contractCreated? await create.deployContract() : null
+    const uploadResult = await uploadNFT(
+        get(cyberuser).username,
+        get(nftDescription),
+        imageName,
+        get(nftPrice),
+        get(walletAddress),
+        "0x0",
+        "60",
+        //get(nftContractId).contractId,
+        "0x123sdaafsd244555657567",
+        0,
+        get(nftId),
+        get(cyberuser).attributes.picture,
+        get(cyberuser).attributes.name,
+        get(nftName),
+        //"nftName"
+    )
+    if (uploadResult){
+        const uploadToS3Result = await uploadToS3(imageName, image[0],imageType,level)
+        if (uploadToS3Result){
+            return true
+        }else{
+            return false
+        }
+    }else{
+        return false
     }
-    let uploadResult = ""
-    return (uploadResult == null || uploadResult == undefined) && (uploadToS3Result == null || uploadToS3Result == undefined) ? false : true
 }
 export const getStore = async () => {
     try {
         const results = await Storage.list('')
-        //console.log("Get Store Result: ", results)
         const queryResults = await queryNFT()
         return queryResults
     } catch (error) {
@@ -52,34 +58,53 @@ export const uploadToS3 = async (fileName, file,type,level) => {
             { level: level, contentType: `image/${type}`, },
             )
         console.log("Upload to S3 Result: ", storageResult)
-        return storageResult
+        return storageResult? true : false
     } catch (error) {
         console.log("Upload to S3 ERROR: ", error)
-        return error
+        return false
     }
 }
-const uploadNFT = async(owner, description, image, price, wallet = "0x0", prevOwner = "null", blockTime = "0", nonce = "0", likes = 0, ownerName, userPicture = "prof") => {
+const uploadNFT = async(
+    awsUserId, 
+    nftDescription, 
+    nftImage, 
+    nftPrice, 
+    nftAssetOwner, 
+    nftPrevAssetOwner, 
+    nftAuctionDuration, 
+    nftContractAddress, 
+    nftLikes,
+    nftId, 
+    awsUserPicture,
+    awsName, 
+    nftWalletName) => {
+        if(nftId instanceof Object){
+            nftId = JSON.parse(nftId).toString()
+        }
         try {
             const result = await DataStore.save(
-                new NFTSQL({
-                    "owner": owner,
-                    "description": description,
-                    "image": image,
-                    "price": price,
-                    "wallet": wallet,
-                    "prevOwner": prevOwner,
-                    "blockTime": blockTime,
-                    "nonce": nonce,
-                    "likes": likes,
-                    "ownerName": ownerName,
-                    "userPicture": userPicture,
+                new ASKNFTEA({
+                    "awsUserId": awsUserId,
+                    "nftDescription": nftDescription,
+                    "nftImage": nftImage,
+                    "nftPrice": nftPrice,
+                    "nftAssetOwner": nftAssetOwner,
+                    "nftPrevAssetOwner": nftPrevAssetOwner,
+                    "nftAuctionDuration": nftAuctionDuration,
+                    "nftContractAddress": nftContractAddress,
+                    "nftLikes": nftLikes,
+                    "nftId":nftId,
+                    "awsUserPicture": awsUserPicture,
+                    "awsName": awsName,
+                    "nftWalletName": nftWalletName,
+                    //"nftName": nftName
                 })
             );
             console.log("Upload NFT: ", result)
-            return result
+            return true
         } catch (error) {
             console.log("Upload NFT Error: ", error)
-            return error
+            return false
         }
     }
 export const updateNFT = async (new_val) => {
@@ -89,9 +114,9 @@ export const updateNFT = async (new_val) => {
         const returnModel = await queryDataStore()
         if (returnModel){
             returnModel.forEach( async(element) => {
-                const result = await DataStore.save(NFTSQL.copyOf(element, item => {
+                const result = await DataStore.save(ASKNFTEA.copyOf(element, item => {
                     // Update the values on {item} variable to update DataStore entry
-                    item.userPicture = new_val
+                    item.awsUserPicture = new_val
                 }));
                 console.log("Update NFT Result: ", result)
             });
@@ -106,7 +131,7 @@ export const updateNFT = async (new_val) => {
 const queryDataStore = async () => {
     const userId = get(cyberuser).username
     try {
-        const result = await DataStore.query(NFTSQL,m => m.owner("eq",userId));
+        const result = await DataStore.query(ASKNFTEA,m => m.awsUserId("eq",userId));
         console.log("Query DataStore Result: ", result)
         return result
     } catch (error) {
@@ -115,7 +140,7 @@ const queryDataStore = async () => {
     }
 }
 const deleteNFT = async () => {
-    const modelToDelete = await DataStore.query(NFTSQL, 123456789);
+    const modelToDelete = await DataStore.query(ASKNFTEA, 123456789);
     DataStore.delete(modelToDelete);
 }
 const pic =async (modl) => {
@@ -124,30 +149,33 @@ const pic =async (modl) => {
 }
 const queryNFT = async () => {
     try {
-        const models = await DataStore.query(NFTSQL);
+        const models = await DataStore.query(ASKNFTEA);
         models.forEach(element => {
             //console.log("MOD: ", JSON.stringify(element))
         });
         //map models onto nftStore
         models.map( async (model) => {
-            createNft(
-                model.id,
-                model.owner,
-                model.description,
-                await pic(model.image),
-                model.price,
-                model.wallet,
-                model.prevOwner,
-                model.blockTime,
-                model.nonce,
-                model.likes,
-                model.ownerName,
-                await getImagesProtected(model.userPicture,model.owner)
-                )
+                createNft(
+                    model.id,
+                    model.awsUserId,
+                    model.nftDescription,
+                    await pic(model.nftImage),
+                    model.nftPrice,
+                    model.nftAssetOwner,
+                    model.nftPrevAssetOwner,
+                    model.nftAuctionDuration,
+                    model.nftContractAddress,
+                    model.nftLikes,
+                    model.nftId,
+                    await getImagesProtected(model.awsUserPicture,model.awsUserId),
+                    model.awsName,
+                    model.nftWalletName,
+                    //model.nftName
+                    )
         })
         return models
     } catch (error) {
-        console.log("Query Get models Error: ", error)
+        alert("Query Get models Error: ", error)
         return error
     }
 }

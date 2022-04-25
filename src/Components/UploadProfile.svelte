@@ -37,7 +37,7 @@ const sendImage = async () => {
         max-height: 100%;
     }
     h5{
-        color: black;
+        color: var(--border-color);
         margin: auto 16px;
     }
 </style>

@@ -1,6 +1,6 @@
 <script>
 import { onDestroy} from "svelte";
-import NftCard from "../CENTRALBLOCK/NftCard.svelte";
+import NftCard from "../NftCard.svelte";
 import { rightBlock } from "../../Stores/allDimension";
 
 let bidBoxWidth
@@ -8,18 +8,21 @@ let bidBoxHeight
 export let hasActiveNft = false
 
 export let id 
-export let owner 
-export let image 
-export let price 
-export let wallet 
-export let nonce 
-export let likes 
+export let awsUserId 
+export let nftImage 
+export let nftPrice 
+export let nftAssetOwner 
+export let nftContractAddress 
+export let nftLikes
+export let nftId
 export let style
-export let prevOwner 
-export let blockTime 
-export let ownerName 
-export let description 
-export let userPicture
+export let nftPrevAssetOwner 
+export let nftAuctionDuration 
+export let awsName 
+export let nftDescription 
+export let nftWalletName
+export let awsUserPicture
+//export let nftName
 
 let blockHeight
 let opacity = false
@@ -37,8 +40,8 @@ onDestroy(() => {return [unsubsrcibeBlock]})
 <div id="right-block" class:active={hasActiveNft} style={style}>
     <div id="bid-box" style="width: {bidBoxWidth * 2}px;height: {bidBoxHeight}px;">
         {#if hasActiveNft}
-            <NftCard {blockHeight} isLarge={true} labelDark={true} clicked={hasActiveNft}
-            {id}{owner }{description }{image }{price }{wallet }{prevOwner }{blockTime }{nonce }{likes }{ownerName }{userPicture}
+            <NftCard {blockHeight} isLarge={true} labelDark={true} clicked={hasActiveNft} {nftWalletName} 
+            {id}{awsUserId }{nftDescription }{nftImage }{nftPrice }{nftAssetOwner }{nftPrevAssetOwner }{nftAuctionDuration }{nftContractAddress }{nftLikes}{nftId}{awsName }{awsUserPicture}
             ></NftCard>
         {/if}
     </div>

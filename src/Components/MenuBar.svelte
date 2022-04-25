@@ -9,9 +9,9 @@ export let margin = "auto"
 export let menuBarHeight = 40
 export let menuBarWidth = 124
 export let innerComponent = Bid
-export let backgroundColor = "white"
+export let setTransparent = false
 </script>
-<div id="menu-bar" style="width:{menuBarWidth}px;height:{menuBarHeight}px;background-color:{backgroundColor};display:grid;grid-gap:{gridGap}px;margin:{margin};">
+<div id="menu-bar" class:mtr={setTransparent} style="width:{menuBarWidth}px;height:{menuBarHeight}px;display:grid;grid-gap:{gridGap}px;margin:{margin};">
 <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="1" viewBox="0 0 70% 1">
 <rect id="Devider_Light_" data-name="Devider / Light 🌕" width="100%" height="1" fill="rgba(0,0,0,0.12)"/>
 </svg>
@@ -23,6 +23,7 @@ export let backgroundColor = "white"
         position: relative;
         grid-auto-flow:column;
         grid-template-columns: 30px 1fr;
+        width: 100%;
     }
     svg{
         position: absolute;

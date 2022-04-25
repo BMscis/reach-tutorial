@@ -1,6 +1,6 @@
 <script>
     export let inputContainerWidth = 328
-    export let inputContainerHeight = 74
+    export let inputContainerHeight = 60
     export let inputSlotWidth = 280
     export let inputSlotHeight = 60
 </script>

@@ -4,10 +4,10 @@
   export let margin = "auto"
 </script>
 <div class="lds-ring" class:small={!isLarge} style="margin: {margin};position:{isLarge?"absolute":"relative"};top: 0;right: 0;left: 0;bottom: 0;">
-    <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>
-    <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>
-    <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>
-    <div style="border: 8px solid {dark?"black":"#fff"};border-color: {dark?"black":"#fff"} transparent transparent transparent;"></div>
+    <div style="border: 8px solid {dark?"transparent":"#fff"};border-color: {dark?"transparent":"#fff"} transparent transparent transparent;"></div>
+    <div style="border: 8px solid {dark?"transparent":"#fff"};border-color: {dark?"transparent":"#fff"} transparent transparent transparent;"></div>
+    <div style="border: 8px solid {dark?"transparent":"#fff"};border-color: {dark?"transparent":"#fff"} transparent transparent transparent;"></div>
+    <div style="border: 8px solid {dark?"#0000007a":"#fff"};border-color: var(--focus) transparent transparent;"></div>
 </div>
 <style>
     .lds-ring {

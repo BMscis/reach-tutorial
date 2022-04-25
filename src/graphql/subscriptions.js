@@ -1,21 +1,23 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateNFTSQL = /* GraphQL */ `
-  subscription OnCreateNFTSQL($owner: String) {
-    onCreateNFTSQL(owner: $owner) {
+export const onCreateASKNFTEA = /* GraphQL */ `
+  subscription OnCreateASKNFTEA {
+    onCreateASKNFTEA {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version
@@ -24,21 +26,23 @@ export const onCreateNFTSQL = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateNFTSQL = /* GraphQL */ `
-  subscription OnUpdateNFTSQL($owner: String) {
-    onUpdateNFTSQL(owner: $owner) {
+export const onUpdateASKNFTEA = /* GraphQL */ `
+  subscription OnUpdateASKNFTEA {
+    onUpdateASKNFTEA {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version
@@ -47,21 +51,23 @@ export const onUpdateNFTSQL = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteNFTSQL = /* GraphQL */ `
-  subscription OnDeleteNFTSQL($owner: String) {
-    onDeleteNFTSQL(owner: $owner) {
+export const onDeleteASKNFTEA = /* GraphQL */ `
+  subscription OnDeleteASKNFTEA {
+    onDeleteASKNFTEA {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version

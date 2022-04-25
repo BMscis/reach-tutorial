@@ -1,69 +1,81 @@
 'reach 0.1';
-
-const MUInt = Maybe(UInt);
+const CState = UInt
 const common = {
- showOutcome: Fun([Address], Null)
-};
-const Params = Tuple(Token, UInt, UInt);
-// Creator is a Participant that has getSale, seeBid and timeout functions.  A participant is an “actor” who takes part in the application (dApp). Participants are associated with an account (address) on the consensus network.
+    seeBid: Fun([Address, UInt], Null),
+    showOutcome: Fun([Address, UInt], Null),
+    timeout: Fun([], Null),
+    giveTime: Fun([UInt], Null),
+}
 export const main = Reach.App(() => {
- const Creator = Participant('Creator', {
-   ...common,
-   getSale: Fun([], Params),
-   seeBid: Fun([Address, UInt], Null),
-   timeout: Fun([], Null),
- });
- // Bidder is a ParticipantClass that has seeParams and getBid functions. 
- const Bidder = ParticipantClass('Bidder', {
-   ...common,
-   seeParams: Fun([Params], Null),
-   getBid: Fun([UInt], MUInt),
- });
- init();
- Creator.only(() => {
-    // Binding the value of getSale to the result of interacting with the participant. This happens in a local step. declassify declassifies the argument, in this case that means the value of getSale
-    const [ nftId, reservePrice, lenInBlocks ] = declassify(interact.getSale());
-  });
-  Creator.publish(nftId, reservePrice, lenInBlocks);
-  const amt = 1;
-  commit();
-  Creator.pay([[amt, nftId]]);
-  const end = lastConsensusTime() + lenInBlocks;
-  Bidder.interact.seeParams([nftId, reservePrice, end]);
-  // parallelReduce facilitates bidders repeatedly providing new bids as they compete to be the highest bidder before a time limit is reached
- const [ highestBidder, lastPrice, currentPrice ] =
- parallelReduce([ Creator, 0, reservePrice ])
-   .invariant(balance(nftId) == amt && balance() == lastPrice)
-   .while(lastConsensusTime() <= end)
-   // If the bid is greater than the currentPrice, the transfer is made to the highest bidder. It will also refund the previous high bidder.
-   .case(Bidder,
-     (() => {
-       const mbid = highestBidder != this
-         ? declassify(interact.getBid(currentPrice))
-         : MUInt.None();
-       return ({
-         // The Maybe computation can be some or none: (evaluate the return of a function).
-         when: maybe(mbid, false, ((b) => b > currentPrice)),
-         msg : fromSome(mbid, 0)
-       });
-     }),
-     ((bid) => bid),
-     ((bid) => {
-       require(bid > currentPrice);
-       // A consensus transfer occurs when a single participant (called the originator) makes a publication of a set of public values from its local state and transfers zero or more network tokens to the contract account.
-       transfer(lastPrice).to(highestBidder);
-       Creator.interact.seeBid(this, bid);
-       return [ this, bid, bid ];
-     }))
-     .timeout(absoluteTime(end), () => {
-        Creator.interact.timeout();
-        Creator.publish();
-        return [ highestBidder, lastPrice, currentPrice ];
-      });
-      transfer(lastPrice).to(Creator);
-      transfer(amt, nftId).to(highestBidder);
-      commit();
-     // “each” participant listed can access the ShowOutcome method and see the outcome. 
-      each([Creator, Bidder], () => interact.showOutcome(highestBidder));
-      exit();
-     });
+    const Creator = Participant('Creator', {
+        ...hasConsoleLogger,
+        ...common,
+        getSale: Fun([], Object({
+            nftId: Token,
+            minBid: UInt,
+            lenInBlocks: UInt,
+        })),
+
+        auctionReady: Fun([], Null),
+    });
+    const Bidder = API('Bidder', {
+        bid: Fun([UInt], Tuple(Address,UInt,Address, UInt)),
+    })
+    init();
+    //consensus
+    Creator.interact.log(2)
+    Creator.only(() => {
+        const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+    });
+    Creator.interact.log(3)
+    Creator.publish(nftId, minBid, lenInBlocks);
+
+    Creator.interact.log(4)
+    const amt = 1;
+    //local
+    commit();
+    Creator.interact.giveTime(lastConsensusTime());
+    Creator.interact.log(5)
+    Creator.pay([[amt, nftId]]);
+    Creator.interact.log(6)
+    Creator.interact.auctionReady();
+    Creator.interact.log(7)
+
+    assert(balance(nftId) == amt, "balance of NFT is wrong")
+
+    const end = lastConsensusTime() + lenInBlocks;
+
+    const [timeRemaining, keepGoing] = makeDeadline(end);
+    const [
+        highestBidder, 
+        lastPrice,
+        isFirstBid,
+    ] = parallelReduce([Creator, minBid, true])
+        .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
+        .while(keepGoing())
+        .api(Bidder.bid,
+            ((bid) => { assume(bid > lastPrice, "bid is too low"); }),
+            ((bid) => bid),
+            ((bid, notify) => {
+                require(bid > lastPrice, "bid is too low");
+                notify([this,bid, highestBidder, lastPrice]);
+                if ( ! isFirstBid ) {
+                    transfer(lastPrice).to(highestBidder);
+                }
+                const who = this;
+                Creator.interact.seeBid(who, bid);
+                return [who, bid, false];
+            })
+        )
+        .timeout(absoluteTime(end), () => {
+            Creator.interact.log(8)
+            Creator.interact.timeout();
+            Creator.publish();
+            return [highestBidder, lastPrice, isFirstBid]; 
+        });
+        transfer(amt, nftId).to(highestBidder);
+        if ( ! isFirstBid ) { transfer(lastPrice).to(Creator); }
+        Creator.interact.showOutcome(highestBidder, lastPrice);
+    commit();
+    exit();
+});

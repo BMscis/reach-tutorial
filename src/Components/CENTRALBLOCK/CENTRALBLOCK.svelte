@@ -1,6 +1,6 @@
 <script>
 import { afterUpdate, onDestroy } from "svelte";
-import NftList from "./NftList.svelte";
+import NftList from "../NftList.svelte";
 import { centralBlock } from "../../Stores/allDimension";
 
 export let cards
@@ -30,5 +30,6 @@ onDestroy(() => {return [unsubscribeCB]})
         overflow: auto;
         z-index: 110;
         grid-row-start: 1;
+        margin:20px;
     }
 </style>

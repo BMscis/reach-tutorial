@@ -1,12 +1,13 @@
 import { get } from 'svelte/store';
 import algosdk from "algosdk";
-import MyAlgoConnect from '@randlabs/myalgo-connect';
-import { ALGO_MyAlgoConnect as MyAlgos} from '@reach-sh/stdlib';
+import {loadStdlib} from "@reach-sh/stdlib"
+//import MyAlgoConnect from '@randlabs/myalgo-connect';
+import { ALGO_MyAlgoConnect as MyAlgoConnect} from '@reach-sh/stdlib';
 import { fundAccount, getBalance, loadLib } from './utilities';
-import {wallet, walletAddress,walletName} from '../Wallet/WalletStore'
+import {provider, wallet, walletAddress,walletName} from "../Stores/Wallet/WalletStore"
 export const createAccount = async () => {
     try {  
-        const myaccount = algosdk.generateAccount();
+        const myaccount = await algosdk.generateAccount();
         console.log("Account Address = " + myaccount.addr);
         let account_mnemonic = algosdk.secretKeyToMnemonic(myaccount.sk);
         console.log("Account Mnemonic = "+ account_mnemonic);
@@ -21,7 +22,7 @@ export const createAccount = async () => {
 };
 export async function firstTransaction() {
     try {
-        let myAccount = createAccount();
+        let myAccount = await createAccount();
         alert("Press OK key when the account is funded");
         // Connect your client
         const algodToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -29,33 +30,45 @@ export async function firstTransaction() {
         const algodPort = 4001;
         let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
         walletAddress.set(myAccount.addr)
-        wallet.set(myAccount)
+        //wallet.set(myAccount)
         //Check your balance
+        provider.set(algodClient)
         let accountInfo = await algodClient.accountInformation(myAccount.addr).do();
-        const myWallet = await connectMyAlgo()
+        console.log("Provider: ",algodClient);
+        console.log("ACCountinfo: ", accountInfo)
+        await connectMyAlgo();
         console.log("Account balance: %d microAlgos", accountInfo.amount);
-        return myWallet
+        return true
     } catch (err) {
         console.log("err", err);
         return
     }
 }
 export async function connectMyAlgo(){
+    const algodToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+    const algodServer = 'http://localhost';
+    const algodPort = 4001;
+    //let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+    let providerEnv = {
+            ALGO_TOKEN:algodToken,
+            ALGO_SERVER:algodServer,
+            ALGO_PORT:algodPort,
+            ALGO_INDEXER_TOKEN:algodToken,
+            ALGO_INDEXER_SERVER:algodServer,
+            ALGO_INDEXER_PORT:8980,
+        }
+    const reach = loadLib("ALGO");
 
-    const reach = loadLib("ALGO-devnet");
-    //const myAlgoConnect = new MyAlgoConnect();
-    // reach.setWalletFallback(reach.walletFallback({
-    //     providerEnv: 'TestNet', MyAlgoConnect })); 
+    reach.setWalletFallback(reach.walletFallback({
+    providerEnv: providerEnv, MyAlgoConnect })); 
+
         try{
-        //const algodClient = new algosdk.Algodv2("",'https://node.testnet.algoexplorerapi.io', '');
-        //const params = await algodClient.getTransactionParams().do();
-        //const txToSigned = algosdk.makePaymentTxnWithSuggestedParams(from, to, amount, undefined, undefined, params);
-        //const myAlgoConnect = new MyAlgoConnect();
-        //const txnSignedByTheUser = await myAlgoConnect.signTransaction(txToSigned.toByte());
-        //console.log("SIGNED TXN:", txnSignedByTheUser);
-        const account = await reach.getDefaultAccount(get(walletAddress))
+        const account = await reach.getDefaultAccount()
+        walletAddress.set(account.networkAccount.addr)
+        wallet.set(account)
+        //const canfund = await fundAccount("ALGO")
         const balance = await getBalance(account,"ALGO")
-        console.log("2: ConnectMyalgo: ", account,balance)
+        //console.log("2: ConnectMyalgo: ", account,balance)
         // //const accountAunt = await reach.fundFromFaucet(account, reach.parseCurrency(0))
         // //const account = await reach.getDefaultAccount()
         // //const balance = await getBalance(account,"ALGO")

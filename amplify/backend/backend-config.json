@@ -37,8 +37,9 @@
     }
   },
   "storage": {
-    "s3storagenft": {
+    "nfteareachproject9a1f31bf": {
       "service": "S3",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     }
@@ -59,16 +60,11 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authNFteaReachProject"
-              }
             }
           ]
         }
-      }
+      },
+      "dependsOn": []
     }
   }
 }

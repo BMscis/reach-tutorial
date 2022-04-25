@@ -1,7 +1,6 @@
 import { get } from "svelte/store"
-import { balance } from "../Wallet/WalletStore"
 import { fundAccount,getBalance,loadLib } from "./utilities"
-import { wallet, walletAddress} from "../Wallet/WalletStore"
+import { wallet, walletAddress,balance} from "../Stores/Wallet/WalletStore"
 //export connect wallet
 //load stdlib with ETH
 //get default account
@@ -14,7 +13,7 @@ export async function connectETHWallet(){
     try {
         const account = await reach.getDefaultAccount()
         const balance = await getBalance(account,"ETH")
-        //console.log("Account: ", account)
+        console.log("Account: ", account)
         walletAddress.set(account.getAddress())
         wallet.set(account)
         //console.log("Account: ",get(walletAddress))

@@ -14,7 +14,7 @@ onMount(() => {
     })
 })
 </script>
-<button id="menu-button" style="width:24px;height:24px;" on:click={() => {openSidebar.set(!open)}}>
+<button id="menu-button" class="tr" style="width:24px;height:24px;" on:click={() => {openSidebar.set(!open)}}>
     {#if !open}
         <svg id="icon_navigation_menu_24px" data-name="icon/navigation/menu_24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <rect id="Boundary" width="24" height="24" fill="none"/>
@@ -28,6 +28,9 @@ onMount(() => {
     {/if}
 </button>
 <style>
+    #menu-button{
+        padding:0;
+    }
       button:hover #_Color{
         fill:var(--spectacular-orange-hover);
     }

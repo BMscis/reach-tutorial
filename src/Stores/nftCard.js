@@ -2,8 +2,8 @@ import { get } from 'svelte/store'
 import { writable} from 'svelte/store'
 export const nftCardList = writable([])
 
-export const createNft = ((id,owner,description,image,price,wallet,prevOwner,blockTime,nonce,likes,ownerName,userPicture,active=false)=>{
-    const { subscribe, set} = writable({id:id,owner:owner,description:description,image:image,price:price,wallet:wallet,prevOwner:prevOwner,blockTime:blockTime,nonce:nonce,likes:likes,ownerName:ownerName,userPicture:userPicture,active:false})
+export const createNft = ((id,awsUserId,nftDescription,nftImage,nftPrice,nftAssetOwner,nftPrevAssetOwner,nftAuctionDuration,nftContractAddress,nftLikes,nftId,awsUserPicture,awsName,nftWalletName,active=false)=>{
+    const { subscribe, set} = writable({id:id,awsUserId:awsUserId,nftDescription:nftDescription,nftImage:nftImage,nftPrice:nftPrice,nftAssetOwner:nftAssetOwner,nftPrevAssetOwner:nftPrevAssetOwner,nftAuctionDuration:nftAuctionDuration,nftContractAddress:nftContractAddress,nftLikes:nftLikes,nftId:nftId,awsUserPicture:awsUserPicture,awsName:awsName,nftWalletName:nftWalletName,active:false})
     //const validator
      let cardList = get(nftCardList)
      let component
@@ -14,13 +14,13 @@ export const createNft = ((id,owner,description,image,price,wallet,prevOwner,blo
      }
      if(!component){
          nftCardList.update((n) => (
-          n.concat({id:id,owner:owner,description:description,image:image,price:price,wallet:wallet,prevOwner:prevOwner,blockTime:blockTime,nonce:nonce,likes:likes,ownerName:ownerName,userPicture:userPicture,active:active})
+          n.concat({id:id,awsUserId:awsUserId,nftDescription:nftDescription,nftImage:nftImage,nftPrice:nftPrice,nftAssetOwner:nftAssetOwner,nftPrevAssetOwner:nftPrevAssetOwner,nftAuctionDuration:nftAuctionDuration,nftContractAddress:nftContractAddress,nftLikes:nftLikes,nftId:nftId,awsUserPicture:awsUserPicture,awsName:awsName,nftWalletName:nftWalletName,active:active})
          ));
      }
     function action(node, binding) {
         function validate(value) {
             setActive(value)
-            //set({id:id,owner:owner,description:description,image:image,price:price,wallet:wallet,prevOwner:prevOwner,blockTime:blockTime,nonce:nonce,likes:likes,ownerName:ownerName,userPicture:userPicture,active:value})
+            set({id:id,awsUserId:awsUserId,nftDescription:nftDescription,nftImage:nftImage,nftPrice:nftPrice,nftAssetOwner:nftAssetOwner,nftPrevAssetOwner:nftPrevAssetOwner,nftAuctionDuration:nftAuctionDuration,nftContractAddress:nftContractAddress,nftLikes:nftLikes,nftId:nftId,awsUserPicture:awsUserPicture,awsName:awsName,nftWalletName:nftWalletName,active:active})
             //get nftCardList
             //Make active false for all
             function getNftCardList(){

@@ -4,8 +4,8 @@ import { schema } from './schema';
 
 
 
-const { NFTSQL } = initSchema(schema);
+const { ASKNFTEA } = initSchema(schema);
 
 export {
-  NFTSQL
+  ASKNFTEA
 };

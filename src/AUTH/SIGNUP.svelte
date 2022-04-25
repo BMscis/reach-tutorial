@@ -117,19 +117,35 @@
         }
         button{
             letter-spacing: 2px;
-            
+            width: 80px;
+            background: blueviolet;
+            border-radius: 4px;
+            height: 40px;
+            margin-top: 7px;
+            color: white;
+            font-size: 11px;
+        }
+        button:hover{
+            background-color: var(--inactive-component);
         }
         h5{
             margin: auto;
             text-align: center;
-            color: white;
-            letter-spacing: 5px;
+            color: black;
+            letter-spacing: 2px;
             pointer-events: none;
+            color: var(--inactive-component);
         }
         h6{
             letter-spacing: 1px;
+            margin:0;
+            color: white;
+        }
+        form{
+            margin: 10%;
         }
         #sign-up{
             background-color: var(--spectacular-orange);
+            margin:10% auto;
         }
     </style>

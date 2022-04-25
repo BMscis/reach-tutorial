@@ -11,12 +11,6 @@ export type AmplifyDependentResourcesAttributes = {
             "CreatedSNSRole": "string"
         }
     },
-    "storage": {
-        "s3storagenft": {
-            "BucketName": "string",
-            "Region": "string"
-        }
-    },
     "api": {
         "NFteaReachProject": {
             "GraphQLAPIKeyOutput": "string",

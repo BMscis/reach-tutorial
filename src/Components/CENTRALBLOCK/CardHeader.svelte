@@ -1,15 +1,13 @@
 <script>
     import Avatar from "../Avatar.svelte";
-    import Loading from "../Loading.svelte"
     import MenuLabel from "../MenuLabel.svelte";
     import CardButton from "./CardButton.svelte";
     import MenuSubLabel from "../MenuSubLabel.svelte";
-    import {getImagesProtected} from "../../STORAGE/storage"
-    export let owner
-    export let label
-    export let price
-    export let ownerName
-    export let userPicture
+import HeartIcon from "../HeartIcon.svelte";
+    export let nftPrice
+    export let awsName
+    //export let nftName
+    export let awsUserPicture
     export let isLarge = true;
     export let labelDark = false;
     export let labelMargin = "auto";
@@ -17,19 +15,20 @@
 </script>
 
 <div id="card-header" style="position:{position};background-color:{isLarge ? 'white' : '#00000042'}">
-    <!-- {#if userPicture}
-        <Avatar image={userPicture}></Avatar>
+    <!-- {#if awsUserPicture}
+        <Avatar nftImage={awsUserPicture}></Avatar>
     {:else}
         <Avatar ></Avatar>
     {/if} -->
     <Avatar image={false} isLarge={false} ></Avatar>
     <div id="card-label-box" style="margin: auto;display:flex; flex-direction:{isLarge? "column":"row"}">
-        <MenuLabel label={label} dark={labelDark} margin={labelMargin} fontSize=9/>
+        <MenuLabel label={awsName} dark={labelDark} margin={labelMargin} fontSize=9/>
         {#if isLarge}
-            <MenuSubLabel label="${price}" dark={labelDark} margin={labelMargin} fontSize=9/>
+            <MenuSubLabel label="{nftPrice} ALGO" dark={labelDark} margin={labelMargin} fontSize=9/>
         {/if}
     </div>
-    <CardButton {isLarge}  />
+    <HeartIcon></HeartIcon>
+    <!-- <CardButton {isLarge}  /> -->
 </div>
 <style>
     #card-header{

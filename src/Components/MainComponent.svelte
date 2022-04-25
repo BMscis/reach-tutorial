@@ -6,45 +6,52 @@ import { onDestroy } from "svelte";
 
 let hasActiveNft = false
 
-let id 
-let owner 
-let image 
-let price 
-let wallet 
-let nonce 
-let likes 
+let id
+let awsUserId
+let nftDescription
+let nftImage
+let nftPrice
+let nftAssetOwner
+let nftPrevAssetOwner
+let nftAuctionDuration
+let nftContractAddress
+let nftLikes
+let nftId
+let awsUserPicture
+let awsName
+let nftWalletName
+//let nftName
+
 let style
 let cards
-let prevOwner 
-let blockTime 
-let ownerName 
-let description 
-let userPicture
-
 nftCardList.subscribe((value) => {
-    cards = value
+    if(value.length > 0){
+        cards = value
     let activeComp = value.find((v) => v.active === true);
     hasActiveNft = false
     if(activeComp){
         hasActiveNft = activeComp.active
         id = activeComp.id
-        owner = activeComp.owner
-        description = activeComp.description
-        image = activeComp.image
-        price = activeComp.price
-        wallet = activeComp.wallet
-        prevOwner = activeComp.prevOwner
-        blockTime = activeComp.blockTime
-        nonce = activeComp.nonce
-        likes = activeComp.likes
-        ownerName = activeComp.ownerName
-        userPicture = activeComp.userPicture
-    }
+        awsUserId = activeComp.awsUserId
+        nftDescription = activeComp.nftDescription
+        nftImage = activeComp.nftImage
+        nftPrice = activeComp.nftPrice
+        nftAssetOwner = activeComp.nftAssetOwner
+        nftPrevAssetOwner = activeComp.nftPrevAssetOwner
+        nftAuctionDuration = activeComp.nftAuctionDuration
+        nftContractAddress = activeComp.nftContractAddress
+        nftLikes = activeComp.nftLikes
+        nftId = activeComp.nftId
+        awsName = activeComp.awsName
+        awsUserPicture = activeComp.awsUserPicture
+        nftWalletName = activeComp.nftWalletName
+        //nftName = activeComp.nftName
+    }}
 })
 onDestroy(() => {return [nftCardList]})
 
 </script>
-<RIGHTBLOCK {hasActiveNft}
-{id }{owner }{image }{price }{wallet }{nonce }{likes }{style}{prevOwner }{blockTime }{ownerName }{description }{userPicture}></RIGHTBLOCK>
+<RIGHTBLOCK {hasActiveNft} {nftWalletName} 
+{id }{awsUserId }{nftImage }{nftPrice }{nftAssetOwner }{nftContractAddress }{nftLikes }{nftId}{style}{nftPrevAssetOwner }{nftAuctionDuration }{awsName }{nftDescription }{awsUserPicture}></RIGHTBLOCK>
 <CENTRALBLOCK {cards} {hasActiveNft}></CENTRALBLOCK>
 

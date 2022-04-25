@@ -23,7 +23,10 @@
  )
  rotate(-45deg)
  scale(var(--ggs,1));
- display: block
+ display: block;
+ margin-left: 30px;
+ padding:0;
+ background-color: pink;
 }
 
 .gg-heart::after,

@@ -5,11 +5,15 @@ import MenuButton from "./MenuButton.svelte";
 import IconContainer from "../IconContainer.svelte";
 import { topContainer} from "../../Stores/allDimension";
 import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
-import { openSidebar, tryMountImage } from "../../Stores/movment";
+import { openNFTBox, openSidebar, tryMountImage } from "../../Stores/movment";
+import { checkUploadNft } from "../../Utilities/utilities";
+import Loading from "../Loading.svelte";
+import SuccessIcon from "../SuccessIcon.svelte"
 
-let isLarge = true
+let loading = false
 let topBarWidth
 let topBarHeight
+let isLarge = true
 let menuBlockWidth
 let menuBlockHeight
 let anchorBlockWidth
@@ -23,9 +27,19 @@ const unsubscribe = topContainer.subscribe((value) => {
     anchorBlockWidth = value.anchorBlock.width
     anchorBlockHeight = value.anchorBlock.height
     })
-const createNftSide = () => {
-    openSidebar.set(true)
-    tryMountImage.set(true)
+const tryLoad = () => {
+    if(!loading){
+        loading = true
+    }
+}
+const createNftSide = async () => {
+    console.log("Creating NFt")
+    loading = true
+    let isUser = await checkUploadNft()
+    isUser ? openNFTBox.set(true) : null
+    loading = false
+    //openSidebar.set(true)
+    //tryMountImage.set(true)
     return
 }
 onDestroy(()=> {unsubscribe})
@@ -38,9 +52,18 @@ onDestroy(()=> {unsubscribe})
         <h1 id="title"> nft<sub>ea</sub></h1>
     </div>
     <div id="anchor-block" style="width: {anchorBlockWidth}px;height:{anchorBlockHeight}px">
-        <button id="create-nft" on:click={()=>{createNftSide()}} >
+        {#if loading}
+        {#await createNftSide() }
+        <Loading isLarge={false}></Loading>
+        {:then result} 
+            <SuccessIcon></SuccessIcon>
+        {/await}
+        {/if}
+        {#if !loading}
+        <button id="create-nft" on:click={()=>{tryLoad()}} >
             <MenuLabel label={"Create NFT"} dark={false}></MenuLabel>
         </button>
+        {/if}
         <ConnectedWallet></ConnectedWallet>
     </div>
 </div>
@@ -51,5 +74,6 @@ onDestroy(()=> {unsubscribe})
     }
 #create-nft{
     margin-right: 32px;
+    padding:5px;
 }
 </style>

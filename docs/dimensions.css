@@ -20,7 +20,6 @@ ul{
     grid-column: 100%;
 }
 #nft-list,ul{
-    pointer-events: none;
 }
 .gg-backspace {
     box-sizing: border-box;

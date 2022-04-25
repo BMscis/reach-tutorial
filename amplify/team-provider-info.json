@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "NFteaReachProject": {}
+      },
+      "storage": {
+        "nfteareachproject9a1f31bf": {
+          "bucketName": "nfshow",
+          "region": "eu-west-2"
+        }
       }
     }
   }

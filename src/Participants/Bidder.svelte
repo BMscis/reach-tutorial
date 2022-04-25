@@ -5,36 +5,44 @@ import Loading from "../Components/Loading.svelte";
 import MenuBar from "../Components/MenuBar.svelte";
 import Timer from "../Components/Timer.svelte";
 import { bidNFT } from "../ReachContract/nftContract";
-import { bidderInfo } from "../Wallet/PrincipalStore";
-
+import { bidderInfo } from "../Stores//Wallet/PrincipalStore";
+export let nftId
 export let clicked
 export let cardWidth
 export let cardHeight
 export let cardCotnainerHeight
 
-let nonce
-let nftID
+let nftContractAddress
 let bidPrice
+let bidContract
 let bidderClass
+let loading = false
 let bidderList = []
 let awaitBid = false
+let showContractPage = true
 let previewPage = true
 let formWidth =cardWidth - 50
 let innerWidth =cardWidth - 70
 let innerHeight = (innerWidth*0.23).toFixed(2)
 
 const latchContract = async () => {
-previewPage = await bidNFT(nonce,nftID)
+loading = true
+showContractPage = false
+let newPage
+[newPage,bidContract] = await bidNFT(nftContractAddress,nftId)
+newPage = previewPage
+loading = false
+awaitBid = true
 return
 }
 
 const sendCurrentBid = async () => {
-awaitBid = !awaitBid
-let [cBidder,cBid,lBidder,lBid] = await bidderClass.bid(bidPrice)
-bidderList = [[cBidder,cBid,lBidder,lBid]]
-console.log("BID",[cBidder,cBid,lBidder,lBid])
+console.log("___________BID_PRICE____________",bidPrice)
+let [cBid,lBidder,lBid] = await bidContract.bid(bidPrice)
+bidderList = [[cBid,lBidder,lBid]]
+bidderList.sort((a, b) => b - a);
+console.log("BID",[cBid,lBidder,lBid])
 console.log("BIDDER LIST",bidderList)
-awaitBid = !awaitBid
 return
 }
 
@@ -46,28 +54,28 @@ bidderClass = value
 onDestroy(()=> {return [unsubscribeBidder]})
 
 </script>
-<div id="bidder-block" style="left:{cardWidth-11}px;width:{cardWidth - 40}px;height:{cardHeight}px;"class:active={clicked}>
-    {#if previewPage}
+<div id="bidder-block" style="left:{cardWidth-11}px;width:{cardWidth - 40}px;height:{cardCotnainerHeight}px;"class:active={clicked}>
+    {#if showContractPage}
     <div id="preview-page" style="height:{cardHeight}px;">
         <form on:submit|preventDefault={()=> {latchContract()}} style="width: {formWidth}px;">
         <InputContainer inputContainerWidth={innerWidth} inputContainerHeight={innerHeight} inputSlotHeight={innerHeight} inputSlotWidth={innerWidth}>
-        <input slot="input-slot" class="input-rect-input" type="text" placeholder="Contract" id="bid-contract" bind:value={nonce} style="width: {innerWidth}px;height:{innerHeight}px;"/>
-        </InputContainer>
-        <InputContainer inputContainerWidth={innerWidth} inputContainerHeight={innerHeight} inputSlotHeight={innerHeight} inputSlotWidth={innerWidth}>
-        <input slot="input-slot" class="input-rect-input" type="text" placeholder="nftID" id="bid-nft" bind:value={nftID} style="width: {innerWidth}px;height:{innerHeight}px;"/>
+        <input slot="input-slot" class="input-rect-input" type="text" placeholder="Contract" id="bid-contract" bind:value={nftContractAddress} style="width: {innerWidth}px;height:{innerHeight}px;"/>
         </InputContainer>
         <InputContainer inputContainerWidth={innerWidth} inputContainerHeight={innerHeight} inputSlotHeight={innerHeight} inputSlotWidth={innerWidth}>
         <button slot="input-slot" class="input-rect-input" id="send-nft-bid" type="submit" style="width: {innerWidth}px;height:{innerHeight}px;">Send</button>
         </InputContainer>
         </form>
     </div>
-    {:else}
+    {/if}
+    {#if loading}
+        <Loading></Loading>
+    {/if}
+    {#if awaitBid}
     <div id="bidder-space" style="height:{cardHeight}px;">
         <div id="top-bid-bar">
         <Timer></Timer>
         </div>
         <div id="mid-bid-bar" style="width:{formWidth}px;">
-            {#if !awaitBid}
             <form on:submit|preventDefault={()=> {sendCurrentBid()}} style="width: {formWidth}px;">
                 <InputContainer inputContainerWidth={innerWidth} inputContainerHeight={innerHeight} inputSlotHeight={innerHeight} inputSlotWidth={innerWidth}>
                 <input slot="input-slot" class="input-rect-input" type="number" placeholder="Bid Amount" id="bid-amount" bind:value={bidPrice} style="width: {innerWidth}px;"/>
@@ -76,18 +84,15 @@ onDestroy(()=> {return [unsubscribeBidder]})
                 <button slot="input-slot" class="input-rect-input" id="send-nft-bid" type="submit" style="width: {innerWidth}px;">SUBMIT BID</button>
                 </InputContainer>
             </form>
-            {:else}
-            <Loading></Loading>
-            {/if}
         </div>
-        <div id="bidders-bar" style="width:{formWidth}px;">
+        <div id="bidders-bar" style="width:{innerWidth}px;">
             <ul>
                 {#each bidderList as bid}
                 <li>
-                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"  backgroundColor="var(--primary-bright)" val={bid[1]}></MenuBar>
+                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"   val={bid[1]}></MenuBar>
                 </li>
                 <li>
-                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"  backgroundColor="var(--inactive-component)" val={bid[3]}></MenuBar>
+                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"  val={bid[3]}></MenuBar>
                 </li>
                 {/each}
             </ul>
@@ -111,7 +116,8 @@ form{
     margin: auto;
     top: 0;
     bottom: 0;
-    background: #00000036;
+    box-shadow: var(--m-shadow, .4rem .4rem 10.2rem .2rem) var(--shadow-1);
+    background: #0000000a;
 }
 #bidder-block.active{
 border-bottom: 1px solid var(--spectacular-orange);
@@ -150,8 +156,18 @@ ul{padding: 0;}
     right: 0;
 }
 #bidders-bar{
-    height: 40%;
     overflow-y: auto;
+    height: 40%;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    border-radius: 5%;
+}
+#bidders-bar ul,#bidders-bar ul li{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
 }
 </style>
 

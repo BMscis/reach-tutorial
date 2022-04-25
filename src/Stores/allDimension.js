@@ -12,6 +12,8 @@ export const mainGridTemplate = writable(
     style:"",
     sideBarVisible: true,
     centralBlockPosition:3,
+    nftBlockWidth:0,
+    nftBlockHeight:0,
 }
 )
 export const centralBlock = writable({
@@ -122,6 +124,8 @@ const setMainGridTemplate = ((gridDirection, gridColumns,vW,vH) => {
                        `,
                 sideBarVisible:sideIsVisible,
                 centralBlockPosition:cBlockStart,
+                nftBlockWidth: blockSize(vW, 0.5),
+                nftBlockHeight: blockSize(vH, 0.75)
             })
             break;
         case "rows":
@@ -130,9 +134,12 @@ const setMainGridTemplate = ((gridDirection, gridColumns,vW,vH) => {
                 gridColumns: gridColumns,
                 style: `grid-template-columns:100%;
                         grid-template-rows: ${gridright}px;
+                        height:${blockSize(vH,0.9)}px;
                         `,
                 sideBarVisible:sideIsVisible,
                 centralBlockPosition:cBlockStart,
+                nftBlockWidth: blockSize(vW, 0.8),
+                nftBlockHeight: blockSize(vH, 0.75)
             })
             break;
     

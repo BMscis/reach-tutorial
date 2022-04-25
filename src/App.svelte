@@ -4,17 +4,22 @@
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
 	import {isMobile} from "./Stores/isMobile";
 	import Loading from "./Components/Loading.svelte";
-	import { cyberuser, userName } from "./Wallet/WalletStore";
+	import MainBox  from "./Components/CREATENFT/MainBox.svelte"
+	import MainComponent from "./Components/MainComponent.svelte";
 	import {checkDevice, checkUser} from "./Utilities/utilities";
+	import { cyberuser, userName } from "./Stores/Wallet/WalletStore";
 	import RIGHTBLOCK from "./Components/RIGHTBLOCK/RIGHTBLOCK.svelte";
 	import {mainGridTemplate,SetWindowSize} from "./Stores/allDimension";
 	import FEATUREBLOCK from "./Components/FEATUREBLOCK/FEATUREBLOCK.svelte";
 	import CENTRALBLOCK from "./Components/CENTRALBLOCK/CENTRALBLOCK.svelte";
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
 	import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
-import MainComponent from "./Components/MainComponent.svelte";
+import { openNFTBox } from "./Stores/movment";
 
+	let openBox
 	let gridStyle
+	let nftBlockWidth
+	let nftBlockHeight
 	let hideSidebar = false
 	let noCurrentUser =  true
 	let mobile = checkDevice()
@@ -64,6 +69,11 @@ import MainComponent from "./Components/MainComponent.svelte";
 		mainGridTemplate.subscribe(value => {
 			gridStyle = value.style
 			hideSidebar = !value.sideBarVisible
+			nftBlockWidth = value.nftBlockWidth
+			nftBlockHeight = value.nftBlockHeight
+		}),
+		openNFTBox.subscribe(value =>{
+			openBox = value
 		})
 		]
 	})
@@ -73,7 +83,8 @@ import MainComponent from "./Components/MainComponent.svelte";
 {#await checkUser()}
 	<Loading></Loading>
 {:then result}
-<main style={gridStyle}>
+<main style={gridStyle + `display:${noCurrentUser?"flex":"grid"};justify-content:center`}>
+	<MainBox {openBox} {nftBlockWidth} {nftBlockHeight}></MainBox>
 	{#if noCurrentUser}
 	<SIGNUP></SIGNUP>
 	{:else if !noCurrentUser}
@@ -84,6 +95,8 @@ import MainComponent from "./Components/MainComponent.svelte";
 {/await}
 <style>
 	main{
+        background: var(--global-background);
 		display: grid;
+		overflow-y:hidden;
 	}
 </style>

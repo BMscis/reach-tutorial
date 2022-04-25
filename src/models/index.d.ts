@@ -4,25 +4,27 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-type NFTSQLMetaData = {
+type ASKNFTEAMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class NFTSQL {
+export declare class ASKNFTEA {
   readonly id: string;
-  readonly owner: string;
-  readonly description: string;
-  readonly image?: string | null;
-  readonly price: number;
-  readonly wallet?: string | null;
-  readonly prevOwner?: string | null;
-  readonly blockTime?: string | null;
-  readonly nonce?: string | null;
-  readonly likes?: number | null;
-  readonly ownerName?: string | null;
-  readonly userPicture?: string | null;
+  readonly awsUserId?: string | null;
+  readonly nftDescription?: string | null;
+  readonly nftImage?: string | null;
+  readonly nftPrice?: number | null;
+  readonly nftAssetOwner?: string | null;
+  readonly nftPrevAssetOwner?: string | null;
+  readonly nftAuctionDuration?: string | null;
+  readonly nftContractAddress?: string | null;
+  readonly nftLikes?: number | null;
+  readonly nftId?: string | null;
+  readonly awsUserPicture?: string | null;
+  readonly awsName?: string | null;
+  readonly nftWalletName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<NFTSQL, NFTSQLMetaData>);
-  static copyOf(source: NFTSQL, mutator: (draft: MutableModel<NFTSQL, NFTSQLMetaData>) => MutableModel<NFTSQL, NFTSQLMetaData> | void): NFTSQL;
+  constructor(init: ModelInit<ASKNFTEA, ASKNFTEAMetaData>);
+  static copyOf(source: ASKNFTEA, mutator: (draft: MutableModel<ASKNFTEA, ASKNFTEAMetaData>) => MutableModel<ASKNFTEA, ASKNFTEAMetaData> | void): ASKNFTEA;
 }

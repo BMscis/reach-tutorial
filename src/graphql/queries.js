@@ -1,21 +1,23 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getNFTSQL = /* GraphQL */ `
-  query GetNFTSQL($id: ID!) {
-    getNFTSQL(id: $id) {
+export const getASKNFTEA = /* GraphQL */ `
+  query GetASKNFTEA($id: ID!) {
+    getASKNFTEA(id: $id) {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version
@@ -24,26 +26,28 @@ export const getNFTSQL = /* GraphQL */ `
     }
   }
 `;
-export const listNFTSQLS = /* GraphQL */ `
-  query ListNFTSQLS(
-    $filter: ModelNFTSQLFilterInput
+export const listASKNFTEAS = /* GraphQL */ `
+  query ListASKNFTEAS(
+    $filter: ModelASKNFTEAFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listNFTSQLS(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listASKNFTEAS(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        owner
-        description
-        image
-        price
-        wallet
-        prevOwner
-        blockTime
-        nonce
-        likes
-        ownerName
-        userPicture
+        awsUserId
+        nftDescription
+        nftImage
+        nftPrice
+        nftAssetOwner
+        nftPrevAssetOwner
+        nftAuctionDuration
+        nftContractAddress
+        nftLikes
+        nftId
+        awsUserPicture
+        awsName
+        nftWalletName
         createdAt
         updatedAt
         _version
@@ -55,14 +59,14 @@ export const listNFTSQLS = /* GraphQL */ `
     }
   }
 `;
-export const syncNFTSQLS = /* GraphQL */ `
-  query SyncNFTSQLS(
-    $filter: ModelNFTSQLFilterInput
+export const syncASKNFTEAS = /* GraphQL */ `
+  query SyncASKNFTEAS(
+    $filter: ModelASKNFTEAFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncNFTSQLS(
+    syncASKNFTEAS(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -70,17 +74,19 @@ export const syncNFTSQLS = /* GraphQL */ `
     ) {
       items {
         id
-        owner
-        description
-        image
-        price
-        wallet
-        prevOwner
-        blockTime
-        nonce
-        likes
-        ownerName
-        userPicture
+        awsUserId
+        nftDescription
+        nftImage
+        nftPrice
+        nftAssetOwner
+        nftPrevAssetOwner
+        nftAuctionDuration
+        nftContractAddress
+        nftLikes
+        nftId
+        awsUserPicture
+        awsName
+        nftWalletName
         createdAt
         updatedAt
         _version

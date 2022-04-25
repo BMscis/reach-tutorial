@@ -1,7 +1,7 @@
 import { Auth } from "aws-amplify"
 import { get } from "svelte/store"
 import {loadStdlib} from "@reach-sh/stdlib"
-import {balance, cyberuser, reachStdlib, wallet, walletAddress} from "../Wallet/WalletStore"
+import {balance, cyberuser, reachStdlib, wallet, walletAddress} from "../Stores/Wallet/WalletStore"
 
 export const loadLib = (chain) =>{
   reachStdlib.set(loadStdlib(chain))
@@ -23,7 +23,7 @@ export const checkUser = async () => {
       cyberuser.set(user)
       return false
   } catch (error) {
-      console.log("ChUser Error: ", error)
+      alert("ChUser Error: ", error)
       return true
   }
 }
@@ -54,7 +54,7 @@ export async function fundAccount(chain) {
       // }
       return true
   } catch (error) {
-      console.log("Fund Account: ",error);
+      alert("Fund Account: ",error);
       return false;
   }
   //this.setState({ view: "DeployerOrAttacher" });
@@ -67,6 +67,38 @@ export async function getBalance(address,chain){
       balance.set(bal)
       return bal
   } catch (error) {
-      console.log("GetBalance: ",error);
+      alert("GetBalance: ",error);
+  }
+}
+export async function checkUploadNft(){
+  //get cyberuser and check if there is cyber user
+  let user = false
+  let hasWallet = false
+  try {
+    const isUser = get(cyberuser)
+    if (isUser.attributes.name){
+      user = true
+    }else{
+      alet("You must create an account before creating an NFT.")
+    }
+  } catch (error) {
+      alet("You must create an account before creating an NFT.")
+      return false
+  }
+  try {
+    if(get(walletAddress).length > 0){
+      hasWallet = true
+    }else{
+      hasWallet = false
+      alert("You must login to a wallet before creating an NFT.")  
+    }
+  } catch (error) {
+    alert("You must login to a wallet before creating an NFT.")
+    return false
+  }
+  if(user && hasWallet){
+    return true
+  }else{
+    return false
   }
 }

@@ -3,7 +3,7 @@ import { onDestroy, onMount } from "svelte";
 import ContactBar from "./ContactBar.svelte";
 import {sideBar} from "../../Stores/allDimension";
 import MenuBarContainer from "./MenuBarContainer.svelte";
-import { balance, userName, walletAddress, walletName } from "../../Wallet/WalletStore";
+import { balance, userName, walletAddress, walletName } from "../../Stores/Wallet/WalletStore";
 import { setEditProfile } from "./sideBarStore";
 
 export let isVisible = true
@@ -12,6 +12,8 @@ let editProfile
 let username = ""
 let menuBarHeight
 let sidebarHeight
+let nftAssetOwnerName
+let nftAssetOwnerAddr
 let walletAddr= ""
 let walletname = ""
 let contactBarHeight
@@ -37,10 +39,10 @@ onMount(() => {
             username = value.name
         }),
         walletAddress.subscribe((value) => {
-            walletAddr = value
+            nftAssetOwnerAddr = value
         }),
         walletName.subscribe((value) => {
-            walletname = value
+            nftAssetOwnerName = value
         }),
         balance.subscribe(value => {
             bal = value
@@ -54,7 +56,7 @@ onDestroy(() => {
 <div id = "sidebarBlock" 
 style="width:100%;height:{sidebarHeight}px;transform: translate({isVisible? "-100%":"0"},0);position:{isVisible?"absolute":"relative"};">
     <div id="sidebar" style="width:{innerSideBarWidth1}px;height:{sidebarHeight}px;position:absolute;">
-        <ContactBar {contactBarHeight} {bal} {editProfile} width={innerSideBarWidth} {username} {walletAddr} {walletname} />
+        <ContactBar {contactBarHeight} {bal} {editProfile} width={innerSideBarWidth} {username} {nftAssetOwnerAddr} {nftAssetOwnerName} />
         <MenuBarContainer {menuBarHeight} {editProfile} {username}  ></MenuBarContainer>
     </div>
 </div>

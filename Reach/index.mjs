@@ -6,7 +6,7 @@ const startingBalance = stdlib.parseCurrency(100);
 
 console.log(`Creating test account for Creator`);
 const accCreator = await stdlib.newTestAccount(startingBalance);
-
+let count = 0
 console.log(`Having creator create testing NFT`);
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 const nftId = theNFT.id;
@@ -18,24 +18,23 @@ let done = false;
 const bidders = [];
 const startBidders = async () => {
     let bid = minBid;
-    console.log("BID 1:", bid);
     const runBidder = async (who) => {
         const inc = stdlib.parseCurrency(Math.random() * 10);
         bid = bid.add(inc);
-        console.log("BID 2:", bid);
+
         const acc = await stdlib.newTestAccount(startingBalance);
         acc.setDebugLabel(who);
-        const tkn = await acc.tokenAccept(nftId);
-        console.log("TOKEN:", tkn);
+        await acc.tokenAccept(nftId);
         bidders.push([who, acc]);
         const ctc = acc.contract(backend, ctcCreator.getInfo());
         const getBal = async () => stdlib.formatCurrency(await stdlib.balanceOf(acc));
 
-        console.log(`${who} decides to bid ${stdlib.formatCurrency(bid)}.`);
-        console.log(`${who} balance before is ${await getBal()}`);
+        //console.log(`${who} decides to bid ${stdlib.formatCurrency(bid)}.`);
+        //console.log(`${who} balance before is ${await getBal()}`);
         try {
-            const [latestBidder, latestBid, lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
-            console.log(`${who}::${stdlib.formatAddress(latestBidder)} out bid ${stdlib.formatAddress(lastBidder)} who bid ${stdlib.formatCurrency(lastBid)} with ${stdlib.formatCurrency(latestBid)}`);
+            const [ latestBidder, latestBid,lastBidder, lastBid,tim,tm,ls,ts ] = await ctc.apis.Bidder.bid(bid);
+            //console.log(`${who} : ${latestBidder} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${latestBid}`);
+            console.log(count += 1,JSON.parse(tim),JSON.parse(tm),JSON.parse(ls),JSON.parse(ts));
         } catch (e) {
             console.log(`${who} failed to bid, because the auction is over`);
         }

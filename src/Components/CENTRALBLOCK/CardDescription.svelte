@@ -6,27 +6,31 @@ import MenuLabel from "../MenuLabel.svelte";
 
 
 export let isLarge
-export let description
-export let wallet
-export let prevOwner
-export let price
+export let nftDescription
+export let nftAssetOwner
+export let nftPrevAssetOwner
+export let nftPrice
+export let nftWalletName
 </script>
 {#if !isLarge}
 <div id="card-helper">
-<HeartIcon></HeartIcon>
 <CommentIcon></CommentIcon>        
 </div>
-<div id="description-bar">
-<MenuLabel label={description}></MenuLabel>
-<MenuLabel label={wallet}></MenuLabel>
-<MenuLabel label={prevOwner}></MenuLabel>
-<MenuLabel label={price}></MenuLabel>
+<div id="nftDescription-bar">
+<MenuLabel hasColor={"var(--inactive-component)"} label={nftDescription} margin={"auto auto 20px auto"}></MenuLabel>
+<MenuLabel hasColor={"var(--spectacular-orange);"} label={nftPrice} isPrice={true}></MenuLabel>
+<MenuLabel hasColor={"var(--spectacular-orange);"} label={nftWalletName} ></MenuLabel>
 </div>
 {/if}
 <style>
-div#description-bar {
+div#nftDescription-bar {
     display: flex;
-    height: 40px;
+    display: flex;
+    width: 80%;
+    margin: auto auto 10px auto;
+    flex-direction: column;
+    overflow: auto;
+    z-index: 2;
 }
 #card-helper{
     display: flex;

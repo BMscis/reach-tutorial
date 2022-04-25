@@ -1,24 +1,26 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createNFTSQL = /* GraphQL */ `
-  mutation CreateNFTSQL(
-    $input: CreateNFTSQLInput!
-    $condition: ModelNFTSQLConditionInput
+export const createASKNFTEA = /* GraphQL */ `
+  mutation CreateASKNFTEA(
+    $input: CreateASKNFTEAInput!
+    $condition: ModelASKNFTEAConditionInput
   ) {
-    createNFTSQL(input: $input, condition: $condition) {
+    createASKNFTEA(input: $input, condition: $condition) {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version
@@ -27,24 +29,26 @@ export const createNFTSQL = /* GraphQL */ `
     }
   }
 `;
-export const updateNFTSQL = /* GraphQL */ `
-  mutation UpdateNFTSQL(
-    $input: UpdateNFTSQLInput!
-    $condition: ModelNFTSQLConditionInput
+export const updateASKNFTEA = /* GraphQL */ `
+  mutation UpdateASKNFTEA(
+    $input: UpdateASKNFTEAInput!
+    $condition: ModelASKNFTEAConditionInput
   ) {
-    updateNFTSQL(input: $input, condition: $condition) {
+    updateASKNFTEA(input: $input, condition: $condition) {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version
@@ -53,24 +57,26 @@ export const updateNFTSQL = /* GraphQL */ `
     }
   }
 `;
-export const deleteNFTSQL = /* GraphQL */ `
-  mutation DeleteNFTSQL(
-    $input: DeleteNFTSQLInput!
-    $condition: ModelNFTSQLConditionInput
+export const deleteASKNFTEA = /* GraphQL */ `
+  mutation DeleteASKNFTEA(
+    $input: DeleteASKNFTEAInput!
+    $condition: ModelASKNFTEAConditionInput
   ) {
-    deleteNFTSQL(input: $input, condition: $condition) {
+    deleteASKNFTEA(input: $input, condition: $condition) {
       id
-      owner
-      description
-      image
-      price
-      wallet
-      prevOwner
-      blockTime
-      nonce
-      likes
-      ownerName
-      userPicture
+      awsUserId
+      nftDescription
+      nftImage
+      nftPrice
+      nftAssetOwner
+      nftPrevAssetOwner
+      nftAuctionDuration
+      nftContractAddress
+      nftLikes
+      nftId
+      awsUserPicture
+      awsName
+      nftWalletName
       createdAt
       updatedAt
       _version

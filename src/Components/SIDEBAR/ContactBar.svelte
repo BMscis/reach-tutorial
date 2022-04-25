@@ -10,8 +10,8 @@ export let bal
 export let width
 export let editProfile
 export let username = ""
-export let walletname = ""
-export let walletAddr = ""
+export let nftAssetOwnerName = ""
+export let nftAssetOwnerAddr = ""
 export let contactBarHeight
 let contactBlockWidth
 let showHidden = true
@@ -28,12 +28,12 @@ onMount(()=> {
     <div id="contact-block" style="width:{contactBlockWidth}px;">
         <div id="contact-label-block" style="width:{contactBlockWidth}px;">
             <MenuLabel margin={0} label={username} dark={true}></MenuLabel>
-            <MenuSubLabel margin={0} hide={!showHidden} label={walletAddr} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
-            <MenuSubLabel margin={0} hide={!showHidden} label={walletname} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
+            <MenuSubLabel margin={0} hide={!showHidden} label={nftAssetOwnerAddr} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
+            <MenuSubLabel margin={0} hide={!showHidden} label={nftAssetOwnerName} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
             <MenuSubLabel margin={0} hide={!showHidden} label={bal} dark={true} width={(contactBlockWidth * 0.7).toFixed(2)}></MenuSubLabel>
         </div>
         <div id="privacy-block">
-            <button id="showhidden" on:click={()=>{showHidden = !showHidden}}>
+            <button id="showhidden" class="tr" on:click={()=>{showHidden = !showHidden}}>
             <PrivacyEye {showHidden} ></PrivacyEye>
             </button>
         </div>     
@@ -63,8 +63,8 @@ onMount(()=> {
         align-items: flex-start;
     }
     #privacy-block{
-        height: 24px;
-        width: 24px;
+        height: 48px;
+        width: 48px;
         margin: auto;
         float:right;
         display: flex;

@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "NFTSQL": {
-            "name": "NFTSQL",
+        "ASKNFTEA": {
+            "name": "ASKNFTEA",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,78 +10,92 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "owner": {
-                    "name": "owner",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "description": {
-                    "name": "description",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "image": {
-                    "name": "image",
+                "awsUserId": {
+                    "name": "awsUserId",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "price": {
-                    "name": "price",
+                "nftDescription": {
+                    "name": "nftDescription",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "nftImage": {
+                    "name": "nftImage",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "nftPrice": {
+                    "name": "nftPrice",
                     "isArray": false,
                     "type": "Float",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
-                "wallet": {
-                    "name": "wallet",
+                "nftAssetOwner": {
+                    "name": "nftAssetOwner",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "prevOwner": {
-                    "name": "prevOwner",
+                "nftPrevAssetOwner": {
+                    "name": "nftPrevAssetOwner",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "blockTime": {
-                    "name": "blockTime",
+                "nftAuctionDuration": {
+                    "name": "nftAuctionDuration",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "nonce": {
-                    "name": "nonce",
+                "nftContractAddress": {
+                    "name": "nftContractAddress",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "likes": {
-                    "name": "likes",
+                "nftLikes": {
+                    "name": "nftLikes",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "ownerName": {
-                    "name": "ownerName",
+                "nftId": {
+                    "name": "nftId",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "userPicture": {
-                    "name": "userPicture",
+                "awsUserPicture": {
+                    "name": "awsUserPicture",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "awsName": {
+                    "name": "awsName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "nftWalletName": {
+                    "name": "nftWalletName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -105,7 +119,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "NFTSQLS",
+            "pluralName": "ASKNFTEAS",
             "attributes": [
                 {
                     "type": "model",
@@ -123,25 +137,6 @@ export const schema = {
                                     "delete",
                                     "read"
                                 ]
-                            },
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "create",
-                                    "read",
-                                    "update"
-                                ],
-                                "identityClaim": "cognito:username"
-                            },
-                            {
-                                "allow": "private",
-                                "operations": [
-                                    "create",
-                                    "read",
-                                    "update"
-                                ]
                             }
                         ]
                     }
@@ -151,5 +146,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "b66f0ab5de8eac59672ace72ca878fed"
+    "version": "6076069d0078f3a71299bc8319535052"
 };
