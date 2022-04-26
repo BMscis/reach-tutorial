@@ -38,7 +38,7 @@ const waitResponse = async () => {
   let sendToStorage = false
   let nftCreated = await nft.createNFT()
   if(nftCreated ){
-    sendToStorage = await sendToStore(get(nftImage,"public"))
+    sendToStorage = await sendToStore(get(nftImage).image,"public")
   }
   return sendToStorage
 }

@@ -1,99 +1,73 @@
 import { loadStdlib } from '@reach-sh/stdlib';
 import * as backend from './build/index.main.mjs';
 
-  const stdlib = loadStdlib();
-  const timeoutK = stdlib.connector === 'ALGO' ? 1 : 3;
-  const startingBalance = stdlib.parseCurrency(100);
-  const fmt = (x) => stdlib.formatCurrency(x, 4);
-  const getBalance = async (who) => fmt(await stdlib.balanceOf(who));
+const stdlib = await loadStdlib("ALGO");
+const startingBalance = stdlib.parseCurrency(100);
 
-  const [ accAlice, accBob, accClaire ] =
-    await stdlib.newTestAccounts(3, startingBalance);
+console.log(`Creating test account for Creator`);
+const accCreator = await stdlib.newTestAccount(startingBalance);
+let count = 0
+console.log(`Having creator create testing NFT`);
+const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
+const nftId = theNFT.id;
+const minBid = stdlib.parseCurrency(2);
+const lenInBlocks = 10;
+const params = { nftId, minBid, lenInBlocks };
 
-  const ctcAlice = accAlice.contract(backend);
+let done = false;
+const bidders = [];
+const startBidders = async () => {
+    let bid = minBid;
+    const runBidder = async (who) => {
+        const inc = stdlib.parseCurrency(Math.random() * 10);
+        bid = bid.add(inc);
 
-  const everyone = [
-    [' Alice', accAlice],
-    ['   Bob', accBob],
-    ['Claire', accClaire],
-  ];
-  for ( const [ lab, acc ] of everyone ) {
-    acc.setDebugLabel(lab);
-  }
+        const acc = await stdlib.newTestAccount(startingBalance);
+        acc.setDebugLabel(who);
+        await acc.tokenAccept(nftId);
+        bidders.push([who, acc]);
+        const ctc = acc.contract(backend, ctcCreator.getInfo());
+        const getBal = async () => stdlib.formatCurrency(await stdlib.balanceOf(acc));
 
-  const randomArrayRef = (arr) =>
-    arr[Math.floor(Math.random() * arr.length)];
-
-  const auctionProps = {
-    ' Alice': {
-      startingBid: stdlib.parseCurrency(0),
-      timeout: timeoutK * 3,
-    },
-    '   Bob': {
-      startingBid: stdlib.parseCurrency(1),
-      timeout: timeoutK * 3,
-    },
-    'Claire': {
-      startingBid: stdlib.parseCurrency(3),
-      timeout: timeoutK * 4,
-    }
-  };
-
-  const bids = {
-    ' Alice': {
-      maxBid: stdlib.parseCurrency(7),
-    },
-    '   Bob': {
-      maxBid: stdlib.parseCurrency(40),
-    },
-    'Claire': {
-      maxBid: stdlib.parseCurrency(20),
-    }
-  };
-
-  const trades = {
-    ' Alice': 0, '   Bob': 0, 'Claire': 0
-  };
-
-  const makeOwner = (acc, who) => {
-    const ctc = acc.contract(backend, ctcAlice.getInfo());
-    const others = everyone.filter(x => x[0] !== who);
-    return ctc.p.Owner({
-      showOwner: ((id, owner) => {
-        if ( stdlib.addressEq(owner, acc) ) {
-          console.log(`\n${who} owns it\n`);
-          if ( trades[who] == 2 ) {
-            console.log(`${who} stops`);
-            process.exit(0);
-          } else {
-            trades[who] += 1;
-          }
+        //console.log(`${who} decides to bid ${stdlib.formatCurrency(bid)}.`);
+        //console.log(`${who} balance before is ${await getBal()}`);
+        try {
+            const [ latestBidder, latestBid,lastBidder, lastBid,tim,tm,ls,ts ] = await ctc.apis.Bidder.bid(bid);
+            //console.log(`${who} : ${latestBidder} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${latestBid}`);
+            console.log(count += 1,JSON.parse(tim),JSON.parse(tm),JSON.parse(ls),JSON.parse(ts));
+        } catch (e) {
+            console.log(`${who} failed to bid, because the auction is over`);
         }
-      }),
-      getAuctionProps: (() => {
-        console.log(`${who} starts the bidding at ${fmt(auctionProps[who].startingBid)}`);
-        return auctionProps[who];
-      }),
-      getBid: (price) => {
-        if (price < bids[who].maxBid) {
-          const bid = stdlib.add(price, stdlib.parseCurrency(1));
-          console.log(`${who} tries to bid ${fmt(bid)} (based on price: ${fmt(price)})`);
-          return ['Some', bid];
-        } else {
-          return ['None', null];
-        }
-      },
-    });
-  };
+        console.log(`${who} balance after is ${await getBal()}`);
+    };
 
-  await Promise.all([
-    ctcAlice.p.Creator({
-      getId: () => {
-        const id = stdlib.randomUInt();
-        console.log(` Alice makes id #${id}`);
-        return id; }
-    }),
-    makeOwner(accAlice , ' Alice'),
-    makeOwner(accBob   , '   Bob'),
-    makeOwner(accClaire, 'Claire'),
-  ]);
+    await runBidder('Alice');
+    await runBidder('Bob');
+    await runBidder('Claire');
+    while ( ! done ) {
+        await stdlib.wait(1);
+    }
+};
+
+const ctcCreator = accCreator.contract(backend);
+await ctcCreator.participants.Creator({
+    getSale: () => {
+        console.log(`Creator sets parameters of sale:`, params);
+        return params;
+    },
+    auctionReady: () => {
+        startBidders();
+    },
+    seeBid: (who, amt) => {
+        console.log(`Creator saw that ${stdlib.formatAddress(who)} bid ${stdlib.formatCurrency(amt)}.`);
+    },
+    showOutcome: (winner, amt) => {
+        console.log(`Creator saw that ${stdlib.formatAddress(winner)} won with ${stdlib.formatCurrency(amt)}`);
+    },
+});
+
+for ( const [who, acc] of bidders ) {
+    const [ amt, amtNFT ] = await stdlib.balancesOf(acc, [null, nftId]);
+    console.log(`${who} has ${stdlib.formatCurrency(amt)} ${stdlib.standardUnit} and ${amtNFT} of the NFT`);
+}
+done = true;

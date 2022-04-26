@@ -1,7 +1,7 @@
 import { loadStdlib } from '@reach-sh/stdlib';
 import * as backend from './build/index.main.mjs';
 
-const stdlib = await loadStdlib();
+const stdlib = await loadStdlib("ALGO");
 const startingBalance = stdlib.parseCurrency(100);
 
 console.log(`Creating test account for Creator`);
@@ -32,7 +32,7 @@ const startBidders = async () => {
         //console.log(`${who} decides to bid ${stdlib.formatCurrency(bid)}.`);
         //console.log(`${who} balance before is ${await getBal()}`);
         try {
-            const [ latestBidder, latestBid,lastBidder, lastBid,tim,tm,ls,ts ] = await ctc.apis.Bidder.bid(bid);
+            const [ latestBid,lastBidder, lastBid,tim,tm,ls,ts ] = await ctc.apis.Bidder.bid(bid);
             //console.log(`${who} : ${latestBidder} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${latestBid}`);
             console.log(count += 1,JSON.parse(tim),JSON.parse(tm),JSON.parse(ls),JSON.parse(ts));
         } catch (e) {

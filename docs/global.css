@@ -215,10 +215,10 @@ li{
 	animation-fill-mode: forwards;
     transform: translate(0,0);
 }
-#menu-bar:nth-child(1){
+#bidders-bar ul:first-child li #menu-bar{
 	background-color: var(--primary-bright);
 }
-#menu-bar:nth-child(2){
+#menu-bar{
 	background-color: var(--spectacular-orange);
 }
 #menu-bar{

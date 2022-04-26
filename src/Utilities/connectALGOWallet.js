@@ -1,8 +1,6 @@
-import { get } from 'svelte/store';
 import algosdk from "algosdk";
-import {loadStdlib} from "@reach-sh/stdlib"
-//import MyAlgoConnect from '@randlabs/myalgo-connect';
-import { ALGO_MyAlgoConnect as MyAlgoConnect} from '@reach-sh/stdlib';
+import MyAlgoConnect from '@randlabs/myalgo-connect';
+//import { ALGO_MyAlgoConnect as MyAlgoConnect} from '@reach-sh/stdlib';
 import { fundAccount, getBalance, loadLib } from './utilities';
 import {provider, wallet, walletAddress,walletName} from "../Stores/Wallet/WalletStore"
 export const createAccount = async () => {
@@ -66,6 +64,14 @@ export async function connectMyAlgo(){
         const account = await reach.getDefaultAccount()
         walletAddress.set(account.networkAccount.addr)
         wallet.set(account)
+            console.log("Account ADDn:n ",account.networkAccount.addr )
+            console.log("Account ADDd:d ", algosdk.decodeAddress(account.networkAccount.addr))
+            console.log("format address ", reach.formatAddress(account.networkAccount.addr))
+            console.log("format address2 ", reach.formatAddress(account.getAddress()))
+            console.log("---------------------------------------------")
+            console.log("eq ", reach.addressEq(account.getAddress(), account.networkAccount.addr))
+            console.log("isHex ", reach.isHex(account.getAddress()))
+            
         //const canfund = await fundAccount("ALGO")
         const balance = await getBalance(account,"ALGO")
         //console.log("2: ConnectMyalgo: ", account,balance)

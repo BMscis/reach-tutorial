@@ -38,10 +38,10 @@ return
 
 const sendCurrentBid = async () => {
 console.log("___________BID_PRICE____________",bidPrice)
-let [cBid,lBidder,lBid] = await bidContract.bid(bidPrice)
-bidderList = [[cBid,lBidder,lBid]]
+let [cBid,lBid] = await bidContract.bid(bidPrice)
+bidderList = [[cBid,lBid]]
 bidderList.sort((a, b) => b - a);
-console.log("BID",[cBid,lBidder,lBid])
+console.log("BID",[cBid,lBid])
 console.log("BIDDER LIST",bidderList)
 return
 }
@@ -89,10 +89,10 @@ onDestroy(()=> {return [unsubscribeBidder]})
             <ul>
                 {#each bidderList as bid}
                 <li>
-                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"   val={bid[1]}></MenuBar>
+                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"   val={bid[0]}></MenuBar>
                 </li>
                 <li>
-                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"  val={bid[3]}></MenuBar>
+                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"  val={bid[1]}></MenuBar>
                 </li>
                 {/each}
             </ul>

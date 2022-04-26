@@ -14,7 +14,7 @@
 	import CENTRALBLOCK from "./Components/CENTRALBLOCK/CENTRALBLOCK.svelte";
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
 	import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
-import { openNFTBox } from "./Stores/movment";
+	import { openNFTBox } from "./Stores/movment";
 
 	let openBox
 	let gridStyle
