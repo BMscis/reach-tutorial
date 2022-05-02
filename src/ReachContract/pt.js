@@ -35,6 +35,10 @@ export class Creator extends Participant{
         this.nftPrice = nftPrice
         this.nftId = nftId
         let returnContract
+        let nftIdJSON = JSON.parse(nftId)
+        let nftBig = this.stdlib.bigNumberify(nftIdJSON)
+        let tkm = await this.wallet.tokenMetadata(nftBig)
+        console.log("MEEEEEEEEEETA: ",tkm)
         const contractCreated = await this.getContract()
         
         if(contractCreated) returnContract = await this.deployContract()
@@ -67,7 +71,12 @@ export class Creator extends Participant{
         consologger("createNFT",[nftName,nftSymbol,nftImage])
         consologger("createNFT-type-wallet",typeof this.wallet)
         try {
-            this.nft = await this.stdlib.launchToken(this.wallet, get(nftName), get(nftSymbol), { 
+            this.nft = await this.stdlib.launchToken(
+                this.wallet, 
+                get(nftName), 
+                get(nftSymbol), {
+                total:1,
+                decimals:0,
                 supply: 1,
                 url:get(nftImage).url,
             });
@@ -75,6 +84,7 @@ export class Creator extends Participant{
             consologger("createNFT-type-nft",typeof this.nft)
             consologger("createNFT-type-nft-id",typeof this.nft.id)
             consologger("createNFT-type-nft-id-string",JSON.stringify(this.nft.id))
+            consologger("createNFT-To-String",this.nft.toString())
             nftId.set(JSON.stringify(this.nft.id))
             return true
         } catch (error) {
@@ -89,8 +99,8 @@ export class Creator extends Participant{
             this.contract.participants.Creator(this)
             const agreement = await this.contract.getInfo()
             let contAddress = await this.contract.getContractAddress()
-            consologger("deployContract-agreement",agreement)
-            nftContractId.set(this.stdlib.formatAddress(contAddress))
+            consologger("deployContract-agreement",JSON.stringify(agreement))
+            nftContractId.set(JSON.stringify(agreement))
             consologger("deployContract-contAddress",this.stdlib.formatAddress(contAddress))
             return contAddress
         }catch(error){
@@ -101,7 +111,12 @@ export class Creator extends Participant{
     async getSale () {
         // setting sale true 2
         consologger("getSale",JSON.parse(this.nftId))
-        let params = {nftId:JSON.parse(this.nftId),minBid:this.stdlib.parseCurrency(this.nftPrice),lenInBlocks: 120}
+        console.log("++++++++++",this.nftId)
+        let nftIdJSON = JSON.parse(this.nftId)
+        console.log("++++++++++",nftIdJSON)
+        console.log("++++++++++",this.stdlib.bigNumberify(nftIdJSON))
+        let nftIdBig = this.stdlib.bigNumberify(nftIdJSON)
+        let params = {nftId:nftIdBig,minBid:this.stdlib.parseCurrency(this.nftPrice),lenInBlocks: 120}
         return params
     }
     play = () => new Promise(resolve => {
@@ -131,23 +146,18 @@ export class Bidder extends Participant{
         super()
     }
     async latch(contractID,nftId){
-        console.log("2: Bidder latch");
-        await this.wallet.tokenAccept(nftId);
-        console.log("token---------accepted");
-        this.contract = await this.wallet.contract(backend,contractID);
-        console.log("2B: Bidder latch",this.contract);
-        //const bc = backend.Bidder(this.contract,this)
+        let nftIdJSON = JSON.parse(nftId)
+        let nftBig = this.stdlib.bigNumberify(nftIdJSON)
+        let contractIDJSON = JSON.parse(contractID)
+        consologger("latch",[contractIDJSON,nftIdJSON])
+
+        //let tkn2 =  algosdk.getApplicationAddress(nftIdJSON)
+
+        await this.wallet.tokenAccept(nftBig);
+        this.contract = await this.wallet.contract(backend,contractIDJSON);
         
         return this
     }
-    // play = () => new Promise(resolve => {
-    //     playerHand.subscribe((value) => {
-    //         console.log("PLAYER playerHand: ", value)
-    //         if (value.handPlayed.length > 0 && value.timestamp != this.lastTimeStamp) {
-    //             resolve(handToInt[value.handPlayed])
-    //         }
-    //     })
-    // })
     async bid(bid){
         let didNotWork = false
         try{

@@ -40,7 +40,7 @@ let nftimage
             break;
             case "nft-image":
             nftImage.set({
-                url:"https://storagenft171809-staging.s3.eu-west-2.amazonaws.com/public/"+nftimage[0].name,
+                url:"https://nfshow.s3.eu-west-2.amazonaws.com/public/"+nftimage[0].name,
                 image:nftimage}
             )
             break;

@@ -17,6 +17,7 @@ export const main = Reach.App(() => {
         bid: Fun([UInt], Tuple(UInt,Address, UInt)),
     });
     init();
+    
     Creator.interact.log(2)
     Creator.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());

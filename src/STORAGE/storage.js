@@ -78,9 +78,6 @@ const uploadNFT = async(
     awsUserPicture,
     awsName, 
     nftWalletName) => {
-        if(nftId instanceof Object){
-            nftId = JSON.parse(nftId).toString()
-        }
         try {
             const result = await DataStore.save(
                 new ASKNFTEA({

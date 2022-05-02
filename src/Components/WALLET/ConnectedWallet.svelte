@@ -8,7 +8,7 @@ import { afterUpdate } from "svelte";
 let clicked = false;
 let nftAssetOwnerColor
 const tryConnect = async () => {
-    const isConnected = await connectETHWallet();
+    const isConnected = await connectMyAlgo();
     isConnected ? clicked = true : clicked = false;
     return isConnected
 }
