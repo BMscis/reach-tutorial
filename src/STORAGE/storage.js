@@ -1,43 +1,39 @@
-import { get } from 'svelte/store'
-import { Storage, API } from "aws-amplify"
-import { cyberuser, userName,nftContractId, walletAddress, nftId } from "../Stores/Wallet/WalletStore"
-import { DataStore } from '@aws-amplify/datastore';
+import { get } from 'svelte/store';
 import { ASKNFTEA } from '../models';
-import { nftStore } from './storageStore'
-import { createNft } from '../Stores/nftCard'
-import { Creator } from '../ReachContract/pt';
+import { Storage } from "aws-amplify";
+import { createNft } from '../Stores/nftCard';
+import {creatNFTeaCard} from "./nftCardMutations";
+import { DataStore } from '@aws-amplify/datastore';
+import { cyberuser,walletAddress, nftId } from "../Stores/Wallet/WalletStore";
 import { nftDescription, nftName, nftPrice } from '../Components/CREATENFT/nftFormSvelte';
+import { consologger } from '../Utilities/utilities';
 export const sendToStore = async (image, protectionLevel) => {
     let level = protectionLevel
     let imageName = image[0].name
     let [imageSplit, imageType] = imageName.split('.')
 
-    const uploadResult = await uploadNFT(
-        get(cyberuser).username,
-        get(nftDescription),
-        imageName,
-        get(nftPrice),
-        get(walletAddress),
-        "0x0",
-        "60",
-        //get(nftContractId).contractId,
-        "0x123sdaafsd244555657567",
-        0,
-        get(nftId),
-        get(cyberuser).attributes.picture,
-        get(cyberuser).attributes.name,
-        get(nftName),
-        //"nftName"
-    )
+    let setNft = new ASKNFTEA({
+        "awsUserId":get(cyberuser).username,
+        "nftDescription":get(nftDescription),
+        "nftImage": imageName,
+        "nftPrice":get(nftPrice),
+        "nftAssetOwner":get(walletAddress),
+        "nftPrevAssetOwner":"0x0",
+        "nftAuctionDuration":"60",
+        "nftContractAddress":"0x123sdaafsd244555657567",
+        "nftLikes":0,
+        "nftId":get(nftId),
+        "awsUserPicture":get(cyberuser).attributes.picture,
+        "awsName":get(cyberuser).attributes.name,
+        "nftWalletName":get(nftName),
+        //"nftName": nftName
+    })
+    consologger("Send To Store: ", 0)
+    const uploadResult = await creatNFTeaCard(setNft,imageName, image[0],imageType,level)
     if (uploadResult){
-        const uploadToS3Result = await uploadToS3(imageName, image[0],imageType,level)
-        if (uploadToS3Result){
             return true
         }else{
             return false
-        }
-    }else{
-        return false
     }
 }
 export const getStore = async () => {
@@ -140,7 +136,7 @@ const deleteNFT = async () => {
     const modelToDelete = await DataStore.query(ASKNFTEA, 123456789);
     DataStore.delete(modelToDelete);
 }
-const pic =async (modl) => {
+export const pic =async (modl) => {
     let img = await getImages(modl)
     return img
 }

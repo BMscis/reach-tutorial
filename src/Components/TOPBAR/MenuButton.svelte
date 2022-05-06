@@ -1,20 +1,40 @@
 <script>
 import { onMount } from "svelte";
-import {openSidebar} from "../../Stores/movment";
-
-let open = false
-const sideBar = () => {
-    const sideBar = document.querySelector('#sidebarBlock')
-    open ? sideBar.classList.add('open') : sideBar.classList.remove('open')
+import {openNFTBox, openSidebar} from "../../Stores/movment";
+export let bPosition = "top";
+export let open = false
+let sideBar
+let style
+switch (bPosition) {
+    case "top":
+        style = "width:24px;height:24px;"
+        sideBar = () => {
+            let sBar = document.querySelector('#sidebarBlock')
+            open ? sBar.classList.add('open') : sBar.classList.remove('open')
+        }
+        onMount(() => {
+            openSidebar.subscribe((value) => {
+                value || value == false ? open = value : null
+                value || value == false ? sideBar() : null
+            })
+        })
+        break;
+    case "popup":
+        style = "width:24px;height:24px;position:absolute;top:24px;right:24px;"
+        break
 }
-onMount(() => {
-    openSidebar.subscribe((value) => {
-        value || value == false ? open = value : null
-        value || value == false ? sideBar() : null
-    })
-})
+const click = () => {
+    switch (bPosition) {
+        case "top":
+            openSidebar.set(!open)
+            break;
+        case "popup":
+            openNFTBox.set(false)
+            break;
+    }
+}
 </script>
-<button id="menu-button" class="tr" style="width:24px;height:24px;" on:click={() => {openSidebar.set(!open)}}>
+<button id="menu-button" class="tr" style={style} on:click={() => {click()}}>
     {#if !open}
         <svg id="icon_navigation_menu_24px" data-name="icon/navigation/menu_24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <rect id="Boundary" width="24" height="24" fill="none"/>
@@ -30,6 +50,7 @@ onMount(() => {
 <style>
     #menu-button{
         padding:0;
+        margin:0;
     }
       button:hover #_Color{
         fill:var(--spectacular-orange-hover);

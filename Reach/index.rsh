@@ -8,7 +8,7 @@ export const main = Reach.App(() => {
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        timeout: Fun([], Null),
+        //timeout: Fun([], Null),
         auctionReady: Fun([], Null),
         seeBid: Fun([Address, UInt], Null),
         showOutcome: Fun([Address, UInt], Null),
@@ -54,7 +54,7 @@ export const main = Reach.App(() => {
                 return [this, bid, false];
             })
         ).timeout(absoluteTime(end), () => {
-            Creator.interact.timeout();
+            //Creator.interact.timeout();
             Creator.publish()
             return [highestBidder, lastPrice, isFirstBid]; 
         });

@@ -8,7 +8,7 @@ export const main = Reach.App(() => {
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        timeout: Fun([], Null),
+        //timeout: Fun([], Null),
         auctionReady: Fun([], Null),
         seeBid: Fun([Address, UInt], Null),
         showOutcome: Fun([Address, UInt], Null),
@@ -17,6 +17,7 @@ export const main = Reach.App(() => {
         bid: Fun([UInt], Tuple(UInt,Address, UInt)),
     });
     init();
+    
     Creator.interact.log(2)
     Creator.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
@@ -32,14 +33,17 @@ export const main = Reach.App(() => {
     Creator.interact.auctionReady();
     Creator.interact.log(7)
     assert(balance(nftId) == amt, "balance of NFT is wrong");
+    //const lastCons = lastConsensusTime();
     const end = lastConsensusTime() + lenInBlocks;
+    //const [ timeRemaining, keepGoing ] = makeDeadline(end);
     const [
         highestBidder, 
         lastPrice,
         isFirstBid,
-    ] = parallelReduce([Creator, minBid, true])
+        endTime,
+    ] = parallelReduce([Creator, minBid, true, end])
         .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
-        .while(lastConsensusTime() <= end)
+        .while(lastConsensusTime() <= endTime)
         .api(Bidder.bid,
             ((bid) => { assume(bid > lastPrice, "bid is too low"); }),
             ((bid) => bid),
@@ -50,12 +54,23 @@ export const main = Reach.App(() => {
                     transfer(lastPrice).to(highestBidder);
                 }
                 Creator.interact.seeBid(this, bid);
-                return [this, bid, false];
+                return [this, bid, false, endTime];
             })
-        ).timeout(absoluteTime(end), () => {
-            Creator.interact.timeout();
-            Creator.publish()
-            return [highestBidder, lastPrice, isFirstBid]; 
+        ).timeout(absoluteTime(endTime), () => {
+            //Creator.interact.timeout();
+            Creator.interact.log(0)
+            Creator.interact.log(endTime)
+            Creator.interact.log(0)
+            Creator.interact.log(lastConsensusTime())
+            Creator.publish();
+            if(isFirstBid) {
+                Creator.interact.log(200)
+                Creator.interact.log(isFirstBid)
+                return [highestBidder, lastPrice, isFirstBid, endTime + lenInBlocks];
+            }else{
+                Creator.interact.log(100)
+                return [highestBidder, lastPrice, isFirstBid,endTime]; 
+            }
         });
 
         transfer(amt, nftId).to(highestBidder);

@@ -2,7 +2,16 @@ import algosdk from "algosdk";
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 //import { ALGO_MyAlgoConnect as MyAlgoConnect} from '@reach-sh/stdlib';
 import { fundAccount, getBalance, loadLib } from './utilities';
-import {provider, wallet, walletAddress,walletName} from "../Stores/Wallet/WalletStore"
+import {accountInformation, provider, wallet, walletAddress,walletName} from "../Stores/Wallet/WalletStore"
+import { get } from "svelte/store";
+import { mnemonicPhrase, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
+
+const algodToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+const algodServer = 'http://localhost';
+const algodPort = 4001;
+const reach = loadLib("ALGO");
+export const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+
 export const createAccount = async () => {
     try {  
         const myaccount = await algosdk.generateAccount();
@@ -23,9 +32,6 @@ export async function firstTransaction() {
         let myAccount = await createAccount();
         alert("Press OK key when the account is funded");
         // Connect your client
-        const algodToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-        const algodServer = 'http://localhost';
-        const algodPort = 4001;
         let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
         walletAddress.set(myAccount.addr)
         //wallet.set(myAccount)
@@ -43,9 +49,6 @@ export async function firstTransaction() {
     }
 }
 export async function connectMyAlgo(){
-    const algodToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-    const algodServer = 'http://localhost';
-    const algodPort = 4001;
     //let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
     let providerEnv = {
             ALGO_TOKEN:algodToken,
@@ -55,7 +58,6 @@ export async function connectMyAlgo(){
             ALGO_INDEXER_SERVER:algodServer,
             ALGO_INDEXER_PORT:8980,
         }
-    const reach = loadLib("ALGO");
 
     reach.setWalletFallback(reach.walletFallback({
     providerEnv: providerEnv, MyAlgoConnect })); 
@@ -64,30 +66,26 @@ export async function connectMyAlgo(){
         const account = await reach.getDefaultAccount()
         walletAddress.set(account.networkAccount.addr)
         wallet.set(account)
-            console.log("Account ADDn:n ",account.networkAccount.addr )
-            console.log("Account ADDd:d ", algosdk.decodeAddress(account.networkAccount.addr))
-            console.log("format address ", reach.formatAddress(account.networkAccount.addr))
-            console.log("format address2 ", reach.formatAddress(account.getAddress()))
-            console.log("---------------------------------------------")
-            console.log("eq ", reach.addressEq(account.getAddress(), account.networkAccount.addr))
-            console.log("isHex ", reach.isHex(account.getAddress()))
-            
-        //const canfund = await fundAccount("ALGO")
         const balance = await getBalance(account,"ALGO")
-        //console.log("2: ConnectMyalgo: ", account,balance)
-        // //const accountAunt = await reach.fundFromFaucet(account, reach.parseCurrency(0))
-        // //const account = await reach.getDefaultAccount()
-        // //const balance = await getBalance(account,"ALGO")
-        // console.log("Account: ", account)
-        // //walletAddress.set(account.getAddress())
-        // wallet.set(account)
-        // //console.log("Account: ",get(walletAddress))
-        // const canfund = await fundAccount("ALGO")
-        // if(!canfund)return false
-        return true
+        let gotInfo = await algoDetailClient();
+        if(gotInfo){
+            return true
+        }else{return false}
 
     }catch(error){
         console.log("Error connecting to MyAlgo:", error);
+        return false
+    }
+}
+async function algoDetailClient(){
+    try {
+        let algoParams = await algodClient.accountInformation(get(walletAddress)).do();
+        console.log("AlgoParams: ", algoParams);
+        accountInformation.set(algoParams)
+        algosdk.makeAsset
+        return true
+    } catch (error) {
+        console.log("Error getting account information:", error);
         return false
     }
 }

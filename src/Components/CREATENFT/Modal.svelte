@@ -11,6 +11,8 @@ import SuccessIcon from "../SuccessIcon.svelte";
 import { contractState } from "../../ReachContract/reachStore";
 import ContractDeploy from "../../Participants/ContractDeploy.svelte";
 import { openNFTBox } from "../../Stores/movment";
+import MenuButton from "../TOPBAR/MenuButton.svelte";
+export let width
 let count = 0
 let loading = false
 let auctionState
@@ -29,7 +31,8 @@ const closeImage = async () => {
     setTimeout(() => {
         showModal = false
         openNFTBox.set(false)
-    }, 2000);
+        count = 0
+    }, 1000);
     return false
 }
 const waitResponse = async () => {
@@ -52,10 +55,11 @@ onDestroy(() => {
     return formNumber
 })
 </script>
-<main>
+<div id="main-modal" style="width: {width}px;">
   <!-- modal 3 -->
   <div class="box">
     <div class="modal-container" id="m3-o" style="--m-background: transparent;">
+        <MenuButton bPosition="popup" open="true"></MenuButton>
         <ModalForm formz = {forms[count]}></ModalForm>
     {#if count !== 5}
     <button disabled  class="link-1" id="m3-c" style="margin-top:3rem" >Upload</button>
@@ -78,7 +82,8 @@ onDestroy(() => {
     {/if}
   </div>
   <!-- /modal 3 -->
-</main>
+</div>
+</div>  
 <style>
 *,
 *::after,
@@ -90,7 +95,6 @@ onDestroy(() => {
 *{
     font-family: roboto,"Noto Sans Myanmar UI",arial,sans-serif;
 }
-
 button,
 button:link {
   font-family: inherit;
@@ -105,7 +109,7 @@ button:focus {
 button::-moz-focus-inner {
   border: 0;
 }
-main{
+#main-modal{
   background: transparent;
 }
 

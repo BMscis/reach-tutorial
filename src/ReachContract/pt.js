@@ -1,15 +1,11 @@
-import algosdk from "algosdk";
 import { get } from "svelte/store";
-import { createAuction, seeBidder } from "../Stores/Wallet/PrincipalStore";
+import { consologger } from "../Utilities/utilities";
 import * as backend from "../../Reach/build/index.main.mjs";
-import { cyberuser, nftContractId, nftId, reachStdlib, wallet } from "../Stores/Wallet/WalletStore";
+import { CreateAlgoAsset } from "../Utilities/createAlgoAsset";
 import { auctionReady, contractState, creatorSeeBid } from "./reachStore";
 import { nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
-import { a } from "aws-amplify";
-let count = 0
-const consologger = (obj,val) => {
-    console.log(`Position: ${count += 1}!!!!!!!!!${obj}:::::::::${val}`)
-}
+import { cyberuser, nftContractId, nftId, reachStdlib, wallet } from "../Stores/Wallet/WalletStore";
+
 export class Participant{
     constructor(){
         this.bidCount = 0
@@ -71,24 +67,12 @@ export class Creator extends Participant{
         consologger("createNFT",[nftName,nftSymbol,nftImage])
         consologger("createNFT-type-wallet",typeof this.wallet)
         try {
-            this.nft = await this.stdlib.launchToken(
-                this.wallet, 
-                get(nftName), 
-                get(nftSymbol), {
-                total:1,
-                decimals:0,
-                supply: 1,
-                url:get(nftImage).url,
-            });
-            consologger("createNFT-nft",this.nft)
-            consologger("createNFT-type-nft",typeof this.nft)
-            consologger("createNFT-type-nft-id",typeof this.nft.id)
-            consologger("createNFT-type-nft-id-string",JSON.stringify(this.nft.id))
-            consologger("createNFT-To-String",this.nft.toString())
-            nftId.set(JSON.stringify(this.nft.id))
+            this.algoAsset = new CreateAlgoAsset()
+            const nftIdAlgo = await this.algoAsset.createAsset()
+            this.nftId = nftIdAlgo
             return true
         } catch (error) {
-            console.log("2B: ERROR: Creator createNFT",error)
+            console.log("Creator createNFT",error)
             return false
         }
     }
@@ -150,8 +134,6 @@ export class Bidder extends Participant{
         let nftBig = this.stdlib.bigNumberify(nftIdJSON)
         let contractIDJSON = JSON.parse(contractID)
         consologger("latch",[contractIDJSON,nftIdJSON])
-
-        //let tkn2 =  algosdk.getApplicationAddress(nftIdJSON)
 
         await this.wallet.tokenAccept(nftBig);
         this.contract = await this.wallet.contract(backend,contractIDJSON);

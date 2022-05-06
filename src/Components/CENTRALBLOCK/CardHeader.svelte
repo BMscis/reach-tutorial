@@ -41,7 +41,7 @@ import HeartIcon from "../HeartIcon.svelte";
         height: 49.68px;
         position: relative;
         border-radius: 0px 0px 12px 12px;
-        bottom: 0px;
+        bottom: -16px;
         background-color: rgba(0, 0, 0, 0.26);
         align-items: center;
     }

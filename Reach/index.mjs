@@ -12,7 +12,11 @@ const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1
 const nftId = theNFT.id;
 const minBid = stdlib.parseCurrency(2);
 const lenInBlocks = 10;
-const params = { nftId, minBid, lenInBlocks };
+const params = { 
+    nftId:nftId,
+    minBid:minBid,
+    lenInBlocks:lenInBlocks,
+ };
 
 let done = false;
 const bidders = [];
@@ -24,6 +28,7 @@ const startBidders = async () => {
 
         const acc = await stdlib.newTestAccount(startingBalance);
         acc.setDebugLabel(who);
+        
         await acc.tokenAccept(nftId);
         bidders.push([who, acc]);
         const ctc = acc.contract(backend, ctcCreator.getInfo());
@@ -32,11 +37,12 @@ const startBidders = async () => {
         //console.log(`${who} decides to bid ${stdlib.formatCurrency(bid)}.`);
         //console.log(`${who} balance before is ${await getBal()}`);
         try {
-            const [ latestBid,lastBidder, lastBid,tim,tm,ls,ts ] = await ctc.apis.Bidder.bid(bid);
-            //console.log(`${who} : ${latestBidder} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${latestBid}`);
-            console.log(count += 1,JSON.parse(tim),JSON.parse(tm),JSON.parse(ls),JSON.parse(ts));
+            //const [ latestBid,lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
+            //console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
+            console.log("Lodging")
         } catch (e) {
-            console.log(`${who} failed to bid, because the auction is over`);
+            //console.log(`${who} failed to bid, because ${e} is too high`);
+            console.log("Lodging")
         }
         console.log(`${who} balance after is ${await getBal()}`);
     };
@@ -52,11 +58,11 @@ const startBidders = async () => {
 const ctcCreator = accCreator.contract(backend);
 await ctcCreator.participants.Creator({
     getSale: () => {
-        console.log(`Creator sets parameters of sale:`, params);
         return params;
     },
     auctionReady: () => {
-        startBidders();
+        console.log("Auction ready");
+        //startBidders();
     },
     seeBid: (who, amt) => {
         console.log(`Creator saw that ${stdlib.formatAddress(who)} bid ${stdlib.formatCurrency(amt)}.`);
@@ -64,6 +70,10 @@ await ctcCreator.participants.Creator({
     showOutcome: (winner, amt) => {
         console.log(`Creator saw that ${stdlib.formatAddress(winner)} won with ${stdlib.formatCurrency(amt)}`);
     },
+    log: (log) => {
+        let logg = JSON.parse(log)
+        console.log(`Logger logs: `,logg);
+    }
 });
 
 for ( const [who, acc] of bidders ) {

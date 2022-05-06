@@ -1,8 +1,36 @@
+import algosdk from "algosdk";
 import { Auth } from "aws-amplify"
 import { get } from "svelte/store"
 import {loadStdlib} from "@reach-sh/stdlib"
 import {balance, cyberuser, reachStdlib, wallet, walletAddress} from "../Stores/Wallet/WalletStore"
 
+let count = 0
+const colors = {
+  reset: '\u001f[0m',
+
+  //text color
+
+  black: '\u001f[30m',
+  red: '\u001f[31m',
+  green: '\u001f[32m',
+  yellow: '\u001f[33m',
+  blue: '\u001f[34m',
+  magenta: '\u001f[35m',
+  cyan: '\u001f[36m',
+  white: '\u001f[37m',
+
+  //background color
+
+  blackBg: '\u001f[40m',
+  redBg: '\u001f[41m',
+  greenBg: '\u001f[42m',
+  yellowBg: '\u001f[43m',
+  blueBg: '\u001f[44m',
+  magentaBg: '\u001f[45m',
+  cyanBg: '\u001f[46m',
+  whiteBg: '\u001f[47m'
+}
+const MICRO_ALGOS_RATIO = 1e6;
 export const loadLib = (chain) =>{
   reachStdlib.set(loadStdlib(chain))
   return reach = loadStdlib(chain)
@@ -62,11 +90,18 @@ export async function getBalance(address,chain){
   const reach = loadLib(chain)
   try {
       let balAtomic = await reach.balanceOf(address)
-      const bal = reach.formatCurrency(balAtomic,4)
+      console.log("Balance: ", balAtomic);
+      const bal = reach.formatCurrency(balAtomic)
+      console.log("BAlance: bal ", bal);
+      console.log("BAlance: bal ", typeof(bal));
+      //let algoTest = algosdk.microalgosToAlgos(parseFloat(bal))
+      //console.log("BAlance: algoTest ", algoTest);
+      //let algoBalance = bal/MICRO_ALGOS_RATIO
+      //console.log("Ballaaaance: ",algoBalance)
       balance.set(bal)
       return bal
   } catch (error) {
-      alert("GetBalance: ",error);
+      console.log("GetBalance: ",error);
   }
 }
 export async function checkUploadNft(){
@@ -100,4 +135,19 @@ export async function checkUploadNft(){
   }else{
     return false
   }
+}
+
+export const consologger = (obj,val) => {
+    console.log(
+    `Position: `,
+    `${colors.green}`,
+    count += 1,
+    `${colors.yellow}`,
+    '!!!!!!!!!',
+    `${colors.black}`,
+    obj,
+    ':::::::::',
+    `${colors.black}`,
+    val
+    )
 }

@@ -6,17 +6,25 @@ import Modal from "./Modal.svelte";
 
 </script>
 <div id="main-nft-box" style="display:{openBox?"block":"none"};width:{nftBlockWidth}px;height:{nftBlockHeight}px;">
-    <div id="nft-container">
-        <div id="nft-heading">
-            NFTea
+    <div id="nft-container" style="width:{nftBlockWidth - 80}px;height:{nftBlockHeight  - 80}px;">
+        <div id="top" style="width:{nftBlockWidth - 80}px;height:{((nftBlockHeight * .5) - 80).toFixed(2)}px;">
+            <div id="nft-heading" >
+                NFTea
+            </div>
+            <h4 class="modal__title">Create NFT with Reach on Algorand</h4>
         </div>
-        <h4 class="modal__title">Create NFT with Reach on Algorand</h4>
-        <div id="nft-body">
-            <Modal></Modal>
+        <div id="nft-body" style="width:{nftBlockWidth - 80}px;">
+            <Modal width={nftBlockWidth - 80}></Modal>
         </div>
     </div>
 </div>
 <style>
+    #top,#nft-body{
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
     #main-nft-box{
         z-index: 120;
         position:absolute;
@@ -44,7 +52,11 @@ import Modal from "./Modal.svelte";
     }
     #nft-container{
     padding: 48px 40px 36px;
- 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
     }
     #nft-heading{
         font-size: 24px;
