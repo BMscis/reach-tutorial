@@ -43,3 +43,10 @@ Storage and authentication are handled by AWS Amplify.
 NFTea uses [Amplify](https://aws.amazon.com/amplify/) to for backend queries.
 NFTea uses [Amazon s3](https://aws.amazon.com/s3/) to store images.
 NFTea uses [Amazon Authenticate](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/) to authenticate users.
+
+### [REACH](https://reach.sh/us/faq/)
+Reach is a blockchain development program that allows us to create and manage smart contracts on the blockchain.
+Reach compiles to a javascript module that can be imported into the project just like any other javascript module.
+1. Reach smart contract code is written in a javascript like syntax and can be easily tested.
+2. Reach allows the programmer to write single code in .sh and it will compile it to mjs. 
+3. Reach handles the backend deployment of the contract and therefore it can be used simultaneously with multiple blockchains.
