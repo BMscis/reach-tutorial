@@ -5,7 +5,7 @@ import { get } from "svelte/store";
 import { algodClient } from "./connectALGOWallet"
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { nftId, walletAddress } from "../Stores/Wallet/WalletStore";
-import { mnemonicPhrase, nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
+import { nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
 // createAccount
 // once created sucessfully, you will need to add funds 
 // The Algorand TestNet Dispenser is located here: 
@@ -85,7 +85,7 @@ export class CreateAlgoAsset {
             
     }
     async createSk(){
-        const sk = algosdk.mnemonicToSecretKey(get(mnemonicPhrase));
+        //const sk = algosdk.mnemonicToSecretKey(get(mnemonicPhrase));
         console.log("Secret key: " + sk);
         return sk
     }

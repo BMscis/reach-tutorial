@@ -2,14 +2,12 @@ import algosdk from "algosdk";
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 //import { ALGO_MyAlgoConnect as MyAlgoConnect} from '@reach-sh/stdlib';
 import { fundAccount, getBalance, loadLib } from './utilities';
-import {accountInformation, provider, wallet, walletAddress,walletName} from "../Stores/Wallet/WalletStore"
+import {accountInformation, chain, provider, wallet, walletAddress,walletName} from "../Stores/Wallet/WalletStore"
 import { get } from "svelte/store";
-import { mnemonicPhrase, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
 
 const algodToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const algodServer = 'http://localhost';
 const algodPort = 4001;
-const reach = loadLib("ALGO");
 export const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 export const createAccount = async () => {
@@ -49,6 +47,8 @@ export async function firstTransaction() {
     }
 }
 export async function connectMyAlgo(){
+    chain.set('ALGO')
+    const reach = loadLib("ALGO");
     //let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
     let providerEnv = {
             ALGO_TOKEN:algodToken,

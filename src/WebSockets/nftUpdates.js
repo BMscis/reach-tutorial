@@ -15,7 +15,7 @@ export const nftSubscription = () => {
     const unsubscribe = () => {
         socket.unsubscribe();
     }
-    return [sockets,unsubscribe]
+    return [socket,unsubscribe]
 }
 const setNFT = async (provider,nftModel) => {
     consologger("setNFT",{provider,nftModel})

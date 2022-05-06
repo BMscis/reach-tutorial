@@ -5,7 +5,7 @@ import MenuButton from "./MenuButton.svelte";
 import IconContainer from "../IconContainer.svelte";
 import { topContainer} from "../../Stores/allDimension";
 import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
-import { openNFTBox, openSidebar, tryMountImage } from "../../Stores/movment";
+import { openNFTBox} from "../../Stores/movment";
 import { checkUploadNft } from "../../Utilities/utilities";
 import Loading from "../Loading.svelte";
 import SuccessIcon from "../SuccessIcon.svelte"

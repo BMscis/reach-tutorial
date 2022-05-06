@@ -1,14 +1,9 @@
 node_modules
+Reach
 .vscode
 package-lock.json
 src/nftea-assets/xd
 SvelteToDelete
-/Reach/.reach
-/Reach/rTest
-/Reach/NftSale
-/Reach/i.rsh
-/Reach/index2.rsh
-/Reach/index2.mjs
 /ASA
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend

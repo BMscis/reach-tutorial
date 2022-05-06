@@ -1,5 +1,6 @@
 <script>
 import { get } from "svelte/store";
+import { openNFTBox } from "../../Stores/movment";
 import {formNumber, nftDescription, nftName, nftPrice, nftSymbol, nftImage} from "./nftFormSvelte"
 export let formz
 let nftdescription
@@ -46,6 +47,13 @@ let nftimage
             break;
         }
     }
+    openNFTBox.subscribe(value => {
+        nftdescription = ""
+        nftname = ""
+        nftimage = ""
+        nftprice = ""
+        nftsymbol = ""
+    })
 </script>
 <div class="modal" style="--m-shadow: 0 0 10rem 0">
     {#if formz == "nft-description"}

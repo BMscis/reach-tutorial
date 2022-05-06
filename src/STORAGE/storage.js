@@ -4,14 +4,14 @@ import { Storage } from "aws-amplify";
 import { createNft } from '../Stores/nftCard';
 import {creatNFTeaCard} from "./nftCardMutations";
 import { DataStore } from '@aws-amplify/datastore';
+import { consologger } from '../Utilities/utilities';
 import { cyberuser,walletAddress, nftId } from "../Stores/Wallet/WalletStore";
 import { nftDescription, nftName, nftPrice } from '../Components/CREATENFT/nftFormSvelte';
-import { consologger } from '../Utilities/utilities';
 export const sendToStore = async (image, protectionLevel) => {
     let level = protectionLevel
     let imageName = image[0].name
     let [imageSplit, imageType] = imageName.split('.')
-
+    console.log("NFT ID: ",get(nftId))
     let setNft = new ASKNFTEA({
         "awsUserId":get(cyberuser).username,
         "nftDescription":get(nftDescription),
@@ -48,12 +48,12 @@ export const getStore = async () => {
 
 }
 export const uploadToS3 = async (fileName, file,type,level) => {
-    console.log("Upload to S3: ", fileName, file,type,level)
+    //console.log("Upload to S3: ", fileName, file,type,level)
     try {
         const storageResult = await Storage.put(fileName, file,
             { level: level, contentType: `image/${type}`, },
             )
-        console.log("Upload to S3 Result: ", storageResult)
+        //console.log("Upload to S3 Result: ", storageResult)
         return storageResult? true : false
     } catch (error) {
         console.log("Upload to S3 ERROR: ", error)
@@ -93,13 +93,13 @@ const uploadNFT = async(
                     //"nftName": nftName
                 })
             );
-            console.log("Upload NFT: ", result)
+            //console.log("Upload NFT: ", result)
             return true
         } catch (error) {
             console.log("Upload NFT Error: ", error)
             return false
         }
-    }
+}
 export const updateNFT = async (new_val) => {
     /* Models in DataStore are immutable. To update a record you must use the copyOf function
      to apply updates to the item’s fields rather than mutating the instance directly */
@@ -111,7 +111,7 @@ export const updateNFT = async (new_val) => {
                     // Update the values on {item} variable to update DataStore entry
                     item.awsUserPicture = new_val
                 }));
-                console.log("Update NFT Result: ", result)
+                //console.log("Update NFT Result: ", result)
             });
         }else{
             console.log("No models found")
@@ -125,7 +125,7 @@ const queryDataStore = async () => {
     const userId = get(cyberuser).username
     try {
         const result = await DataStore.query(ASKNFTEA,m => m.awsUserId("eq",userId));
-        console.log("Query DataStore Result: ", result)
+        //console.log("Query DataStore Result: ", result)
         return result
     } catch (error) {
         console.log("Query DataStore Error: ", error)

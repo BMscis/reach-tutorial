@@ -1,10 +1,10 @@
 import { get } from "svelte/store";
 import { consologger } from "../Utilities/utilities";
-import * as backend from "../../Reach/build/index.main.mjs";
+import * as backend from "../../Reach/bx/index.main.mjs";
 import { CreateAlgoAsset } from "../Utilities/createAlgoAsset";
 import { auctionReady, contractState, creatorSeeBid } from "./reachStore";
 import { nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
-import { cyberuser, nftContractId, nftId, reachStdlib, wallet } from "../Stores/Wallet/WalletStore";
+import { chain, cyberuser, nftContractId, nftId, reachStdlib, wallet } from "../Stores/Wallet/WalletStore";
 
 export class Participant{
     constructor(){
@@ -67,9 +67,25 @@ export class Creator extends Participant{
         consologger("createNFT",[nftName,nftSymbol,nftImage])
         consologger("createNFT-type-wallet",typeof this.wallet)
         try {
-            this.algoAsset = new CreateAlgoAsset()
-            const nftIdAlgo = await this.algoAsset.createAsset()
-            this.nftId = nftIdAlgo
+            switch (get(chain)) {
+                case "ETH":
+                    this.nft = await this.stdlib.launchToken(
+                        this.wallet, 
+                        get(nftName), 
+                        get(nftSymbol), {
+                        total:1,
+                        decimals:0,
+                        supply: 1,
+                        url:get(nftImage).url,
+                    });
+                    nftId.set(JSON.stringify(this.nft.id))                    
+                    break;
+                case "ALGO":
+                    this.algoAsset = new CreateAlgoAsset()
+                    const nftIdAlgo = await this.algoAsset.createAsset()
+                    this.nftId = nftIdAlgo
+                    break;
+            }
             return true
         } catch (error) {
             console.log("Creator createNFT",error)

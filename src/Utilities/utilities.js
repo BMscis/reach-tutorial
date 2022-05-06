@@ -1,8 +1,8 @@
-import algosdk from "algosdk";
 import { Auth } from "aws-amplify"
 import { get } from "svelte/store"
 import {loadStdlib} from "@reach-sh/stdlib"
 import {balance, cyberuser, reachStdlib, wallet, walletAddress} from "../Stores/Wallet/WalletStore"
+import { formNumber, nftDescription, nftImage, nftName, nftPrice, nftSymbol } from "../Components/CREATENFT/nftFormSvelte"
 
 let count = 0
 const colors = {
@@ -32,10 +32,10 @@ const colors = {
 }
 const MICRO_ALGOS_RATIO = 1e6;
 export const loadLib = (chain) =>{
-  reachStdlib.set(loadStdlib(chain))
-  return reach = loadStdlib(chain)
+  let reach = loadStdlib(chain)
+  reachStdlib.set(reach)
+  return reach
 }
-
 export const checkDevice = () => {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         return true
@@ -90,10 +90,7 @@ export async function getBalance(address,chain){
   const reach = loadLib(chain)
   try {
       let balAtomic = await reach.balanceOf(address)
-      console.log("Balance: ", balAtomic);
       const bal = reach.formatCurrency(balAtomic)
-      console.log("BAlance: bal ", bal);
-      console.log("BAlance: bal ", typeof(bal));
       //let algoTest = algosdk.microalgosToAlgos(parseFloat(bal))
       //console.log("BAlance: algoTest ", algoTest);
       //let algoBalance = bal/MICRO_ALGOS_RATIO
@@ -130,6 +127,19 @@ export async function checkUploadNft(){
     alert("You must login to a wallet before creating an NFT.")
     return false
   }
+  try {
+    console.log("XXXXXXXXXXXX:",get(nftName))
+    if (get(nftName)){
+        nftName.set()
+        nftSymbol.set()
+        nftDescription.set()
+        nftPrice.set()
+        nftImage.set({url:'',image:''})
+        formNumber.set(0)
+    }
+  } catch (error) {
+    console.log("NFT Error: ",error)
+  }
   if(user && hasWallet){
     return true
   }else{
@@ -140,14 +150,14 @@ export async function checkUploadNft(){
 export const consologger = (obj,val) => {
     console.log(
     `Position: `,
-    `${colors.green}`,
+    `color: ${colors.green}`,
     count += 1,
-    `${colors.yellow}`,
+    `color: ${colors.yellow}`,
     '!!!!!!!!!',
-    `${colors.black}`,
+    `color: ${colors.black}`,
     obj,
     ':::::::::',
-    `${colors.black}`,
+    `color: ${colors.black}`,
     val
     )
 }
