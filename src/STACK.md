@@ -44,7 +44,7 @@ In this sense, the application is a Single Page Application. Meaning the page is
 SVELTE STORES
 Svelte also allows writables called stores that can be used to share data between components and can be used to trigger a signle component update when the store value changes.
 Watch as the wallet value changes once we connect to the wallet.
-![](https://github.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/storesDemo.gif)
+![](https://github.com/BMscis/reach-tutorial/blob/74d7b3c22f28b8cd7fc3f22e826d8dc4d5a44a85/src/nftea-assets/assets/article/storesDemo.gif)
 "Svelte Store demo"
 
 ### BACKEND
