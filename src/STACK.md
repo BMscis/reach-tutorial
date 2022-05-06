@@ -34,7 +34,8 @@ Svelte is a framework for building web applications just as React or VUE.
 We used svelte because with svelte we could develop components which functions as a html, has attributes,can be reused and are singularly responsive.
 
 ##### NFT COMPONENTS
-![]: (https://github.com/BMscis/reach-tutorial/blob/Nft-Websocket/src/nftea-assets/assets/article/nftCard.gif) "NFT Component"
+![]: (https://github.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nftCard.gif)
+"NFT Component"
 (https://github.com/BMscis/reach-tutorial/blob/Nft-Algo/src/Components/NftCard.svelte)
 With this design, we were able to define one component and reuse it for all possible nfts.
 
@@ -43,7 +44,7 @@ In this sense, the application is a Single Page Application. Meaning the page is
 SVELTE STORES
 Svelte also allows writables called stores that can be used to share data between components and can be used to trigger a signle component update when the store value changes.
 Watch as the wallet value changes once we connect to the wallet.
-![]: (https://github.com/BMscis/reach-tutorial/blob/Nft-Websocket/src/nftea-assets/assets/article/storesDemo.gif) "Svelte Store demo"
+![]: (https://github.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/storesDemo.gif) "Svelte Store demo"
 
 ### BACKEND
 NFTea uses [Amplify](https://aws.amazon.com/amplify/) to deploy the server.
