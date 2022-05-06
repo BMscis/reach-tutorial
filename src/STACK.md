@@ -38,7 +38,7 @@ Svelte also allows writables called stores that can be used to share data betwee
 Watch as the wallet value changes once we connect to the wallet.
 
 ### AUTHENTICATION AND STORAGE
-![](https://github.com/BMscis/reach-tutorial/blob/74d7b3c22f28b8cd7fc3f22e826d8dc4d5a44a85/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
 Storage and authentication are handled by AWS Amplify.
 NFTea uses [Amplify](https://aws.amazon.com/amplify/) to for backend queries.
 NFTea uses [Amazon s3](https://aws.amazon.com/s3/) to store images.
