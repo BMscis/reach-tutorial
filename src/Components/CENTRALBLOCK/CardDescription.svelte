@@ -17,7 +17,7 @@ export let nftWalletName
 <CommentIcon></CommentIcon>        
 </div>
 <div id="nftDescription-bar">
-<MenuLabel hasColor={"var(--inactive-component)"} label={nftDescription} margin={"auto auto 20px auto"}></MenuLabel>
+<MenuLabel position="absolute" top={50} right={12} hasColor={"var(--inactive-component)"} label={nftDescription} margin={"auto auto 20px auto"}></MenuLabel>
 <MenuLabel hasColor={"var(--spectacular-orange);"} label={nftPrice} isPrice={true}></MenuLabel>
 <MenuLabel hasColor={"var(--spectacular-orange);"} label={nftWalletName} ></MenuLabel>
 </div>

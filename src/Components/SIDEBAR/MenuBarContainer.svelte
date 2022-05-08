@@ -112,6 +112,7 @@ onDestroy(() => {
     #first-container,#second-container{
         display: flex;
         flex-direction: column;
+        border-bottom: var(--border-line);
     }
     button:hover,.input-rect-input:hover{
         background: #ff77005c;
@@ -120,5 +121,6 @@ onDestroy(() => {
         display: flex;
         flex-direction: column;
         position: relative;
+        margin:20px;
     }
 </style>

@@ -1,14 +1,15 @@
 <script>
 import { onDestroy} from "svelte";
+import Loading from "../Loading.svelte";
 import MenuLabel from "../MenuLabel.svelte";
 import MenuButton from "./MenuButton.svelte";
+import SuccessIcon from "../SuccessIcon.svelte";
+import reachLogo from "../../nftea-assets/assets/article/reach.png";
+import { openNFTBox} from "../../Stores/movment";
 import IconContainer from "../IconContainer.svelte";
 import { topContainer} from "../../Stores/allDimension";
 import ConnectedWallet from "../WALLET/ConnectedWallet.svelte";
-import { openNFTBox} from "../../Stores/movment";
 import { checkUploadNft } from "../../Utilities/utilities";
-import Loading from "../Loading.svelte";
-import SuccessIcon from "../SuccessIcon.svelte"
 
 let loading = false
 let topBarWidth
@@ -45,10 +46,10 @@ const createNftSide = async () => {
 onDestroy(()=> {unsubscribe})
 </script>
 <div id="top-bar" style="width:{topBarWidth}px;height:{topBarHeight}px;z-index: 111;">
-    <div id="menu-block" style="width: {menuBlockWidth}px;height:{menuBlockHeight}px">
+    <div id="menu-block" style="width: {menuBlockWidth}px;height:{menuBlockHeight}px;">
         <IconContainer isLarge={isLarge} isSmall={!isLarge} innerComponent={MenuButton}></IconContainer>        
     </div>
-    <div id="title-block" style="width: {menuBlockWidth}px;height:{menuBlockHeight}px">
+    <div id="title-block" style="width: {menuBlockWidth}px;height:{menuBlockHeight}px;background-image: url({reachLogo});">
         <h1 id="title"> nft<sub>ea</sub></h1>
     </div>
     <div id="anchor-block" style="width: {anchorBlockWidth}px;height:{anchorBlockHeight}px">
@@ -68,7 +69,17 @@ onDestroy(()=> {unsubscribe})
     </div>
 </div>
 <style>
-    #top-bar{
+#anchor-block{
+    background-image: linear-gradient(45deg, #2453c2b8, transparent);
+}
+#title-block{
+    background-position-x: 90%;
+    background-position-y: 30%;
+    background-size: 15%;
+    background-repeat: no-repeat;
+    background-color: #2453c2;
+    }
+#top-bar{
         position: sticky;
         top:0;
     }

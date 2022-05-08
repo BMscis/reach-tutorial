@@ -154,14 +154,10 @@ export async function checkUploadNft(){
 export const consologger = (obj,val) => {
     console.log(
     `Position: `,
-    `color: ${colors.green}`,
     count += 1,
-    `color: ${colors.yellow}`,
     '!!!!!!!!!',
-    `color: ${colors.black}`,
     obj,
     ':::::::::',
-    `color: ${colors.black}`,
     val
     )
 }

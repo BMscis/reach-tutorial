@@ -30,6 +30,7 @@
 	--animation-navigation: highlights ease-in-out .5s normal forwards;
 	--animation-dropdown: dropdown ease-in-out .5s normal forwards;
   
+	--border-line:1px solid rgb(0 0 0 / 10%);
 	--border-inactive-input:2px solid #00000038;
 	--border-active-input:2px solid var(--primary-color-mono-2);
 	--border-success-input:2px solid var(--indicator-color-positive);
@@ -145,6 +146,13 @@ button.tr{
     align-items: center;
     justify-content: center;
 	color: white;
+}
+#menu-block{
+    background-color: #2453c2;
+	background-size: 15%;
+	background-position-x: 15%;
+	background-position-y: center;
+	background-repeat: no-repeat;
 }
 #anchor-block{
 	display: flex;

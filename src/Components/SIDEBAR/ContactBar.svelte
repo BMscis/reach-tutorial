@@ -45,6 +45,7 @@ onMount(()=> {
         grid-template-columns: 40px 1fr 40px;
         grid-template-rows: 40px 1fr;
         margin:20px;
+        border-bottom: var(--border-line);
     }
     #contact-block{
         display: grid;

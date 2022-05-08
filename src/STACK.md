@@ -1,17 +1,5 @@
-# NFTea AUCTION WITH REACH ON ALGORAND AND ETHERIUM
-___
 ## STACK
 ___
-- Nodejs
-- Rollup - Es module bundler
-- Javascript - programming language
-- Svelte - Framework
-- Css
-- Html
-- AWS Amplify - server
-- Graphql - query language
-- Reach - smart contract
-
 #### [NODEJS](https://nodejs.org/en/)
 Nodejs is a JavaScript runtime environment that executes JavaScript code outside of a browser.
 
