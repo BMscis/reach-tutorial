@@ -60,46 +60,6 @@ export const uploadToS3 = async (fileName, file,type,level) => {
         return false
     }
 }
-const uploadNFT = async(
-    awsUserId, 
-    nftDescription, 
-    nftImage, 
-    nftPrice, 
-    nftAssetOwner, 
-    nftPrevAssetOwner, 
-    nftAuctionDuration, 
-    nftContractAddress, 
-    nftLikes,
-    nftId, 
-    awsUserPicture,
-    awsName, 
-    nftWalletName) => {
-        try {
-            const result = await DataStore.save(
-                new ASKNFTEA({
-                    "awsUserId": awsUserId,
-                    "nftDescription": nftDescription,
-                    "nftImage": nftImage,
-                    "nftPrice": nftPrice,
-                    "nftAssetOwner": nftAssetOwner,
-                    "nftPrevAssetOwner": nftPrevAssetOwner,
-                    "nftAuctionDuration": nftAuctionDuration,
-                    "nftContractAddress": nftContractAddress,
-                    "nftLikes": nftLikes,
-                    "nftId":nftId,
-                    "awsUserPicture": awsUserPicture,
-                    "awsName": awsName,
-                    "nftWalletName": nftWalletName,
-                    //"nftName": nftName
-                })
-            );
-            //console.log("Upload NFT: ", result)
-            return true
-        } catch (error) {
-            console.log("Upload NFT Error: ", error)
-            return false
-        }
-}
 export const updateNFT = async (new_val) => {
     /* Models in DataStore are immutable. To update a record you must use the copyOf function
      to apply updates to the item’s fields rather than mutating the instance directly */

@@ -1,25 +1,24 @@
 <script>
 import { onDestroy } from "svelte";
 import CardImage from "./CardImage.svelte";
-import CardHeader from "./CENTRALBLOCK/CardHeader.svelte";
 import {createNft} from "../Stores/nftCard";
 import Bidder from "../Participants/Bidder.svelte";
 import Creator from "../Participants/Creator.svelte";
+import CardHeader from "./CENTRALBLOCK/CardHeader.svelte";
 import CardDescription from "./CENTRALBLOCK/CardDescription.svelte";
-import { cyberuser } from "../Stores/Wallet/WalletStore";
-import { get } from "svelte/store";
 
 export let id
-export let nftLikes
 export let nftId
-export let awsUserId
-export let nftImage
+export let isOwner
+export let awsName
 export let nftPrice
-export let nftContractAddress
+export let nftImage
+export let nftLikes
+export let awsUserId
 export let nftAssetOwner
 export let nftPrevAssetOwner
+export let nftContractAddress
 export let nftAuctionDuration
-export let awsName
 //export let nftName
 export let nftWalletName
 export let nftDescription
@@ -29,6 +28,7 @@ export let isLarge = false
 export let labelDark = false
 export let blockHeight = 500
 
+let newOwner
 let nftCard
 let contractAddress
 let cardHeight = (blockHeight*0.7).toFixed(2)
@@ -36,7 +36,6 @@ let cardCotnainerHeight = (blockHeight*0.75).toFixed(2)
 let cardWidth = (cardHeight*0.55).toFixed(2)
 let imageHeight = (cardWidth*0.9).toFixed(2)
 let showContractInfo = false
-const isOwner = get(cyberuser).username === awsUserId
 
 const enlarge = () => {
 nftCard.scrollIntoView(false)
@@ -52,8 +51,9 @@ const startAuction = async () => {
 const [nftSubscriber,nftValidator] = 
 createNft(id,awsUserId,nftDescription,nftImage,nftPrice,nftAssetOwner,nftPrevAssetOwner,nftAuctionDuration,nftContractAddress,nftLikes,nftId,awsUserPicture,awsName,nftWalletName)
 
-const unsubNFT = nftSubscriber.subscribe((value) => {id = value.id})
-
+const unsubNFT = nftSubscriber.subscribe((value) => {
+    newOwner = value
+    id = value.id})
 
 onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
 
@@ -86,7 +86,7 @@ onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
 </div>
 {#if isLarge && clicked}
     {#if isOwner}
-    <Creator {nftPrice} {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Creator>
+    <Creator {newOwner} {nftPrice} {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Creator>
     {:else}
     <Bidder {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Bidder>
     {/if}

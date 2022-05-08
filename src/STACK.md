@@ -50,3 +50,10 @@ Reach compiles to a javascript module that can be imported into the project just
 1. Reach smart contract code is written in a javascript like syntax and can be easily tested.
 2. Reach allows the programmer to write single code in .sh and it will compile it to mjs. 
 3. Reach handles the backend deployment of the contract and therefore it can be used simultaneously with multiple blockchains.
+
+### CONNECT WALLET OPTION
+![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+### UPLOAD NFT WITH ALGORAND
+![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+### UPLOAD NFT WITH ETHERIUM
+![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)

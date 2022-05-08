@@ -1,27 +1,29 @@
 <script>
-import CENTRALBLOCK from "./CENTRALBLOCK/CENTRALBLOCK.svelte";
-import {nftCardList} from "../Stores/nftCard"
-import RIGHTBLOCK from "./RIGHTBLOCK/RIGHTBLOCK.svelte";
-import { onDestroy } from "svelte";
-
+    import { get } from 'svelte/store';
+    import { afterUpdate, onDestroy } from "svelte";
+    import {nftCardList} from "../Stores/nftCard"
+    import RIGHTBLOCK from "./RIGHTBLOCK/RIGHTBLOCK.svelte";
+    import { reachStdlib, walletAddress } from "../Stores/Wallet/WalletStore";
+    import CENTRALBLOCK from "./CENTRALBLOCK/CENTRALBLOCK.svelte";
 let hasActiveNft = false
 
 let id
-let awsUserId
-let nftDescription
-let nftImage
+let reach
+let nftId
+let awsName
+let isOwner
+let nftLikes
 let nftPrice
+let nftImage
+let awsUserId
 let nftAssetOwner
+let nftWalletName
+let nftDescription
+let awsUserPicture
 let nftPrevAssetOwner
 let nftAuctionDuration
 let nftContractAddress
-let nftLikes
-let nftId
-let awsUserPicture
-let awsName
-let nftWalletName
 //let nftName
-
 let style
 let cards
 nftCardList.subscribe((value) => {
@@ -45,13 +47,41 @@ nftCardList.subscribe((value) => {
         awsName = activeComp.awsName
         awsUserPicture = activeComp.awsUserPicture
         nftWalletName = activeComp.nftWalletName
+        isOwner = activeComp.isOwner
         //nftName = activeComp.nftName
     }}
 })
-onDestroy(() => {return [nftCardList]})
+reachStdlib.subscribe((value) => {
+    if(value){
+        let nftCL = get(nftCardList)
+        reach = value
+        let wallet = get(walletAddress)
+        let ownerList = nftCL.filter((card) => reach.addressEq(wallet, card.nftAssetOwner))
+        ownerList.forEach(element => {
+            element.isOwner = true
+        });
+        nftCardList.update((n) => (n = n));
+
+    }
+})
+afterUpdate(() => {
+    try {
+        let nftCL = get(nftCardList)
+        let wallet = get(walletAddress)
+        let ownerList = nftCL.filter((card) => reach.addressEq(wallet, card.nftAssetOwner))
+        ownerList.forEach(element => {
+            element.isOwner = true
+        });
+        nftCardList.update((n) => (n = n));
+    } catch (error) {
+        console.log("REACH update error: ", error)
+    }
+
+})
+onDestroy(() => {return [nftCardList,reachStdlib]})
 
 </script>
-<RIGHTBLOCK {hasActiveNft} {nftWalletName} 
+<RIGHTBLOCK {hasActiveNft} {nftWalletName} {isOwner} 
 {id }{awsUserId }{nftImage }{nftPrice }{nftAssetOwner }{nftContractAddress }{nftLikes }{nftId}{style}{nftPrevAssetOwner }{nftAuctionDuration }{awsName }{nftDescription }{awsUserPicture}></RIGHTBLOCK>
 <CENTRALBLOCK {cards} {hasActiveNft}></CENTRALBLOCK>
 

@@ -31,10 +31,14 @@ const colors = {
   whiteBg: '\u001f[47m'
 }
 const MICRO_ALGOS_RATIO = 1e6;
-export const loadLib = (chain) =>{
-  let reach = loadStdlib(chain)
-  reachStdlib.set(reach)
-  return reach
+export class LoadLib {
+  constructor(chain) {
+    this.chain = chain
+    this.reach = loadStdlib(this.chain)
+  }
+  setLib (){
+    reachStdlib.set(this.reach)
+  }
 }
 export const checkDevice = () => {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
@@ -87,10 +91,10 @@ export async function fundAccount(chain) {
   //this.setState({ view: "DeployerOrAttacher" });
 }
 export async function getBalance(address,chain){
-  const reach = loadLib(chain)
+  const lib = new LoadLib(chain)
   try {
-      let balAtomic = await reach.balanceOf(address)
-      const bal = reach.formatCurrency(balAtomic)
+      let balAtomic = await lib.reach.balanceOf(address)
+      const bal = lib.reach.formatCurrency(balAtomic)
       //let algoTest = algosdk.microalgosToAlgos(parseFloat(bal))
       //console.log("BAlance: algoTest ", algoTest);
       //let algoBalance = bal/MICRO_ALGOS_RATIO

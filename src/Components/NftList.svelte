@@ -14,7 +14,7 @@
         <ul style="width:100%;padding:0 20px;grid-auto-flow: row;grid-gap: 18px;margin:auto auto auto 0;display:grid;justify-content: center;">
             {#if cards}
             {#each cards as card}
-            <NftCard {blockHeight} clicked={card.active} nftWalletName={card.nftWalletName}
+            <NftCard {blockHeight} clicked={card.active} nftWalletName={card.nftWalletName} isOwner={card.isOwner}
             awsUserPicture={card.awsUserPicture} id = {card.id} awsUserId = {card.awsUserId} nftDescription = {card.nftDescription} nftImage = {card.nftImage} nftPrice = {card.nftPrice} nftAssetOwner = {card.nftAssetOwner} nftPrevAssetOwner = {card.nftPrevAssetOwner} nftAuctionDuration = {card.nftAuctionDuration} nftContractAddress = {card.nftContractAddress} nftLikes = {card.nftLikes} nftId ={card.nftId} awsName = {card.awsName} 
             ></NftCard>
             {/each}

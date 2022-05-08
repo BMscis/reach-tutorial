@@ -5,6 +5,7 @@ import { CreateAlgoAsset } from "../Utilities/createAlgoAsset";
 import { auctionReady, contractState, creatorSeeBid } from "./reachStore";
 import { nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
 import { chain, cyberuser, nftContractId, nftId, reachStdlib, wallet } from "../Stores/Wallet/WalletStore";
+import { updateNFTeaCard } from "../STORAGE/nftCardMutations";
 
 export class Participant{
     constructor(){
@@ -16,7 +17,13 @@ export class Participant{
         this.firstNftOwner = this instanceof Creator
     }
     async showOutcome (winner,bid) {
+        if(this.newOwner){
+            this.newOwner.nftAssetOwner = this.stdlib.formatAddress(winner)
+            this.newOwner.nftPrevAssetOwner = this.walletAddress
+            await updateNFTeaCard(this.newOwner)
+        }
         consologger("showOutcome",[this.stdlib.formatAddress(winner),this.stdlib.formatCurrency(bid)])
+
     }
     async giveTime(tim){
         consologger("giveTime",tim)
@@ -24,8 +31,15 @@ export class Participant{
 }
 
 export class Creator extends Participant{
-    constructor(){
+    constructor(newOwner){
         super()
+        try {
+            delete newOwner.active
+            this.newOwner = newOwner
+            console.log("newOwner",newOwner)
+        } catch (error) {
+            this.newOwner = false
+        }
     }
     async waitContract (nftId,nftPrice){
         this.nftPrice = nftPrice

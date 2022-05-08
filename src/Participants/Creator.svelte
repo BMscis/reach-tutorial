@@ -11,8 +11,9 @@ import { bidderInfo } from "../Stores//Wallet/PrincipalStore";
 import ContractDeploy from "../Participants/ContractDeploy.svelte";
 import { nftContractId } from "../Stores/Wallet/WalletStore";
 export let nftId
-export let nftPrice
 export let clicked
+export let newOwner
+export let nftPrice
 export let cardWidth
 export let cardHeight
 export let cardCotnainerHeight
@@ -35,7 +36,7 @@ const askContract = async () => {
     previewPage = true
 }
 const awaitContract = async () => {
-    getContract = new Creator()
+    getContract = new Creator(newOwner)
     let [pb, cA] = await getContract.waitContract(nftId,nftPrice)
     return placeBid
 }

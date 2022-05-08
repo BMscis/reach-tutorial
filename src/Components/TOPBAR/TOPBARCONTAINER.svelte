@@ -64,7 +64,7 @@ onDestroy(()=> {unsubscribe})
             <MenuLabel label={"Create NFT"} dark={false}></MenuLabel>
         </button>
         {/if}
-        <ConnectedWallet></ConnectedWallet>
+        <ConnectedWallet {topBarHeight}></ConnectedWallet>
     </div>
 </div>
 <style>

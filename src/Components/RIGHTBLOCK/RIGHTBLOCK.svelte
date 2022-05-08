@@ -8,20 +8,21 @@ let bidBoxHeight
 export let hasActiveNft = false
 
 export let id 
-export let awsUserId 
-export let nftImage 
-export let nftPrice 
-export let nftAssetOwner 
-export let nftContractAddress 
-export let nftLikes
 export let nftId
 export let style
+export let isOwner
+export let awsName 
+export let nftImage 
+export let nftLikes
+export let nftPrice 
+export let awsUserId 
+export let nftWalletName
+export let nftAssetOwner 
+export let awsUserPicture
+export let nftDescription 
+export let nftContractAddress 
 export let nftPrevAssetOwner 
 export let nftAuctionDuration 
-export let awsName 
-export let nftDescription 
-export let nftWalletName
-export let awsUserPicture
 //export let nftName
 
 let blockHeight
@@ -40,7 +41,7 @@ onDestroy(() => {return [unsubsrcibeBlock]})
 <div id="right-block" class:active={hasActiveNft} style={style}>
     <div id="bid-box" style="width: {bidBoxWidth * 2}px;height: {bidBoxHeight}px;">
         {#if hasActiveNft}
-            <NftCard {blockHeight} isLarge={true} labelDark={true} clicked={hasActiveNft} {nftWalletName} 
+            <NftCard {blockHeight} isLarge={true} labelDark={true} clicked={hasActiveNft} {nftWalletName} {isOwner}
             {id}{awsUserId }{nftDescription }{nftImage }{nftPrice }{nftAssetOwner }{nftPrevAssetOwner }{nftAuctionDuration }{nftContractAddress }{nftLikes}{nftId}{awsName }{awsUserPicture}
             ></NftCard>
         {/if}
