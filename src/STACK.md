@@ -51,9 +51,14 @@ Reach compiles to a javascript module that can be imported into the project just
 2. Reach allows the programmer to write single code in .sh and it will compile it to mjs. 
 3. Reach handles the backend deployment of the contract and therefore it can be used simultaneously with multiple blockchains.
 
-### CONNECT WALLET OPTION
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+### CONNECT WITH ETHERIUM WALLET
+![](https://github.com/BMscis/reach-tutorial/blob/6c36a8551fb609a29f4db94443e8133886fef034/src/nftea-assets/assets/article/connectToETH.gif)
+### CONNECT WITH ALGORAND WALLET
+![](https://github.com/BMscis/reach-tutorial/blob/6c36a8551fb609a29f4db94443e8133886fef034/src/nftea-assets/assets/article/connectToAlgo.gif)
 ### UPLOAD NFT WITH ALGORAND
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://github.com/BMscis/reach-tutorial/blob/6c36a8551fb609a29f4db94443e8133886fef034/src/nftea-assets/assets/article/websocketReloadALGO.gif)
 ### UPLOAD NFT WITH ETHERIUM
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://github.com/BMscis/reach-tutorial/blob/6c36a8551fb609a29f4db94443e8133886fef034/src/nftea-assets/assets/article/websocketReloadETH.gif)
+
+Reach handles the complexity of the backend and provides a [getDefaultAccountMethod](https://docs.reach.sh/frontend/#js_stdlib.getDefaultAccount) that can be
+used by Etherium and Algorand.
