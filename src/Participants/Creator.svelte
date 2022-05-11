@@ -10,6 +10,8 @@ import { auctionReady, contractState, creatorSeeBid } from "../ReachContract/rea
 import { bidderInfo } from "../Stores//Wallet/PrincipalStore";
 import ContractDeploy from "../Participants/ContractDeploy.svelte";
 import { nftContractId } from "../Stores/Wallet/WalletStore";
+import { updateNFTeaCard } from "../STORAGE/nftCardMutations";
+import { consologger } from "../Utilities/utilities";
 export let nftId
 export let clicked
 export let newOwner
@@ -18,6 +20,7 @@ export let cardWidth
 export let cardHeight
 export let cardCotnainerHeight
 
+const ownedBy = newOwner
 let isAuctionReady
 let auctionState
 let getContract
@@ -36,8 +39,11 @@ const askContract = async () => {
     previewPage = true
 }
 const awaitContract = async () => {
-    getContract = new Creator(newOwner)
-    let [pb, cA] = await getContract.waitContract(nftId,nftPrice)
+    let newOwnerNext = "3G2IC23R6N2XC3PZPX7IJUB2KNMRML4C2DIEERGH6XNV3VFOW3GU4L3EDI"
+    let prevOwner = newOwner.nftAssetOwner
+    await updateNFTeaCard(ownedBy, newOwnerNext,prevOwner,5)
+    //getContract = new Creator(ownedBy)
+    //let [pb, cA] = await getContract.waitContract(nftId,nftPrice)
     return placeBid
 }
 
@@ -49,11 +55,11 @@ auctionReady.subscribe(value => {
     isAuctionReady = value
 })
 contractState.subscribe(value=>{
-    console.log("Auction State",value)
+    consologger("Creator.svelte","AUCTION STATE", value)
     auctionState = value
 })
 creatorSeeBid.subscribe(value=>{
-    console.log("SeeBid: ",value)
+    consologger("Creator.svelte","BID LIST", value)
     if(value.length > 1){
         bidderList = value
         bidderList.sort((a, b) => b - a);
@@ -62,7 +68,6 @@ creatorSeeBid.subscribe(value=>{
     }
 })
 nftContractId.subscribe(value=>{
-    console.log("ContractID: ",value)
     nftContractAddress = value
 })
 onDestroy(()=> {return [unsubscribeBidder,contractState,auctionReady]})

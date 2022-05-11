@@ -44,6 +44,7 @@ import HeartIcon from "../HeartIcon.svelte";
         bottom: -16px;
         background-color: rgba(0, 0, 0, 0.26);
         align-items: center;
+        grid-row-start:4;
     }
     #card-label-box{
         max-width: 50%;

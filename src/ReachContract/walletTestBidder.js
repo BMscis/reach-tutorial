@@ -11,7 +11,6 @@ export class BidderTest{
     async latch(contractInfo,nftId){
         await this.acc.tokenAccept(this.stdlib.bigNumberify(nftId));
         this.ctc = this.acc.contract(backend,contractInfo);
-        console.log("Contract Attach")
     }
     async bid(bid){
         let lBid = this.stdlib.parseCurrency(bid)

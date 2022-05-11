@@ -3,10 +3,10 @@
 .gg-alarm {
 background:
 linear-gradient( to left,
-black 5px, transparent 0)
+white 5px, transparent 0)
 no-repeat 4.5px 6px/5px 2px,
 linear-gradient( to left,
-black 7px, black 0)
+white 7px, black 0)
 no-repeat 4.5px 2px/2px 6px;
 box-sizing: border-box;
 position: absolute;

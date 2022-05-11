@@ -34,7 +34,6 @@ const tryLoad = () => {
     }
 }
 const createNftSide = async () => {
-    console.log("Creating NFt")
     loading = true
     let isUser = await checkUploadNft()
     isUser ? openNFTBox.set(true) : null

@@ -43,7 +43,6 @@
         return
     }
     const goToSignUp = () => {
-        console.log("SIGN UP")
         try_sign_in = try_sign_up;
     
         try_sign_up = !try_sign_up

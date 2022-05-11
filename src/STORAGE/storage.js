@@ -11,7 +11,6 @@ export const sendToStore = async (image, protectionLevel) => {
     let level = protectionLevel
     let imageName = image[0].name
     let [imageSplit, imageType] = imageName.split('.')
-    console.log("NFT ID: ",get(nftId))
     let setNft = new ASKNFTEA({
         "awsUserId":get(cyberuser).username,
         "nftDescription":get(nftDescription),
@@ -112,7 +111,7 @@ const queryNFT = async () => {
                     model.id,
                     model.awsUserId,
                     model.nftDescription,
-                    await pic(model.nftImage),
+                    model.nftImage,
                     model.nftPrice,
                     model.nftAssetOwner,
                     model.nftPrevAssetOwner,
@@ -120,7 +119,7 @@ const queryNFT = async () => {
                     model.nftContractAddress,
                     model.nftLikes,
                     model.nftId,
-                    await getImagesProtected(model.awsUserPicture,model.awsUserId),
+                    model.awsUserPicture,
                     model.awsName,
                     model.nftWalletName,
                     //model.nftName

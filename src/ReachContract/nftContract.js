@@ -5,6 +5,5 @@ export const bidNFT = async (deployContract,nftID) => {
     const bidder = new Bidder();
     const contract = await bidder.latch(deployContract,nftID);
     bidderInfo.set(bidder)
-    console.log("BIDDER_CONTRACT: ", deployContract)
     return [false,bidder]
 }

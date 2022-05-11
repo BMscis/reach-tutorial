@@ -1,0 +1,4 @@
+[2022-05-11 01:06:04.100] [sharedprocess] [info] Starting worker process with pid 34656 (type: fileWatcher, window: 1).
+[2022-05-11 01:06:04.671] [sharedprocess] [info] Deleted from disk ms-vscode.cpptools /root/.vscode/extensions/ms-vscode.cpptools-1.9.7
+[2022-05-11 01:06:21.993] [sharedprocess] [info] Worker process with pid 34656 terminated normally (type: fileWatcher, window: 1).
+[2022-05-11 01:06:23.069] [sharedprocess] [info] Starting worker process with pid 34826 (type: fileWatcher, window: 1).

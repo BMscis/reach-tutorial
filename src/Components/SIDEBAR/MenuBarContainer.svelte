@@ -35,7 +35,6 @@ const sendImage = async () => {
     trySend = true
     tryUpload = !trySend
     successUpload = await sendToStore(uploadImage,'public')
-    console.log("sendImage",trySend)
     return
 }
 const closeImage = async () => {

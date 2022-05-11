@@ -45,7 +45,7 @@ export async function connectMyAlgo(){
 async function algoDetailClient(){
     try {
         let algoParams = await algodClient.accountInformation(get(walletAddress)).do();
-        console.log("AlgoParams: ", algoParams);
+        //console.log("AlgoParams: ", algoParams);
         accountInformation.set(algoParams)
         algosdk.makeAsset
         return true

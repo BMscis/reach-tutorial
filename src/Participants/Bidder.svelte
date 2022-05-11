@@ -6,6 +6,7 @@ import MenuBar from "../Components/MenuBar.svelte";
 import Timer from "../Components/Timer.svelte";
 import { bidNFT } from "../ReachContract/nftContract";
 import { bidderInfo } from "../Stores//Wallet/PrincipalStore";
+import { consologger } from "../Utilities/utilities";
 export let nftId
 export let clicked
 export let cardWidth
@@ -37,12 +38,11 @@ return
 }
 
 const sendCurrentBid = async () => {
-console.log("___________BID_PRICE____________",bidPrice)
+
 let [cBid,lBid] = await bidContract.bid(bidPrice)
 bidderList = [[cBid,lBid]]
 bidderList.sort((a, b) => b - a);
-console.log("BID",[cBid,lBid])
-console.log("BIDDER LIST",bidderList)
+consologger("Bidder.svelte","BID LIST", bidderList)
 return
 }
 

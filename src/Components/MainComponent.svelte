@@ -5,6 +5,7 @@
     import RIGHTBLOCK from "./RIGHTBLOCK/RIGHTBLOCK.svelte";
     import { reachStdlib, walletAddress } from "../Stores/Wallet/WalletStore";
     import CENTRALBLOCK from "./CENTRALBLOCK/CENTRALBLOCK.svelte";
+import { consologger } from '../Utilities/utilities';
 let hasActiveNft = false
 
 let id
@@ -52,10 +53,12 @@ nftCardList.subscribe((value) => {
     }}
 })
 reachStdlib.subscribe((value) => {
+    consologger("MainComponent.svelte","reachStdlib", value)
     if(value){
         let nftCL = get(nftCardList)
         reach = value
         let wallet = get(walletAddress)
+        
         let ownerList = nftCL.filter((card) => reach.addressEq(wallet, card.nftAssetOwner))
         ownerList.forEach(element => {
             element.isOwner = true
@@ -63,20 +66,6 @@ reachStdlib.subscribe((value) => {
         nftCardList.update((n) => (n = n));
 
     }
-})
-afterUpdate(() => {
-    try {
-        let nftCL = get(nftCardList)
-        let wallet = get(walletAddress)
-        let ownerList = nftCL.filter((card) => reach.addressEq(wallet, card.nftAssetOwner))
-        ownerList.forEach(element => {
-            element.isOwner = true
-        });
-        nftCardList.update((n) => (n = n));
-    } catch (error) {
-        console.log("REACH update error: ", error)
-    }
-
 })
 onDestroy(() => {return [nftCardList,reachStdlib]})
 

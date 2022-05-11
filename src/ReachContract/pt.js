@@ -1,10 +1,10 @@
 import { get } from "svelte/store";
-import { consologger } from "../Utilities/utilities";
+import { consologger, nftDictionary } from "../Utilities/utilities";
 import * as backend from "../../Reach/build/index.main.mjs";
 import { CreateAlgoAsset } from "../Utilities/createAlgoAsset";
 import { auctionReady, contractState, creatorSeeBid } from "./reachStore";
 import { nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
-import { chain, cyberuser, nftContractId, nftId, reachStdlib, wallet } from "../Stores/Wallet/WalletStore";
+import { chain, cyberuser, nftContractId, nftId, reachStdlib, wallet,walletAddress } from "../Stores/Wallet/WalletStore";
 import { updateNFTeaCard } from "../STORAGE/nftCardMutations";
 
 export class Participant {
@@ -12,17 +12,24 @@ export class Participant {
         this.bidCount = 0
         this.newNftOwner = false
         this.wallet = get(wallet)
+        this.walletAddress = get(walletAddress)
         this.stdlib = get(reachStdlib);
         this.owner = get(cyberuser).attributes.name
         this.firstNftOwner = this instanceof Creator
     }
     async showOutcome(winner, bid) {
-        if (this.newOwner) {
-            this.newOwner.nftAssetOwner = this.stdlib.formatAddress(winner)
-            this.newOwner.nftPrevAssetOwner = this.walletAddress
-            await updateNFTeaCard(this.newOwner)
+        try {
+            if (this.newOwner) {
+                let oldNFT = this.newNftOwner
+                let newPrice = this.stdlib.formatCurrency(bid)
+                this.newOwner.nftAssetOwner = this.stdlib.formatAddress(winner)
+                this.newOwner.nftPrevAssetOwner = this.walletAddress
+                await updateNFTeaCard(oldNFT, this.newOwner,this.stdlib.formatCurrency(bid))
+            }
+            consologger("showOutcome", [this.stdlib.formatAddress(winner)])
+        } catch (error) {
+            console.log("SHOW OUTCOME ERROR: ", error)
         }
-        consologger("showOutcome", [this.stdlib.formatAddress(winner), this.stdlib.formatCurrency(bid)])
 
     }
     async giveTime(tim) {
@@ -34,9 +41,8 @@ export class Creator extends Participant {
     constructor(newOwner) {
         super()
         try {
-            delete newOwner.active
-            this.newOwner = newOwner
-            console.log("newOwner", newOwner)
+           
+            this.newOwner = nftDictionary(newOwner)
         } catch (error) {
             this.newOwner = false
         }
@@ -48,7 +54,6 @@ export class Creator extends Participant {
         let nftIdJSON = JSON.parse(nftId)
         let nftBig = this.stdlib.bigNumberify(nftIdJSON)
         let tkm = await this.wallet.tokenMetadata(nftBig)
-        console.log("MEEEEEEEEEETA: ", tkm)
         const contractCreated = await this.getContract()
 
         if (contractCreated) returnContract = await this.deployContract()
@@ -125,12 +130,9 @@ export class Creator extends Participant {
     async getSale() {
         // setting sale true 2
         consologger("getSale", JSON.parse(this.nftId))
-        console.log("++++++++++", this.nftId)
         let nftIdJSON = JSON.parse(this.nftId)
-        console.log("++++++++++", nftIdJSON)
-        console.log("++++++++++", this.stdlib.bigNumberify(nftIdJSON))
         let nftIdBig = this.stdlib.bigNumberify(nftIdJSON)
-        let params = { nftId: nftIdBig, minBid: this.stdlib.parseCurrency(this.nftPrice), lenInBlocks: 120 }
+        let params = { nftId: nftIdBig, minBid: this.stdlib.parseCurrency(this.nftPrice), lenInBlocks: 30 }
         return params
     }
     play = () => new Promise(resolve => {

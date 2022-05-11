@@ -132,7 +132,6 @@ export async function checkUploadNft(){
     return false
   }
   try {
-    console.log("XXXXXXXXXXXX:",get(nftName))
     if (get(nftName)){
         nftName.set()
         nftSymbol.set()
@@ -151,13 +150,37 @@ export async function checkUploadNft(){
   }
 }
 
-export const consologger = (obj,val) => {
-    console.log(
-    `Position: `,
-    count += 1,
-    '!!!!!!!!!',
-    obj,
-    ':::::::::',
-    val
-    )
+export const consologger = (from,obj,val) => {
+  console.log('%c----------------------------','color:black; background:Green;')
+    console.log('-------------START---------------')
+    console.log(`%c${from}`,'color:black; background:white; font-size:12px;')
+    console.log(count += 1)
+    if(obj){
+      console.log(`%c${obj}`,'color:green; background:white;')
+    }
+    if(val){
+      console.log(val)
+    }
+    console.log(`%c${from}`,'color:purple;font-size:12px;')
+    console.log('------------END----------------')
+    console.log('%c----------------------------','color:black; background:red;')
+}
+
+export const nftDictionary = (component) => {
+  return {
+"id":component.id,
+"awsUserId":component.awsUserId,
+"nftDescription":component.nftDescription,
+"nftImage":component.nftImage,
+"nftPrice":component.nftPrice,
+"nftAssetOwner":component.nftAssetOwner,
+"nftPrevAssetOwner":component.nftPrevAssetOwner,
+"nftAuctionDuration":component.nftAuctionDuration,
+"nftContractAddress":component.nftContractAddress,
+"nftLikes":component.nftLikes,
+"nftId":component.nftId,
+"awsUserPicture":component.awsUserPicture,
+"awsName":component.awsName,
+"nftWalletName":component.nftWalletName,
+  }
 }

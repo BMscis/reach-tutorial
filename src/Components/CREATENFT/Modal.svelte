@@ -36,7 +36,7 @@ const closeImage = async () => {
     return false
 }
 const waitResponse = async () => {
-  console.log("creator")
+  
   const nft = new Creator()
   let sendToStorage = false
   let nftCreated = await nft.createNFT()

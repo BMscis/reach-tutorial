@@ -6,6 +6,7 @@ import { algodClient } from "./connectALGOWallet"
 import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { nftId, walletAddress } from "../Stores/Wallet/WalletStore";
 import { nftImage, nftName, nftSymbol } from "../Components/CREATENFT/nftFormSvelte";
+import { consologger } from "./utilities";
 // createAccount
 // once created sucessfully, you will need to add funds 
 // The Algorand TestNet Dispenser is located here: 
@@ -23,8 +24,8 @@ export class CreateAlgoAsset {
         this.accountInfo = await algodClient.accountInformation(this.walletAddress).do();
         //Check account balance   
         this.startingBalance = this.accountInfo.amount;
-        console.log("Alice account balance: %d microAlgos", this.startingBalance);
-        console.log("In algos: ", algosdk.microalgosToAlgos(this.startingBalance));
+        //console.log("Alice account balance: %d microAlgos", this.startingBalance);
+        //console.log("In algos: ", algosdk.microalgosToAlgos(this.startingBalance));
     }
     async createAsset(){
         try {
@@ -63,18 +64,18 @@ export class CreateAlgoAsset {
             //const rawSignedTxn = txn.signTxn(sk.sk);
             const myAlgoConnect = new MyAlgoConnect();
             const signedTxn = await myAlgoConnect.signTransaction(txn.toByte());
-            console.log("myAlgoConn: ", myAlgoConnect)
-            console.log("Signed Transaction: " + signedTxn.txID);
+            //console.log("myAlgoConn: ", myAlgoConnect)
+            //console.log("Signed Transaction: " + signedTxn.txID);
             const tx = (await algodClient.sendRawTransaction(signedTxn.blob).do());
-            console.log("Transaction ID: " + tx.txId);
+            //console.log("Transaction ID: " + tx.txId);
             let assetID = null;
             // wait for transaction to be confirmed
             const confirmedTxn = await algosdk.waitForConfirmation(algodClient, tx.txId, 4);
             //Get the completed Transaction
-            console.log("Transaction " + tx.txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
+            //console.log("Transaction " + tx.txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
             this.assetID = confirmedTxn["asset-index"];
             nftId.set(this.assetID.toString());
-            console.log("AssetID = " + this.assetID);
+            //console.log("AssetID = " + this.assetID);
             printCreatedAsset(this.walletAddress, this.assetID);
             printAssetHolding(this.walletAddress, this.assetID);
             return this.assetID
@@ -86,12 +87,12 @@ export class CreateAlgoAsset {
     }
     async createSk(){
         //const sk = algosdk.mnemonicToSecretKey(get(mnemonicPhrase));
-        console.log("Secret key: " + sk);
+        //console.log("Secret key: " + sk);
         return sk
     }
     async destroyAsset() {
-        console.log("");
-        console.log("==> DESTROY ASSET");
+        //console.log("");
+        //console.log("==> DESTROY ASSET");
         // All of the created assets should now be back in the creators
         // Account so we can delete the asset.
         // If this is not the case the asset deletion will fail
@@ -118,10 +119,10 @@ export class CreateAlgoAsset {
         // Wait for confirmation
         const confirmedTxn = await algosdk.waitForConfirmation(algodClient, tx.txId, 4);
         //Get the completed Transaction
-        console.log("Transaction " + tx.txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
+        //console.log("Transaction " + tx.txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
         // The account3 and account1 should no longer contain the asset as it has been destroyed
-        console.log("Asset ID: " + this.assetID);
-        console.log("Alice = " + this.walletAddress);
+        //console.log("Asset ID: " + this.assetID);
+        //console.log("Alice = " + this.walletAddress);
         await printCreatedAsset(this.walletAddress, this.assetID);
         await printAssetHolding(this.walletAddress, this.assetID);
 
@@ -142,10 +143,11 @@ export class CreateAlgoAsset {
         // Bob = YC3UYV4JLHD344OC3G7JK37DRVSE7X7U2NOZVWSQNVKNEGV4M3KFA7WZ44  
     }
     async closeoutOwnerAlgos() {
-        console.log("");
-        console.log("==> CLOSE OUT OWNER'S ALGOS TO DISPENSER");
+        //("");
+        //console.log("==> CLOSE OUT OWNER'S ALGOS TO DISPENSER");
         let accountInfo = await algodClient.accountInformation(this.walletAddress).do();
         console.log("Owner Account balance: %d microAlgos", accountInfo.amount);
+        consologger("createAlgoAsset.js","closeoutowner-accountinfo", accountInfo.amount)
         const startingAmount = accountInfo.amount;
         // Construct the transaction
         const params = await algodClient.getTransactionParams().do();
@@ -218,9 +220,11 @@ const printCreatedAsset = async function (account, assetid) {
     for (let idx = 0; idx < accountInfo['created-assets'].length; idx++) {
         let scrutinizedAsset = accountInfo['created-assets'][idx];
         if (scrutinizedAsset['index'] == assetid) {
-            console.log("AssetID = " + scrutinizedAsset['index']);
+            //console.log("AssetID = " + scrutinizedAsset['index']);
+            consologger("createAlgoAsset.js","printCreatedAsset", "AssetID = " + scrutinizedAsset['index']);
             let myparms = JSON.stringify(scrutinizedAsset['params'], undefined, 2);
-            console.log("parms = " + myparms);
+            //console.log("parms = " + myparms);
+            consologger("createAlgoAsset.js","printCreatedAsset", "parms = " + myparms);
             break;
         }
     }
@@ -237,7 +241,8 @@ const printAssetHolding = async function (account, assetid) {
         let scrutinizedAsset = accountInfo['assets'][idx];
         if (scrutinizedAsset['asset-id'] == assetid) {
             let myassetholding = JSON.stringify(scrutinizedAsset, undefined, 2);
-            console.log("assetholdinginfo = " + myassetholding);
+            //console.log("assetholdinginfo = " + myassetholding);
+            consologger("createAlgoAsset.js","printAssetHolding", "assetholdinginfo = " + myassetholding);
             break;
         }
     }

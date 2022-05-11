@@ -1,12 +1,12 @@
 <script>
-	import { onMount } from "svelte";
+	import { afterUpdate, onMount } from "svelte";
 	import { Hub } from "aws-amplify";
 	import SIGNUP from "./AUTH/SIGNUP.svelte";
 	import {isMobile} from "./Stores/isMobile";
 	import Loading from "./Components/Loading.svelte";
 	import MainBox  from "./Components/CREATENFT/MainBox.svelte"
 	import MainComponent from "./Components/MainComponent.svelte";
-	import {checkDevice, checkUser} from "./Utilities/utilities";
+	import {checkDevice, checkUser, consologger} from "./Utilities/utilities";
 	import { cyberuser, userName } from "./Stores/Wallet/WalletStore";
 	import RIGHTBLOCK from "./Components/RIGHTBLOCK/RIGHTBLOCK.svelte";
 	import {mainGridTemplate,SetWindowSize} from "./Stores/allDimension";
@@ -15,10 +15,12 @@
 	import TOPBARCONTAINER from "./Components/TOPBAR/TOPBARCONTAINER.svelte";
 	import SIDEBARCONTAINER from "./Components/SIDEBAR/SIDEBARCONTAINER.svelte";
 	import { openNFTBox } from "./Stores/movment";
+	import { displayWallet } from "./Components/WALLET/displayWallet";
 
 	let openBox
 	let gridStyle
 	let nftBlockWidth
+	let mainComponent
 	let nftBlockHeight
 	let hideSidebar = false
 	let noCurrentUser =  true
@@ -28,14 +30,19 @@
 	const [windowSizeSubscriber, windowSizeSetter] = SetWindowSize()
 	windowSizeSetter()
 	const resize = () => {windowSizeSetter()}
-
+	const closeAllOpen = () => {
+		displayWallet.set(false)
+		let sBar = document.querySelector('#sidebarBlock')
+		sBar.classList.remove('open')
+	}
 	onMount(() => {
 		document.body.setAttribute("style", 
 		`background-repeat: no-repeat;\
 		background-size: cover;\
 		background-repeat-y: repeat;`
-		)
+		)	
 		return [
+			
 		Hub.listen("auth", (data) => {
 			if (data.payload.event === "signIn") {
 				//noCurrentUser = false
@@ -47,7 +54,7 @@
 			}
 		}),
 		Hub.listen('storage',(event) => {
-			console.log("STORE EVENT", event)
+			consologger("App.svelte","STORAGE EVENT", event)
 		}),
 		cyberuser.subscribe((value) => {
 			//if value.signInUserSession is null, then no current user
@@ -77,13 +84,14 @@
 		})
 		]
 	})
+
 </script>
 <svelte:window on:resize={() => {resize()}}></svelte:window>
 	<TOPBARCONTAINER></TOPBARCONTAINER>
 {#await checkUser()}
 	<Loading></Loading>
 {:then result}
-<main style={gridStyle + `display:${noCurrentUser?"flex":"grid"};justify-content:center`}>
+<main on:click={() => {closeAllOpen()}} bind:this={mainComponent} style={gridStyle + `display:${noCurrentUser?"flex":"grid"};justify-content:center`}>
 	<MainBox {openBox} {nftBlockWidth} {nftBlockHeight}></MainBox>
 	{#if noCurrentUser}
 	<SIGNUP></SIGNUP>
