@@ -27,21 +27,21 @@ Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
 
 ## Prerequisites
 Please install or have installed the following:
-<ul style="list-style:none;">
+<ul >
     <li >
     <a href="https://code.visualstudio.com/download" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
-    width="36px" height="36px" src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/vscode.svg" 
-    /><p style="margin:20px">VsCode</p></a>
+     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/vscode.svg" 
+    /><p >VsCode</p></a>
     </li>
     <li>
     <a href="https://nodejs.org/en/download/" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
-    width="36px" height="36px" src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
-    /><p style="margin:20px">NodeJs</p></a>
+     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
+    /><p >NodeJs</p></a>
     </li>
     <li>
     <a href="https://github.com/algorand/sandbox" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
-    width="36px" height="36px" src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/algo-icon.svg" 
-    /><p style="margin:20px">Algo Sandbox</p></a>
+     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/algo-icon.svg" 
+    /><p >Algo Sandbox</p></a>
     </li>
 </ul>
 
@@ -136,7 +136,7 @@ Run npm run dev
 ___
 <p>
     <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><span><h4>NODEJS</h4></span><span>
-    <img style="width:36px;height:36px;margin-right:20px;" width="36px" height="36px"
+    <img style="width:36px;height:36px;margin-right:20px;" 
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
     />
     </span></a>
@@ -145,7 +145,7 @@ Nodejs is a JavaScript runtime environment that executes JavaScript code outside
 
 <p>
     <a href="https://www.npmjs.com/package/rollup" target="_blank" rel="noreferrer"><span><h4>ROLLUP</h4></span><span>
-    <img style="width:36px;height:36px;margin-right:20px;" width="36px" height="36px" width="36px" height="36px"
+    <img style="width:36px;height:36px;margin-right:20px;"  
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/rollup-icon.png" 
     />
     </span></a>
@@ -154,7 +154,7 @@ Rollup is a module bundler for JavaScript which compiles small pieces of code in
 
 <p>
     <a href="https://www.javascript.com/" target="_blank" rel="noreferrer"><span><h4>JAVASCRIPT</h4></span><span>
-    <img style="width:36px;height:36px;margin-right:20px;" width="36px" height="36px"
+    <img style="width:36px;height:36px;margin-right:20px;" 
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-logo.svg" 
     />
     </span></a>
