@@ -6,7 +6,14 @@ image: "https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/sr
 ---
 # Web3 NFT Auction Contract Deployment with Reach and JS
 
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg)
+<p align="left">
+<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50" alt="Java" /></a>
+</p>
+
+
+<a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img
+src="https://img.shields.io/twitter/follow/BMscis?logo=twitter&style=for-the-badge&color=0891b2&labelColor=1c1917"
+/></a>
 
 This is a repo to work with, upload and Auction NFTs smart contracts using the svelte framework and Reach.
 Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
@@ -15,6 +22,9 @@ Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
 ## Prerequisites
 Please install or have installed the following:
 - [vs-code](https://code.visualstudio.com/download)
+- <a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;"
+src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" 
+/> Vscode</a>
 - [nodejs and npm](https://nodejs.org/en/download/)
 - [Algorand Sandbox](https://github.com/algorand/sandbox)
 
