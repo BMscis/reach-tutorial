@@ -1,5 +1,12 @@
-# NFTea-Auction
+---
+title: "Web3 NFT Auction Contract Deployment with Reach and JS"
+date: "2020-02-20T22:37:25.509Z"
+slug: "why-i-use-hashnode"
+image: "https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg"
+---
+# Web3 NFT Auction Contract Deployment with Reach and JS
 
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg)
 
 This is a repo to work with, upload and Auction NFTs smart contracts using the svelte framework and Reach.
 Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
@@ -121,7 +128,7 @@ We used svelte because with svelte we could develop components which functions a
 
 ##### [NFT COMPONENTS](https://github.com/BMscis/reach-tutorial/blob/Nft-Algo/src/Components/)
 
-![](https://github.com/BMscis/reach-tutorial/blob/0c35d7d93ba78fc0291c835fb6419fd749108ab0/src/nftea-assets/assets/article/nftCard.gif)
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nftCard.gif)
 
 "NFT Component"
 
@@ -131,7 +138,7 @@ In this sense, the application is a Single Page Application. Meaning the page is
 ##### SVELTE STORES
 
 
-![](https://github.com/BMscis/reach-tutorial/blob/74d7b3c22f28b8cd7fc3f22e826d8dc4d5a44a85/src/nftea-assets/assets/article/storesDemo.gif)
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/storesDemo.gif)
 
 Svelte also allows writables called stores that can be used to share data between components and can be used to trigger a signle component update when the store value changes.
 
@@ -140,7 +147,7 @@ Watch as the wallet value changes once we connect to the wallet.
 ### AUTHENTICATION AND STORAGE
 
 
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/userSignUp.gif)
 
 Storage and authentication are handled by AWS Amplify.
 NFTea uses [Amplify](https://aws.amazon.com/amplify/) to for backend queries.
@@ -165,10 +172,10 @@ Reach compiles to a javascript module that can be imported into the project just
 
 ### CONNECT WALLET OPTION
 
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/connectToAlgo.gif)
 ### UPLOAD NFT WITH ALGORAND
 
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/websocketReloadALGO.gif)
 ### UPLOAD NFT WITH ETHERIUM
 
-![](https://github.com/BMscis/reach-tutorial/blob/f35cfd811f21af7ae05c0ddc05b70a7487425277/src/nftea-assets/assets/article/userSignUp.gif)
+![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/websocketReloadETH.gif)
