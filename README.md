@@ -1,19 +1,15 @@
----
-title: "Web3 NFT Auction Contract Deployment with Reach and JS"
-date: "2020-02-20T22:37:25.509Z"
-slug: "why-i-use-hashnode"
-image: "https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg"
----
-# Web3 NFT Auction Contract Deployment with Reach and JS
+# NFT Auction Contract Deployment
 
 <p align="left">
 <a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50" alt="logo" /></a>
 </p>
 
-
 <a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img
 src="https://img.shields.io/twitter/follow/BMscis?logo=twitter&style=for-the-badge&color=0891b2&labelColor=1c1917"
 /></a>
+> Web3 contract deployment with Reach and JS
+
+
 
 This is a repo to work with, upload and Auction NFTs smart contracts using the svelte framework and Reach.
 Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
@@ -25,17 +21,17 @@ Please install or have installed the following:
     <li >
     <a href="https://code.visualstudio.com/download" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/vscode.svg" 
-    />VsCode</a>
+    /><p style="margin:20px">VsCode</p></a>
     </li>
     <li>
     <a href="https://nodejs.org/en/download/" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
-    />NodeJs</a>
+    /><p style="margin:20px">NodeJs</p></a>
     </li>
     <li>
     <a href="https://github.com/algorand/sandbox" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/algo-icon.svg" 
-    />Algorand Sandbox</a>
+    /><p style="margin:20px">Algo Sandbox</p></a>
     </li>
 </ul>
 
@@ -140,7 +136,7 @@ Nodejs is a JavaScript runtime environment that executes JavaScript code outside
 <p>
     <a href="https://www.npmjs.com/package/rollup" target="_blank" rel="noreferrer"><span><h4>ROLLUP</h4></span><span>
     <img style="width:36px;height:36px;margin-right:20px;"
-    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/rollup-icon.svg" 
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/rollup-icon.png" 
     />
     </span></a>
 </p>
