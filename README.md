@@ -7,7 +7,7 @@ image: "https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/sr
 # Web3 NFT Auction Contract Deployment with Reach and JS
 
 <p align="left">
-<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50" alt="Java" /></a>
+<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50" alt="logo" /></a>
 </p>
 
 
@@ -21,17 +21,28 @@ Web 3 NFT Market Place with **Reach** **AWS** and **Svelte**.
 
 ## Prerequisites
 Please install or have installed the following:
-- [vs-code](https://code.visualstudio.com/download)
-- <a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;"
-src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" 
-/> Vscode</a>
-- [nodejs and npm](https://nodejs.org/en/download/)
-- [Algorand Sandbox](https://github.com/algorand/sandbox)
+<ul style="list-style:none;">
+    <li >
+    <a href="https://code.visualstudio.com/download" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/vscode.svg" 
+    />VsCode</a>
+    </li>
+    <li>
+    <a href="https://nodejs.org/en/download/" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
+    />NodeJs</a>
+    </li>
+    <li>
+    <a href="https://github.com/algorand/sandbox" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/algo-icon.svg" 
+    />Algorand Sandbox</a>
+    </li>
+</ul>
 
 ## Installation
 ___
 
-### Using Algorand Sandbox
+### Installing Algorand Sandbox
 
 This is a fast way to create and configure an Algorand development environment with [Algod](https://github.com/algorand/go-algorand) and [Indexer](https://github.com/algorand/indexer).
 
@@ -117,38 +128,58 @@ Run npm run dev
 
 ## STACK
 ___
-
-#### [NODEJS](https://nodejs.org/en/)
-
+<p>
+    <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><span><h4>NODEJS</h4></span><span>
+    <img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
+    />
+    </span></a>
+</p>
 Nodejs is a JavaScript runtime environment that executes JavaScript code outside of a browser.
 
-#### [ROLLUP](https://www.npmjs.com/package/rollup)
-
+<p>
+    <a href="https://www.npmjs.com/package/rollup" target="_blank" rel="noreferrer"><span><h4>ROLLUP</h4></span><span>
+    <img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/rollup-icon.svg" 
+    />
+    </span></a>
+</p>
 Rollup is a module bundler for JavaScript which compiles small pieces of code into something larger and more complex, such as a library or application. It uses the standardized ES module format.
 
-#### [JAVASCRIPT](https://www.javascript.com/)
-
+<p>
+    <a href="https://www.javascript.com/" target="_blank" rel="noreferrer"><span><h4>JAVASCRIPT</h4></span><span>
+    <img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-logo.svg" 
+    />
+    </span></a>
+</p>
 JavaScript is a dynamic programming language that's used for web development, in web applications, for game development, and lots more.
 
-#### [SVELTE](https://svelte.dev/)
-
+<p>
+    <a href="https://svelte.dev/" target="_blank" rel="noreferrer"><span><h4>SVELTE</h4></span><span>
+    <img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/svelte-icon.svg" 
+    />
+    </span></a>
+</p>
 Svelte is a framework for building web applications just as React or VUE.
 
 We used svelte because with svelte we could develop components which functions as a html, has attributes,can be reused and are singularly responsive.
 
 ##### [NFT COMPONENTS](https://github.com/BMscis/reach-tutorial/blob/Nft-Algo/src/Components/)
 
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nftCard.gif)
-
-"NFT Component"
+<p align="left">
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nftCard.gif" width="40%"  alt="nft-component" />
+</p>
 
 With this design, we were able to define one component and reuse it for all possible nfts.
 In this sense, the application is a Single Page Application. Meaning the page is separated into components that reload individually and don't require a full page reload.
 
 ##### SVELTE STORES
 
-
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/storesDemo.gif)
+<p align="left">
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/storesDemo.gif" width="40%"  alt="svelte-store" />
+</p>
 
 Svelte also allows writables called stores that can be used to share data between components and can be used to trigger a signle component update when the store value changes.
 
@@ -156,8 +187,9 @@ Watch as the wallet value changes once we connect to the wallet.
 
 ### AUTHENTICATION AND STORAGE
 
-
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/userSignUp.gif)
+<p align="left">
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/userSignUp.gif" width="60%"  alt="sign-up" />
+</p>
 
 Storage and authentication are handled by AWS Amplify.
 NFTea uses [Amplify](https://aws.amazon.com/amplify/) to for backend queries.
@@ -166,8 +198,13 @@ NFTea uses [Amazon s3](https://aws.amazon.com/s3/) to store images.
 
 NFTea uses [Amazon Authenticate](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/) to authenticate users.
 
-### [REACH](https://reach.sh/us/faq/)
-
+<p>
+    <a href="https://reach.sh/us/faq/" target="_blank" rel="noreferrer"><span><h3>REACH</h3></span><span>
+    <img style="width:36px;height:36px;margin-right:20px;"
+    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/reach-icon.svg" 
+    />
+    </span></a>
+</p>
 
 Reach is a blockchain development program that allows us to create and manage smart contracts on the blockchain.
 
@@ -181,11 +218,15 @@ Reach compiles to a javascript module that can be imported into the project just
 
 
 ### CONNECT WALLET OPTION
+<p align="left">
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/connectToAlgo.gif" width="60%"  alt="connect-algo" />
+</p>
 
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/connectToAlgo.gif)
 ### UPLOAD NFT WITH ALGORAND
+<p align="left">
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/websocketReloadALGO.gif" width="60%"  alt="connect-algo" />
+</p>
 
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/websocketReloadALGO.gif)
 ### UPLOAD NFT WITH ETHERIUM
-
-![](https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/websocketReloadETH.gif)
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/websocketReloadETH.gif" width="60%"  alt="connect-algo" />
+</p>
