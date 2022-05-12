@@ -1,12 +1,18 @@
+---
+title: "WEB3 Nft Auction Contract Deplpoyment with Reach and Javascript"
+date: "2022-05-12T22:37:25.509Z"
+slug: "Web3-Nft-Auction-Contract-Deployment-with-Reach-and-Javascript"
+image: "https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/cover-hashnode.png"
+---
 # NFT Auction Contract Deployment
 
 <p align="left">
-<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50" alt="logo" /></a>
+<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50px" style="width:100%;height:50px; alt="logo" /></a>
 </p>
 
-<a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img
+<a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img width="203px" height="28px"
 src="https://img.shields.io/twitter/follow/BMscis?logo=twitter&style=for-the-badge&color=0891b2&labelColor=1c1917"
-/></a>
+style="width:203px;height:28px;"/></a>
 > Web3 contract deployment with Reach and JS
 
 
@@ -20,17 +26,17 @@ Please install or have installed the following:
 <ul style="list-style:none;">
     <li >
     <a href="https://code.visualstudio.com/download" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
-    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/vscode.svg" 
+    width="36px" height="36px" src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/vscode.svg" 
     /><p style="margin:20px">VsCode</p></a>
     </li>
     <li>
     <a href="https://nodejs.org/en/download/" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
-    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
+    width="36px" height="36px" src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
     /><p style="margin:20px">NodeJs</p></a>
     </li>
     <li>
     <a href="https://github.com/algorand/sandbox" target="_blank" rel="noreferrer"><img style="width:36px;height:36px;margin-right:20px;"
-    src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/algo-icon.svg" 
+    width="36px" height="36px" src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/algo-icon.svg" 
     /><p style="margin:20px">Algo Sandbox</p></a>
     </li>
 </ul>
@@ -126,7 +132,7 @@ Run npm run dev
 ___
 <p>
     <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><span><h4>NODEJS</h4></span><span>
-    <img style="width:36px;height:36px;margin-right:20px;"
+    <img style="width:36px;height:36px;margin-right:20px;" width="36px" height="36px"
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/nodejs-icon.svg" 
     />
     </span></a>
@@ -135,7 +141,7 @@ Nodejs is a JavaScript runtime environment that executes JavaScript code outside
 
 <p>
     <a href="https://www.npmjs.com/package/rollup" target="_blank" rel="noreferrer"><span><h4>ROLLUP</h4></span><span>
-    <img style="width:36px;height:36px;margin-right:20px;"
+    <img style="width:36px;height:36px;margin-right:20px;" width="36px" height="36px" width="36px" height="36px"
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/rollup-icon.png" 
     />
     </span></a>
@@ -144,7 +150,7 @@ Rollup is a module bundler for JavaScript which compiles small pieces of code in
 
 <p>
     <a href="https://www.javascript.com/" target="_blank" rel="noreferrer"><span><h4>JAVASCRIPT</h4></span><span>
-    <img style="width:36px;height:36px;margin-right:20px;"
+    <img style="width:36px;height:36px;margin-right:20px;" width="36px" height="36px"
     src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-logo.svg" 
     />
     </span></a>
