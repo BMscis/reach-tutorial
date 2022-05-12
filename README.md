@@ -2,17 +2,21 @@
 title: "WEB3 Nft Auction Contract Deplpoyment with Reach and Javascript"
 date: "2022-05-12T22:37:25.509Z"
 slug: "Web3-Nft-Auction-Contract-Deployment-with-Reach-and-Javascript"
-image: "https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/cover-hashnode.png"
+image: https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/cover-hashnode.png
 ---
 # NFT Auction Contract Deployment
 
 <p align="left">
-<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50px" style="width:100%;height:50px; alt="logo" /></a>
+<a href="https://github.com/BMscis/reach-tutorial/" target="_blank" rel="noreferrer">
+<img src="https://raw.githubusercontent.com/BMscis/reach-tutorial/Nft-Websocket/src/nftea-assets/assets/article/js-reach-algo-eth.svg" width="100%" height="50px" style="width:100%;height:50px; alt="logo" /></a>
 </p>
 
-<a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer"><img width="203px" height="28px"
-src="https://img.shields.io/twitter/follow/BMscis?logo=twitter&style=for-the-badge&color=0891b2&labelColor=1c1917"
-style="width:203px;height:28px;"/></a>
+<p>
+<a href="https://www.twitter.com/BMscis" target="_blank" rel="noreferrer">
+<img width="203px" height="28px"
+src="https://img.shields.io/twitter/follow/BMscis?logo=twitter&style=for-the-badge&color=0891b2&labelColor=1c1917" style="width:203px;height:28px;"/></a>
+</p>
+
 > Web3 contract deployment with Reach and JS
 
 
