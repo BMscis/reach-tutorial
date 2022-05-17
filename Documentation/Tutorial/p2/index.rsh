@@ -4,7 +4,12 @@ export const main = Reach.App(() => {
     
     // Deployer of the contract.
     const Creator = Participant('Creator', {
-        //Implement Creator interact interface here.
+        //++
+        getSale: Fun([], Object({
+            nftId: Token,
+            minBid: UInt,
+            lenInBlocks: UInt,
+        })),
     });
 
     // Any subsequent bidder.
