@@ -19,7 +19,7 @@ export const main = Reach.App(() => {
     init();
 });
 
-load:(https://github.com/BMscis/reach-tutorial/blob/c015831fc80c393577be2d39427e826ead32b3e7/Documentation/Tutorial/p1/index.rsh)
+load: /p1/index.rsh
 
 ```
 
