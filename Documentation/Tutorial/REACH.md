@@ -19,10 +19,13 @@ export const main = Reach.App(() => {
     init();
 });
 
+```
+
+
+```
 load: /Documentation/Tutorial/p1/index.rsh
 
 ```
-
 
 Let's go through the code to see what is happening.
 
