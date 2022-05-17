@@ -23,7 +23,7 @@ export const main = Reach.App(() => {
 
 
 ```
-load: /Documentation/Tutorial/p1/index.rsh
+load: Documentation/Tutorial/p1/index.rsh
 
 ```
 
