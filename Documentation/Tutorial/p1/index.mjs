@@ -7,5 +7,5 @@ const accCreator = await stdlib.newTestAccount(startingBalance);
 const ctcCreator = accCreator.contract(backend);
 
 await ctcCreator.participants.Creator({
-    // Specify creator interact interface here
+    // Specify Creator interact interface here
 })
