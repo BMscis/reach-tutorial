@@ -29,7 +29,7 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
 ## Creating the Interface
 
-1. > :large_orange_diamond: ### Create an `index.rsh` and copy the following code.
+1. :large_orange_diamond: >  ### Create an `index.rsh` and copy the following code.
     ___
 
     [___index.rsh___](p1/index.rsh)
