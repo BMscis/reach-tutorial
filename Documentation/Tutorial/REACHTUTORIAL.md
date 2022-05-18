@@ -1,7 +1,7 @@
 # NFT AUCTION
 In this tutorial, we will deploy a reach contract that will be imported from the frontend (javascript).
-
-1. A `Creator` will initialize the contract and provide three variables:
+:large_orange_diamond:
+1. :large_orange_diamond: A `Creator` will initialize the contract and provide three variables:
 
     - An NFT Token.
     - An initial bid.
