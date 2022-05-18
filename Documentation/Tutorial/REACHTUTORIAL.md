@@ -1,6 +1,6 @@
 # NFT AUCTION
 In this tutorial, we will deploy a reach contract that will be imported from the frontend (javascript).
-:large_orange_diamond:
+
 1. A `Creator` will initialize the contract and provide three variables:
 
     - An NFT Token.
@@ -27,9 +27,13 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
 # Implementation
 
-## Creating the Interface
+<details>
+    <summary>
+    <h2>Creating the Interface</h2>
+    </summary>
+    <p>
 
-:large_orange_diamond: 1. > ### Create an `index.rsh` and copy the following code.
+1. > ### Create an `index.rsh` and copy the following code.
     ___
 
     [___index.rsh___](p1/index.rsh)
@@ -66,8 +70,10 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
             > The `Creator` and `Bidder` constants above the `init()` function are what the backend expects the frontend to implement. 
 
-2. > :large_orange_diamond: ### Create an `index.mjs` file and add the following code.
-    ___
+___
+
+2. > ### Create an `index.mjs` file and add the following code.
+
     [___index.mjs___](p1/index.mjs)
 
     ```javascript
@@ -120,8 +126,10 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     >```
     >You can try this when you start your next project!
 
-3. > :large_orange_diamond: ### Adding the `Creator` Interfaces.
-    ___
+___
+
+3. > ### Adding the `Creator` Interfaces.
+
     In the next step, we'll add the creator interface that will interact with
     the frontend.
 
@@ -225,9 +233,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
         init();
     });
     ```
+___
 
-4. > :large_orange_diamond: ### Adding the `Bidder` Interfaces.
-    ___
+4. > ### Adding the `Bidder` Interfaces.
 
     The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
 
@@ -279,11 +287,18 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     - It takes in a `[UInt]` from the frontend, which is the bid amount.
     - It returns a `Tuple(UInt,Address, UInt)` from the backend, which we will implement later.
 
-## Interacting with the Blockchain
+    </p>
+</details>
+
+<details>
+    <summary>
+        <h2>Interacting with the Blockchain</h2>
+    </summary>
+    <p>
 
 > A [Reach Step](https://docs.reach.sh/rsh/step/) occurs after the `init()` function is called.
 
-1. > :large_orange_diamond: ### Reach Steps
+1. > ### Reach Steps
     - There are two kinds of steps :
 
     - > [Local Steps](https://docs.reach.sh/rsh/local/) 
@@ -294,7 +309,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
         - Consensus steps are processed by the blockchain. They are executed in the consensus network.
 
-2. > :large_orange_diamond: ### Interacting with the `Creator`.
+___
+
+2. > ### Interacting with the `Creator`.
 
     We need to interact with the `Creator` to get the `tokenId`, `bid`, and `timeLapse`.
     We will need to use the `getSale` function to get this from the `Creator`.
@@ -345,7 +362,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
     - `Creator.interact.auctionReady();` notifies the `Creator`'s frontend that the auction is ready.
 
-3.> :large_orange_diamond: ### Adding it all into `index.rsh`
+___
+
+3. > ### Adding it all into `index.rsh`
 
     This is how `index.rsh` looks.
 
@@ -394,6 +413,11 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     });
 
     ```
+    </p>
+</details>
+
+___
+
 ## Reach API
 
 [APIs](https://docs.reach.sh/rsh/appinit/#rsh_API) are functions that can be called by the frontend
