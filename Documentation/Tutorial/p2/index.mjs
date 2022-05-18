@@ -6,7 +6,7 @@ const startingBalance = stdlib.parseCurrency(100);
 const accCreator = await stdlib.newTestAccount(startingBalance);
 const ctcCreator = accCreator.contract(backend);
 
-//++
+//++ Add params.
 const params = { 
     nftId:nftId,
     minBid:minBid,
@@ -14,7 +14,7 @@ const params = {
  };
 
 await ctcCreator.participants.Creator({
-    // ++
+    // ++ Add get sale.
     getSale: () => {
         return params;
     }

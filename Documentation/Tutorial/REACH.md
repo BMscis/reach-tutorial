@@ -141,20 +141,21 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     >```
     >You can try this when you start your next project!
 
-    - ***Adding the Interfaces.***
+- ***Adding the `Creator` Interfaces.***
 
-        In the next step, we'll implement the logic of _Nft Auction_ and our application will start doing something!
+    In the next step, we'll add the creator interface that will interact with
+    the frontend.
 
-        - ***Creator***
-        > Deployer and Creator are used interchangeably.
+    - ***Creator***
+    > Deployer and Creator are used interchangeably.
 
-        - In order to implement the **Auction** the `Creator` will have to provide the following :
+    - In order to implement the **Auction** the `Creator` will have to provide the following :
 
-            > + An NFT token to be auctioned.
-            > + A starting price for the auction.
-            > + A duration for the auction.
+        > + An NFT token to be auctioned.
+        > + A starting price for the auction.
+        > + A duration for the auction.
 
-        - Once the `Creator` provides this information, any `Bidder` can view the deployed contract on the blockchain.
+    - Once the `Creator` provides this information, any `Bidder` can view the deployed contract on the blockchain.
 
 3. [***Let's add a variable in `index.rsh` that does just that.***](p2/index.rsh)
 
@@ -178,8 +179,6 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
     2. In order for the frontend to interact with the object, we need to define an `async` function that returns the object.
 
-        [___index.rsh___](p2/index.rsh)
-
         ```javascript
         Fun (
             [], // Takes no argument
@@ -194,8 +193,6 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
     3. The `Creator` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
 
-        [___index.rsh___](p2/index.rsh)
-
         ```javascript
         const Creator = Participant('Creator', {
             //++
@@ -207,26 +204,29 @@ In this tutorial, we will deploy a reach contract that will be imported from the
         });
         ```
 
-    This is how the Creator will interact with the function in the javascript frontend.
+        This is how the Creator will interact with the function in the javascript frontend.
 
-    [___index.mjs___](p2/index.mjs)
+        [___index.mjs___](p2/index.mjs)
 
-    ```javascript
-    //++
-    const params = { 
-        nftId:nftId,
-        minBid:minBid,
-        lenInBlocks:lenInBlocks,
-    };
+        ```javascript
+        //++
+        const params = { 
+            nftId:nftId,
+            minBid:minBid,
+            lenInBlocks:lenInBlocks,
+        };
 
-    await ctcCreator.participants.Creator({
-        // ++
-        getSale: () => {
-            return params;
-        }
-    })
+        await ctcCreator.participants.Creator({
+            // ++
+            getSale: () => {
+                return params;
+            }
+        })
+        ```
 
-    ```
+- ***Adding the `Bidder` Interfaces.***
+
+    The `Bidder` is an API
 
 ## Reach API
 
