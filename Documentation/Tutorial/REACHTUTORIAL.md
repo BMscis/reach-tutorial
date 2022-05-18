@@ -70,9 +70,11 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
             > The `Creator` and `Bidder` constants above the `init()` function are what the backend expects the frontend to implement. 
 
-___
+    ___
 
 2. > ### Create an `index.mjs` file and add the following code.
+
+    ___
 
     [___index.mjs___](p1/index.mjs)
 
@@ -126,9 +128,11 @@ ___
     >```
     >You can try this when you start your next project!
 
-___
+    ___
 
 3. > ### Adding the `Creator` Interfaces.
+
+    ___
 
     In the next step, we'll add the creator interface that will interact with
     the frontend.
@@ -233,9 +237,11 @@ ___
         init();
     });
     ```
-___
+    ___
 
 4. > ### Adding the `Bidder` Interfaces.
+
+    ___
 
     The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
 
@@ -299,6 +305,9 @@ ___
 > A [Reach Step](https://docs.reach.sh/rsh/step/) occurs after the `init()` function is called.
 
 1. > ### Reach Steps
+
+    ___
+
     - There are two kinds of steps :
 
     - > [Local Steps](https://docs.reach.sh/rsh/local/) 
@@ -309,9 +318,11 @@ ___
 
         - Consensus steps are processed by the blockchain. They are executed in the consensus network.
 
-___
+    ___
 
 2. > ### Interacting with the `Creator`.
+
+    ___
 
     We need to interact with the `Creator` to get the `tokenId`, `bid`, and `timeLapse`.
     We will need to use the `getSale` function to get this from the `Creator`.
@@ -362,9 +373,11 @@ ___
 
     - `Creator.interact.auctionReady();` notifies the `Creator`'s frontend that the auction is ready.
 
-___
+    ___
 
 3. > ### Adding it all into `index.rsh`
+
+    ___
 
     This is how `index.rsh` looks.
 
