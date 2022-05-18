@@ -29,7 +29,8 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
 ## Creating the Interface
 
-1. > ### Create an `index.rsh` and copy the following code.
+1. > :large_orange_diamond: ### Create an `index.rsh` and copy the following code.
+    ___
 
     [___index.rsh___](p1/index.rsh)
 
@@ -65,8 +66,8 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
             > The `Creator` and `Bidder` constants above the `init()` function are what the backend expects the frontend to implement. 
 
-2. > ### Create an `index.mjs` file and add the following code.
-
+2. > :large_orange_diamond: ### Create an `index.mjs` file and add the following code.
+    ___
     [___index.mjs___](p1/index.mjs)
 
     ```javascript
@@ -119,8 +120,8 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     >```
     >You can try this when you start your next project!
 
-3. > ### Adding the `Creator` Interfaces.
-
+3. > :large_orange_diamond: ### Adding the `Creator` Interfaces.
+    ___
     In the next step, we'll add the creator interface that will interact with
     the frontend.
 
@@ -225,7 +226,8 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     });
     ```
 
-4. > ### Adding the `Bidder` Interfaces.
+4. > :large_orange_diamond: ### Adding the `Bidder` Interfaces.
+    ___
 
     The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
 
@@ -279,9 +281,10 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
 ## Interacting with the Blockchain
 
-A [Reach Step](https://docs.reach.sh/rsh/step/) occurs after the `init()` function is called.
+> A [Reach Step](https://docs.reach.sh/rsh/step/) occurs after the `init()` function is called.
 
-- There are two kinds of steps :
+1. > :large_orange_diamond: ### Reach Steps
+    - There are two kinds of steps :
 
     - > [Local Steps](https://docs.reach.sh/rsh/local/) 
 
@@ -291,102 +294,106 @@ A [Reach Step](https://docs.reach.sh/rsh/step/) occurs after the `init()` functi
 
         - Consensus steps are processed by the blockchain. They are executed in the consensus network.
 
-We need to interact with the `Creator` to get the `tokenId`, `bid`, and `timeLapse`.
-We will need to use the `getSale` function to get this from the `Creator`.
-Since we want the `Creator` alone to access this function, we will use **Reach** [`only`](https://docs.reach.sh/rsh/step/) function.
+2. > :large_orange_diamond: ### Interacting with the `Creator`.
 
-Here's how that will look.
+    We need to interact with the `Creator` to get the `tokenId`, `bid`, and `timeLapse`.
+    We will need to use the `getSale` function to get this from the `Creator`.
+    Since we want the `Creator` alone to access this function, we will use **Reach** [`only`](https://docs.reach.sh/rsh/step/) function.
 
-```javascript
-Creator.only(() => {
-    const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
-});
-```
-Let's break it down:
-- `Creator.only(() => {...})` is a `Local Step` that only allows the `Creator` to access the `getSale()` function.
+    Here's how that will look.
 
-- `{nftId, minBid, lenInBlocks}` is the declassified `Object` that is returned from the `getSale()` function.
+    ```javascript
+    Creator.only(() => {
+        const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+    });
+    ```
+    Let's break it down:
+    - `Creator.only(() => {...})` is a `Local Step` that only allows the `Creator` to access the `getSale()` function.
 
-- The [declassify](https://docs.reach.sh/rsh/local/#declassify) function makes the return value known.
+    - `{nftId, minBid, lenInBlocks}` is the declassified `Object` that is returned from the `getSale()` function.
 
-- The [interact](https://docs.reach.sh/rsh/local/#interact) function notifies the frontend and awaits for a response.
+    - The [declassify](https://docs.reach.sh/rsh/local/#declassify) function makes the return value known.
 
-Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish  this information onto the contract.
+    - The [interact](https://docs.reach.sh/rsh/local/#interact) function notifies the frontend and awaits for a response.
 
-```javascript
-Creator.publish(nftId, minBid, lenInBlocks);
-```
-- `Creator`.[publish](https://docs.reach.sh/rsh/step/#publish---pay---when--and--timeout) is a consensus step which lets the `Creator` publish the `nftId`, `minBid`, and `lenInBlocks` onto the blockchain.
+    Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish  this information onto the contract.
 
-Since we are deploying an NFT which should be unique, we will set the total amount to 1.
-Then we will send the nft onto the contract for holding.
+    ```javascript
+    Creator.publish(nftId, minBid, lenInBlocks);
+    ```
+    - `Creator`.[publish](https://docs.reach.sh/rsh/step/#publish---pay---when--and--timeout) is a consensus step which lets the `Creator` publish the `nftId`, `minBid`, and `lenInBlocks` onto the blockchain.
 
-```javascript
-const amt = 1;
+    Since we are deploying an NFT which should be unique, we will set the total amount to 1.
+    Then we will send the nft onto the contract for holding.
 
-commit();
+    ```javascript
+    const amt = 1;
 
-Creator.pay([[amt, nftId]]);
+    commit();
 
-Creator.interact.auctionReady();
-```
+    Creator.pay([[amt, nftId]]);
 
-Here's what's going on :
-- The `amt` represents the number of nft's we are sending to the contract.
+    Creator.interact.auctionReady();
+    ```
 
-- The [`commit();`](https://docs.reach.sh/rsh/consensus/#rsh_commit) function is a ***step*** that ends the current ***consensus step*** and sets the current state of the contract into a ***local step***.
+    Here's what's going on :
+    - The `amt` represents the number of nft's we are sending to the contract.
 
-- `Creator.pay([[amt, nftId]])` is a step which lets the `Creator` pay the `amt` of the `nftId` to the deployed contract.
+    - The [`commit();`](https://docs.reach.sh/rsh/consensus/#rsh_commit) function is a ***step*** that ends the current ***consensus step*** and sets the current state of the contract into a ***local step***.
 
-- `Creator.interact.auctionReady();` notifies the `Creator`'s frontend that the auction is ready.
+    - `Creator.pay([[amt, nftId]])` is a step which lets the `Creator` pay the `amt` of the `nftId` to the deployed contract.
 
-This is how `index.rsh` looks.
+    - `Creator.interact.auctionReady();` notifies the `Creator`'s frontend that the auction is ready.
 
-[index.rsh](p4/index.rsh)
+3.> :large_orange_diamond: ### Adding it all into `index.rsh`
 
-```javascript
-'reach 0.1';
+    This is how `index.rsh` looks.
 
-export const main = Reach.App(() => {
-    
-    // Deployer of the contract.
-    const Creator = Participant('Creator', {
-        //++ Add getSale function.
-        getSale: Fun([], Object({
-            nftId: Token,
-            minBid: UInt,
-            lenInBlocks: UInt,
-        })),
-        //++ Add auctionReady function.
-        auctionReady: Fun([], Null),
+    [index.rsh](p4/index.rsh)
 
-        //++ Add seeBid function.
-        seeBid: Fun([Address, UInt], Null),
+    ```javascript
+    'reach 0.1';
 
-        //++ Add showOutcome function.
-        showOutcome: Fun([Address, UInt], Null),
+    export const main = Reach.App(() => {
+        
+        // Deployer of the contract.
+        const Creator = Participant('Creator', {
+            //++ Add getSale function.
+            getSale: Fun([], Object({
+                nftId: Token,
+                minBid: UInt,
+                lenInBlocks: UInt,
+            })),
+            //++ Add auctionReady function.
+            auctionReady: Fun([], Null),
+
+            //++ Add seeBid function.
+            seeBid: Fun([Address, UInt], Null),
+
+            //++ Add showOutcome function.
+            showOutcome: Fun([Address, UInt], Null),
+        });
+
+        // Any subsequent bidder.
+        const Bidder = API('Bidder', {
+            //++ Add this function to the Bidder interface.
+            bid: Fun([UInt], Tuple(UInt,Address, UInt)),
+        });
+        
+        init();
+    Creator.publish(nftId, minBid, lenInBlocks);
+
+    const amt = 1;
+
+    commit();
+
+    Creator.pay([[amt, nftId]]);
+
+    Creator.interact.auctionReady();
+
     });
 
-    // Any subsequent bidder.
-    const Bidder = API('Bidder', {
-        //++ Add this function to the Bidder interface.
-        bid: Fun([UInt], Tuple(UInt,Address, UInt)),
-    });
-    
-    init();
-Creator.publish(nftId, minBid, lenInBlocks);
-
-const amt = 1;
-
-commit();
-
-Creator.pay([[amt, nftId]]);
-
-Creator.interact.auctionReady();
-
-});
-
-```
+    ```
 ## Reach API
 
 [APIs](https://docs.reach.sh/rsh/appinit/#rsh_API) are functions that can be called by the frontend
