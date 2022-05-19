@@ -1,254 +1,33 @@
-# NFT AUCTION
-In this tutorial, we will deploy a reach contract that will be imported from the frontend (javascript).
 
-1. A `Creator` will initialize the contract and provide three variables:
-
-    - An NFT Token.
-    - An initial bid.
-    - A time limit.
-
-2. Once these variables are provided, the `Creator` will then publish the contract onto the blockchain.
-
-3. Thereafter, a `Bidder` will be able to connect to the contract and view the `token_id`, `initial_bid`, and `time_limit`.
-
-4. If the `Bidder` accepts the wager, the `Bidder` will place a bid and call the backend.
-
-5. The auction will continue until time-lapse hits.
-
-6. At timeout :
-    - The winner will receive the NFT.
-    - The `Creator` will receive the highest bid.
-    - All `Bidders` who lost the auction will receive their funds back.
-
-> NOTE :
-> The `Creator` is anyone who deploys the contract.
-
-> The `Creator` is a participant class that can take any acceptable variable name.
 
 # Implementation
-
 <details>
-    <summary>
-    <h2>Creating the Interface</h2>
-    </summary>
-    <p>
-
-1. > ### Create an `index.rsh` and copy the following code.
-    ___
-
-    [___index.rsh___](p1/index.rsh)
-
-    ```javascript
-    'reach 0.1';
-
-    export const main = Reach.App(() => {
-
-        // Deployer of the contract.
-        const Creator = Participant('Creator', {
-            //Implement Creator interact interface here.
-        });
-
-        // Any subsequent bidder.
-        const Bidder = API('Bidder', {
-            //Implement bidder interact interface here.
-        });
-        init();
-    });
-    ```
-
-    - ***Let's go through the code to see what is happening.***
-
-        + `reach 0.1;` indicates that this is a Reach program. You'll always have this at the top of every program.
-
-        + `export const main` defines the main export from the program. When you compile, this is what the compiler will look at.
-
-        + `const Creator` specifies a `**Participant** class`  , `_Creator_`, who is the deployer of the contract.
-
-        + `const Bidder` specifies an `**API**` class called `Bidder`. We are going to learn about API's later in the tutorial.
-
-        +  `init()` marks the deployment of the Reach program, which allows the program to start doing things.
-
-            > The `Creator` and `Bidder` constants above the `init()` function are what the backend expects the frontend to implement. 
-
-    ___
-
-3. > ### Adding the `Creator` Interfaces.
-
-    ___
-
-    In the next step, we'll add the creator interface that will interact with
-    the frontend.
-
-    - ***Creator***
-        > Deployer and Creator are used interchangeably.
-
-    - In order to implement the **Auction** the `Creator` will have to provide the following :
-
-        > + An NFT token to be auctioned.
-        > + A starting price for the auction.
-        > + A duration for the auction.
-
-    - Once the `Creator` provides this information, any `Bidder` can view the deployed contract on the blockchain.
-
-    ***Let's add a function `getSale` in `index.rsh` that does just that.***
-
-    1. The `Creator` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
-        ```javascript
-        //++ Add getSale function.
-        getSale: Fun([], Object({
-            nftId: Token,
-            minBid: UInt,
-            lenInBlocks: UInt,
-        })),
-        ```
-        Let's decipher the `getSale()` function :
-        > - `Fun([], UInt)` is a Reach function that takes no arguments and returns a UInt.
-
-        > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties :
+<summary>
+<h2>
         
-        > - `nftId` is `Type` token.
-        > - `minBid` is `Type` UInt.
-        > - `lenInBlocks` is `Type` UInt.
-
-    - Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties :
-        - `nftId`.
-        - `minBid`.
-        - `lenInBlocks`.
-
-    This is how the Creator will interact with the function in the javascript frontend.
-
-    2. Once the contract has been published onto the blockchain, we will need to notify the `Creator`'s frontend that the auction is ready to be deployed.
-
-        ```javascript
-        //++ Add auctionReady function.
-        auctionReady: Fun([], Null)
-        ```
-    3. We also need to allow the Creator to see each bid in the auction.
-
-        - SeeBid sends a `Bidder` `Address` and the latest bid `UInt` to the frontend.
-
-        ```javascript
-        //++ Add seeBid function.
-        seeBid: Fun([Address, UInt], Null),
-        ```
-
-    4. Finally, we will also allow the creator to see the outcome of the auction.
-
-        ```javascript
-            //++ Add showOutcome function.
-            seeOutcome: Fun([], Object({
-                winner: Address,
-                bid: UInt,
-            })),
-        ```
-        > `SeeOutcome` sends the winner `Address` and the bid `UInt` to the frontend.
-    
-    Let's add these function into the `index.rsh` file
-
-    [___index.rsh___](p2/index.rsh)
-
-    > Add this to index.rsh.
-
-    ```javascript
-    'reach 0.1';
-
-    export const main = Reach.App(() => {
+Adding Reach [Expressions](https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-exprs).
         
-        // Deployer of the contract.
-        const Creator = Participant('Creator', {
-            //++ Add getSale function.
-            getSale: Fun([], Object({
-                nftId: Token,
-                minBid: UInt,
-                lenInBlocks: UInt,
-            })),
-            //++ Add auctionReady function.
-            auctionReady: Fun([], Null),
+</h2>
 
-            //++ Add seeBid function.
-            seeBid: Fun([Address, UInt], Null),
-
-            //++ Add showOutcome function.
-            showOutcome: Fun([Address, UInt], Null),
-        });
-
-        // Any subsequent bidder.
-        const Bidder = API('Bidder', {
-            //Implement bidder interact interface here.
-        });
-        init();
-    });
-    ```
-    ___
-
-4. > ### Adding the `Bidder` Interfaces.
-
-    ___
-
-    The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
-
-    > This is how the function looks.
-
-    ```javascript
-    //++ Add this function to the Bidder interface.
-
-    bid: Fun([UInt], Tuple(UInt,Address, UInt)),
-    ```
-    This is how it looks.
-
-    [index.rsh](p3/index.rsh)
-
-    ```javascript
-    'reach 0.1';
-
-    export const main = Reach.App(() => {
-        
-        // Deployer of the contract.
-        const Creator = Participant('Creator', {
-            //++ Add getSale function.
-            getSale: Fun([], Object({
-                nftId: Token,
-                minBid: UInt,
-                lenInBlocks: UInt,
-            })),
-            //++ Add auctionReady function.
-            auctionReady: Fun([], Null),
-
-            //++ Add seeBid function.
-            seeBid: Fun([Address, UInt], Null),
-
-            //++ Add showOutcome function.
-            showOutcome: Fun([Address, UInt], Null),
-        });
-
-        // Any subsequent bidder.
-        const Bidder = API('Bidder', {
-            //++ Add this function to the Bidder interface.
-            bid: Fun([UInt], Tuple(UInt,Address, UInt)),
-        });
-        
-        init();
-    });
-    ```
-    
-    Let's break down the `bid()` function :
-    - It takes in a `[UInt]` from the frontend, which is the bid amount.
-    - It returns a `Tuple(UInt,Address, UInt)` from the backend, which we will implement later.
-
-    </p>
+Here we are going to add the various reach [initialization](https://docs.reach.sh/rsh/appinit/#init)  options.
+</summary>
+<p>
+</p>
 </details>
 
 <details>
-    <summary>
-        <h2>Interacting with the Blockchain</h2>
-    </summary>
-    <p>
+<summary>
+<h2>
+
+Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
+
+</h2>
+</summary>
+<p>
 
 > A [Reach Step](https://docs.reach.sh/rsh/step/) occurs after the `init()` function is called.
 
 1. > ### Reach Steps
-
-    ___
 
     - There are two kinds of steps :
 
@@ -260,7 +39,6 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
         - Consensus steps are processed by the blockchain. They are executed in the consensus network.
 
-    ___
 
 2. > ### Interacting with the `Creator`.
 
