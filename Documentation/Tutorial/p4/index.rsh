@@ -27,14 +27,20 @@ export const main = Reach.App(() => {
     });
     
     init();
-Creator.publish(nftId, minBid, lenInBlocks);
+    
+    Creator.only(() => {
+        const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+    });
 
-const amt = 1;
+        
+    Creator.publish(nftId, minBid, lenInBlocks);
 
-commit();
+    const amt = 1;
 
-Creator.pay([[amt, nftId]]);
+    commit();
 
-Creator.interact.auctionReady();
+    Creator.pay([[amt, nftId]]);
+
+    Creator.interact.auctionReady();
 
 });
