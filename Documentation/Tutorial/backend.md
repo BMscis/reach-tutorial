@@ -1,50 +1,10 @@
 <details>
 <summary>
-<h1>
-
-[NFT AUCTION WITH REACH](https://docs.reach.sh/#reach-top)
-</h1>
-
-In this tutorial, we will deploy a reach contract that will be imported from the frontend (javascript).
-
-</summary>
-<p>
-
-Let's summarize what we will be implementing.
-
-1. A `Creator` will initialize the contract and provide three variables:
-
-    - An NFT Token.
-    - An initial bid.
-    - A time limit.
-
-2. Once these variables are provided, the `Creator` will then publish the contract onto the blockchain.
-
-3. Thereafter, a `Bidder` will be able to connect to the contract and view the `token_id`, `initial_bid`, and `time_limit`.
-
-4. If the `Bidder` accepts the wager, the `Bidder` will place a bid and call the backend.
-
-5. The auction will continue until time-lapse hits.
-
-6. At timeout :
-    - The winner will receive the NFT.
-    - The `Creator` will receive the highest bid.
-    - All `Bidders` who lost the auction will receive their funds back.
-
-> NOTE :
-> The `Creator` is anyone who deploys the contract.
-
-> The `Creator` is a participant class that can take any acceptable variable name.
-</p>
-</details>
-
-<details>
-<summary>
-<h2>
+<h3>
         
 Adding Reach [Expressions](https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-exprs).
         
-</h2>
+</h3>
 
 Here we are going to add the various reach [initialization](https://docs.reach.sh/rsh/appinit/#init)  options.
 </summary>
@@ -52,11 +12,11 @@ Here we are going to add the various reach [initialization](https://docs.reach.s
 
 <details>
 <summary>
-<h3>
+<h4>
 
 Creating a [Reach App](https://docs.reach.sh/rsh/module/#rsh_Reach.App)
 
-</h3>
+</h4>
 </summary>
 <p>
 
@@ -83,10 +43,10 @@ init();
 
 <details>
 <summary>
-<h3>
+<h4>
 
 Adding a [Participant](https://docs.reach.sh/model/#term_participant)
-</h3>
+</h4>
 
 A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DApp and is associated with an account on the consensus network.
 
@@ -129,10 +89,10 @@ export const main = Reach.App(() => {
 
 <details>
 <summary>
-<h3>
+<h4>
 
 Adding a `Participant` Interfaces.
-</h3>
+</h4>
 
 In the next step, we'll add the creator interface that will interact with
 the frontend.
@@ -239,10 +199,10 @@ ___
 
 <details>
 <summary>
-<h3>
+<h4>
 
 Adding a `Bidder` Interfaces.
-</h3>
+</h4>
 
 The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
 </summary>
@@ -306,19 +266,19 @@ Let's break down the `bid()` function :
 
 <details>
 <summary>
-<h2>
+<h3>
 
 Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
-</h2>
+</h3>
 </summary>
 <p>
 
 <details>
 <summary>
-<h3>
+<h4>
 
 [Local Step](https://docs.reach.sh/rsh/step/)
-</h3>
+</h4>
 
 A local step refers to an action taken by a single `Participant` outside the blockchain.
 
@@ -358,10 +318,10 @@ Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish this i
 
 <details>
 <summary>
-<h3>
+<h4>
 
 [Consensus Step](https://docs.reach.sh/rsh/consensus/)
-</h3>
+</h4>
 
 A consensus steps occurs on the blockchain network for all participants to see.
 </summary>
@@ -398,5 +358,198 @@ Creator.interact.auctionReady();
 Then finally, we will `interact` with the frontend to notify the `Creator` that the auction is ready.
 
 
+</p>
+</details>
+
+<details>
+<summary>
+<h4>
+
+Adding [Parallel Reduce](https://docs.reach.sh/rsh/consensus/#parallelreduce).
+
+</h4>
+
+Here we implement a [parallel reduce](https://docs.reach.sh/rsh/consensus/#parallelreduce) to run the auction until auction time runs out.
+</summary>
+<p>
+
+1. All `Bidder`s will be competing against each other to make the highest bid while simultaneously racing against the auciton time. 
+
+2. We will use a while loop that keeps the auction active as long as the auction time is not over.
+
+3. Every time a bidder bids higher than the previous bid price, the previous bidder will be reimbursed.
+
+4. At the end, the parallel reduce will force a single result.
+
+Let's see how this will look.
+
+> We first create a list that will be used in the parallel reduce.
+
+```javascript
+const [highestBidder, lastPrice, isFirstBid] = [0, 0, 0];
+```
+- Every round of the loop, we will be checking and setting the highest bid, the highest bidder address and whether it is the first bid.
+
+> Since the `Creator` will be the first bidder, we will set the `highestBidder` to the `Creator` address. Set the `lastPrice` to the `minBid` and `isFirstBid` to `true`.
+
+```javascript
+const [highestBidder, lastPrice, isFirstBid] = [Creator, minBid, true];
+```
+
+> Now let's plug this into the `parallelReduce` function.
+
+```javascript
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+```
+1. [Invariant](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.invariant)
+
+    A while loop can execute a block of code as long as a specified condition is true. Thus, the invariant value should be a `true` value that is set at the start of a loop and changes only when the auction is done.
+
+    ```javascript
+    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+        .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
+    ```
+    - Here, the invariant is true as long as the balance of the NFT is equal to one, thus the contract still holds the nft.
+    - It also checks whether it is the first bid or not. If so then the contract balance is 0, otherwise the contract balance is equal to the last bid price.
+
+2. [while](https://docs.reach.sh/rsh/consensus/#while)
+
+    A while loop will run until the last consensus time is less than the end time.
+
+    ```javascript
+    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+        .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
+        .while(lastConsensusTime() < end)
+    ```
+    While the loop is `true`, let's accept bids. Parallel reduce uses `components` to allow `participants` and `api`'s to individually access functions.
+
+3. [`API's`](https://docs.reach.sh/rsh/consensus/#p_27)
+
+    Here, we use [`.api()`](https://docs.reach.sh/rsh/consensus/#p_27) to allow bidders to place bids.
+
+    - An `API_EXPR` is used to access the `Bidder` api `bid` function.
+
+    ```javascript
+    .api(Bidder.bid ....
+    ```
+    - An [`ASSUME_EXPR`] evaluates a claim that resolves to true.
+
+    ```javascript
+    .api(Bidder.bid,
+    ((bid) => { assume(bid > lastPrice, "bid is too low"); }),
+    ```
+    > Here we are testing whether the bid is higher than the last price.
+
+    - `PAY_EXPR` is used to pay the wager to the contract.
+
+    ```javascript
+    .api(Bidder.bid,
+    ((bid) => { assume(bid > lastPrice, "bid is too low"); })
+    ((bid) => bid),
+    ```
+
+    - `CONSENSUS_EXPR` is used to update the consensus state of the contract to notify the bidder of the bid.
+
+    ```javascript
+    .api(Bidder.bid,
+        ((bid) => { assume(bid > lastPrice, "bid is too low"); }),
+        ((bid) => bid),
+        ((bid, notify) => {
+            require(bid > lastPrice, "bid is too low");
+            notify([bid,highestBidder, lastPrice]);
+            if ( ! isFirstBid ) {
+                transfer(lastPrice).to(highestBidder);
+            }
+            Creator.interact.seeBid(this, bid);
+            return [this, bid, false];
+        })
+    )
+    ```
+    - Here we are using [require](https://docs.reach.sh/rsh/consensus/#rsh_require) to ensure that the bid is higher than the last placed bid.
+
+    - We will `notify` the bidder frontend of the `bid` placed, the `highestBidder` and the `lastPrice`.
+
+    - We are checking if `isFirstBid` is `false`. If it is, we will reimburse the `lastPrice` back to the last bidder.
+
+    - We are also interaction with the `Creator` frontend to notify it of the bid.
+
+    - We finally return the `bidder`, the `bid` and setting `isFirstBid` to false.
+
+4. Setting auction [timeout](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.timeout).
+
+    Reach `timeout` will be called once the auction time reaches. `timeout` takes a parameter `blocktime` and a function once the timeout is reached.
+
+    ```javascript
+    .timeout(absoluteTime(end), () => {
+        Creator.publish()
+        return [highestBidder, lastPrice, isFirstBid]; 
+    });
+    ```
+
+    - [absoluteTime](https://docs.reach.sh/rsh/compute/#rsh_absoluteTime) gets the absolute time of the blockchain.
+    - Once the auction time ends, the `Creator` will `publish` the information onto the blockchain and returns the `highestBidder`, `lastPrice` and `isFirstBid`.
+
+This is how the full parallel reduce looks.
+
+```javascript
+
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+    .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
+    .while(lastConsensusTime() < end)
+    .api(Bidder.bid,
+    ((bid) => { assume(bid > lastPrice, "bid is too low"); }),
+    ((bid) => bid),
+    ((bid, notify) => {
+        require(bid > lastPrice, "bid is too low");
+        notify([bid,highestBidder, lastPrice]);
+        if ( ! isFirstBid ) {
+            transfer(lastPrice).to(highestBidder);
+        }
+        Creator.interact.seeBid(this, bid);
+        return [this, bid, false];
+    })
+    ).timeout(absoluteTime(end), () => {
+        Creator.publish()
+        return [highestBidder, lastPrice, isFirstBid]; 
+    });
+
+</p>
+</details>
+
+<details>
+<summary>
+<h4>
+
+Transferring Ownership of the NFT
+</h4>
+
+Transferring the NFT to the winner of the auction.
+</summary>
+<p>
+
+[Transfer](https://docs.reach.sh/rsh/consensus/#transfer) is a consensus step that transfers ownership of contract tokens.
+
+After the contract has determined the winner of the auction, we transfer the NFT to the winner.
+
+```javascript
+transfer(amt, nftId).to(highestBidder);
+```
+
+Then we transfer the highest bid, to the `Creator` of the nft.
+
+```javascript
+if ( ! isFirstBid ) { transfer(lastPrice).to(Creator); }
+```
+Finally, we notify the `Creator` frontend of the auction results.
+
+```javascript
+Creator.interact.showOutcome(highestBidder, lastPrice);
+```
+`commit` back to a local state and `exit` the contract.
+
+```javascript
+commit();
+exit();
+```
 </p>
 </details>
