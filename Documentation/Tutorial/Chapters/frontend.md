@@ -2,7 +2,7 @@
 <summary>
 <h3>
 
-Importing the dependancies.
+Importing the dependencies.
 
 </h3>
 </summary>
@@ -40,7 +40,7 @@ import * as backend from './build/index.main.mjs';
 <summary>
 <h3>
 
-Adding a `Creator` `Participant`  Test Account.
+Adding a `Creator` `Participant` Test Account.
 </h3>
 </summary>
 <p>
@@ -108,7 +108,7 @@ await ctcCreator.participants.Creator({
 ```
 > `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
 
-> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingARLocalStep/index.rsh).
+> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
 
 3. Implementing the `getSale` function.
 
@@ -144,7 +144,7 @@ await ctcCreator.participants.Creator({
 ```
 5. Adding `seeBid` function to the frontend.
 
-Ass you recall, the `seeBid` function from the [`backend`](AddingARLocalStep/index.rsh) sends an `Address` and a `UInt` to the frontend.
+Ass you recall, the `seeBid` function from the [`backend`](4.AddingALocalStep/index.rsh) sends an `Address` and a `UInt` to the frontend.
 
 ```javascript
 await ctcCreator.participants.Creator({
@@ -184,7 +184,7 @@ await ctcCreator.participants.Creator({
 })
 
 ```
-7. Adding it all up, this is how the [`index.mjs`](AddingARLocalStep/index.mjs) interface looks.
+7. Adding it all up, this is how the [`index.mjs`](4.AddingALocalStep/index.mjs) interface looks.
 
 ```javascript
 import { loadStdlib } from '@reach-sh/stdlib';

@@ -83,10 +83,10 @@ const Creator = Participant('Creator', {
 <summary>
 <h4>
 
-Adding it all to [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipant/index.rsh)
+Adding it all to [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/1.AddingAParticipant/index.rsh)
 </h4>
 
-Let's add what we have so far into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipant/index.rsh).
+Let's add what we have so far into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/1.AddingAParticipant/index.rsh).
 </summary>
 <p>
 
@@ -252,14 +252,14 @@ Let's break down the `bid()` function :
 <summary>
 <h4>
 
-Adding it all into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAQBidderInterface/index.rsh)
+Adding it all into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/3.AddingABidderInterface/index.rsh)
 </h4>
 
 Adding the interfaces into the contract.
 </summary>
 <p>
 
-[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAQBidderInterface/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/3.AddingABidderInterface/index.rsh)
 
 ```javascript
 'reach 0.1';
@@ -354,7 +354,7 @@ Let's break it down:
 
 Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish this information onto the contract.
 
-> Let's add this to [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingARLocalStep/index.rsh).
+> Let's add this to [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
 
 ```javascript
 'reach 0.1';
@@ -437,7 +437,7 @@ Creator.interact.auctionReady();
 ```
 Then finally, we will `interact` with the frontend to notify the `Creator` that the auction is ready.
 
-> This is how [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingATConsensusStep/index.rsh) looks like.
+> This is how [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/5.AddingAConsensusStep/index.rsh) looks like.
 
 ```javascript
 'reach 0.1';
@@ -540,10 +540,10 @@ const end = lastConsensus + lenInBlocks;
 <summary>
 <h4>
 
-Adding it all into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingReachChecks/index.rsh)
+Adding it all into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/6.AddingReachChecks/index.rsh)
 </h4>
 
-This is how your [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingReachChecks/index.rsh) should look like.
+This is how your [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/6.AddingReachChecks/index.rsh) should look like.
 </summary>
 <p>
 
@@ -844,10 +844,10 @@ const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, 
 <summary>
 <h4>
 
-Adding it all into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingSParallelReduce/index.rsh).
+Adding it all into [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/7.AddingParallelReduce/index.rsh).
 </h4>
 
-This is how your [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingSParallelReduce/index.rsh) should be looking like.
+This is how your [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/7.AddingParallelReduce/index.rsh) should be looking like.
 </summary>
 <p>
 
@@ -988,7 +988,7 @@ exit();
 <summary>
 <h3>
 
-Here's the complete [Backend](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingSParallelReduce/index.rsh)
+Here's the complete [Backend](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/7.AddingParallelReduce/index.rsh)
 </h3>
 
 This is how your final [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Full/index.rsh) should be looking like.

@@ -18,7 +18,7 @@ bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
 > This is how it looks.
 
-[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAQBidderInterface/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/3.AddingABidderInterface/index.rsh)
 
 ```javascript
 'reach 0.1';

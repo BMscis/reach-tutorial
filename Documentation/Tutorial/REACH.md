@@ -27,9 +27,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
 ## Implementation
 
- 1. [***Create an `index.rsh` and copy the following code.***](AddingAParticipant/index.rsh)
+ 1. [***Create an `index.rsh` and copy the following code.***](1.AddingAParticipant/index.rsh)
 
-    [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipant/index.rsh)
+    [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/1.AddingAParticipant/index.rsh)
 
     ```javascript
     'reach 0.1';
@@ -87,9 +87,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
         The Creator can be any variable name but can only be called once during the lifetime of the contract.
 
- 2. [***Create an `index.mjs` file and add the following code.***](AddingAParticipant/index.mjs)
+ 2. [***Create an `index.mjs` file and add the following code.***](1.AddingAParticipant/index.mjs)
 
-    [___index.mjs___](AddingAParticipant/index.mjs)
+    [___index.mjs___](1.AddingAParticipant/index.mjs)
 
     ```javascript
             import { loadStdlib } from '@reach-sh/stdlib';

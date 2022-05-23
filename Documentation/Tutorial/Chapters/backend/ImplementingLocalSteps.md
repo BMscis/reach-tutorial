@@ -39,7 +39,7 @@ Let's break it down:
 
 Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish this information onto the contract.
 
-> Let's add this to [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingARLocalStep/index.rsh).
+> Let's add this to [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
 
 ```javascript
 'reach 0.1';

@@ -35,7 +35,7 @@ Creator.pay([[amt, nftId]]);
 Creator.interact.auctionReady();
 ```
 Then finally, we will `interact` with the frontend to notify the `Creator` that the auction is ready.
-> This is how [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingATConsensusStep/index.rsh) looks like.
+> This is how [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/5.AddingAConsensusStep/index.rsh) looks like.
 
 ```javascript
 'reach 0.1';
