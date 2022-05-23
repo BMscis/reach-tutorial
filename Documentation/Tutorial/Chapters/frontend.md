@@ -108,7 +108,7 @@ await ctcCreator.participants.Creator({
 ```
 > `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
 
-> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](AddingARLocalStep/index.rsh).
+> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingARLocalStep/index.rsh).
 
 3. Implementing the `getSale` function.
 

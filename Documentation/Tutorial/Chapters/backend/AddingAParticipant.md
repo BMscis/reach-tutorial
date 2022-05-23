@@ -24,7 +24,7 @@ const Creator = Participant('Creator', {
 
 > Let's add the `Creator` into `index.rsh`.
 
-[___index.rsh___](AddingAParticipant/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipant/index.rsh)
 
 ```javascript
 'reach 0.1';

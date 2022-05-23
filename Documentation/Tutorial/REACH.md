@@ -29,7 +29,7 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
  1. [***Create an `index.rsh` and copy the following code.***](AddingAParticipant/index.rsh)
 
-    [___index.rsh___](AddingAParticipant/index.rsh)
+    [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipant/index.rsh)
 
     ```javascript
     'reach 0.1';

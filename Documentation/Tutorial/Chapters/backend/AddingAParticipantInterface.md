@@ -72,7 +72,7 @@ the frontend.
 
 Let's add these function into the `index.rsh` file.
 
-[___index.rsh___](AddingAParticipantInterface/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipantInterface/index.rsh)
 
 > Add this to index.rsh.
 

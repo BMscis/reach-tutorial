@@ -118,7 +118,7 @@ const Creator = Participant('Creator', {
 
     Let's add the `Creator` into `index.rsh`.
 
-[___index.rsh___](AddingAParticipant/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipant/index.rsh)
 
 ```javascript
 'reach 0.1';
@@ -212,7 +212,7 @@ the frontend.
 
 Let's add these function into the `index.rsh` file.
 
-[___index.rsh___](AddingAParticipantInterface/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipantInterface/index.rsh)
 
 > Add this to index.rsh.
 
@@ -268,7 +268,7 @@ bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
 This is how it looks.
 
-[index.rsh](AddingAQBidderInterface/index.rsh)
+[`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAQBidderInterface/index.rsh)
 
 ```javascript
 'reach 0.1';
@@ -729,7 +729,7 @@ await ctcCreator.participants.Creator({
 ```
 > `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
 
-> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](AddingARLocalStep/index.rsh).
+> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingARLocalStep/index.rsh).
 
 3. Implementing the `getSale` function.
 
