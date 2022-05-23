@@ -1,10 +1,10 @@
 <details>
 <summary>
-<h3>
+<h4>
 
 Creating a [Reach App](https://docs.reach.sh/rsh/module/#rsh_Reach.App)
 
-</h3>
+</h4>
 </summary>
 <p>
 

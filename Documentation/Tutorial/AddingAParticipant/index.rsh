@@ -1,15 +1,11 @@
 'reach 0.1';
 
 export const main = Reach.App(() => {
-    
-    // Deployer of the contract.
+
+    //++ Add Creator.
     const Creator = Participant('Creator', {
         //Implement Creator interact interface here.
     });
 
-    // Any subsequent bidder.
-    const Bidder = API('Bidder', {
-        //Implement bidder interact interface here.
-    });
     init();
 });

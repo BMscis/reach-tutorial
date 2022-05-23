@@ -1,9 +1,9 @@
 <details>
 <summary>
-<h3>
+<h4>
 
-Adding a `Bidder` Interfaces.
-</h3>
+Adding a `Bidder` Interface.
+</h4>
 
 The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
 </summary>
@@ -16,9 +16,9 @@ The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows
 
 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
-This is how it looks.
+> This is how it looks.
 
-[index.rsh](p3/index.rsh)
+[index.rsh](AddingAQBidderInterface/index.rsh)
 
 ```javascript
 'reach 0.1';
@@ -27,19 +27,19 @@ export const main = Reach.App(() => {
     
     // Deployer of the contract.
     const Creator = Participant('Creator', {
-        //++ Add getSale function.
+        //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        //++ Add auctionReady function.
+        //auctionReady function.
         auctionReady: Fun([], Null),
 
-        //++ Add seeBid function.
+        //seeBid function.
         seeBid: Fun([Address, UInt], Null),
 
-        //++ Add showOutcome function.
+        //showOutcome function.
         showOutcome: Fun([Address, UInt], Null),
     });
 

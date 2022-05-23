@@ -118,7 +118,7 @@ const Creator = Participant('Creator', {
 
     Let's add the `Creator` into `index.rsh`.
 
-[___index.rsh___](p1/index.rsh)
+[___index.rsh___](AddingAParticipant/index.rsh)
 
 ```javascript
 'reach 0.1';
@@ -142,7 +142,7 @@ export const main = Reach.App(() => {
 <summary>
 <h4>
 
-Adding a `Participant` Interfaces.
+Adding a `Participant` Interface.
 </h4>
 
 In the next step, we'll add the creator interface that will interact with
@@ -212,7 +212,7 @@ the frontend.
 
 Let's add these function into the `index.rsh` file.
 
-[___index.rsh___](p2/index.rsh)
+[___index.rsh___](AddingAParticipantInterface/index.rsh)
 
 > Add this to index.rsh.
 
@@ -252,7 +252,7 @@ ___
 <summary>
 <h4>
 
-Adding a `Bidder` Interfaces.
+Adding a `Bidder` Interface.
 </h4>
 
 The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
@@ -268,7 +268,7 @@ bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
 This is how it looks.
 
-[index.rsh](p3/index.rsh)
+[index.rsh](AddingAQBidderInterface/index.rsh)
 
 ```javascript
 'reach 0.1';
@@ -569,10 +569,10 @@ const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, 
 
 <details>
 <summary>
-<h4>
+<h3>
 
-Transferring Ownership of the NFT
-</h4>
+Setting up onwership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
+</h3>
 
 Transferring the NFT to the winner of the auction.
 </summary>
@@ -661,7 +661,7 @@ import * as backend from './build/index.main.mjs';
 <summary>
 <h3>
 
-Adding a test account.
+Adding a `Creator` `Participant`  Test Account.
 </h3>
 </summary>
 <p>
@@ -708,7 +708,7 @@ Let's decipher the parameters :
 <summary>
 <h3>
 
-Connecting to the backend.
+Connecting the `Creator` `Participant` to the Backend.
 
 </h3>
 </summary>
@@ -729,7 +729,7 @@ await ctcCreator.participants.Creator({
 ```
 > `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
 
-> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](p4/index.rsh).
+> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](AddingARLocalStep/index.rsh).
 
 3. Implementing the `getSale` function.
 
@@ -765,7 +765,7 @@ await ctcCreator.participants.Creator({
 ```
 5. Adding `seeBid` function to the frontend.
 
-Ass you recall, the `seeBid` function from the [`backend`](p4/index.rsh) sends an `Address` and a `UInt` to the frontend.
+Ass you recall, the `seeBid` function from the [`backend`](AddingARLocalStep/index.rsh) sends an `Address` and a `UInt` to the frontend.
 
 ```javascript
 await ctcCreator.participants.Creator({
@@ -805,7 +805,7 @@ await ctcCreator.participants.Creator({
 })
 
 ```
-7. Adding it all up, this is how the [`index.mjs`](p4/index.mjs) interface looks.
+7. Adding it all up, this is how the [`index.mjs`](AddingARLocalStep/index.mjs) interface looks.
 
 ```javascript
 import { loadStdlib } from '@reach-sh/stdlib';

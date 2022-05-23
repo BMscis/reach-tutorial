@@ -1,9 +1,9 @@
 <details>
 <summary>
-<h3>
+<h4>
 
 [Local Step](https://docs.reach.sh/rsh/step/)
-</h3>
+</h4>
 
 A local step refers to an action taken by a single `Participant` outside the blockchain.
 
@@ -11,7 +11,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 </summary>
 <p>
 
-Since we are building an nf-auction, we need a nft to be auctioned. 
+Since we are building a nft-auction, we need a nft to be auctioned. 
 
 As described in the beginning, we will need :
 
@@ -38,5 +38,45 @@ Let's break it down:
 - The [interact](https://docs.reach.sh/rsh/local/#interact) function notifies the frontend and awaits for a response.
 
 Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish this information onto the contract.
+
+> Let's add this to [`index.rsh`](AddingARLocalStep/index.rsh).
+
+```javascript
+'reach 0.1';
+
+export const main = Reach.App(() => {
+    
+    // Deployer of the contract.
+    const Creator = Participant('Creator', {
+        //getSale function.
+        getSale: Fun([], Object({
+            nftId: Token,
+            minBid: UInt,
+            lenInBlocks: UInt,
+        })),
+        //auctionReady function.
+        auctionReady: Fun([], Null),
+
+        //seeBid function.
+        seeBid: Fun([Address, UInt], Null),
+
+        //showOutcome function.
+        showOutcome: Fun([Address, UInt], Null),
+    });
+
+    // Any subsequent bidder.
+    const Bidder = API('Bidder', {
+        //++ Add this function to the Bidder interface.
+        bid: Fun([UInt], Tuple(UInt,Address, UInt)),
+    });
+    
+    init();
+
+    //++ Add declassify function.
+    Creator.only(() => {
+        const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+    });
+});
+```
 </p>
 </details>

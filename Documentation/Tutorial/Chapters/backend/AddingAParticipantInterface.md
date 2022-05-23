@@ -1,18 +1,15 @@
 <details>
 <summary>
-<h3>
+<h4>
 
-Adding a `Participant` Interfaces.
-</h3>
+Adding a `Participant` Interface.
+</h4>
 
 In the next step, we'll add the creator interface that will interact with
 the frontend.
 
 </summary>
 <p>
-
-3. > ### 
-___
 
 - In order to implement the **Auction** the `Creator` will have to  provide the following :
 
@@ -75,7 +72,7 @@ ___
 
 Let's add these function into the `index.rsh` file.
 
-[___index.rsh___](p2/index.rsh)
+[___index.rsh___](AddingAParticipantInterface/index.rsh)
 
 > Add this to index.rsh.
 
@@ -105,8 +102,6 @@ export const main = Reach.App(() => {
     init();
 });
 ```
-___
-
 
 </p>
 </details>

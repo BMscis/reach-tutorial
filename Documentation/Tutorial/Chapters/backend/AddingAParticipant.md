@@ -1,16 +1,16 @@
 <details>
 <summary>
-<h3>
+<h4>
 
 Adding a [Participant](https://docs.reach.sh/model/#term_participant)
-</h3>
+</h4>
 
 A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DApp and is associated with an account on the consensus network.
 
 </summary>
 <p>
 
-A **Participant** is a class that represent an account connected to the contract as well as a user connected to the fronteend.
+A **Participant** is a class that represent an account connected to the contract as well as a user connected to the frontend.
 
 ```javascript
 const Creator = Participant('Creator', {
@@ -22,16 +22,16 @@ const Creator = Participant('Creator', {
 - We are creating a `Participant` class called `Creator`. 
 - The `Creator` will be the deployer of the contract onto the blockchain.
 
-    Let's add the `Creator` into `index.rsh`.
+> Let's add the `Creator` into `index.rsh`.
 
-[___index.rsh___](p1/index.rsh)
+[___index.rsh___](AddingAParticipant/index.rsh)
 
 ```javascript
 'reach 0.1';
 
 export const main = Reach.App(() => {
 
-    //setoptions.
+    //++ Add Creator.
     const Creator = Participant('Creator', {
         //Implement Creator interact interface here.
     });

@@ -101,7 +101,7 @@ Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
 
     This is how `index.rsh` looks.
 
-    [index.rsh](p4/index.rsh)
+    [index.rsh](AddingARLocalStep/index.rsh)
 
     ```javascript
     'reach 0.1';
@@ -193,7 +193,7 @@ Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
         ```
     ___
 
-2. > ### Adding a test account.
+2. > ### Adding a `Creator` `Participant`  Test Account.
     ___
 
     We will use the stdlib to create a test account with a starting balance of 100 network tokens.
@@ -242,7 +242,7 @@ Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
         ```
         > `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
 
-        > Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](p4/index.rsh).
+        > Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](AddingARLocalStep/index.rsh).
 
     3. Implementing the `getSale` function.
 
@@ -278,7 +278,7 @@ Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
         ```
     5. Adding `seeBid` function to the frontend.
 
-        Ass you recall, the `seeBid` function from the [`backend`](p4/index.rsh) sends an `Address` and a `UInt` to the frontend.
+        Ass you recall, the `seeBid` function from the [`backend`](AddingARLocalStep/index.rsh) sends an `Address` and a `UInt` to the frontend.
 
         ```javascript
         await ctcCreator.participants.Creator({
@@ -318,7 +318,7 @@ Working with [Reach Steps](https://docs.reach.sh/rsh/step/).
         })
 
         ```
-    7. Adding it all up, this is how the [`index.mjs`](p4/index.mjs) interface looks.
+    7. Adding it all up, this is how the [`index.mjs`](AddingARLocalStep/index.mjs) interface looks.
 
         ```javascript
         import { loadStdlib } from '@reach-sh/stdlib';

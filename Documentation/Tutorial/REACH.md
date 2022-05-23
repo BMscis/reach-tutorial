@@ -27,9 +27,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
 ## Implementation
 
- 1. [***Create an `index.rsh` and copy the following code.***](p1/index.rsh)
+ 1. [***Create an `index.rsh` and copy the following code.***](AddingAParticipant/index.rsh)
 
-    [___index.rsh___](p1/index.rsh)
+    [___index.rsh___](AddingAParticipant/index.rsh)
 
     ```javascript
     'reach 0.1';
@@ -87,9 +87,9 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
         The Creator can be any variable name but can only be called once during the lifetime of the contract.
 
- 2. [***Create an `index.mjs` file and add the following code.***](p1/index.mjs)
+ 2. [***Create an `index.mjs` file and add the following code.***](AddingAParticipant/index.mjs)
 
-    [___index.mjs___](p1/index.mjs)
+    [___index.mjs___](AddingAParticipant/index.mjs)
 
     ```javascript
             import { loadStdlib } from '@reach-sh/stdlib';
@@ -141,7 +141,7 @@ In this tutorial, we will deploy a reach contract that will be imported from the
     >```
     >You can try this when you start your next project!
 
-- ***Adding the `Creator` Interfaces.***
+- ***Adding the `Creator` Interface.***
 
     In the next step, we'll add the creator interface that will interact with
     the frontend.
@@ -157,7 +157,7 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
     - Once the `Creator` provides this information, any `Bidder` can view the deployed contract on the blockchain.
 
-3. [***Let's add a variable in `index.rsh` that does just that.***](p2/index.rsh)
+3. [***Let's add a variable in `index.rsh` that does just that.***](AddingAParticipantInterface/index.rsh)
 
     1. First we will create an object that stores the `nftId`, `minBid` and `time-laps`
 
@@ -206,7 +206,7 @@ In this tutorial, we will deploy a reach contract that will be imported from the
 
         This is how the Creator will interact with the function in the javascript frontend.
 
-        [___index.mjs___](p2/index.mjs)
+        [___index.mjs___](AddingAParticipantInterface/index.mjs)
 
         ```javascript
         //++
@@ -224,7 +224,7 @@ In this tutorial, we will deploy a reach contract that will be imported from the
         })
         ```
 
-- ***Adding the `Bidder` Interfaces.***
+- ***Adding the `Bidder` Interface.***
 
     The `Bidder` is an API
 

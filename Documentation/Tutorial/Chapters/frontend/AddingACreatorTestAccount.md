@@ -2,7 +2,7 @@
 <summary>
 <h4>
 
-Adding a test account.
+Adding a `Creator` `Participant` Test Account.
 </h4>
 </summary>
 <p>

@@ -20,9 +20,5 @@ export const main = Reach.App(() => {
         showOutcome: Fun([Address, UInt], Null),
     });
 
-    // Any subsequent bidder.
-    const Bidder = API('Bidder', {
-        //Implement bidder interact interface here.
-    });
     init();
 });
