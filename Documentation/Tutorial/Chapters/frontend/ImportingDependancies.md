@@ -1,14 +1,15 @@
 <details>
 <summary>
-<h4>
+<h3>
 
-Importing the dependancies.
+Importing the dependencies.
 
-</h4>
+</h3>
+
+We need to import the [Reach Standard Library](https://docs.reach.sh/frontend/#js_stdlib.withDisconnect) module for JavaScript.
 </summary>
 <p>
 
-We need to import the [Reach Standard Library](https://docs.reach.sh/frontend/#js_stdlib.withDisconnect) module for Javascript.
 
 ```javascript
 import { loadStdlib } from '@reach-sh/stdlib';

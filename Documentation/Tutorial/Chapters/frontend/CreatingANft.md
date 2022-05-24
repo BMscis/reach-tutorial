@@ -1,14 +1,16 @@
 <details>
 <summary>
-<h4>
+<h3>
 
 Creating a nft with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
 
-</h4>
+</h3>
+
+Adding an nft to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
 </summary>
 <p>
 
-If we take a look at `index.rsh` we see that the `Creator`.`getSale` function expects an `nftId`, a `minBid` and `lenInBlocks` as parameters.
+If we take a look at `index.rsh` we see that the `Creator`.`getSale` function expects a `nftId`, a `minBid` and `lenInBlocks` as parameters.
 
 > Reach Standard Library provides a [`launchToken`](https://docs.reach.sh/frontend/#js_launchToken) function that can handle creating a network token.
 
