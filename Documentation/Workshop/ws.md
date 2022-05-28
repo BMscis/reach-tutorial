@@ -82,9 +82,11 @@ Let's run through the objectives :
 <li>
 <p>
 
-<h3>
+<h3 id="expected-output">
 
-[Expected Output](#ExpectedOutput)
+
+[Expected Output](#ExpectedOutput) 
+
 </h3>
 
 We expect the decentralized application to : 
@@ -335,8 +337,10 @@ If we go back to our [problem analysis](/1.ProblemAnalysis.md), we can take a lo
 <details>
 <summary>
 <h4>
+<a href="expected-output"> 
 
-[Output](#ExpectedOutput)
+Output
+</a>
 </h4>
 
 The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
