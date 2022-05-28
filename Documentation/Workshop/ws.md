@@ -338,7 +338,7 @@ If we go back to our [problem analysis](/1.ProblemAnalysis.md), we can take a lo
 
 <a href="#expected-output">
 
-[Output](#ExpectedOutput)
+Output
 </a>
 </h4>
 
