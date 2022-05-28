@@ -30,7 +30,7 @@ export class CreateAlgoAsset {
     async createAsset(){
         try {
             this.params = await algodClient.getTransactionParams().do();
-            const creator = this.walletAddress;
+            const auctioneer = this.walletAddress;
             const defaultFrozen = false;    
             const unitName = get(nftSymbol); 
             const assetName = get(nftName);
@@ -45,7 +45,7 @@ export class CreateAlgoAsset {
             this.params.flatFee = true;
 
             const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
-                from:creator,
+                from:auctioneer,
                 total,
                 decimals,
                 assetName,
@@ -80,7 +80,7 @@ export class CreateAlgoAsset {
             printAssetHolding(this.walletAddress, this.assetID);
             return this.assetID
         } catch (error) {
-            console.log("2B: ERROR: Creator createAsset",error)
+            console.log("2B: ERROR: Auctioneer createAsset",error)
             return false
         }
             
@@ -102,8 +102,8 @@ export class CreateAlgoAsset {
         // params.flatFee = true;
         // The address for the from field must be the manager account
         const addr = this.walletAddress;
-        // if all assets are held by the asset creator,
-        // the asset creator can sign and issue "txn" to remove the asset from the ledger. 
+        // if all assets are held by the asset auctioneer,
+        // the asset auctioneer can sign and issue "txn" to remove the asset from the ledger. 
         const txn = algosdk.makeAssetDestroyTxnWithSuggestedParamsFromObject({
             from: addr,
             note: undefined,
@@ -130,7 +130,7 @@ export class CreateAlgoAsset {
         // Notice that although the asset was destroyed, the asset id and associated 
         // metadata still exists in account holdings for any account that optin. 
         // When you destroy an asset, the global parameters associated with that asset
-        // (manager addresses, name, etc.) are deleted from the creator's account.
+        // (manager addresses, name, etc.) are deleted from the auctioneer's account.
         // However, holdings are not deleted automatically -- users still need to 
         // use the closeToAccount on the call makePaymentTxnWithSuggestedParams of the deleted asset.
         // This is necessary for technical reasons because we currently can't have a single transaction touch potentially 

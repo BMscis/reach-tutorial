@@ -24,7 +24,7 @@ Let's connect the `Bidder` to the backend.
 <p>
 
 
-In order to connect the `Bidder` `API` to the backend, we need to get the contract `address` that was created by the `Creator` :
+In order to connect the `Bidder` `API` to the backend, we need to get the contract `address` that was created by the `Auctioneer` :
 
 ```javascript
 // remember this line

@@ -17,15 +17,15 @@ After the contract has determined the winner of the auction, we transfer the NFT
 transfer(amt, nftId).to(highestBidder);
 ```
 
-Then we transfer the highest bid, to the `Creator` of the nft.
+Then we transfer the highest bid, to the `Auctioneer` of the NFT.
 
 ```javascript
-if ( ! isFirstBid ) { transfer(lastPrice).to(Creator); }
+if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
 ```
-Finally, we notify the `Creator` frontend of the auction results.
+Finally, we notify the `Auctioneer` frontend of the auction results.
 
 ```javascript
-Creator.interact.showOutcome(highestBidder, lastPrice);
+Auctioneer.interact.showOutcome(highestBidder, lastPrice);
 ```
 `commit` back to a local state and `exit` the contract.
 

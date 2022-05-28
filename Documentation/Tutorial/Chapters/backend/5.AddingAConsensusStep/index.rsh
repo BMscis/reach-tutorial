@@ -3,7 +3,7 @@
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -29,22 +29,22 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //++ Add publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //++ Add nft amount.
+    //++ Add NFT amount.
     const amt = 1;
 
     //++ Add step into local-step.
     commit();
 
-    //++ Add send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //++ Add send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //++ Add notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 });

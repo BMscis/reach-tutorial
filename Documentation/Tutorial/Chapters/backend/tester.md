@@ -18,23 +18,23 @@ consensus, we need to call [consensus functions](https://docs.reach.sh/rsh/step/
 Since we now know the `nftId`, `minBid`, and `lenInBlocks`, we can publish this information onto the contract.
 
 ```javascript
-Creator.publish(nftId, minBid, lenInBlocks);
+Auctioneer.publish(nftId, minBid, lenInBlocks);
 ```
 
-In order to get back into a local step and allow the Creator to send the nft into the contract, we will use [`commit`](https://docs.reach.sh/rsh/consensus/#rsh_commit) which pushes the reach into a local step.
+In order to get back into a local step and allow the Auctioneer to send the NFT into the contract, we will use [`commit`](https://docs.reach.sh/rsh/consensus/#rsh_commit) which pushes the reach into a local step.
 
-We will also specify the number of tokens to send to the contract. We will set the amount to one since it is a unique nft, then pay it to the contract.
+We will also specify the number of tokens to send to the contract. We will set the amount to one since it is a unique NFT, then pay it to the contract.
 
 ```javascript
 const amt = 1;
 
 commit();
 
-Creator.pay([[amt, nftId]]);
+Auctioneer.pay([[amt, nftId]]);
 
-Creator.interact.auctionReady();
+Auctioneer.interact.auctionReady();
 ```
-Then finally, we will `interact` with the frontend to notify the `Creator` that the auction is ready.
+Then finally, we will `interact` with the frontend to notify the `Auctioneer` that the auction is ready.
 
 > This is how [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/5.AddingAConsensusStep/index.rsh) looks like.
 
@@ -44,7 +44,7 @@ Then finally, we will `interact` with the frontend to notify the `Creator` that 
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -70,24 +70,24 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //++ Add publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //++ Add nft amount.
+    //++ Add NFT amount.
     const amt = 1;
 
     //++ Add step into local-step.
     commit();
 
-    //++ Add send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //++ Add send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //++ Add notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 });
 ```
 

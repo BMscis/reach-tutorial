@@ -2,7 +2,7 @@
 import { onDestroy } from "svelte";
 
 import Loading from "../Loading.svelte";
-import {Creator} from "../../ReachContract/pt"
+import {Auctioneer} from "../../ReachContract/pt"
 import ModalForm from "./ModalForm.svelte";
 import {formNumber, nftImage} from "./nftFormSvelte"
 import { get } from "svelte/store";
@@ -37,7 +37,7 @@ const closeImage = async () => {
 }
 const waitResponse = async () => {
   
-  const nft = new Creator()
+  const nft = new Auctioneer()
   let sendToStorage = false
   let nftCreated = await nft.createNFT()
   if(nftCreated ){

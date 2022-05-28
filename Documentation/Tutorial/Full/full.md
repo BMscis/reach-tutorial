@@ -20,6 +20,8 @@ What we are going to make.
 </summary>
 <p>
 
+<ol>
+<li>
 <details>
 <summary>
 <h3>
@@ -31,13 +33,13 @@ Let's summarize what we will be implementing.
 </summary>
 <p>
 
-1. A `Creator` will initialize the contract and provide three variables:
+1. A `Auctioneer` will initialize the contract and provide three variables:
 
     - An NFT Token.
     - An initial bid.
     - A time limit.
 
-2. Once these variables are provided, the `Creator` will then publish the contract onto the blockchain.
+2. Once these variables are provided, the `Auctioneer` will then publish the contract onto the blockchain.
 
 3. Thereafter, a `Bidder` will be able to connect to the contract and view the `token_id`, `initial_bid`, and `time_limit`.
 
@@ -47,16 +49,18 @@ Let's summarize what we will be implementing.
 
 6. At timeout :
     - The winner will receive the NFT.
-    - The `Creator` will receive the highest bid.
+    - The `Auctioneer` will receive the highest bid.
     - All `Bidders` who lost the auction will receive their funds back.
 
 > NOTE :
-> The `Creator` is anyone who deploys the contract.
+> The `Auctioneer` is anyone who deploys the contract.
 
-> The `Creator` is a participant class that can take any acceptable variable name.
+> The `Auctioneer` is a participant class that can take any acceptable variable name.
 
 </p>
 </details>
+</li>
+</ol>
 
 </p>
 </details>
@@ -139,14 +143,14 @@ A [Participant](https://docs.reach.sh/model/#term_participant) is a logical acto
 A **Participant** is a class that represent an account connected to the contract as well as a user connected to the frontend.
 
 ```javascript
-const Creator = Participant('Creator', {
-        //Implement Creator interact interface here.
+const Auctioneer = Participant('Auctioneer', {
+        //Implement Auctioneer interact interface here.
 });
 ```
 ***In this instance :***
 
-- We are creating a `Participant` class called `Creator`. 
-- The `Creator` will be the deployer of the contract onto the blockchain.
+- We are creating a `Participant` class called `Auctioneer`. 
+- The `Auctioneer` will be the deployer of the contract onto the blockchain.
 
 </p>
 </details>
@@ -170,9 +174,9 @@ Let's add what we have so far into [`index.rsh`](https://raw.githubusercontent.c
 
 export const main = Reach.App(() => {
 
-    //++ Add Creator.
-    const Creator = Participant('Creator', {
-        //Implement Creator interact interface here.
+    //++ Add Auctioneer.
+    const Auctioneer = Participant('Auctioneer', {
+        //Implement Auctioneer interact interface here.
     });
 
     init();
@@ -190,23 +194,23 @@ export const main = Reach.App(() => {
 Adding a `Participant` Interface.
 </h4>
 
-In the next step, we'll add the creator interface that will interact with
+In the next step, we'll add the auctioneer interface that will interact with
 the frontend.
 
 </summary>
 <p>
 
-- In order to implement the **Auction** the `Creator` will have to  provide the following :
+- In order to implement the **Auction** the `Auctioneer` will have to  provide the following :
 
     > + An NFT token to be auctioned.
     > + A starting price for the auction.
     > + A duration for the auction.
 
-- Once the `Creator` provides this information, any `Bidder` can view the deployed contract on the blockchain.
+- Once the `Auctioneer` provides this information, any `Bidder` can view the deployed contract on the blockchain.
 
 ***Let's add a function `getSale` in `index.rsh` that does just that.***
 
-1. The `Creator` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
+1. The `Auctioneer` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
     ```javascript
     //++ Add getSale function.
     getSale: Fun([], Object({
@@ -229,13 +233,13 @@ the frontend.
     - `minBid`.
     - `lenInBlocks`.
 
-2. Once the contract has been published onto the blockchain, we will need to notify the `Creator`'s frontend that the auction is ready to be deployed.
+2. Once the contract has been published onto the blockchain, we will need to notify the `Auctioneer`'s frontend that the auction is ready to be deployed.
 
     ```javascript
     //++ Add auctionReady function.
     auctionReady: Fun([], Null)
     ```
-3. We also need to allow the Creator to see each bid in the auction.
+3. We also need to allow the Auctioneer to see each bid in the auction.
 
     - SeeBid sends a `Bidder`.`Address` and the latest bid `UInt` to the frontend.
 
@@ -244,7 +248,7 @@ the frontend.
     seeBid: Fun([Address, UInt], Null),
     ```
 
-4. Finally, we will also allow the creator to see the outcome of the auction.
+4. Finally, we will also allow the auctioneer to see the outcome of the auction.
 
     ```javascript
     //++ Add showOutcome function.
@@ -267,7 +271,7 @@ Let's add these function into the `index.rsh` file.
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //++ Add getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -342,7 +346,7 @@ Adding the interfaces into the contract.
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -401,7 +405,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 </summary>
 <p>
 
-Since we are building a nft-auction, we need a nft to be auctioned. 
+Since we are building a NFT-auction, we need a NFT to be auctioned. 
 
 As described in the beginning, we will need :
 
@@ -409,17 +413,17 @@ As described in the beginning, we will need :
 - Nft price
 - Auction duration
 
-All this information will be provided by the `Creator` `Participant`. To make sure that the `Creator` is the only one who can provide this information, we will use a `Local Step` to do so.
+All this information will be provided by the `Auctioneer` `Participant`. To make sure that the `Auctioneer` is the only one who can provide this information, we will use a `Local Step` to do so.
 
 `Reach` provides us with an [`only`](https://docs.reach.sh/rsh/step/#ref-programs-only-step) method that we can use to do so.
 
 ```javascript
-Creator.only(() => {
+Auctioneer.only(() => {
     const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
 });
 ```
 Let's break it down:
-- `Creator.only(() => {...})` is a `Local Step` that only allows the `Creator` to access the `getSale()` function we created above.
+- `Auctioneer.only(() => {...})` is a `Local Step` that only allows the `Auctioneer` to access the `getSale()` function we created above.
 
 - `{nftId, minBid, lenInBlocks}` is the declassified `Object` that is returned from the `getSale()` function.
 
@@ -437,7 +441,7 @@ Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish this i
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -463,7 +467,7 @@ export const main = Reach.App(() => {
     init();
 
     //++ Add declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 });
@@ -494,23 +498,23 @@ consensus, we need to call [consensus functions](https://docs.reach.sh/rsh/step/
 Since we now know the `nftId`, `minBid`, and `lenInBlocks`, we can publish this information onto the contract.
 
 ```javascript
-Creator.publish(nftId, minBid, lenInBlocks);
+Auctioneer.publish(nftId, minBid, lenInBlocks);
 ```
 
-In order to get back into a local step and allow the Creator to send the nft into the contract, we will use [`commit`](https://docs.reach.sh/rsh/consensus/#rsh_commit) which pushes the reach into a local step.
+In order to get back into a local step and allow the Auctioneer to send the NFT into the contract, we will use [`commit`](https://docs.reach.sh/rsh/consensus/#rsh_commit) which pushes the reach into a local step.
 
-We will also specify the number of tokens to send to the contract. We will set the amount to one since it is a unique nft, then pay it to the contract.
+We will also specify the number of tokens to send to the contract. We will set the amount to one since it is a unique NFT, then pay it to the contract.
 
 ```javascript
 const amt = 1;
 
 commit();
 
-Creator.pay([[amt, nftId]]);
+Auctioneer.pay([[amt, nftId]]);
 
-Creator.interact.auctionReady();
+Auctioneer.interact.auctionReady();
 ```
-Then finally, we will `interact` with the frontend to notify the `Creator` that the auction is ready.
+Then finally, we will `interact` with the frontend to notify the `Auctioneer` that the auction is ready.
 
 > This is how [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/5.AddingAConsensusStep/index.rsh) looks like.
 
@@ -520,7 +524,7 @@ Then finally, we will `interact` with the frontend to notify the `Creator` that 
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -546,24 +550,24 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //++ Add publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //++ Add nft amount.
+    //++ Add NFT amount.
     const amt = 1;
 
     //++ Add step into local-step.
     commit();
 
-    //++ Add send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //++ Add send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //++ Add notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 });
 ```
 
@@ -591,7 +595,7 @@ We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to chec
 ```javascript
 assert(balance(nftId) == amt, "balance of NFT is wrong");
 ```
-- Here we are using a [balance](https://docs.reach.sh/rsh/compute/#rsh_balance) primitive to check the balance of the nft. if we call `balance()` without a passing a parameter, we will get the balance of the contract.
+- Here we are using a [balance](https://docs.reach.sh/rsh/compute/#rsh_balance) primitive to check the balance of the NFT. if we call `balance()` without a passing a parameter, we will get the balance of the contract.
 
 Also, we will check the [last consensus time](https://docs.reach.sh/rsh/compute/#rsh_lastConsensusTime). Last consensus time checks the last time the contract was in consensus : The last time the contract used a `publish` or `pay` step.
 
@@ -628,7 +632,7 @@ This is how your [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tu
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -654,26 +658,26 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //nft amount.
+    //NFT amount.
     const amt = 1;
 
     //step into local-step.
     commit();
 
-    //send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 
-    //++ Add assertion to check nft balance
+    //++ Add assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
     //++ Add checkpoint to set last publish time.
@@ -731,16 +735,16 @@ const [highestBidder, lastPrice, isFirstBid] = [0, 0, 0];
 ```
 - Every round of the loop, we will be checking and setting the highest bid, the highest bidder address and whether it is the first bid.
 
-> Since the `Creator` will be the first bidder, we will set the `highestBidder` to the `Creator` address. Set the `lastPrice` to the `minBid` and `isFirstBid` to `true`.
+> Since the `Auctioneer` will be the first bidder, we will set the `highestBidder` to the `Auctioneer` address. Set the `lastPrice` to the `minBid` and `isFirstBid` to `true`.
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = [Creator, minBid, true];
+const [highestBidder, lastPrice, isFirstBid] = [Auctioneer, minBid, true];
 ```
 
 > Now let's plug this into the `parallelReduce` function.
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
 ```
 </details>
 </li>
@@ -756,10 +760,10 @@ Adding an [Invariant](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.in
 A while loop can execute a block of code as long as a specified condition is true. Thus, the invariant value should be a `true` value that is set at the start of a loop and changes only when the auction is done.
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
 ```
-- Here, the invariant is true as long as the balance of the NFT is equal to one, thus the contract still holds the nft.
+- Here, the invariant is true as long as the balance of the NFT is equal to one, thus the contract still holds the NFT.
 
 - It also checks whether it is the first bid or not. If so then the contract balance is 0, otherwise the contract balance is equal to the last bid price.
 
@@ -778,7 +782,7 @@ A while loop will run until the last consensus time is less than the end time.
 </summary>
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)
 ```
@@ -834,7 +838,7 @@ Here, we use [`.api()`](https://docs.reach.sh/rsh/consensus/#p_27) to allow bidd
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
 )
@@ -846,7 +850,7 @@ Here, we use [`.api()`](https://docs.reach.sh/rsh/consensus/#p_27) to allow bidd
 
 - We are checking if `isFirstBid` is `false`. If it is, we will reimburse the `lastPrice` back to the last bidder.
 
-- We are also interaction with the `Creator` frontend to notify it of the bid.
+- We are also interaction with the `Auctioneer` frontend to notify it of the bid.
 
 - We finally return the `bidder`, the `bid` and setting `isFirstBid` to false.
 
@@ -867,14 +871,14 @@ Reach `timeout` will be called once the auction time reaches. `timeout` takes a 
 ```javascript
 
 .timeout(absoluteTime(end), () => {
-    Creator.publish()
+    Auctioneer.publish()
     return [highestBidder, lastPrice, isFirstBid]; 
 });
 ```
 
 - [absoluteTime](https://docs.reach.sh/rsh/compute/#rsh_absoluteTime) gets the absolute time of the blockchain.
 
-- Once the auction time ends, the `Creator` will `publish` the information onto the blockchain and returns the `highestBidder`, `lastPrice` and `isFirstBid`.
+- Once the auction time ends, the `Auctioneer` will `publish` the information onto the blockchain and returns the `highestBidder`, `lastPrice` and `isFirstBid`.
 
 This is how the full parallel reduce looks.
 
@@ -890,7 +894,7 @@ Putting the auction together.
 </summary>
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
 .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
 .while(lastConsensusTime() < end)
 .api(Bidder.bid,
@@ -902,11 +906,11 @@ const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, 
     if ( ! isFirstBid ) {
         transfer(lastPrice).to(highestBidder);
     }
-    Creator.interact.seeBid(this, bid);
+    Auctioneer.interact.seeBid(this, bid);
     return [this, bid, false];
 })
 ).timeout(absoluteTime(end), () => {
-    Creator.publish()
+    Auctioneer.publish()
     return [highestBidder, lastPrice, isFirstBid]; 
 });
 ```
@@ -933,7 +937,7 @@ This is how your [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tu
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -959,26 +963,26 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //nft amount.
+    //NFT amount.
     const amt = 1;
 
     //step into local-step.
     commit();
 
-    //send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 
-    // assertion to check nft balance
+    // assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
     // checkpoint to set last publish time.
@@ -988,7 +992,7 @@ export const main = Reach.App(() => {
     const end = lastConsensus + lenInBlocks;
 
     //++ Add parallel reduce
-    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)
     .api(Bidder.bid,
@@ -1000,11 +1004,11 @@ export const main = Reach.App(() => {
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
     ).timeout(absoluteTime(end), () => {
-        Creator.publish()
+        Auctioneer.publish()
         return [highestBidder, lastPrice, isFirstBid]; 
     });
 });
@@ -1036,15 +1040,15 @@ After the contract has determined the winner of the auction, we transfer the NFT
 transfer(amt, nftId).to(highestBidder);
 ```
 
-Then we transfer the highest bid, to the `Creator` of the nft.
+Then we transfer the highest bid, to the `Auctioneer` of the NFT.
 
 ```javascript
-if ( ! isFirstBid ) { transfer(lastPrice).to(Creator); }
+if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
 ```
-Finally, we notify the `Creator` frontend of the auction results.
+Finally, we notify the `Auctioneer` frontend of the auction results.
 
 ```javascript
-Creator.interact.showOutcome(highestBidder, lastPrice);
+Auctioneer.interact.showOutcome(highestBidder, lastPrice);
 ```
 `commit` back to a local state and `exit` the contract.
 
@@ -1076,7 +1080,7 @@ This is how your final [`index.rsh`](https://raw.githubusercontent.com/BMscis/re
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -1102,26 +1106,26 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //nft amount.
+    //NFT amount.
     const amt = 1;
 
     //step into local-step.
     commit();
 
-    //send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 
-    // assertion to check nft balance
+    // assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
     // checkpoint to set last publish time.
@@ -1131,7 +1135,7 @@ export const main = Reach.App(() => {
     const end = lastConsensus + lenInBlocks;
 
     // parallel reduce
-    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)
     .api(Bidder.bid,
@@ -1143,19 +1147,19 @@ export const main = Reach.App(() => {
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
     ).timeout(absoluteTime(end), () => {
-        Creator.publish()
+        Auctioneer.publish()
         return [highestBidder, lastPrice, isFirstBid]; 
     });
 
     // Transfer
-    if ( ! isFirstBid ) { transfer(lastPrice).to(Creator); }
+    if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
 
-    // creator show outcome.
-    Creator.interact.showOutcome(highestBidder, lastPrice);
+    // auctioneer show outcome.
+    Auctioneer.interact.showOutcome(highestBidder, lastPrice);
 
     // step to local-step.
     commit();
@@ -1257,7 +1261,7 @@ const stdlib = loadStdlib();
 <summary>
 <h3>
 
-Adding a `Creator` `Participant` Test Account.
+Adding a `Auctioneer` `Participant` Test Account.
 </h3>
 
 Let's add a test account to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/2.AddingAParticipantTestAccount/index.mjs)) file.
@@ -1282,15 +1286,15 @@ const accCreator = await stdlib.newTestAccount(startingBalance);
 <summary>
 <h3>
 
-Creating a nft with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
+Creating a NFT with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
 
 </h3>
 
-Adding an nft to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
+Adding an NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
 </summary>
 <p>
 
-If we take a look at `index.rsh` we see that the `Creator`.`getSale` function expects a `nftId`, a `minBid` and `lenInBlocks` as parameters.
+If we take a look at `index.rsh` we see that the `Auctioneer`.`getSale` function expects a `nftId`, a `minBid` and `lenInBlocks` as parameters.
 
 > Reach Standard Library provides a [`launchToken`](https://docs.reach.sh/frontend/#js_launchToken) function that can handle creating a network token.
 
@@ -1298,7 +1302,7 @@ If we take a look at `index.rsh` we see that the `Creator`.`getSale` function ex
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 ```
 Let's decipher the parameters :
-- `Account` = `launchToken` expects the account of the creator of the token. In our instance, `accCreator` is the creator of the token.
+- `Account` = `launchToken` expects the account of the auctioneer of the token. In our instance, `accCreator` is the auctioneer of the token.
 - `name` = `launchToken` expects the name of the token. In our instance, `bumple` is the name of the token.
 - `sym` = `launchToken` expects the symbol of the token. In our instance, `NFT` is the symbol of the token.
 - `opts` = `launchToken` expects an object of options if any. In our instance, `{ supply: 1 }` is the option since we only require unique instance of the NFT.
@@ -1312,11 +1316,11 @@ Let's decipher the parameters :
 <summary>
 <h3>
 
-Connecting the `Creator` `Participant` to the Backend.
+Connecting the `Auctioneer` `Participant` to the Backend.
 
 </h3>
 
-Let's see how to connect the `Creator` `Participant` to the backend and add it into our [`index.mjs`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/4.ConnectingTheCreatorToTheBackend/index.mjs).
+Let's see how to connect the `Auctioneer` `Participant` to the backend and add it into our [`index.mjs`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/4.ConnectingTheCreatorToTheBackend/index.mjs).
 </summary>
 <p>
 
@@ -1348,19 +1352,19 @@ const ctcCreator = accCreator.contract(backend);
 Connecting to the Interface.
 </H4>
 
-We can now connect to the backend `Creator` interface with :
+We can now connect to the backend `Auctioneer` interface with :
 </summary>
 <p>
 
 ```javascript
-//++ Add setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
-    // Specify Creator interact interface here
+//++ Add setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
+    // Specify Auctioneer interact interface here
 })
 ```
-> `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
+> `await ctcCreator.participants.Auctioneer` will connect the backend `Auctioneer` interface with the `accCreator`.
 
-> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
+> Before we do that, we need to implement the `Auctioneer` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
 </p>
 </details>
 </li>
@@ -1378,7 +1382,7 @@ Implementing the `getSale` function.
 <p>
 
 ```javascript
-//++ Add nft params expected by the `getSale` function.
+//++ Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 lenInBlocks = 10;
@@ -1410,13 +1414,13 @@ lenInBlocks:lenInBlocks,
 Adding `getSale` to the interface.
 </H4>
 
-Let's add the `params` object to the `Creator` interface.
+Let's add the `params` object to the `Auctioneer` interface.
 </summary>
 <p>
 
 ```javascript
-//++ Add setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
+//++ Add setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -1435,14 +1439,14 @@ await ctcCreator.participants.Creator({
 Adding `seeBid` function to the frontend.
 </H4>
 
-Connecting the `Creator` `Participant` to the frontend.
+Connecting the `Auctioneer` `Participant` to the frontend.
 </summary>
 <p>
 
 Ass you recall, the `seeBid` function from the [`backend`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh) sends an `Address` and a `UInt` to the frontend.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -1451,7 +1455,7 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
 })
 ```
@@ -1468,14 +1472,14 @@ await ctcCreator.participants.Creator({
 Adding the `showOutcome` function to the frontend.
 </H4>
 
-Connecting the `Creator` `Participant` to the frontend.
+Connecting the `Auctioneer` `Participant` to the frontend.
 </summary>
 <p>
 
 The `showOutcome` function will notify the frontend, when the contract is ready to begin the auction.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -1484,13 +1488,13 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // ++ Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     }
 })
 
@@ -1529,13 +1533,13 @@ const startingBalance = stdlib.parseCurrency(100);
 // create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 
-// nft asset.
+// NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
 //++ Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-//++ Add nft params expected by the `getSale` function.
+//++ Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 lenInBlocks = 10;
@@ -1547,8 +1551,8 @@ const params = {
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
+//++ Add setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -1557,13 +1561,13 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // ++ Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     }
 })
 ```
@@ -1587,7 +1591,7 @@ This how a bidder test account will look like.
 </summary>
 <p>
 
-Let's create a test account for the `Bidder` `api` just as we did with the `Creator`.
+Let's create a test account for the `Bidder` `api` just as we did with the `Auctioneer`.
 
 ```javascript
 // ++ Add test currrency.
@@ -1626,7 +1630,7 @@ Let's connect the `Bidder` to the backend.
 <p>
 
 
-In order to connect the `Bidder` `API` to the backend, we need to get the contract `address` that was created by the `Creator` :
+In order to connect the `Bidder` `API` to the backend, we need to get the contract `address` that was created by the `Auctioneer` :
 
 ```javascript
 // remember this line
@@ -1691,7 +1695,7 @@ Creating test bidders.
 <p>
 
 
-We are going to put all our `Bidders` into an `async` function and allow each `Bidder` to connect to the backend contract. But before we do that, let's look at how an actor other than the `Creator`/Deployer connects to the backend contract.
+We are going to put all our `Bidders` into an `async` function and allow each `Bidder` to connect to the backend contract. But before we do that, let's look at how an actor other than the `Auctioneer`/Deployer connects to the backend contract.
 
 ```javascript
 
@@ -1735,7 +1739,7 @@ const startBidders = async () => {
 
 - `const bidders = [];`
 
-- `const startBidders` will be called by the Creator once the auction is ready.
+- `const startBidders` will be called by the Auctioneer once the auction is ready.
 
 -  `let bid = minBid;`
 
@@ -1749,11 +1753,11 @@ const startBidders = async () => {
 
 - `accBidder.setDebugLabel(who);` sets the debug label for the `Bidder`, with a unique `Bidder` name.
 
-- `await accBidder.tokenAccept(nftId);` allows the `Bidder` accepts the NFT from the Creator.
+- `await accBidder.tokenAccept(nftId);` allows the `Bidder` accepts the NFT from the Auctioneer.
 
 - `bidders.push([who, accBidder]);` adds the `Bidder` name and `Bidder` account to the `const bidders = [];` array we created.
 
-- `const ctc = accBidder.contract(backend, ctcCreator.getInfo());` connects the `Bidder` to the contract deployed by the `Creator` by using reach standard library function 
+- `const ctc = accBidder.contract(backend, ctcCreator.getInfo());` connects the `Bidder` to the contract deployed by the `Auctioneer` by using reach standard library function 
 [`getInfo()`](https://docs.reach.sh/frontend/#js_getInfo).
 - `const getBal = async () => stdlib.formatCurrency(await stdlib.balanceOf(accBidder));` gets `Bidder` balance from the `Bidder` account.
 
@@ -1778,7 +1782,7 @@ const startBidders = async () => {
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
     ```
@@ -1812,10 +1816,10 @@ How will we run the auction ?
 </summary>
 <p>
 
-Remember the creator interface, we are going to add the `startBidders` function onto the `Creator.auctionReady` function so that once the auction is ready, we can start the auction.
+Remember the auctioneer interface, we are going to add the `startBidders` function onto the `Auctioneer.auctionReady` function so that once the auction is ready, we can start the auction.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -1824,17 +1828,17 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // ++ Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
     // ++ Add startBidders function.
     auctionReady: () => {
-        console.log("Creator sees that the auction is ready.");
+        console.log("Auctioneer sees that the auction is ready.");
         startBidders();
     } 
 })
@@ -1868,7 +1872,7 @@ Creating test bidders.
 <p>
 
 
-We are going to put all our `Bidders` into an `async` function and allow each `Bidder` to connect to the backend contract. But before we do that, let's look at how an actor other than the `Creator`/Deployer connects to the backend contract.
+We are going to put all our `Bidders` into an `async` function and allow each `Bidder` to connect to the backend contract. But before we do that, let's look at how an actor other than the `Auctioneer`/Deployer connects to the backend contract.
 
 ```javascript
 
@@ -1912,7 +1916,7 @@ const startBidders = async () => {
 
 - `const bidders = [];`
 
-- `const startBidders` will be called by the Creator once the auction is ready.
+- `const startBidders` will be called by the Auctioneer once the auction is ready.
 
 -  `let bid = minBid;`
 
@@ -1926,11 +1930,11 @@ const startBidders = async () => {
 
 - `accBidder.setDebugLabel(who);` sets the debug label for the `Bidder`, with a unique `Bidder` name.
 
-- `await accBidder.tokenAccept(nftId);` allows the `Bidder` accepts the NFT from the Creator.
+- `await accBidder.tokenAccept(nftId);` allows the `Bidder` accepts the NFT from the Auctioneer.
 
 - `bidders.push([who, accBidder]);` adds the `Bidder` name and `Bidder` account to the `const bidders = [];` array we created.
 
-- `const ctc = accBidder.contract(backend, ctcCreator.getInfo());` connects the `Bidder` to the contract deployed by the `Creator` by using reach standard library function 
+- `const ctc = accBidder.contract(backend, ctcCreator.getInfo());` connects the `Bidder` to the contract deployed by the `Auctioneer` by using reach standard library function 
 [`getInfo()`](https://docs.reach.sh/frontend/#js_getInfo).
 - `const getBal = async () => stdlib.formatCurrency(await stdlib.balanceOf(accBidder));` gets `Bidder` balance from the `Bidder` account.
 
@@ -1955,7 +1959,7 @@ const startBidders = async () => {
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
     ```
@@ -1989,10 +1993,10 @@ How will we run the auction ?
 </summary>
 <p>
 
-Remember the creator interface, we are going to add the `startBidders` function onto the `Creator.auctionReady` function so that once the auction is ready, we can start the auction.
+Remember the auctioneer interface, we are going to add the `startBidders` function onto the `Auctioneer.auctionReady` function so that once the auction is ready, we can start the auction.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -2001,17 +2005,17 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // ++ Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
     // ++ Add startBidders function.
     auctionReady: () => {
-        console.log("Creator sees that the auction is ready.");
+        console.log("Auctioneer sees that the auction is ready.");
         startBidders();
     } 
 })
@@ -2057,13 +2061,13 @@ const startingBalance = stdlib.parseCurrency(100);
 // create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 
-// nft asset.
+// NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
 // connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-// nft params expected by the `getSale` function.
+// NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 lenInBlocks = 10;
@@ -2111,8 +2115,8 @@ const startBidders = async () => {
     }
 };
 
-// setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
+// setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
     //  get sale function.
     getSale: () => {
         return params;
@@ -2121,17 +2125,17 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     //  showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
     // ++ Add startBidders function.
     auctionReady: () => {
-        console.log("Creator sees that the auction is ready.");
+        console.log("Auctioneer sees that the auction is ready.");
         startBidders();
     } 
 })

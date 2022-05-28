@@ -13,16 +13,16 @@ A [Participant](https://docs.reach.sh/model/#term_participant) is a logical acto
 A **Participant** is a class that represent an account connected to the contract as well as a user connected to the frontend.
 
 ```javascript
-const Creator = Participant('Creator', {
-        //Implement Creator interact interface here.
+const Auctioneer = Participant('Auctioneer', {
+        //Implement Auctioneer interact interface here.
 });
 ```
 ***In this instance :***
 
-- We are creating a `Participant` class called `Creator`. 
-- The `Creator` will be the deployer of the contract onto the blockchain.
+- We are creating a `Participant` class called `Auctioneer`. 
+- The `Auctioneer` will be the deployer of the contract onto the blockchain.
 
-> Let's add the `Creator` into `index.rsh`.
+> Let's add the `Auctioneer` into `index.rsh`.
 
 [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/1.AddingAParticipant/index.rsh)
 
@@ -31,9 +31,9 @@ const Creator = Participant('Creator', {
 
 export const main = Reach.App(() => {
 
-    //++ Add Creator.
-    const Creator = Participant('Creator', {
-        //Implement Creator interact interface here.
+    //++ Add Auctioneer.
+    const Auctioneer = Participant('Auctioneer', {
+        //Implement Auctioneer interact interface here.
     });
 
     init();

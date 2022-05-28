@@ -15,7 +15,7 @@ export class Participant {
         this.walletAddress = get(walletAddress)
         this.stdlib = get(reachStdlib);
         this.owner = get(cyberuser).attributes.name
-        this.firstNftOwner = this instanceof Creator
+        this.firstNftOwner = this instanceof Auctioneer
     }
     async showOutcome(winner, bid) {
         try {
@@ -37,7 +37,7 @@ export class Participant {
     }
 }
 
-export class Creator extends Participant {
+export class Auctioneer extends Participant {
     constructor(newOwner) {
         super()
         try {
@@ -73,7 +73,7 @@ export class Creator extends Participant {
             if (error instanceof TypeError) {
                 alert("Please Connect to a wallet and try again.")
             }
-            console.log("2B: ERROR: Creator getContract", error)
+            console.log("2B: ERROR: Auctioneer getContract", error)
             return false
         }
     }
@@ -107,7 +107,7 @@ export class Creator extends Participant {
             }
             return true
         } catch (error) {
-            console.log("Creator createNFT", error)
+            console.log("Auctioneer createNFT", error)
             return false
         }
     }
@@ -115,7 +115,7 @@ export class Creator extends Participant {
         consologger("deployContract", [contractAdd, typeof contractAdd])
         consologger("deployContract-type-backend", typeof backend)
         try {
-            this.contract.participants.Creator(this)
+            this.contract.participants.Auctioneer(this)
             const agreement = await this.contract.getInfo()
             let contAddress = await this.contract.getContractAddress()
             consologger("deployContract-agreement", JSON.stringify(agreement))
@@ -123,7 +123,7 @@ export class Creator extends Participant {
             consologger("deployContract-contAddress", this.stdlib.formatAddress(contAddress))
             return contAddress
         } catch (error) {
-            console.log("3B: ERROR: Creator deployContract", error)
+            console.log("3B: ERROR: Auctioneer deployContract", error)
             return false
         }
     }

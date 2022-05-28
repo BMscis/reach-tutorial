@@ -38,16 +38,16 @@ const [highestBidder, lastPrice, isFirstBid] = [0, 0, 0];
 ```
 - Every round of the loop, we will be checking and setting the highest bid, the highest bidder address and whether it is the first bid.
 
-> Since the `Creator` will be the first bidder, we will set the `highestBidder` to the `Creator` address. Set the `lastPrice` to the `minBid` and `isFirstBid` to `true`.
+> Since the `Auctioneer` will be the first bidder, we will set the `highestBidder` to the `Auctioneer` address. Set the `lastPrice` to the `minBid` and `isFirstBid` to `true`.
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = [Creator, minBid, true];
+const [highestBidder, lastPrice, isFirstBid] = [Auctioneer, minBid, true];
 ```
 
 > Now let's plug this into the `parallelReduce` function.
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
 ```
 </details>
 </li>
@@ -63,10 +63,10 @@ Adding an [Invariant](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.in
 A while loop can execute a block of code as long as a specified condition is true. Thus, the invariant value should be a `true` value that is set at the start of a loop and changes only when the auction is done.
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
 ```
-- Here, the invariant is true as long as the balance of the NFT is equal to one, thus the contract still holds the nft.
+- Here, the invariant is true as long as the balance of the NFT is equal to one, thus the contract still holds the NFT.
 
 - It also checks whether it is the first bid or not. If so then the contract balance is 0, otherwise the contract balance is equal to the last bid price.
 
@@ -85,7 +85,7 @@ A while loop will run until the last consensus time is less than the end time.
 </summary>
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)
 ```
@@ -141,7 +141,7 @@ Here, we use [`.api()`](https://docs.reach.sh/rsh/consensus/#p_27) to allow bidd
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
 )
@@ -153,7 +153,7 @@ Here, we use [`.api()`](https://docs.reach.sh/rsh/consensus/#p_27) to allow bidd
 
 - We are checking if `isFirstBid` is `false`. If it is, we will reimburse the `lastPrice` back to the last bidder.
 
-- We are also interaction with the `Creator` frontend to notify it of the bid.
+- We are also interaction with the `Auctioneer` frontend to notify it of the bid.
 
 - We finally return the `bidder`, the `bid` and setting `isFirstBid` to false.
 
@@ -174,14 +174,14 @@ Reach `timeout` will be called once the auction time reaches. `timeout` takes a 
 ```javascript
 
 .timeout(absoluteTime(end), () => {
-    Creator.publish()
+    Auctioneer.publish()
     return [highestBidder, lastPrice, isFirstBid]; 
 });
 ```
 
 - [absoluteTime](https://docs.reach.sh/rsh/compute/#rsh_absoluteTime) gets the absolute time of the blockchain.
 
-- Once the auction time ends, the `Creator` will `publish` the information onto the blockchain and returns the `highestBidder`, `lastPrice` and `isFirstBid`.
+- Once the auction time ends, the `Auctioneer` will `publish` the information onto the blockchain and returns the `highestBidder`, `lastPrice` and `isFirstBid`.
 
 This is how the full parallel reduce looks.
 
@@ -197,7 +197,7 @@ Putting the auction together.
 </summary>
 
 ```javascript
-const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
 .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
 .while(lastConsensusTime() < end)
 .api(Bidder.bid,
@@ -209,11 +209,11 @@ const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, 
     if ( ! isFirstBid ) {
         transfer(lastPrice).to(highestBidder);
     }
-    Creator.interact.seeBid(this, bid);
+    Auctioneer.interact.seeBid(this, bid);
     return [this, bid, false];
 })
 ).timeout(absoluteTime(end), () => {
-    Creator.publish()
+    Auctioneer.publish()
     return [highestBidder, lastPrice, isFirstBid]; 
 });
 ```

@@ -13,13 +13,13 @@ const startingBalance = stdlib.parseCurrency(100);
 // create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 
-// nft asset.
+// NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
 // connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-// nft params expected by the `getSale` function.
+// NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 lenInBlocks = 10;
@@ -67,8 +67,8 @@ const startBidders = async () => {
     }
 };
 
-// setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
+// setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
     //  get sale function.
     getSale: () => {
         return params;
@@ -77,18 +77,17 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     //  showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
     // ++ Add startBidders function.
     auctionReady: () => {
-        console.log("Creator sees that the auction is ready.");
+        console.log("Auctioneer sees that the auction is ready.");
         startBidders();
     } 
 })
-

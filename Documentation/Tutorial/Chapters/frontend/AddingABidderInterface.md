@@ -22,7 +22,7 @@ Creating test bidders.
 <p>
 
 
-We are going to put all our `Bidders` into an `async` function and allow each `Bidder` to connect to the backend contract. But before we do that, let's look at how an actor other than the `Creator`/Deployer connects to the backend contract.
+We are going to put all our `Bidders` into an `async` function and allow each `Bidder` to connect to the backend contract. But before we do that, let's look at how an actor other than the `Auctioneer`/Deployer connects to the backend contract.
 
 ```javascript
 
@@ -66,7 +66,7 @@ const startBidders = async () => {
 
 - `const bidders = [];`
 
-- `const startBidders` will be called by the Creator once the auction is ready.
+- `const startBidders` will be called by the Auctioneer once the auction is ready.
 
 -  `let bid = minBid;`
 
@@ -80,11 +80,11 @@ const startBidders = async () => {
 
 - `accBidder.setDebugLabel(who);` sets the debug label for the `Bidder`, with a unique `Bidder` name.
 
-- `await accBidder.tokenAccept(nftId);` allows the `Bidder` accepts the NFT from the Creator.
+- `await accBidder.tokenAccept(nftId);` allows the `Bidder` accepts the NFT from the Auctioneer.
 
 - `bidders.push([who, accBidder]);` adds the `Bidder` name and `Bidder` account to the `const bidders = [];` array we created.
 
-- `const ctc = accBidder.contract(backend, ctcCreator.getInfo());` connects the `Bidder` to the contract deployed by the `Creator` by using reach standard library function 
+- `const ctc = accBidder.contract(backend, ctcCreator.getInfo());` connects the `Bidder` to the contract deployed by the `Auctioneer` by using reach standard library function 
 [`getInfo()`](https://docs.reach.sh/frontend/#js_getInfo).
 - `const getBal = async () => stdlib.formatCurrency(await stdlib.balanceOf(accBidder));` gets `Bidder` balance from the `Bidder` account.
 
@@ -109,7 +109,7 @@ const startBidders = async () => {
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
     ```
@@ -143,10 +143,10 @@ How will we run the auction ?
 </summary>
 <p>
 
-Remember the creator interface, we are going to add the `startBidders` function onto the `Creator.auctionReady` function so that once the auction is ready, we can start the auction.
+Remember the auctioneer interface, we are going to add the `startBidders` function onto the `Auctioneer.auctionReady` function so that once the auction is ready, we can start the auction.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // get sale function.
     getSale: () => {
         return params;
@@ -155,17 +155,17 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
     // ++ Add startBidders function.
     auctionReady: () => {
-        console.log("Creator sees that the auction is ready.");
+        console.log("Auctioneer sees that the auction is ready.");
         startBidders();
     } 
 })

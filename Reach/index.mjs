@@ -4,10 +4,10 @@ import * as backend from './build/index.main.mjs';
 const stdlib = await loadStdlib("ALGO");
 const startingBalance = stdlib.parseCurrency(100);
 
-console.log(`Creating test account for Creator`);
+console.log(`Creating test account for Auctioneer`);
 const accCreator = await stdlib.newTestAccount(startingBalance);
 let count = 0
-console.log(`Having creator create testing NFT`);
+console.log(`Having auctioneer create testing NFT`);
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 const nftId = theNFT.id;
 const minBid = stdlib.parseCurrency(2);
@@ -56,7 +56,7 @@ const startBidders = async () => {
 };
 
 const ctcCreator = accCreator.contract(backend);
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     getSale: () => {
         return params;
     },
@@ -65,10 +65,10 @@ await ctcCreator.participants.Creator({
         //startBidders();
     },
     seeBid: (who, amt) => {
-        console.log(`Creator saw that ${stdlib.formatAddress(who)} bid ${stdlib.formatCurrency(amt)}.`);
+        console.log(`Auctioneer saw that ${stdlib.formatAddress(who)} bid ${stdlib.formatCurrency(amt)}.`);
     },
     showOutcome: (winner, amt) => {
-        console.log(`Creator saw that ${stdlib.formatAddress(winner)} won with ${stdlib.formatCurrency(amt)}`);
+        console.log(`Auctioneer saw that ${stdlib.formatAddress(winner)} won with ${stdlib.formatCurrency(amt)}`);
     },
     log: (log) => {
         let logg = JSON.parse(log)

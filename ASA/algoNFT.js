@@ -1,4 +1,4 @@
-const creator = alice.addr;
+const auctioneer = alice.addr;
 const defaultFrozen = false;    
 const unitName = "ALICEART"; 
 const assetName = "Alice's Artwork@arc3";
@@ -10,7 +10,7 @@ const clawbackAddr = undefined;
 const total = 1;                // NFTs have totalIssuance of exactly 1
 const decimals = 0;             // NFTs have decimals of exactly 0
 const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
-    from:creator,
+    from:auctioneer,
     total,
     decimals,
     assetName,

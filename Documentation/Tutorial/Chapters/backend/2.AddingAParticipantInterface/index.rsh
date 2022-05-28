@@ -3,7 +3,7 @@
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //++ Add getSale function.
         getSale: Fun([], Object({
             nftId: Token,

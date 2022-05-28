@@ -11,7 +11,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 </summary>
 <p>
 
-Since we are building a nft-auction, we need a nft to be auctioned. 
+Since we are building a NFT-auction, we need a NFT to be auctioned. 
 
 As described in the beginning, we will need :
 
@@ -19,17 +19,17 @@ As described in the beginning, we will need :
 - Nft price
 - Auction duration
 
-All this information will be provided by the `Creator` `Participant`. To make sure that the `Creator` is the only one who can provide this information, we will use a `Local Step` to do so.
+All this information will be provided by the `Auctioneer` `Participant`. To make sure that the `Auctioneer` is the only one who can provide this information, we will use a `Local Step` to do so.
 
 `Reach` provides us with an [`only`](https://docs.reach.sh/rsh/step/#ref-programs-only-step) method that we can use to do so.
 
 ```javascript
-Creator.only(() => {
+Auctioneer.only(() => {
     const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
 });
 ```
 Let's break it down:
-- `Creator.only(() => {...})` is a `Local Step` that only allows the `Creator` to access the `getSale()` function we created above.
+- `Auctioneer.only(() => {...})` is a `Local Step` that only allows the `Auctioneer` to access the `getSale()` function we created above.
 
 - `{nftId, minBid, lenInBlocks}` is the declassified `Object` that is returned from the `getSale()` function.
 
@@ -47,7 +47,7 @@ Now that we have the `nftId`, `minBid`, and `lenInBlocks`, we can publish this i
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -73,7 +73,7 @@ export const main = Reach.App(() => {
     init();
 
     //++ Add declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 });

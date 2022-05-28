@@ -26,31 +26,31 @@ export class CreatorTest{
         this.params = {nftId:this.nftId,minBid:this.stdlib.parseCurrency(2),lenInBlocks: 120}
         console.log("NFT ID:", this.nftId);
         console.log(parseInt(this.nftId))
-        console.log("2A: Creator starts sale:",this.ctcCreator);
-        await this.ctcCreator.participants.Creator(this);
+        console.log("2A: Auctioneer starts sale:",this.ctcCreator);
+        await this.ctcCreator.participants.Auctioneer(this);
         this.contractAddress = await this.ctcCreator.getInfo()
-        console.log("+++++++: Creator contract address:",JSON.stringify(this.contractAddress,null,2));
+        console.log("+++++++: Auctioneer contract address:",JSON.stringify(this.contractAddress,null,2));
         console.log(this.contractAddress)
         return
     }
     async getSale (){
-        console.log(`Creator sets parameters of sale:`, this.params);
+        console.log(`Auctioneer sets parameters of sale:`, this.params);
         return this.params;
     }
     async auctionReady () {
         console.log("Ready")
     }
     async seeBid(who, amt){
-        console.log(`Creator saw that ${this.stdlib.formatAddress(who)} bid ${this.stdlib.formatCurrency(amt)}.`);
+        console.log(`Auctioneer saw that ${this.stdlib.formatAddress(who)} bid ${this.stdlib.formatCurrency(amt)}.`);
     }
     async showOutcome (winner, amt){
-        console.log(`Creator saw that ${this.stdlib.formatAddress(winner)} won with ${this.stdlib.formatCurrency(amt)}`);
+        console.log(`Auctioneer saw that ${this.stdlib.formatAddress(winner)} won with ${this.stdlib.formatCurrency(amt)}`);
     }
     async giveTime(tim){
         consologger("giveTime",tim)
     }
     async log(log){
         let logg = JSON.parse(log)
-        console.log("2B: Creator log",logg)
+        console.log("2B: Auctioneer log",logg)
     }
 }

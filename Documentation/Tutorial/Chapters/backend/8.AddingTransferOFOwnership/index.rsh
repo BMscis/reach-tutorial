@@ -3,7 +3,7 @@
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,
@@ -29,26 +29,26 @@ export const main = Reach.App(() => {
     init();
 
     //declassify function.
-    Creator.only(() => {
+    Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
     //publish contract.
-    Creator.publish(nftId, minBid, lenInBlocks);
+    Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //nft amount.
+    //NFT amount.
     const amt = 1;
 
     //step into local-step.
     commit();
 
-    //send nft to contract.
-    Creator.pay([[amt, nftId]]);
+    //send NFT to contract.
+    Auctioneer.pay([[amt, nftId]]);
 
     //notify frontend that contract is ready.
-    Creator.interact.auctionReady();
+    Auctioneer.interact.auctionReady();
 
-    // assertion to check nft balance
+    // assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
     // checkpoint to set last publish time.
@@ -58,7 +58,7 @@ export const main = Reach.App(() => {
     const end = lastConsensus + lenInBlocks;
 
     // parallel reduce
-    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Creator, minBid, true])
+    const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)
     .api(Bidder.bid,
@@ -70,19 +70,19 @@ export const main = Reach.App(() => {
         if ( ! isFirstBid ) {
             transfer(lastPrice).to(highestBidder);
         }
-        Creator.interact.seeBid(this, bid);
+        Auctioneer.interact.seeBid(this, bid);
         return [this, bid, false];
     })
     ).timeout(absoluteTime(end), () => {
-        Creator.publish()
+        Auctioneer.publish()
         return [highestBidder, lastPrice, isFirstBid]; 
     });
 
     //++Add Transfer
-    if ( ! isFirstBid ) { transfer(lastPrice).to(Creator); }
+    if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
 
-    //++Add creator show outcome.
-    Creator.interact.showOutcome(highestBidder, lastPrice);
+    //++Add auctioneer show outcome.
+    Auctioneer.interact.showOutcome(highestBidder, lastPrice);
 
     //++Add step to local-step.
     commit();

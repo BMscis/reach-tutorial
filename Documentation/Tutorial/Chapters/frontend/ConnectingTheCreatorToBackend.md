@@ -2,11 +2,11 @@
 <summary>
 <h3>
 
-Connecting the `Creator` `Participant` to the Backend.
+Connecting the `Auctioneer` `Participant` to the Backend.
 
 </h3>
 
-Let's see how to connect the `Creator` `Participant` to the backend and add it into our [`index.mjs`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/4.ConnectingTheCreatorToTheBackend/index.mjs).
+Let's see how to connect the `Auctioneer` `Participant` to the backend and add it into our [`index.mjs`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/4.ConnectingTheCreatorToTheBackend/index.mjs).
 </summary>
 <p>
 
@@ -38,19 +38,19 @@ const ctcCreator = accCreator.contract(backend);
 Connecting to the Interface.
 </H4>
 
-We can now connect to the backend `Creator` interface with :
+We can now connect to the backend `Auctioneer` interface with :
 </summary>
 <p>
 
 ```javascript
-//++ Add setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
-    // Specify Creator interact interface here
+//++ Add setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
+    // Specify Auctioneer interact interface here
 })
 ```
-> `await ctcCreator.participants.Creator` will connect the backend `Creator` interface with the `accCreator`.
+> `await ctcCreator.participants.Auctioneer` will connect the backend `Auctioneer` interface with the `accCreator`.
 
-> Before we do that, we need to implement the `Creator` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
+> Before we do that, we need to implement the `Auctioneer` interface that we defined in [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh).
 </p>
 </details>
 </li>
@@ -68,7 +68,7 @@ Implementing the `getSale` function.
 <p>
 
 ```javascript
-//++ Add nft params expected by the `getSale` function.
+//++ Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 lenInBlocks = 10;
@@ -100,13 +100,13 @@ lenInBlocks:lenInBlocks,
 Adding `getSale` to the interface.
 </H4>
 
-Let's add the `params` object to the `Creator` interface.
+Let's add the `params` object to the `Auctioneer` interface.
 </summary>
 <p>
 
 ```javascript
-//++ Add setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
+//++ Add setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -125,14 +125,14 @@ await ctcCreator.participants.Creator({
 Adding `seeBid` function to the frontend.
 </H4>
 
-Connecting the `Creator` `Participant` to the frontend.
+Connecting the `Auctioneer` `Participant` to the frontend.
 </summary>
 <p>
 
 Ass you recall, the `seeBid` function from the [`backend`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/4.AddingALocalStep/index.rsh) sends an `Address` and a `UInt` to the frontend.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -141,7 +141,7 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
 })
 ```
@@ -158,14 +158,14 @@ await ctcCreator.participants.Creator({
 Adding the `showOutcome` function to the frontend.
 </H4>
 
-Connecting the `Creator` `Participant` to the frontend.
+Connecting the `Auctioneer` `Participant` to the frontend.
 </summary>
 <p>
 
 The `showOutcome` function will notify the frontend, when the contract is ready to begin the auction.
 
 ```javascript
-await ctcCreator.participants.Creator({
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -174,13 +174,13 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // ++ Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     }
 })
 
@@ -219,13 +219,13 @@ const startingBalance = stdlib.parseCurrency(100);
 // create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 
-// nft asset.
+// NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
 //++ Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-//++ Add nft params expected by the `getSale` function.
+//++ Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 lenInBlocks = 10;
@@ -237,8 +237,8 @@ const params = {
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add setting up the `Creator` interface.
-await ctcCreator.participants.Creator({
+//++ Add setting up the `Auctioneer` interface.
+await ctcCreator.participants.Auctioneer({
     // ++ Add get sale function.
     getSale: () => {
         return params;
@@ -247,13 +247,13 @@ await ctcCreator.participants.Creator({
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newBidder} bid ${newBid}.`);
+        console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
     // ++ Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
-        console.log(`Creator saw that ${newWinner} won with ${newAmt}`)
+        console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     }
 })
 ```

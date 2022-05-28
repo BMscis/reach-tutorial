@@ -17,7 +17,7 @@ We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to chec
 ```javascript
 assert(balance(nftId) == amt, "balance of NFT is wrong");
 ```
-- Here we are using a [balance](https://docs.reach.sh/rsh/compute/#rsh_balance) primitive to check the balance of the nft. if we call `balance()` without a passing a parameter, we will get the balance of the contract.
+- Here we are using a [balance](https://docs.reach.sh/rsh/compute/#rsh_balance) primitive to check the balance of the NFT. if we call `balance()` without a passing a parameter, we will get the balance of the contract.
 
 Also, we will check the [last consensus time](https://docs.reach.sh/rsh/compute/#rsh_lastConsensusTime). Last consensus time checks the last time the contract was in consensus : The last time the contract used a `publish` or `pay` step.
 

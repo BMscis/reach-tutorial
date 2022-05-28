@@ -3,7 +3,7 @@ import { afterUpdate, onDestroy } from "svelte";
 import CardImage from "./CardImage.svelte";
 import {createNft} from "../Stores/nftCard";
 import Bidder from "../Participants/Bidder.svelte";
-import Creator from "../Participants/Creator.svelte";
+import Auctioneer from "../Participants/Auctioneer.svelte";
 import CardHeader from "./CENTRALBLOCK/CardHeader.svelte";
 import CardDescription from "./CENTRALBLOCK/CardDescription.svelte";
 import { consologger } from "../Utilities/utilities";
@@ -52,7 +52,7 @@ nftValidator(!clicked)
 }
 
 const startAuction = async () => {
-    const create = new Creator()
+    const create = new Auctioneer()
     if(create.wallet != undefined){
         await create.deployContract(`${contractAddress}`)
     }
@@ -113,7 +113,7 @@ onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
     </div>
     {#if isLarge && clicked}
         {#if isOwner}
-        <Creator {newOwner} {nftPrice} {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Creator>
+        <Auctioneer {newOwner} {nftPrice} {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Auctioneer>
         {:else}
         <Bidder {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Bidder>
         {/if}

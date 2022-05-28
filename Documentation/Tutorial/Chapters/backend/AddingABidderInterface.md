@@ -26,7 +26,7 @@ bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 export const main = Reach.App(() => {
     
     // Deployer of the contract.
-    const Creator = Participant('Creator', {
+    const Auctioneer = Participant('Auctioneer', {
         //getSale function.
         getSale: Fun([], Object({
             nftId: Token,

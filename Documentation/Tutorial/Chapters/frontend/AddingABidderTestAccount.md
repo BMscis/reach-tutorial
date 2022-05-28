@@ -7,7 +7,7 @@ Adding a `Bidder` Test Account.
 </summary>
 <p>
 
-Let's create a test account for the `Bidder` `api` just as we did with the `Creator`.
+Let's create a test account for the `Bidder` `api` just as we did with the `Auctioneer`.
 
 ```javascript
 // ++ Add test currrency.

@@ -2,7 +2,7 @@
 <summary>
 <h3>
 
-Adding a `Creator` `Participant` Test Account.
+Adding a `Auctioneer` `Participant` Test Account.
 </h3>
 
 Let's add a test account to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/2/2.AddingAParticipantTestAccount/index.mjs)) file.
