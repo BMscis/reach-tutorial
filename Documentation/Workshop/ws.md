@@ -337,7 +337,7 @@ If we go back to our [problem analysis](/1.ProblemAnalysis.md), we can take a lo
 <details>
 <summary>
 <h4>
-<a href="expected-output"> 
+<a href="#expected-output"> 
 
 Output
 </a>
