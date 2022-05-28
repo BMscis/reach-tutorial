@@ -1,9 +1,8 @@
-<details>
 <summary>
-<h1>
+<h2>
 
 Problem Design
-</h1>
+</h2>
 
 Here we will answer the questions we asked during the problem analysis.
 </summary>
@@ -19,10 +18,10 @@ Let's breakdown some questions we need to answer before we can design the DAPP.
 
 <details>
 <summary>
-<h2>
+<h3>
 
 Which programming language will we use to create our DAPP ?
-</h2>
+</h3>
 
 [Reach](https://docs.reach.sh/#reach-top) is a domain specific language for building decentralized applications. The [Reach Module](https://docs.reach.sh/rsh/module/) is a `.rsh` file that contains the DAPP that can run on multiple blockchain platforms.
 </summary>
@@ -149,10 +148,10 @@ export const main = Reach.App(() => {
 
 <details>
 <summary>
-<h2>
+<h3>
 
 Which data types will we use in our DAPP to hold information ?
-</h2>
+</h3>
 
 We can use reach [Types](https://docs.reach.sh/rsh/compute/#ref-programs-types) as guidance to choose which types we can use to represent our data.
 </summary>
@@ -164,7 +163,10 @@ If we go back to our [problem analysis](/1.ProblemAnalysis.md), we can take a lo
 <summary>
 <h4>
 
-[Output](/1.ProblemAnalysis.md/Expected Output)
+<a href="#expected-output">
+
+[Output](#ExpectedOutput)
+</a>
 </h4>
 
 The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
@@ -279,12 +281,3 @@ export const main = Reach.App(() => {
 </ol>
 
 </p>
-</details>
-
-
-
-
-
-
-
-
