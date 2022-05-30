@@ -1,5 +1,345 @@
 <details>
 <summary>
+<h1>
+
+Introduction.
+</h1>
+</summary>
+
+Welcome to my NFT auction workshop! This workshop will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
+
+1. Common Terminologies.
+
+1. Define the use case and requirements for the DApp.
+
+2. Choose a suitable blockchain platform on which to build the DApp.
+
+3. Develop the DApp using the chosen blockchain platform’s programming language and tools.
+
+4. Test the DApp to ensure it works as intended.
+
+5. Deploy the DApp on the chosen blockchain platform.
+
+6. Promote the DApp to users and encourage them to use it.
+
+I hope you enjoy this workshop!
+
+In this workshop, we will be introducing the NFT auction workshop and the reach programming language..
+> The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step by step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
+
+Here are some of the key concepts that we will be repeating throughout the workshop:
+
+## [What is Reach Programming Language](https://docs.reach.sh/rsh/)
+
+The reach programming language is a language specifically designed for writing smart contracts on the blockchain. It is a statically typed, functional programming language that can be used on multiple blockchains with a focus on safety and security. 
+
+## [What is an auction?]()
+
+An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
+
+## [What is an NFT?]()
+An NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+
+## [What is a DApp?]()
+
+ A DApp is a type of decentralized application that is governed by a set of rules encoded on the blockchain.
+
+## [What is a smart contract?]()
+
+A smart contract is a computer program that runs on the blockchain and automatically executes transactions when certain conditions are met.
+
+## [What is a token?]()
+
+A token is a digital asset that is used to represent a stake in a decentralized application. Tokens can be used to purchase goods and services, or to participate in governance.
+
+## [What is a blockchain?]()
+
+A blockchain is a distributed database that is used to store data in a secure and tamper-proof way. Blockchains are used to power decentralized applications.
+
+</details>
+
+<details>
+<summary>
+<h2>
+
+Defining the Use Case and Requirements.       
+</h2>
+
+</summary>
+<p>
+<ul>
+<li>
+
+## Use Cases
+
+An NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
+</li>
+<li>
+
+## Requirements.
+
+- You will need [Reach Programming language](https://docs.nftworkshop.com/en/latest/getting-started.html) installed on your computer. We are going to use Reach for our backend contract.
+
+- One of the advantages of Reach is that it can support multiple blockchains and can be compiled to [different programming languages](https://docs.reach.sh/guide/rpc/#guide-rpc). For simplicity we will use [Reach in JavaScript](https://docs.reach.sh/frontend/#ref-frontends). This means we will need [NodeJs](https://nodejs.org/en/) installed.
+</li>
+</ul>
+</p>
+</details>
+
+<details>
+<summary>
+<h2>
+
+Choosing a Blockchain Platform.        
+</h2>
+</summary>
+<p>
+
+## Selecting a Blockchain Platform
+
+Reach is a programming language that supports multiple blockchains, including Algorand, Ethereum, and Conflux. This allows developers to create applications that can interact with multiple blockchain networks.This makes Reach a powerful tool for building cross-chain applications.
+
+What this means is that we can write just one contract and let Reach deal with the complexities of deploying it to multiple blockchains.
+
+You can learn more about that here :
+
+👉 [Using Reach with multiple blockchains](https://docs.reach.sh/networks/#ref-network-algo)
+</p>
+</details>
+
+<details>
+<summary>
+<h2>
+
+Developing the DApp.        
+</h2>
+
+Developing the DApp using Problem Analysis and Problem Design.
+</summary>
+<p>
+
+<details>
+<summary>
+<h3>
+
+Problem Analysis
+</h3>
+
+Now that we have a basic understanding of the concepts we need to know, we can start to ask some critical questions.
+</summary>
+<p>
+
+As a programmer we need to understand the problem that we are trying to solve. Here's a run through of the questions that pop up in my head.
+
+1. What is the purpose of the auction?
+
+> Our purpose is to create a DApp that autonomously runs a safe and secure auction that allows users to buy and sell items.
+
+2. What is the value of the NFT being auctioned?
+
+> The value of the NFT is determined by the owner of the NFT.
+
+3. What is the minimum bid?
+
+> For simplicity, we can use the asset price as the minimum bid.
+
+4. What is the duration of the auction?
+
+> The duration of the auction can be fixed or can be determined by the deployer of the DApp.
+
+5. How will the auction be conducted?
+
+> The auction will be conducted by the DApp itself.
+
+6. What is the NFT being auctioned?
+
+> Again, for simplicity, we will limit the auctioned NFT's to images.
+
+7. How many bidders are there?
+
+> Ideally, we would love to have as many bidders as possible.
+
+10. When is the auction over?
+
+> The auction will be over when the auction duration has elapsed.
+
+11. How will the auction be secured?
+
+> The auction will be secured using Reach programming language.
+</p>
+
+These questions are pertinent to the development of an internal conversation. However, 
+because we are developing a DApp, we can reframe the problem by limiting the questions 
+to defining the data that we expect the DApp to handle :
+
+<details>
+<summary>
+<h4>
+
+Performing Data Analysis.
+</h4>
+
+Turning the information we know to data.
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+
+What information does the DApp need to track?
+</h5>
+
+- The NFT being auctioned.
+
+- The NFT price.
+
+- The NFT amount.
+
+- The auction duration.
+
+- The NFT owner.
+
+- The last bid.
+
+- The latest bid.
+
+- Bidder Address.
+</li>
+<li>
+<h5>
+
+What information does the DApp need to display?
+</h5>
+
+Each participant in the auction will require the following information:
+
+- The NFT being auctioned.
+
+- The NFT price.
+
+- The NFT amount.
+
+- The auction duration.
+
+However, depending on the role of the participant, the auction may limit how much information each participant has access to.
+
+If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as :
+
+- Adding an NFT to the contract.
+
+- Deciding when the auction will start.
+
+
+The bidder, on the other hand, does not need to know much. In fact, once a bidder joins the DApp, all they need to see is the highest bid price.
+</li>
+<li>
+<h5>
+
+How should the app handle user input?
+</h5>
+
+The DApp needs to differentiate private data and public data. Private data should only be accessible to a local computer while public data can be displayed
+on the blockchain.
+</li>
+
+</ol>
+</p>
+</details>
+<details>
+<summary>
+<h4>
+
+Functional Requirements.
+</h4>
+
+In this section, we look at the functions provided by the Reach language that we can use to run the auction.
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+
+How can we create a new DApp in Reach.
+</h5>
+
+We'll have to take a look at the Reach syntax to conform to the methods available to us?
+</li>
+<li>
+<h5>
+
+How will we send the NFT to the contract?
+</h5>
+
+To ensure that the DApp is truly decentralized, we'll need the deployer to forfeit ownership of the NFT until the 
+auction is over.
+</li>
+<li>
+<h5>
+
+How can we publish the NFT being auctioned to the blockchain.
+</h5>
+
+We'll have to make the NFT information public to all participants.
+</li>
+<li>
+<h5>
+
+How can we allow a bidder to OPT-IN to the DApp.
+</h5>
+
+There has to be a frontend mechanism that allows the bidder to opt-in to the DApp
+and place a bid.
+</li>
+<li>
+<h5>
+
+How will we perform transfers?
+</h5>
+
+Once the auction is done, we'll need to transfer the highest bid to the Auctioneer and the NFT to the winner.
+</li>
+</ol>
+</p>
+</details>
+<details>
+<summary>
+<h4>
+
+Consensus Mechanisms.
+</h4>
+
+We'll also need to look at what Reach offers when it comes to consensus.
+</summary>
+<p>
+
+Reaching consensus means that all parties involved in a decision-making process agree on a course of action. This can be difficult to achieve, especially when there are multiple stakeholders with different interests and goals. However, consensus can be reached through careful deliberation and compromise.
+
+<ol>
+<li>
+<h5>
+
+How can we ensure that the auction is conducted in a safe and secure manner?
+</h5>
+</li>
+<li>
+<h5>
+
+How can we secure data that is private?
+</h5>
+</li>
+<li>
+<h5>
+
+How can we run an open auction on the blockchain?
+</h5>
+</li>
+</ol>
+</p>
+</details>
+</details>
+
+<details>
+<summary>
 <h3>
 
 Problem Design
@@ -75,7 +415,7 @@ Reach uses [Module-level Identifiers](https://docs.reach.sh/rsh/module/#ref-prog
 
 ```javascript
 export const main = Reach.App(() => {
-    //DAPP body.
+  //DAPP body.
 })
 ```
 
@@ -101,10 +441,10 @@ A [Participant](https://docs.reach.sh/model/#term_participant) is a logical acto
 
 ```javascript
 export const main = Reach.App(() => {
-    //DAPP body.
-    const Auctioneer = Participant('Auctioneer', {
-        //Auctioneer body
-    });
+  //DAPP body.
+  const Auctioneer = Participant('Auctioneer', {
+      //Auctioneer body
+  });
 })
 ```
 
@@ -130,10 +470,10 @@ A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is a group of [Reach P
 
 ```javascript
 export const main = Reach.App(() => {
-    //DAPP body.
-    const Bidder = API('Bidder', {
-        //Bidder interface.
-    });
+  //DAPP body.
+  const Bidder = API('Bidder', {
+      //Bidder interface.
+  });
 })
 ```
 > The primary distinction between a 'Reach Participant' and a 'Reach API' is that the latter can be called from the actors' frontend.
@@ -188,16 +528,16 @@ Announcing a winner at the end of the auction.
 
 - We will need the participant to learn new information in order to announce a winner:
 
-    1. The winning bid.
+  1. The winning bid.
 
-    2. The Winner.
+  2. The Winner.
 
 
 - How do we represent these two pieces of data in a DAPP?
 
-    1. The winning bid can be represented by a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt).
+  1. The winning bid can be represented by a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt).
 
-    2.  The winner can be represented by a [Address type](https://docs.reach.sh/rsh/compute/#rsh_Address).
+  2.  The winner can be represented by a [Address type](https://docs.reach.sh/rsh/compute/#rsh_Address).
 
 
 </p>
@@ -225,20 +565,20 @@ Adding the NFT for the auction.
 
 - We will need the following data to add an NFT to the contract:
 
-    1. The NFT ID.
+  1. The NFT ID.
 
-    2. The NFT price / starting bid.
+  2. The NFT price / starting bid.
 
-    3. The auction duration.
+  3. The auction duration.
 
 
 - How can we represent this information in a DAPP ?
 
-    1. To represent the NFT ID, we can use a [Token type](https://docs.reach.sh/rsh/compute/#rsh_Token).
+  1. To represent the NFT ID, we can use a [Token type](https://docs.reach.sh/rsh/compute/#rsh_Token).
 
-    2. Because the price is a number, we can represent it with a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt).
+  2. Because the price is a number, we can represent it with a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt).
 
-    3. We can represent the auction duration with a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt), which will represent block height rather than actual time.
+  3. We can represent the auction duration with a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt), which will represent block height rather than actual time.
 
 
 </p>
@@ -293,9 +633,9 @@ Output functions that will notify our frontend.
 
 - We will need the participant to learn new information in order to announce a winner:
 
-    1. The winning bid.
+  1. The winning bid.
 
-    2. The Winner.
+  2. The Winner.
 
 
 - We've already established how to represent data; now let's look at how to send this information to the frontend.
@@ -388,7 +728,7 @@ Here is the information we will require from the auctioneer:
 
 ```javascript
 //getSale function
-    getSale: Fun([],[Token, UInt, UInt]),
+  getSale: Fun([],[Token, UInt, UInt]),
 ```
 
 `getSale` function expects the [Token, UInt, UInt]/([nftId, price, auctionTime]) from the frontend.
@@ -397,9 +737,9 @@ Reach also includes an [Object](https://docs.reach.sh/rsh/compute/#rsh_Object) t
 
 ```javascript
 Object({
-    nftId: Token,
-    minBid: UInt,
-    lenInBlocks: UInt,
+  nftId: Token,
+  minBid: UInt,
+  lenInBlocks: UInt,
 })
 ```
 
@@ -407,9 +747,9 @@ Let's add this to the function :
 
 ```javascript
 getSale: Fun([], Object({
-    nftId: Token,
-    minBid: UInt,
-    lenInBlocks: UInt,
+  nftId: Token,
+  minBid: UInt,
+  lenInBlocks: UInt,
 }))
 ```
 </li>
@@ -513,20 +853,20 @@ We've already decided [how we'll represent our data](#data-types), and we've est
 
 ```javascript
 const Auctioneer = Participant('Auctioneer', {
-    //getSale function.
-    getSale: Fun([], Object({
-        nftId: Token,
-        minBid: UInt,
-        lenInBlocks: UInt,
-    })),
-    //auctionReady function.
-    auctionReady: Fun([], Null),
+  //getSale function.
+  getSale: Fun([], Object({
+      nftId: Token,
+      minBid: UInt,
+      lenInBlocks: UInt,
+  })),
+  //auctionReady function.
+  auctionReady: Fun([], Null),
 
-    //seeBid function.
-    seeBid: Fun([Address, UInt], Null),
+  //seeBid function.
+  seeBid: Fun([Address, UInt], Null),
 
-    //showOutcome function.
-    showOutcome: Fun([Address, UInt], Null),
+  //showOutcome function.
+  showOutcome: Fun([Address, UInt], Null),
 });
 ```
 - Here, we create an Auctioneer participant with the name 'Auctioneer' and the auction data.
@@ -557,8 +897,8 @@ const Auctioneer = Participant('Auctioneer', {
 
 ```javascript
 const Bidder = API('Bidder', {
-    //Bidder interface.
-    bid: Fun([UInt], Tuple(UInt,Address, UInt)),
+  //Bidder interface.
+  bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 });
 ```
 - A Bidder interface is available for representing multiple bidders.
@@ -653,7 +993,7 @@ So, how do we make the transition from local private to local public?
 ```javascript
 //declassify function.
 Auctioneer.only(() => {
-    const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+  const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
 });
 ```
 - `Auctioneer.[only]()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can access this function.
@@ -807,7 +1147,7 @@ Parallel reduce uses a while loop that resolves the auction to a single outcome 
 Parallel reduce is a recursive algorithm that generates a single winner from a tree of bidders.
 
 ```javascript
-   const [winner] = parallelReduce([Auctioneer])
+  const [winner] = parallelReduce([Auctioneer])
 ```
 
 > The Auctioneer is the default winner before any bids are placed.
@@ -847,4 +1187,7 @@ The while loop is active as long as the [lastConsensusTime](https://docs.reach.s
 </ol>
 
 </p>
+</details>
+</p>
+
 </details>

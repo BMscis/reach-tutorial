@@ -1,5 +1,236 @@
 <details>
 <summary>
+<h2>
+
+Developing the DApp.        
+</h2>
+
+Developing the DApp using Problem Analysis and Problem Design.
+</summary>
+<p>
+
+<details>
+<summary>
+<h3>
+
+Problem Analysis
+</h3>
+
+Now that we have a basic understanding of the concepts we need to know, we can start to ask some critical questions.
+</summary>
+<p>
+
+As a programmer we need to understand the problem that we are trying to solve. Here's a run through of the questions that pop up in my head.
+
+1. What is the purpose of the auction?
+
+> Our purpose is to create a DApp that autonomously runs a safe and secure auction that allows users to buy and sell items.
+
+2. What is the value of the NFT being auctioned?
+
+> The value of the NFT is determined by the owner of the NFT.
+
+3. What is the minimum bid?
+
+> For simplicity, we can use the asset price as the minimum bid.
+
+4. What is the duration of the auction?
+
+> The duration of the auction can be fixed or can be determined by the deployer of the DApp.
+
+5. How will the auction be conducted?
+
+> The auction will be conducted by the DApp itself.
+
+6. What is the NFT being auctioned?
+
+> Again, for simplicity, we will limit the auctioned NFT's to images.
+
+7. How many bidders are there?
+
+> Ideally, we would love to have as many bidders as possible.
+
+10. When is the auction over?
+
+> The auction will be over when the auction duration has elapsed.
+
+11. How will the auction be secured?
+
+> The auction will be secured using Reach programming language.
+</p>
+
+These questions are pertinent to the development of an internal conversation. However, 
+because we are developing a DApp, we can reframe the problem by limiting the questions 
+to defining the data that we expect the DApp to handle :
+
+<details>
+<summary>
+<h4>
+
+Performing Data Analysis.
+</h4>
+
+Turning the information we know to data.
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+
+What information does the DApp need to track?
+</h5>
+
+- The NFT being auctioned.
+
+- The NFT price.
+
+- The NFT amount.
+
+- The auction duration.
+
+- The NFT owner.
+
+- The last bid.
+
+- The latest bid.
+
+- Bidder Address.
+</li>
+<li>
+<h5>
+
+What information does the DApp need to display?
+</h5>
+
+Each participant in the auction will require the following information:
+
+ - The NFT being auctioned.
+
+ - The NFT price.
+
+ - The NFT amount.
+
+ - The auction duration.
+
+ However, depending on the role of the participant, the auction may limit how much information each participant has access to.
+
+ If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as :
+
+  - Adding an NFT to the contract.
+
+  - Deciding when the auction will start.
+
+
+  The bidder, on the other hand, does not need to know much. In fact, once a bidder joins the DApp, all they need to see is the highest bid price.
+</li>
+<li>
+<h5>
+
+How should the app handle user input?
+</h5>
+
+The DApp needs to differentiate private data and public data. Private data should only be accessible to a local computer while public data can be displayed
+on the blockchain.
+</li>
+
+</ol>
+</p>
+</details>
+<details>
+<summary>
+<h4>
+
+Functional Requirements.
+</h4>
+
+In this section, we look at the functions provided by the Reach language that we can use to run the auction.
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+
+How can we create a new DApp in Reach.
+</h5>
+
+We'll have to take a look at the Reach syntax to conform to the methods available to us?
+</li>
+<li>
+<h5>
+
+How will we send the NFT to the contract?
+</h5>
+
+To ensure that the DApp is truly decentralized, we'll need the deployer to forfeit ownership of the NFT until the 
+auction is over.
+</li>
+<li>
+<h5>
+
+How can we publish the NFT being auctioned to the blockchain.
+</h5>
+
+We'll have to make the NFT information public to all participants.
+</li>
+<li>
+<h5>
+
+How can we allow a bidder to OPT-IN to the DApp.
+</h5>
+
+There has to be a frontend mechanism that allows the bidder to opt-in to the DApp
+and place a bid.
+</li>
+<li>
+<h5>
+
+How will we perform transfers?
+</h5>
+
+Once the auction is done, we'll need to transfer the highest bid to the Auctioneer and the NFT to the winner.
+</li>
+</ol>
+</p>
+</details>
+<details>
+<summary>
+<h4>
+
+Consensus Mechanisms.
+</h4>
+
+We'll also need to look at what Reach offers when it comes to consensus.
+</summary>
+<p>
+
+Reaching consensus means that all parties involved in a decision-making process agree on a course of action. This can be difficult to achieve, especially when there are multiple stakeholders with different interests and goals. However, consensus can be reached through careful deliberation and compromise.
+
+<ol>
+<li>
+<h5>
+
+How can we ensure that the auction is conducted in a safe and secure manner?
+</h5>
+</li>
+<li>
+<h5>
+
+How can we secure data that is private?
+</h5>
+</li>
+<li>
+<h5>
+
+How can we run an open auction on the blockchain?
+</h5>
+</li>
+</ol>
+</p>
+</details>
+</details>
+
+<details>
+<summary>
 <h3>
 
 Problem Design
@@ -847,4 +1078,7 @@ The while loop is active as long as the [lastConsensusTime](https://docs.reach.s
 </ol>
 
 </p>
+</details>
+</p>
+
 </details>

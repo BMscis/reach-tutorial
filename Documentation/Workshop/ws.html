@@ -1,171 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ws.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
 <ul>
 <li>
 <summary>
 <h2>
-
-Problem Analysis
+<p>Problem Analysis</p>
 </h2>
-
-Here's a summary of what we hope to achieve at the end of this workshop.
+<p>Here's a summary of what we hope to achieve at the end of this workshop.</p>
 </summary>
 <p>
-
-The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.
-
-Let's breakdown some concepts that we need to understand before we ask critical questions.
-
+<p>The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.</p>
+<p>Let's breakdown some concepts that we need to understand before we ask critical questions.</p>
 <ol>
-
-<li>
-
-<h4>
-
-[Blockchain](https://en.wikipedia.org/wiki/Blockchain)
-
-</h4>
-
-A [blockchain](https://en.wikipedia.org/wiki/Blockchain) is a distributed ledger that records transactions in a series of blocks. The series of blocks are linked together using [Merkel Tree](https://en.wikipedia.org/wiki/Merkle_tree) where each block has a link to the previous block.
-What makes blockchain unique is that they use [consensus](https://www.geeksforgeeks.org/consensus-algorithms-in-blockchain/) which means each participant peer can confirm the validity of the blockchain.
-
-</li>
-
 <li>
 <h4>
-
-[BlockHeight](https://www.investopedia.com/terms/b/block-height.asp#:~:text=Block%20height%20refers%20to%20a,size%20or%20time%20in%20existence.)
+<p><a href="https://en.wikipedia.org/wiki/Blockchain">Blockchain</a></p>
 </h4>
-
-[BlockHeight](https://www.investopedia.com/terms/b/block-height.asp#:~:text=Block%20height%20refers%20to%20a,size%20or%20time%20in%20existence.) keeps count of all the number of blocks that have been mined since the beginning of the blockchain. Since each block can be mined at an approximate amount of time, the block height can be used to measure the auction time.
-
+<p>A <a href="https://en.wikipedia.org/wiki/Blockchain">blockchain</a> is a distributed ledger that records transactions in a series of blocks. The series of blocks are linked together using <a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkel Tree</a> where each block has a link to the previous block.
+What makes blockchain unique is that they use <a href="https://www.geeksforgeeks.org/consensus-algorithms-in-blockchain/">consensus</a> which means each participant peer can confirm the validity of the blockchain.</p>
 </li>
-
 <li>
 <h4>
-
-[Auction](https://www.google.com/search?q=what+is+an+auction&oq=what+is+an+auction&aqs=chrome..69i57j0i512l9.5560j0j4&sourceid=chrome&ie=UTF-8)
+<p><a href="https://www.investopedia.com/terms/b/block-height.asp#:~:text=Block%20height%20refers%20to%20a,size%20or%20time%20in%20existence.">BlockHeight</a></p>
 </h4>
-
-An auction is a public sale where the item being auctioned by the `auctioneer` goes to the highest `bidder` after a certain amount of time limit.
-
+<p><a href="https://www.investopedia.com/terms/b/block-height.asp#:~:text=Block%20height%20refers%20to%20a,size%20or%20time%20in%20existence.">BlockHeight</a> keeps count of all the number of blocks that have been mined since the beginning of the blockchain. Since each block can be mined at an approximate amount of time, the block height can be used to measure the auction time.</p>
 </li>
-
 <li>
 <h4>
-
-[Decentralized App](https://en.wikipedia.org/wiki/Decentralized_application)
+<p><a href="https://www.google.com/search?q=what+is+an+auction&amp;oq=what+is+an+auction&amp;aqs=chrome..69i57j0i512l9.5560j0j4&amp;sourceid=chrome&amp;ie=UTF-8">Auction</a></p>
 </h4>
-
-Decentralized applications are immutable, operate autonomously, and are not tied to a single entity. They run on the blockchain using consensus algorithms to force all participants to agree.
+<p>An auction is a public sale where the item being auctioned by the <code>auctioneer</code> goes to the highest <code>bidder</code> after a certain amount of time limit.</p>
 </li>
-
+<li>
+<h4>
+<p><a href="https://en.wikipedia.org/wiki/Decentralized_application">Decentralized App</a></p>
+</h4>
+<p>Decentralized applications are immutable, operate autonomously, and are not tied to a single entity. They run on the blockchain using consensus algorithms to force all participants to agree.</p>
+</li>
 </ol>
 </p>
-
 <ol>
 <li>
-
 <h3>
-
-[Objectives.]()
+<p><a href="">Objectives.</a></p>
 </h3>
 Let's run through the objectives :
-
-1. We need to create a Decentralized application and publish it to a blockchain.
-
-2. The decentralized application should be able to conduct a successful auction in consensus.
-
-3. The decentralized application should be able to autonomously moderate the auction and ensure fairness and honesty amongst all the participants.
-
-</p>
-
-</li>
-
+<ol>
 <li>
-<p>
-
-<h3>
-
-[Expected Output](#expected-output)
-</h3>
-
-We expect the decentralized application to : 
-
-- Announce a winner at the end of the auction, 
-
-- Transfer the NFT to the winner.
-
-- Transfer the highest bid to the auctioneer.
+<p>We need to create a Decentralized application and publish it to a blockchain.</p>
+</li>
+<li>
+<p>The decentralized application should be able to conduct a successful auction in consensus.</p>
+</li>
+<li>
+<p>The decentralized application should be able to autonomously moderate the auction and ensure fairness and honesty amongst all the participants.</p>
+</li>
+</ol>
 </p>
 </li>
-
 <li>
-
 <p>
 <h3>
-
-[Expected Input.]()
+<p><a href="#expected-output">Expected Output</a></p>
 </h3>
-
-We expect the decentralized application to handle : 
-
-- A NFT to be sent to the decentralized app.
-
-- A NFT price
-
-- An auction duration.
-
-- A NFT bid.
+<p>We expect the decentralized application to :</p>
+<ul>
+<li>
+<p>Announce a winner at the end of the auction,</p>
+</li>
+<li>
+<p>Transfer the NFT to the winner.</p>
+</li>
+<li>
+<p>Transfer the highest bid to the auctioneer.</p>
+</li>
+</ul>
+</p>
+</li>
+<li>
+<p>
+<h3>
+<p><a href="">Expected Input.</a></p>
+</h3>
+<p>We expect the decentralized application to handle :</p>
+<ul>
+<li>
+<p>A NFT to be sent to the decentralized app.</p>
+</li>
+<li>
+<p>A NFT price</p>
+</li>
+<li>
+<p>An auction duration.</p>
+</li>
+<li>
+<p>A NFT bid.</p>
+</li>
+</ul>
 </p>    
-
 </li>
-
 <li>
 <p>
 <h3>
-
-[Expected Processes for a Successful Auction.]()
+<p><a href="">Expected Processes for a Successful Auction.</a></p>
 </h3>
-
-In order to achieve a successful auction, the decentralized app needs a few processes to be done : 
-
-1. We need an auctioneer to create a new contract/DAPP.
-
-2. We need an auctioneer to make the NFT being auctioned known to the contract.
-
-3. Once the auctioneer sends the NFT to the contract, the auction is ready to start.
-
-4. A bidder must  `OPT-IN` the contract/DAPP and accept the NFT token.
-
-5. For a bidder to make a successful bid, the bid must be placed on time and the amount should be larger than the last bid.
-
-6. The auction should continue until the timeout hits.
-
-7. If timeout hits, the NFT should be sent to the highest bidder and the highest bid should be sent to auctioneer.
-
-8. The decentralized app should exit and self-destruct if it has no NFT and the contract balance is 0.
+<p>In order to achieve a successful auction, the decentralized app needs a few processes to be done :</p>
+<ol>
+<li>
+<p>We need an auctioneer to create a new contract/DAPP.</p>
+</li>
+<li>
+<p>We need an auctioneer to make the NFT being auctioned known to the contract.</p>
+</li>
+<li>
+<p>Once the auctioneer sends the NFT to the contract, the auction is ready to start.</p>
+</li>
+<li>
+<p>A bidder must  <code>OPT-IN</code> the contract/DAPP and accept the NFT token.</p>
+</li>
+<li>
+<p>For a bidder to make a successful bid, the bid must be placed on time and the amount should be larger than the last bid.</p>
+</li>
+<li>
+<p>The auction should continue until the timeout hits.</p>
+</li>
+<li>
+<p>If timeout hits, the NFT should be sent to the highest bidder and the highest bid should be sent to auctioneer.</p>
+</li>
+<li>
+<p>The decentralized app should exit and self-destruct if it has no NFT and the contract balance is 0.</p>
+</li>
+</ol>
 </p>
 </li>
-
 <li>
 <p>
 <h3>
-
-[Analyzing the Scope of the Problem.]()
+<p><a href="">Analyzing the Scope of the Problem.</a></p>
 </h3>
-
-Based on what we have touched so far, we can now assess the possibilities and the limitations that will be encountered in the process of creating a successful auction. In order to get a clear understanding of the problem, let's break down our program into specifics by asking key questions :
-
-1. What modules will we use to create and compile the program ?
-
-2. Who will be involved in executing the contract ?
-
-3. What tasks should be completed to make a successful auction ?
-
-4. What data types will be used to hold program information ?
-
-5. What functions can we use to help the actors participate ?
-
-6. What algorithms can we use to run an honest auction ?
+<p>Based on what we have touched so far, we can now assess the possibilities and the limitations that will be encountered in the process of creating a successful auction. In order to get a clear understanding of the problem, let's break down our program into specifics by asking key questions :</p>
+<ol>
+<li>
+<p>What modules will we use to create and compile the program ?</p>
+</li>
+<li>
+<p>Who will be involved in executing the contract ?</p>
+</li>
+<li>
+<p>What tasks should be completed to make a successful auction ?</p>
+</li>
+<li>
+<p>What data types will be used to hold program information ?</p>
+</li>
+<li>
+<p>What functions can we use to help the actors participate ?</p>
+</li>
+<li>
+<p>What algorithms can we use to run an honest auction ?</p>
+</li>
+</ol>
 </p>
 </li>
 </ol>
@@ -173,286 +531,687 @@ Based on what we have touched so far, we can now assess the possibilities and th
 <li>
 <summary>
 <h2>
-
-Problem Design
+<p>Problem Design</p>
 </h2>
-
-Here we will answer the questions we asked during the problem analysis.
+<p>Here we will answer the questions we asked during the problem analysis.</p>
 </summary>
 <p>
-
-The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.
-
-Let's breakdown some questions we need to answer before we can design the DAPP.
-
+<p>The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.</p>
+<p>Let's breakdown some questions we need to answer before we can design the DAPP.</p>
+<h1 id=""></h1>
 <ol>
-
 <li>
-
 <details>
 <summary>
 <h3>
-
-Which programming language will we use to create our DAPP ?
+<p><a href="">Which programming language will we use to create our DAPP ?</a></p>
+<h2 id=""></h2>
 </h3>
-
-[Reach](https://docs.reach.sh/#reach-top) is a domain specific language for building decentralized applications. The [Reach Module](https://docs.reach.sh/rsh/module/) is a `.rsh` file that contains the DAPP that can run on multiple blockchain platforms.
+<p><a href="https://docs.reach.sh/#reach-top">Reach</a> is a domain specific language for building decentralized applications. The <a href="https://docs.reach.sh/rsh/module/">Reach Module</a> is a <code>.rsh</code> file that contains the DAPP that can run on multiple blockchain platforms.</p>
 </summary>
-
 <ol>
 <li>
 <details>
 <summary>
 <h5>
-
-[Reach Module](https://docs.reach.sh/rsh/module/)
+<p><a href="https://docs.reach.sh/rsh/module/">Reach Module</a></p>
 </h5>
-
-The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
+<p>The <a href="https://docs.reach.sh/rsh/module/">Reach Module</a> must begin with a <code>version type</code> as it's first line and stored in a <code>index.rsh</code> file.</p>
+<h2 id=""></h2>
 </summary>
 <p>
-
-> index.rsh
-
-```javascript
-'reach 0.1';
-```
-
-> [Reach Syntax](https://docs.reach.sh/model/#ref-model-syntax) is written in **JavaScript** syntax .
+<blockquote>
+<p>index.rsh</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-string">'reach 0.1'</span>;
+</div></code></pre>
+<blockquote>
+<p><a href="https://docs.reach.sh/model/#ref-model-syntax">Reach Syntax</a> is written in <strong>JavaScript</strong> syntax.</p>
+</blockquote>
 </p>
 </details>
-
 </li>
-
 <li>
 <details>
 <summary>
 <h5>
-
-[Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+<p><a href="https://docs.reach.sh/rsh/module/#ref-programs-module-exprs">Reach App</a>.</p>
 </h5>
-
-The [Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) specifies the DAPP in it's entirety. It is the body of the DAPP.
+<p>The <a href="https://docs.reach.sh/rsh/module/#ref-programs-module-exprs">Reach App</a> specifies the DAPP in it's entirety. It is the body of the DAPP.</p>
 </summary>
 <p>
-
-Reach uses [Module-level Identifiers](https://docs.reach.sh/rsh/module/#ref-programs-export) such as [export](https://docs.reach.sh/rsh/module/#ref-programs-export) to identify the module to be compiled.
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
+<p>Reach uses <a href="https://docs.reach.sh/rsh/module/#ref-programs-export">Module-level Identifiers</a> such as <a href="https://docs.reach.sh/rsh/module/#ref-programs-export">export</a> to identify the module to be compiled.</p>
+<blockquote>
+<p>index.rsh</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> main = Reach.App(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">//DAPP body.</span>
 })
-```
-
-> All the functions we want to perform will go into the `main` function.
+</div></code></pre>
+<blockquote>
+<p>All the functions we want to perform will go into the <code>main</code> function.</p>
+</blockquote>
 </p>
 </details>
-
 </li>
-
 <li>
 <details>
 <summary>
 <h5>
-
-[Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+<p><a href="https://docs.reach.sh/rsh/module/#ref-programs-module-exprs">Reach Participant</a>.</p>
 </h5>
-
-A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DAPP and is associated with an address on the consensus network. A Reach participant is capable of persistently storing data on the local state. 
+<p>A <a href="https://docs.reach.sh/model/#term_participant">Participant</a> is a logical actor who takes part in a DAPP and is associated with an address on the consensus network. A Reach participant is capable of persistently storing data on the local state.</p>
 </summary>
 <p>
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-    const Auctioneer = Participant('Auctioneer', {
-        //Auctioneer body
+<blockquote>
+<p>index.rsh</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> main = Reach.App(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">//DAPP body.</span>
+    <span class="hljs-keyword">const</span> Auctioneer = Participant(<span class="hljs-string">'Auctioneer'</span>, {
+        <span class="hljs-comment">//Auctioneer body</span>
     });
 })
-```
-
-> All the functions that will be necessary for the `auctioneer` to perform will be put inside the `Auctioneer body`.
+</div></code></pre>
+<blockquote>
+<p>All the functions that will be necessary for the <code>auctioneer</code> to perform will be put inside the <code>Auctioneer body</code>.</p>
+</blockquote>
 </p>
 </details>
-
 </li>
-
 <li>
 <details>
 <summary>
 <h5>
-
-[Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API).
+<p><a href="https://docs.reach.sh/rsh/appinit/#rsh_API">Reach API</a>.</p>
 </h5>
-
-A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is group of [Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) who are racing to achieve the same goal in a DAPP.
+<p>A <a href="https://docs.reach.sh/rsh/appinit/#rsh_API">Reach API</a> is group of <a href="https://docs.reach.sh/rsh/module/#ref-programs-module-exprs">Reach Participant</a> who are racing to achieve the same goal in a DAPP.</p>
 </summary>
 <p>
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-    const Bidder = API('Bidder', {
-        //Bidder interface.
+<blockquote>
+<p>index.rsh</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> main = Reach.App(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">//DAPP body.</span>
+    <span class="hljs-keyword">const</span> Bidder = API(<span class="hljs-string">'Bidder'</span>, {
+        <span class="hljs-comment">//Bidder interface.</span>
     });
 })
-```
-> A main difference between a  `Reach Participant` and a `Reach API` is that a `Reach API` can be called from the actors` frontend.
-
-> All the functions that will be necessary for the `bidder` to perform will be put inside the `Bidder Interface`.
+</div></code></pre>
+<blockquote>
+<p>A main difference between a  <code>Reach Participant</code> and a <code>Reach API</code> is that a <code>Reach API</code> can be called from the actors` frontend.</p>
+</blockquote>
+<blockquote>
+<p>All the functions that will be necessary for the <code>bidder</code> to perform will be put inside the <code>Bidder Interface</code>.</p>
+</blockquote>
 </p>
 </details>
-
 </li>
-
 </ol>
-
 </details>
-
 </li>
-
 <li>
-
 <details>
 <summary>
 <h3>
-
-Which data types will we use in our DAPP to hold information ?
+<p><a href="#data-types">Which data types will we use in our DAPP to hold information ?</a></p>
+<h2 id=""></h2>
 </h3>
-
-We can use reach [Types](https://docs.reach.sh/rsh/compute/#ref-programs-types) as guidance to choose which types we can use to represent our data.
+<p>We can use reach <a href="https://docs.reach.sh/rsh/compute/#ref-programs-types">Types</a> as guidance to choose which types we can use to represent our data.</p>
 </summary>
-
-If we go back to our [problem analysis](/1.ProblemAnalysis.md), we can take a look at our expected input and our expected output and try to convert all that information to [Reach Types.](https://docs.reach.sh/rsh/compute/#ref-programs-types)
+<p>If we go back to our <a href="/1.ProblemAnalysis.md">problem analysis</a>, we can take a look at our expected input and our expected output and try to convert all that information to <a href="https://docs.reach.sh/rsh/compute/#ref-programs-types">Reach Types.</a></p>
 <ol>
 <li>
 <details>
 <summary>
 <h4>
-
 <a href="#expected-output">
-
-[Output](#ExpectedOutput)
-</a>
+<p>Handling Output Data
+</a></p>
+<h2 id=""></h2>
 </h4>
-
-The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
+<p>Let's take a look at the <code>Reach Types</code> we will use to represent our output data.</p>
 </summary>
 <p>
-
-> index.rsh
-
-```javascript
-'reach 0.1';
-```
-
-> [Reach Syntax](https://docs.reach.sh/model/#ref-model-syntax) is written in **JavaScript** syntax .
-</p>
-</details>
-
-</li>
-
-<li>
-<details>
-<summary>
 <h5>
-
-[Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+<p>Announcing a winner at the end of the auction.</p>
 </h5>
-
-The [Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) specifies the DAPP in it's entirety. It is the body of the DAPP.
-</summary>
-<p>
-
-Reach uses [Module-level Identifiers](https://docs.reach.sh/rsh/module/#ref-programs-export) such as [export](https://docs.reach.sh/rsh/module/#ref-programs-export) to identify the module to be compiled.
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-})
-```
-
-> All the functions we want to perform will go into the `main` function.
-</p>
-</details>
-
-</li>
-
+<ul>
 <li>
-<details>
-<summary>
-<h5>
-
-[Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
-</h5>
-
-A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DAPP and is associated with an address on the consensus network. A Reach participant is capable of persistently storing data on the local state. 
-</summary>
-<p>
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-    const Auctioneer = Participant('Auctioneer', {
-        //Auctioneer body
-    });
-})
-```
-
-> All the functions that will be necessary for the `auctioneer` to perform will be put inside the `Auctioneer body`.
-</p>
-</details>
-
-</li>
-
+<p>In order to announce a winner, we will need the participant to learn new information :</p>
+<ol>
 <li>
-<details>
-<summary>
-<h5>
-
-[Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API).
-</h5>
-
-A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is group of [Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) who are racing to achieve the same goal in a DAPP.
-</summary>
-<p>
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-    const Bidder = API('Bidder', {
-        //Bidder interface.
-    });
-})
-```
-> A main difference between a  `Reach Participant` and a `Reach API` is that a `Reach API` can be called from the actors` frontend.
-
-> All the functions that will be necessary for the `bidder` to perform will be put inside the `Bidder Interface`.
-</p>
-</details>
-
+<p>The winning bid.</p>
 </li>
-
+<li>
+<p>The Winner.</p>
+</li>
 </ol>
-
-</details>
-
 </li>
-
+<li>
+<p>How can we represent these two pieces of information in a DAPP ?</p>
+<ol>
+<li>
+<p>We can represent the winning bid with a <a href="https://docs.reach.sh/rsh/compute/#rsh_UInt">UInt type</a>.</p>
+</li>
+<li>
+<p>We can represent the winner with an <a href="https://docs.reach.sh/rsh/compute/#rsh_Address">Address type</a>.</p>
+</li>
 </ol>
+</li>
+</ul>
+</p>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h4>
+<a href="#expected-input">
+<p>Handling Input Data
+</a></p>
+<h2 id=""></h2>
+</h4>
+<p>Let's take a look at the <code>Reach Types</code> we will use to represent our input data.</p>
+</summary>
+<p>
+<h5>
+<p>Adding the NFT for the auction.</p>
+</h5>
+<ul>
+<li>
+<p>In order to add a NFT to the contract, we will need :</p>
+<ol>
+<li>
+<p>The NFT ID.</p>
+</li>
+<li>
+<p>The NFT price / starting bid.</p>
+</li>
+<li>
+<p>The auction duration.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>How can we represent this information in a DAPP ?</p>
+<ol>
+<li>
+<p>We can use a <a href="https://docs.reach.sh/rsh/compute/#rsh_Token">Token type</a> to represent the NFT ID.</p>
+</li>
+<li>
+<p>Since the price is a number, we can use a <a href="https://docs.reach.sh/rsh/compute/#rsh_UInt">UInt type</a> to represent the price.</p>
+</li>
+<li>
+<p>We can use a <a href="https://docs.reach.sh/rsh/compute/#rsh_UInt">UInt type</a> to represent the auction duration, which will represent block height as opposed to actual time.</p>
+</li>
+</ol>
+</li>
+</ul>
+</p>
+</details>
+</li>
+</ol>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h3>
+<p><a href="#functions">Which functions will we use to manipulate the data ?</a></p>
+<h2 id=""></h2>
+</h3>
+<p>We can use Reach <a href="https://docs.reach.sh/rsh/compute/#rsh_Fun">Functions type</a> as guidance to choose which types we can use to represent our data.</p>
+</summary>
+<p>Reach <a href="https://docs.reach.sh/rsh/compute/#rsh_Fun">Functions type</a> will be useful to arranging the input and output data more efficiently.</p>
+<ol>
+<li>
+<details>
+<summary>
+<h4>
+<a href="#expected-output">
+<p>Output Functions.
+</a></p>
+<h2 id=""></h2>
+</h4>
+<p>Output functions that will be used to notify our frontend.</p>
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+<p><a href="#show-outcome">Announcing a winner at the end of the auction.</a></p>
+</h5>
+<ul>
+<li>
+<p>In order to announce a winner, we will need the participant to learn new information :</p>
+<ol>
+<li>
+<p>The winning bid.</p>
+</li>
+<li>
+<p>The Winner.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>We have already established how we can represent the data, now let's see how we can send this information to the frontend.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">//showOutcone function.</span>
+<span class="hljs-attr">showOutcome</span>: Fun([Address, UInt], Null),
 
+</div></code></pre>
+<p><code>showOutcome</code> is a function that sends <code>[Address, UInt]</code> which are the <code>[winner, winning bid]</code> to the frontend and does not expect a return value.</p>
+</li>
+<li>
+<h5>
+<p><a href="#transfer-nft">Transferring the NFT to the winner.</a></p>
+</h5>
+<ul>
+<li>
+<p>After the auction is complete, we will need to transfer the NFT from the contract to the winner.</p>
+</li>
+<li>
+<p>Reach offers a <a href="https://docs.reach.sh/rsh/compute/#rsh_transfer">Transfer function</a>, a consensus step that calls the contract to pay a token to the given address.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+transfer(<span class="hljs-string">`UInt`</span>,<span class="hljs-string">`Token`</span>).to(<span class="hljs-string">`Address`</span>);
+</div></code></pre>
+<p><code>transfer</code> takes a <code>amount</code>(<code>UInt</code>), a <code>Token</code> and transfers the amount to an <code>Address</code> once a condition is met.</p>
+</li>
+<li>
+<h5>
+<p><a href="#transfer-amount">Transferring the highest bid to the auctioneer.</a></p>
+</h5>
+<ul>
+<li>
+<p>We will also need to transfer the highest bid to the auctioneer once the auction ends.</p>
+</li>
+<li>
+<p>Reach offers a <a href="https://docs.reach.sh/rsh/compute/#rsh_transfer">Transfer function</a>, a consensus step that calls the contract to pay a token to the given address.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+transfer(<span class="hljs-string">`UInt`</span>).to(<span class="hljs-string">`Address`</span>);
+</div></code></pre>
+<p><code>transfer</code> takes a <code>amount</code>(<code>UInt</code>) and transfers the amount to an <code>Address</code> once a condition is met.</p>
+</li>
+</ol>
+</p>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h4>
+<a href="#expected-input">
+<p>Input Functions.
+</a></p>
+<h2 id=""></h2>
+</h4>
+<p>Input functions will be used to notify our frontend what the backend expects as well as calling backend functions from the frontend.</p>
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+<p><a href="#get-sale">Receiving the NFT to be auctioned from the frontend.</a></p>
+</h5>
+<p>Since it is the auctioneers' responsibility to add the NFT to the contract, we will make sure that only the Auctioneer who is capable of setting the NFT.</p>
+<p>Any time a participant sends information to the backend contract, we can use an <code>interact</code> interface to get that information.</p>
+<p>Here's the information that we will need from the auctioneer :</p>
+<ol>
+<li>
+<p>The NFT ID.</p>
+</li>
+<li>
+<p>The NFT price / starting bid.</p>
+</li>
+<li>
+<p>The auction duration.</p>
+</li>
+</ol>
+<ul>
+<li>We have already established how we can represent the data, now let's see how we can get this information to the frontend.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment">//getSale function</span>
+    <span class="hljs-attr">getSale</span>: Fun([],[Token, UInt, UInt]),
+</div></code></pre>
+<p><code>getSale</code> function expects the [Token, UInt, UInt]/([nftId, price, auctionTime]) from the frontend.</p>
+<p>Reach also provides an <a href="https://docs.reach.sh/rsh/compute/#rsh_Object">Object</a> type that can be used to nest other types.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">Object</span>({
+    <span class="hljs-attr">nftId</span>: Token,
+    <span class="hljs-attr">minBid</span>: UInt,
+    <span class="hljs-attr">lenInBlocks</span>: UInt,
+})
+</div></code></pre>
+<p>Let's add this to the function :</p>
+<pre class="hljs"><code><div>getSale: Fun([], <span class="hljs-built_in">Object</span>({
+    <span class="hljs-attr">nftId</span>: Token,
+    <span class="hljs-attr">minBid</span>: UInt,
+    <span class="hljs-attr">lenInBlocks</span>: UInt,
+}))
+</div></code></pre>
+</li>
+<li>
+<h5>
+<p><a href="#place-bid">Allowing a bidder to place a bid.</a></p>
+</h5>
+<ul>
+<li>Bidders will also be expected to place bid i.e. Call a bid function from the frontend.</li>
+</ul>
+<pre class="hljs"><code><div>
+<span class="hljs-attr">bid</span>: Fun([UInt], Null),
+
+</div></code></pre>
+<p><code>bid</code> expects a number from the frontend which a Bidder address will be attached to during the auction.</p>
+</li>
+<li>
+<h5>
+<p><a href="#auction-ready">Alerting when the auction is ready.</a></p>
+</h5>
+<ul>
+<li>We can also alert the Auctioneer when the auction is ready to start.</li>
+</ul>
+<pre class="hljs"><code><div>
+<span class="hljs-attr">auctionReady</span>: Fun([], Null),
+
+</div></code></pre>
+<p><code>auctionReady</code> notifies the Auctioneer frontend when the auction is ready.</p>
+</li>
+</ol>
+</p>
+</details>
+</li>
+</ol>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h3>
+<p><a href="">Which tasks should we run to make a successful auction ?</a></p>
+<h2 id=""></h2>
+</h3>
+<p>Introduction to <a href="https://docs.reach.sh/rsh/step/">Reach Steps</a></p>
+</summary>
+<p>Here, we will be introducing new concepts that will be useful to understand how Reach works.</p>
+<p>Reach can be in two states :</p>
+<ul>
+<li>Local step</li>
+<li>Consensus step</li>
+</ul>
+<p>Most DAPP have a creator, an actor, a wager and a condition. Before a contract becomes autonomous,
+the creator publishes the criteria for the wager and the condition. Once the creator does this, they
+have no control of the outcome, nor can they pause the contract once it initiates. The bidder can observe
+the contract on the blockchain and decide whether to opt-in.</p>
+<p>Local steps are steps that are run locally by a single actor while consensus steps are run on the blockchain in consensus.
+To improve anonymity and security, local steps exists to ensure that each actor is unaware of what any other actor is up to.</p>
+<p>If they choose to make the information known, they must enter a consensus step and make the information know on the blockchain.
+Consensus steps also ensure that the core logic and condition of the contract, run on the blockchain,
+where all active actors can see what is going on.</p>
+<p>Let's take a look at the tasks that we will need to execute in order to make a successful auction :</p>
+<ol>
+<li>
+<details>
+<summary>
+<h4>
+<p><a href="">Adding Actors</a></p>
+<h2 id=""></h2>
+</h4>
+<p>We have already selected <a href="#data-types">how we will represent our data</a>, we have also established <a href="#functions">functions that can be used</a> to get the necessary data,
+now the final step is to add the functions into classes that can perform logic and store states. In Reach, they are called <a href="https://docs.reach.sh/rsh/appinit/#rsh_Participant">Participants</a>.</p>
+</summary>
+<p>
+<ol>
+<li>
+<h5>
+<p><a href="">Adding an Auctioneer Pariticipant</a></p>
+</h5>
+<ul>
+<li>In the <a href="#functions">functions</a> section, we saw how we could use input and output functions to collect data, now
+let's add the necessary data to our auctioneer participant.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> Auctioneer = Participant(<span class="hljs-string">'Auctioneer'</span>, {
+    <span class="hljs-comment">//getSale function.</span>
+    <span class="hljs-attr">getSale</span>: Fun([], <span class="hljs-built_in">Object</span>({
+        <span class="hljs-attr">nftId</span>: Token,
+        <span class="hljs-attr">minBid</span>: UInt,
+        <span class="hljs-attr">lenInBlocks</span>: UInt,
+    })),
+    <span class="hljs-comment">//auctionReady function.</span>
+    <span class="hljs-attr">auctionReady</span>: Fun([], Null),
+
+    <span class="hljs-comment">//seeBid function.</span>
+    <span class="hljs-attr">seeBid</span>: Fun([Address, UInt], Null),
+
+    <span class="hljs-comment">//showOutcome function.</span>
+    <span class="hljs-attr">showOutcome</span>: Fun([Address, UInt], Null),
+});
+</div></code></pre>
+<ul>
+<li>
+<p>Here, we create an Auctioneer participant with the name <code>Auctioneer</code> and the data we need to run the auction.</p>
+</li>
+<li>
+<p>We used the <a href="#get-sale"><code>getSale</code></a> function to get the NFT data from the frontend.</p>
+</li>
+<li>
+<p>We used the <a href="#auction-ready"><code>auctionReady</code></a> function to notify the Auctioneer when the auction is ready.</p>
+</li>
+<li>
+<p>We used the <a href="#see-bid"><code>seeBid</code></a> function to notify the Auctioneer when a bidder has placed a bid.</p>
+</li>
+<li>
+<p>We used the <a href="#show-outcome"><code>showOutcome</code></a> function to notify the Auctioneer when the auction is over and who the winner is.</p>
+</li>
+</ul>
+</li>
+<li>
+<h5>
+<p><a href="">Adding a Bidder Participant.</a></p>
+</h5>
+<ul>
+<li>
+<p>For the bidder, we will also use a participant class. However, unlike the Auctioneer who is the deployer of the contract, we expect multiple bidders to be added to the contract.</p>
+</li>
+<li>
+<p>Reach provides a way of representing multiple participants in the <a href="https://docs.reach.sh/rsh/appinit/#rsh_API">Reach API</a> class.</p>
+</li>
+<li>
+<p>You can think of the API as a representation of multiple participants expected to race to a certain goal.</p>
+</li>
+<li>
+<p>For our instance, we expect the Bidders to be able to <a href="#place-bid">place a bid</a>.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> Bidder = API(<span class="hljs-string">'Bidder'</span>, {
+    <span class="hljs-comment">//Bidder interface.</span>
+    <span class="hljs-attr">bid</span>: Fun([UInt], Tuple(UInt,Address, UInt)),
+});
+</div></code></pre>
+<ul>
+<li>
+<p>We have a Bidder interface that can be used to represent multiple bidders.</p>
+</li>
+<li>
+<p>Each Bidder will have a <a href="#place-bid">bid</a> function that they can use to place a bid.</p>
+</li>
+</ul>
+<blockquote>
+<p>One of the advantages of Reach API is that functions can be called from the frontend.</p>
+</blockquote>
+</li>
+</ol>
+</p>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h4>
+<p><a href="https://docs.reach.sh/rsh/appinit/#init">Initializing the contract.</a></p>
+<h2 id=""></h2>
+</h4>
+<p>What comes after creating the actors/participants.</p>
+</summary>
+<p>
+<p>There are other <a href="https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-exprs">Reach interfaces</a> we have not touched on
+such as <a href="https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-view">Views</a> and <a href="https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-events">Events</a>.
+We have only talked about the API and the Participant.</p>
+<p>These interfaces represent what functions and classes should be replicated by the frontend and should come before the <code>init()</code> statement.</p>
+<pre class="hljs"><code><div>
+<span class="hljs-keyword">const</span> newParticipant = Participant(participantName, participantInteractInterface)
+
+<span class="hljs-keyword">const</span> newAPI = API(APIName, APIInteractInterface)
+
+<span class="hljs-keyword">const</span> newView = View(ViewName, ViewInteractInterface)
+
+<span class="hljs-keyword">const</span> newEvent = Events(EventName, EventInteractInterface)
+
+init()
+
+<span class="hljs-comment">// Consensus step or local step.</span>
+</div></code></pre>
+<p><code>init()</code> symbolizes the beginning of the DApp to be compiled. In other words, anything that follows the <code>init</code> statement is either a local step or a consensus step.</p>
+</p>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h4>
+<p><a href="https://docs.reach.sh/model/#term_local%20step">Using Local Steps.</a></p>
+<h2 id=""></h2>
+</h4>
+<p>What comes after the <code>init()</code> statement.</p>
+</summary>
+<p>
+<ul>
+<li>
+<h5>
+<p><a href="https://docs.reach.sh/model/#p_33">Local Private</a> Step.</p>
+</h5>
+Once the `init()` statement has been called, the DApp is automatically in a [local private](https://docs.reach.sh/model/#p_33) step.
+This means, that any information being accessed is only available on the local machine of the participant.
+</li>
+<li>
+<h5>
+<p><a href="https://docs.reach.sh/model/#p_33">Local Public</a> Step.</p>
+</h5>
+Local private is not that useful if we have information : such as the NFT data, that we need other actors to access.
+So how do we move from local private to local public ?
+<ul>
+<li>We use <a href="https://docs.reach.sh/rsh/local/#rsh_declassify">Reach declassify</a> to do this.</li>
+</ul>
+<blockquote>
+<p><a href="https://docs.reach.sh/rsh/local/#rsh_declassify">Reach declassify</a> can pass information from the frontend to the backend. Let's test
+this with the <code>Auctioneer</code> participants' <a href="#get-sale"><code>getSale</code></a> function to get the NFT information from the frontend.</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-comment">//declassify function.</span>
+Auctioneer.only(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+});
+</div></code></pre>
+<ul>
+<li>
+<p><code>Auctioneer.[only]()</code> function makes sure that only the <code>Auctioneer</code> i.e the creator of the contract, can access this function.</p>
+</li>
+<li>
+<p><code>interact</code> is a function used to get information from the frontend.</p>
+</li>
+<li>
+<p><code>declassify</code> makes the information public.</p>
+</li>
+</ul>
+<blockquote>
+<p>Here, we are interacting with the <code>Auctioneer</code> frontend and <code>await</code>ing the result (const {nftId, minBid, lenInBlocks}).</p>
+</blockquote>
+<p>The information is public but it's still local. Let's move to a consensus step to publicize the information on the contract.</p>
+</li>
+</ul>
+</p>
+</details>
+</li>
+<li>
+<details>
+<summary>
+<h4>
+<p><a href="https://docs.reach.sh/rsh/consensus/#ref-programs-consensus">Using Consensus Steps.</a></p>
+<h2 id=""></h2>
+</h4>
+<p>Publishing information onto the contract.</p>
+</summary>
+<p>
+<p>In order to move from a local step to a consensus step, Reach provides a few mechanisms that can help us
+do exactly that.</p>
+<ol>
+<li>
+<h5>
+<p><a href="https://docs.reach.sh/rsh/consensus/">Publish</a></p>
+</h5>
+<p>Consensus step shares information on the blockchain, we can use <a href="https://docs.reach.sh/rsh/consensus/">Reach Publish</a>
+to share NFT information with the contract.</p>
+<pre class="hljs"><code><div>Auctioneer.publish(nftId, minBid, lenInBlocks);
+</div></code></pre>
+<ul>
+<li><code>Auctioneer.publish()</code> function makes sure that only the <code>Auctioneer</code> i.e the creator of the contract, can publish this information
+onto the contract.</li>
+</ul>
+</li>
+<h2 id=""></h2>
+<blockquote>
+<p>Using <a href="https://docs.reach.sh/rsh/consensus/#rsh_commit">Commit()</a></p>
+</blockquote>
+<p>Once we are in a consensus step, we can fall back to a local step by using <a href="https://docs.reach.sh/rsh/consensus/#rsh_commit">Commit()</a>.</p>
+<p>Why would we do this ?</p>
+<ul>
+<li>
+<p>Security reasons</p>
+<p>We use commit to ensure that we are back to a <code>local private</code> state before we can conduct sensitive functions such as making payments to the contract.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+commit();
+
+</div></code></pre>
+<li>
+<h5>
+<p><a href="https://docs.reach.sh/rsh/step/#rsh_pay">Pay</a></p>
+</h5>
+<p>Now that we are back to a <code>local private</code> step, we can transfer the NFT from the Auctioneer to the contract.</p>
+<pre class="hljs"><code><div>Auctioneer.pay([[<span class="hljs-number">1</span>, nftId]])
+</div></code></pre>
+<ul>
+<li><code>Auctioneer.pay()</code> function makes sure that only the <code>Auctioneer</code> i.e the creator of the contract, can pay.</li>
+<li>We are sending one NFT Token to the contract to be auctioned.</li>
+</ul>
+</li>
+<blockquote>
+<p>We send [1] NFT because an NFT should be unique. Instead of directly sending the <code>UInt 1</code>, we can put it in a variable so that we can store the information.</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> amt = <span class="hljs-number">1</span>;
+</div></code></pre>
+<p>Then, Pay becomes :</p>
+<pre class="hljs"><code><div>Auctioneer.pay([[amt, nftId]])
+</div></code></pre>
+<p>Now the DApp has necessary information to run an auction. What's left is the auction logic. But before we do that,
+let's notify the Auctioneer that the <a href="#auction-ready">auction is ready</a>.</p>
+<pre class="hljs"><code><div>Auctioneer.interact.auctionReady();
+</div></code></pre>
+</ol>
+</p>
+</details>
+</li>
+</ol>
+</details>
+</li>
+</ol>
 </p>
 </li>
 </ul>
+</body>
+</html>

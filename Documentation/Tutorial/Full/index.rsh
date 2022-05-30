@@ -78,7 +78,10 @@ export const main = Reach.App(() => {
         return [highestBidder, lastPrice, isFirstBid]; 
     });
 
-    // Transfer
+    //++ Add Transfer NFT
+    transfer(amt, nftId).to(highestBidder);
+
+    // Transfer Amount
     if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
 
     // auctioneer show outcome.

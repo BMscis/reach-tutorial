@@ -22,7 +22,7 @@ const ctcCreator = accCreator.contract(backend);
 //++ Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
-lenInBlocks = 10;
+let lenInBlocks = 10;
 
 //++ Add putting them in an object.
 const params = { 

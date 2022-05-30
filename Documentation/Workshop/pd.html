@@ -1,29 +1,33 @@
+<details>
 <summary>
-<h2>
+<h3>
 
 Problem Design
-</h2>
+</h3>
 
-Here we will answer the questions we asked during the problem analysis.
+Let us attempt to respond to the questions raised at [Problem Analysis](#problem-analysis).
 </summary>
 <p>
 
-The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.
+The goal of this workshop is to establish an NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
 
-Let's breakdown some questions we need to answer before we can design the DAPP.
+Let's go through some of the questions we need to address before we can start designing the DAPP.
 
+#
 <ol>
 
 <li>
 
 <details>
 <summary>
-<h3>
+<h4>
 
-Which programming language will we use to create our DAPP ?
-</h3>
+[In which programming language will we build our DAPP?]()
 
-[Reach](https://docs.reach.sh/#reach-top) is a domain specific language for building decentralized applications. The [Reach Module](https://docs.reach.sh/rsh/module/) is a `.rsh` file that contains the DAPP that can run on multiple blockchain platforms.
+##
+</h4>
+
+[Reach](https://docs.reach.sh/#reach-top) is a domain-specific language for developing distributed applications. 
 </summary>
 
 <ol>
@@ -36,6 +40,8 @@ Which programming language will we use to create our DAPP ?
 </h5>
 
 The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
+
+##
 </summary>
 <p>
 
@@ -45,7 +51,7 @@ The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version
 'reach 0.1';
 ```
 
-> [Reach Syntax](https://docs.reach.sh/model/#ref-model-syntax) is written in **JavaScript** syntax .
+> [Reach Syntax](https://docs.reach.sh/model/#ref-model-syntax) is written in **JavaScript** syntax.
 </p>
 </details>
 
@@ -73,7 +79,7 @@ export const main = Reach.App(() => {
 })
 ```
 
-> All the functions we want to perform will go into the `main` function.
+> The'main' function will contain all the functions we want to perform.
 </p>
 </details>
 
@@ -87,7 +93,7 @@ export const main = Reach.App(() => {
 [Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
 </h5>
 
-A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DAPP and is associated with an address on the consensus network. A Reach participant is capable of persistently storing data on the local state. 
+A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor that participates in a DAPP and is assigned an address on the consensus network. A Reach participant is capable of storing persistent data on the local state.
 </summary>
 <p>
 
@@ -102,7 +108,7 @@ export const main = Reach.App(() => {
 })
 ```
 
-> All the functions that will be necessary for the `auctioneer` to perform will be put inside the `Auctioneer body`.
+> All the functions that the 'auctioneer' will need to perform will be housed within the 'Auctioneer body.'
 </p>
 </details>
 
@@ -116,7 +122,7 @@ export const main = Reach.App(() => {
 [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API).
 </h5>
 
-A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is group of [Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) who are racing to achieve the same goal in a DAPP.
+A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is a group of [Reach Participants](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) competing in a DAPP to achieve the same goal.
 </summary>
 <p>
 
@@ -130,9 +136,9 @@ export const main = Reach.App(() => {
     });
 })
 ```
-> A main difference between a  `Reach Participant` and a `Reach API` is that a `Reach API` can be called from the actors` frontend.
+> The primary distinction between a 'Reach Participant' and a 'Reach API' is that the latter can be called from the actors' frontend.
 
-> All the functions that will be necessary for the `bidder` to perform will be put inside the `Bidder Interface`.
+> The 'Bidder Interface' will contain all the functions that the 'bidder' will need to perform.
 </p>
 </details>
 
@@ -146,138 +152,699 @@ export const main = Reach.App(() => {
 
 <li>
 
-<details>
-<summary>
-<h3>
-
-Which data types will we use in our DAPP to hold information ?
-</h3>
-
-We can use reach [Types](https://docs.reach.sh/rsh/compute/#ref-programs-types) as guidance to choose which types we can use to represent our data.
-</summary>
-
-If we go back to our [problem analysis](/1.ProblemAnalysis.md), we can take a look at our expected input and our expected output and try to convert all that information to [Reach Types.](https://docs.reach.sh/rsh/compute/#ref-programs-types)
-<ol>
-<li>
 <details>
 <summary>
 <h4>
 
-<a href="#expected-output">
+[Thinking Data Analysis.](#performing-data-analysis)
 
-[Output](#ExpectedOutput)
-</a>
+##
 </h4>
 
-The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
+To decide which types to use to represent our data, we can use reach [Types](https://docs.reach.sh/rsh/compute/#ref-programs-types).
 </summary>
-<p>
 
-> index.rsh
-
-```javascript
-'reach 0.1';
-```
-
-> [Reach Syntax](https://docs.reach.sh/model/#ref-model-syntax) is written in **JavaScript** syntax .
-</p>
-</details>
-
-</li>
+We can examine our expected input and output and attempt to convert all of that information to [Reach Types.](https://docs.reach.sh/rsh/compute/#ref-programs-types)
+<ol>
 
 <li>
 <details>
 <summary>
 <h5>
 
-[Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+
+Processing Output Data
+
+##
 </h5>
 
-The [Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) specifies the DAPP in it's entirety. It is the body of the DAPP.
+Let's look at the `Reach Types` that we'll be using to represent our output data.
 </summary>
 <p>
+<h5>
 
-Reach uses [Module-level Identifiers](https://docs.reach.sh/rsh/module/#ref-programs-export) such as [export](https://docs.reach.sh/rsh/module/#ref-programs-export) to identify the module to be compiled.
+Announcing a winner at the end of the auction.
+</h5>
 
-> index.rsh
+- We will need the participant to learn new information in order to announce a winner:
 
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-})
-```
+    1. The winning bid.
 
-> All the functions we want to perform will go into the `main` function.
+    2. The Winner.
+
+
+- How do we represent these two pieces of data in a DAPP?
+
+    1. The winning bid can be represented by a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt).
+
+    2.  The winner can be represented by a [Address type](https://docs.reach.sh/rsh/compute/#rsh_Address).
+
+
 </p>
 </details>
-
 </li>
 
 <li>
+
 <details>
 <summary>
 <h5>
 
-[Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+Processing Input Data
+
+##
 </h5>
 
-A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DAPP and is associated with an address on the consensus network. A Reach participant is capable of persistently storing data on the local state. 
+Let's look at the 'Reach Types' we'll be using to represent our input data.
 </summary>
 <p>
-
-> index.rsh
-
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-    const Auctioneer = Participant('Auctioneer', {
-        //Auctioneer body
-    });
-})
-```
-
-> All the functions that will be necessary for the `auctioneer` to perform will be put inside the `Auctioneer body`.
-</p>
-</details>
-
-</li>
-
-<li>
-<details>
-<summary>
 <h5>
 
-[Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API).
+Adding the NFT for the auction.
 </h5>
 
-A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is group of [Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) who are racing to achieve the same goal in a DAPP.
-</summary>
-<p>
+- We will need the following data to add an NFT to the contract:
 
-> index.rsh
+    1. The NFT ID.
 
-```javascript
-export const main = Reach.App(() => {
-    //DAPP body.
-    const Bidder = API('Bidder', {
-        //Bidder interface.
-    });
-})
-```
-> A main difference between a  `Reach Participant` and a `Reach API` is that a `Reach API` can be called from the actors` frontend.
+    2. The NFT price / starting bid.
 
-> All the functions that will be necessary for the `bidder` to perform will be put inside the `Bidder Interface`.
+    3. The auction duration.
+
+
+- How can we represent this information in a DAPP ?
+
+    1. To represent the NFT ID, we can use a [Token type](https://docs.reach.sh/rsh/compute/#rsh_Token).
+
+    2. Because the price is a number, we can represent it with a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt).
+
+    3. We can represent the auction duration with a [UInt type](https://docs.reach.sh/rsh/compute/#rsh_UInt), which will represent block height rather than actual time.
+
+
 </p>
 </details>
 
 </li>
-
 </ol>
 
 </details>
 
 </li>
 
+
+<li>
+
+<details>
+<summary>
+<h4>
+
+[Testing Functional Requirements.](#functional-requirements)
+
+##
+</h4>
+
+To decide which types to use to represent our data, we can use the Reach [Functions type](https://docs.reach.sh/rsh/compute/#rsh_Fun).
+</summary>
+
+Reach [Functions type](https://docs.reach.sh/rsh/compute/#rsh_Fun) will be useful for more efficiently arranging input and output data.
+
+<ol>
+
+<li>
+<details>
+<summary>
+<h5>
+
+Output Functions.
+
+##
+</h5>
+
+Output functions that will notify our frontend.
+</summary>
+<p>
+<ol>
+
+<li>
+<h5>
+
+[At the end of the auction, a winner is announced.](#show-outcome)
+</h5>
+
+- We will need the participant to learn new information in order to announce a winner:
+
+    1. The winning bid.
+
+    2. The Winner.
+
+
+- We've already established how to represent data; now let's look at how to send this information to the frontend.
+
+```javascript
+
+//showOutcone function.
+showOutcome: Fun([Address, UInt], Null),
+
+```
+
+`showOutcome` is a function that does not expect a return value and sends the `[Address, UInt]` which are the '[winner, winning bid]' to the frontend.
+</li>
+
+<li>
+<h5>
+
+[Transferring the NFT to the winner.](#transfer-nft)
+</h5>
+
+- We will need to transfer the NFT from the contract to the winner once the auction is completed.
+
+- Reach provides a [Transfer function](https://docs.reach.sh/rsh/compute/#rsh_transfer), which is a consensus step that instructs the contract to send a token to the specified address.
+
+```javascript
+
+transfer(`UInt`,`Token`).to(`Address`);
+```
+
+When a condition is met, `transfer` takes a `amount` (`UInt`), a `Token`, and transfers the amount to an `Address`.
+</li>
+<li>
+<h5>
+
+[Transferring the highest bid to the auctioneer.](#transfer-amount)
+</h5>
+
+- Once the auction is over, we must transfer the highest bid to the auctioneer.
+
+- Reach provides a [Transfer function](https://docs.reach.sh/rsh/compute/#rsh_transfer), which is a consensus step that instructs the contract to send a token to the specified address.
+
+```javascript
+
+transfer(`UInt`).to(`Address`);
+```
+
+When a condition is met, `transfer` takes a `amount` (`UInt`) and transfers it to a `Address`.
+</li>
 </ol>
 
 </p>
+</details>
+</li>
+
+<li>
+<details>
+<summary>
+<h5>
+
+Input Functions.
+
+##
+</h5>
+
+Input functions will be used to inform our frontend about what the backend expects, as well as to call backend functions from the frontend.
+</summary>
+<p>
+<ol>
+
+<li>
+<h5>
+
+[Receiving the NFT to be auctioned from the frontend.](#get-sale)
+</h5>
+
+Because it is the auctioneers' responsibility to include the NFT in the contract, we will ensure that only the Auctioneer is capable of setting the NFT.
+
+We can use an 'interact' function to obtain information from the frontend whenever a participant backend requires it.
+
+Here is the information we will require from the auctioneer:
+
+1. The NFT ID.
+
+2. The NFT price / starting bid.
+
+3. The auction duration.
+
+
+- We've already determined how to represent the data; now let's look at how to get this information from the frontend.
+
+```javascript
+//getSale function
+    getSale: Fun([],[Token, UInt, UInt]),
+```
+
+`getSale` function expects the [Token, UInt, UInt]/([nftId, price, auctionTime]) from the frontend.
+
+Reach also includes an [Object](https://docs.reach.sh/rsh/compute/#rsh_Object) type for nesting other types.
+
+```javascript
+Object({
+    nftId: Token,
+    minBid: UInt,
+    lenInBlocks: UInt,
+})
+```
+
+Let's add this to the function :
+
+```javascript
+getSale: Fun([], Object({
+    nftId: Token,
+    minBid: UInt,
+    lenInBlocks: UInt,
+}))
+```
+</li>
+
+<li>
+<h5>
+
+[Allowing a bidder to place a bid.](#place-bid)
+</h5>
+
+- Bidders must also place a bid, i.e. call a bid function from the frontend.
+
+```javascript
+
+bid: Fun([UInt], Null),
+
+```
+
+`bid` expects a number from the frontend which a Bidder address will be attached to during the auction.
+</li>
+
+<li>
+<h5>
+
+[Alerting when the auction is ready.](#auction-ready)
+</h5>
+
+- When the auction is ready to begin, we can also notify the Auctioneer.
+
+```javascript
+
+auctionReady: Fun([], Null),
+
+```
+
+`auctionReady` notifies the Auctioneer frontend when the auction is ready.
+</li>
+
+</ol>
+
+</p>
+</details>
+</li>
+</ol>
+</details>
+</li>
+
+<li>
+
+<details>
+<summary>
+<h4>
+
+[Looking at Consensus Mechanisms.](#consensus-mechanisms)
+
+##
+</h4>
+
+Introduction to [Reach Steps](https://docs.reach.sh/rsh/step/)
+</summary>
+
+In this section, we will introduce new concepts that will help you understand how Reach works.
+
+Reach can be in two states :
+- Local step
+- Consensus step
+
+The majority of DAPPs include a creator, an actor, a wager, and a condition. Before a contract becomes autonomous, the creator publishes the wager and condition criteria. Once the creator has done this, they have no control over the outcome and cannot pause the contract once it has begun. The bidder can view the contract on the blockchain and decide whether or not to participate.
+
+Local steps are performed locally by a single actor, whereas consensus steps are performed on the blockchain in consensus.
+Local steps exist to ensure that each actor is unaware of what any other actor is up to in order to improve anonymity and security. 
+
+If they choose to make the information public, they must go through a consensus step and publish it on the blockchain.
+Consensus steps also ensure that the contract's core logic and conditions are run on the blockchain, where all active actors can see what is happening.
+
+Let's go over the tasks that we'll need to complete in order to have a successful auction:
+<ol>
+
+<li>
+<details>
+<summary>
+<h5>
+
+[Adding Actors]()
+
+##
+</h5>
+
+We've already decided [how we'll represent our data](#data-types), and we've established [functions that can be used](#functions) to get the necessary data; the last step is to incorporate the functions into classes that can perform logic and store states. They are referred to as [Participants](https://docs.reach.sh/rsh/appinit/#rsh_Participant) in Reach.
+</summary>
+<p>
+<ol>
+
+<li>
+<h5>
+
+[Adding an Auctioneer Pariticipant]()
+</h5>
+
+- We saw how to collect data using input and output functions in the [functions](#functions) section; now let's add the necessary data to our auctioneer participant.
+
+```javascript
+const Auctioneer = Participant('Auctioneer', {
+    //getSale function.
+    getSale: Fun([], Object({
+        nftId: Token,
+        minBid: UInt,
+        lenInBlocks: UInt,
+    })),
+    //auctionReady function.
+    auctionReady: Fun([], Null),
+
+    //seeBid function.
+    seeBid: Fun([Address, UInt], Null),
+
+    //showOutcome function.
+    showOutcome: Fun([Address, UInt], Null),
+});
+```
+- Here, we create an Auctioneer participant with the name 'Auctioneer' and the auction data.
+
+- We used the [`getSale`](#get-sale) function to get the NFT data from the frontend.
+
+- We used the [`auctionReady`](#auction-ready) function to notify the Auctioneer when the auction is ready.
+
+- We used the [`seeBid`](#see-bid) function to notify the Auctioneer when a bidder has placed a bid.
+
+- We used the [`showOutcome`](#show-outcome) function to notify the Auctioneer when the auction is over and who the winner is.
+
+</li>
+
+<li>
+<h5>
+
+[Adding a Bidder Participant.]()
+</h5>
+
+- A participant class will also be used for the bidder. However, unlike the Auctioneer, who is a single actor, we anticipate that multiple bidders will be added to the contract.
+
+- Reach provides a way of representing multiple participants with the [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) class.
+
+- Consider the API to be a representation of multiple participants racing toward a common goal.
+
+- In our case, we anticipate that Bidders will be able to [place a bid](#place-bid).
+
+```javascript
+const Bidder = API('Bidder', {
+    //Bidder interface.
+    bid: Fun([UInt], Tuple(UInt,Address, UInt)),
+});
+```
+- A Bidder interface is available for representing multiple bidders.
+
+- Each bidder will have a [bid](#place-bid) function through which they can place a bid.
+
+> One benefit of the Reach API is that functions can be called from the frontend.
+
+</li>
+
+</ol>
+
+</p>
+</details>
+</li>
+
+<li>
+<details>
+<summary>
+<h5>
+
+
+[Initializing the contract.](https://docs.reach.sh/rsh/appinit/#init)
+
+##
+</h5>
+
+What happens after the actors/participants are created.
+</summary>
+<p>
+
+So far we've only discussed the API and the Participant. However, there are
+other [Reach interfaces](https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-exprs) that we have not covered include [Views](https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-view) and [Events](https://docs.reach.sh/rsh/appinit/#rsh_Events).
+
+These interfaces represent which functions and classes the frontend should replicate and should be placed before the 'init()' statement.
+
+```javascript
+
+const newParticipant = Participant(participantName, participantInteractInterface)
+
+const newAPI = API(APIName, APIInteractInterface)
+
+const newView = View(ViewName, ViewInteractInterface)
+
+const newEvent = Events(EventName, EventInteractInterface)
+
+init()
+
+// Consensus step or local step.
+```
+`init()` symbolizes the beginning of the DApp to be compiled. In other words, anything that follows the `init` statement is either a local step or a consensus step.
+</p>
+</details>
+</li>
+
+<li>
+<details>
+<summary>
+<h5>
+
+
+[Using Local Steps.](https://docs.reach.sh/model/#term_local%20step)
+
+##
+</h5>
+
+What follows the 'init()' statement.
+</summary>
+<p>
+
+<ul>
+<li>
+<h5>
+
+[Local Private](https://docs.reach.sh/model/#p_33) Step.
+</h5>
+When the 'init()' statement is executed, the DApp enters a [local private](https://docs.reach.sh/model/#p_33) step.
+This means that any information accessed is only available on the participant's local machine.
+</li>
+<li>
+<h5>
+
+[Local Public](https://docs.reach.sh/model/#p_33) Step.
+</h5>
+Local private is not very useful if we have information that we need other actors to access, such as NFT data.
+So, how do we make the transition from local private to local public?
+
+- To accomplish this, we use [Reach declassify](https://docs.reach.sh/rsh/local/#rsh_declassify).
+
+> [Reach declassify](https://docs.reach.sh/rsh/local/#rsh_declassify) allows you to send data from the frontend to the backend. To get the NFT information from the frontend, let's test this with the 'Auctioneer' participants' ['getSale'](#get-sale) function.
+
+```javascript
+//declassify function.
+Auctioneer.only(() => {
+    const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
+});
+```
+- `Auctioneer.[only]()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can access this function.
+
+- `interact` is a function used to get information from the frontend.
+
+- `declassify` makes the information public.
+
+> Here, we are interacting with the `Auctioneer` frontend and `await`ing the result (const {nftId, minBid, lenInBlocks}).
+
+The information is public but it's still local. Let's move to a consensus step to publicize the information on the contract.
+</li>
+</ul>
+
+
+</p>
+</details>
+</li>
+
+<li>
+<details>
+<summary>
+<h5>
+
+
+[Using Consensus Steps.](https://docs.reach.sh/rsh/consensus/#ref-programs-consensus)
+
+##
+</h5>
+
+Publishing information onto the contract.
+</summary>
+<p>
+
+Reach provides a few mechanisms that can assist us in moving from a local step to a consensus step.
+
+<ol>
+<li>
+<h5>
+
+[Publish](https://docs.reach.sh/rsh/consensus/)
+</h5>
+
+We can use [Reach Publish](https://docs.reach.sh/rsh/consensus/) to share NFT information with the contract during the consensus step.
+
+```javascript
+Auctioneer.publish(nftId, minBid, lenInBlocks);
+```
+- `Auctioneer.publish()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can publish this information 
+onto the contract.
+</li>
+
+## 
+> Using [Commit()](https://docs.reach.sh/rsh/consensus/#rsh_commit)
+
+Once in a consensus step, we can use [Commit()] to return to a local step (https://docs.reach.sh/rsh/consensus/#rsh_commit).
+
+How does this help the integrity of the DApp?
+- Security reasons
+
+We use commit to ensure that we are back in a 'local private' state before performing sensitive functions like contract payments.
+
+```javascript
+
+commit();
+
+```
+
+<li>
+<h5>
+
+[Pay](https://docs.reach.sh/rsh/step/#rsh_pay)
+</h5>
+
+We can now transfer the NFT from the Auctioneer to the contract because we are back in a 'local private' step.
+
+```javascript
+Auctioneer.pay([[1, nftId]])
+```
+- The `Auctioneer.pay()` function ensures that only the `Auctioneer`, i.e. the contract's creator, can pay.
+- We are submitting one NFT Token for auction to the contract.
+</li>
+
+> Because an NFT should be unique, we send [1] NFT. Rather than sending the 'UInt 1' directly, we can store the information in a variable.
+
+```javascript
+const amt = 1;
+```
+
+Then, Pay becomes :
+```javascript
+Auctioneer.pay([[amt, nftId]])
+```
+
+The DApp now has the information it needs to conduct an auction. The auction logic is all that remains. But first, let us inform the Auctioneer that the [auction is ready](#auction-ready).
+
+```javascript
+Auctioneer.interact.auctionReady();
+```
+</ol>
+</p>
+</details>
+</li>
+
+</ol>
+
+</details>
+</li>
+
+<li>
+
+<details>
+<summary>
+<h4>
+
+[What consensus transfer can we use for the auction ?](https://docs.reach.sh/guide/ctransfers/#guide-ctransfers)
+
+##
+</h4>
+
+Now let's take a look at the consensus transfer that we can use for the auction.
+</summary>
+<p>
+
+When it comes to consensus transfer, or when multiple actors come together to agree on a single state, we can determine which consensus approach to use by asking ourselves a few [questions](https://docs.reach.sh/guide/ctransfers/#p_10):
+
+1. How many participants can act at a particular time ?
+
+2. How many things can be done ?
+
+3. How many times can it be done ?
+
+##
+
+We could use [Pay](https://docs.reach.sh/rsh/step/#publish—-pay—-when—and—timeout) to transfer tokens to the contract if there was only one participant. However, because multiple bidders are expected to compete, we can use a [Reach Race](https://docs.reach.sh/rsh/step/#rsh_race).
+A reach race allows multiple actors to compete for the publication of a consensus step. 
+
+However, there is a problem with this solution; the race function only runs once, and we need to allow bidders to place as many bids as they want as long as two conditions are met:
+
+- The bid is placed before timeout.
+
+- The bid placed is larger than the last bid placed.
+
+##
+
+We need to put the race in a while loop that allows us to do this. A while loop that runs until timeout is reached.
+
+Alternatively, [Reach Parallel Reduce](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce) can be used. In a parallel, actors are racing against the clock to publish data onto the contract.
+Parallel reduce uses a while loop that resolves the auction to a single outcome or winner.
+
+Parallel reduce is a recursive algorithm that generates a single winner from a tree of bidders.
+
+```javascript
+   const [winner] = parallelReduce([Auctioneer])
+```
+
+> The Auctioneer is the default winner before any bids are placed.
+
+However, this is not a complete solution; for a closer look at the format, see [Reach Parallel Reduce](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce).
+For now we're going to look at how we can use parallel reduce for the auction.
+
+<ul>
+<li>
+<h5>
+
+[The Invariant](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.invariant)
+</h5>
+
+```javascript
+.invatiant(balance() == 0)
+```
+After each iteration, the invariant is checked to ensure that the parallel reduce is still valid. We're checking to see if the balance is zero.
+</li>
+<li>
+<h5>
+
+[The While loop](https://docs.reach.sh/rsh/consensus/#rsh_while)
+</h5>
+
+```javascript
+.while(lastConsensusTime() < timeOut)
+```
+The while loop is active as long as the [lastConsensusTime](https://docs.reach.sh/rsh/compute/#rsh_lastConsensusTime) is less than the time out value.
+> The time of the last consensus step is represented by the lastConsensusTime (The last time a pay,publish or transfer was used).
+</li>
+</ul>
+</p>
+</details>
+</li>
+
+</ol>
+
+</p>
+</details>

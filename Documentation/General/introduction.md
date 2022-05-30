@@ -1,23 +1,35 @@
-# Introduction.
-Welcome to my NFT auction tutorial! This tutorial will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This tutorial will cover the following topics:
+<details>
+<summary>
+<h1>
 
-1. Creating a new NFT auction
+Introduction.
+</h1>
+</summary>
 
-2. Adding items to the auction
+Welcome to my NFT auction workshop! This workshop will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
 
-3. Bidding on items in the auction
+1. Common Terminologies.
 
-4. Ending the auction
+1. Define the use case and requirements for the DApp.
 
-5. Withdrawing your winnings
+2. Choose a suitable blockchain platform on which to build the DApp.
 
-I hope you enjoy this tutorial!
+3. Develop the DApp using the chosen blockchain platform’s programming language and tools.
 
-In this tutorial, we will be introducing the NFT auction workshop and the reach programming language. We will be covering the basics of the reach language and how to use it to create smart contracts such as the NFT auction.
+4. Test the DApp to ensure it works as intended.
+
+5. Deploy the DApp on the chosen blockchain platform.
+
+6. Promote the DApp to users and encourage them to use it.
+
+I hope you enjoy this workshop!
+
+In this workshop, we will be introducing the NFT auction workshop and the reach programming language..
+> The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step by step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
 
 Here are some of the key concepts that we will be repeating throughout the workshop:
 
-## [Reach Programming Language](https://docs.reach.sh/rsh/)
+## [What is Reach Programming Language](https://docs.reach.sh/rsh/)
 
 The reach programming language is a language specifically designed for writing smart contracts on the blockchain. It is a statically typed, functional programming language that can be used on multiple blockchains with a focus on safety and security. 
 
@@ -43,3 +55,5 @@ A token is a digital asset that is used to represent a stake in a decentralized 
 ## [What is a blockchain?]()
 
 A blockchain is a distributed database that is used to store data in a secure and tamper-proof way. Blockchains are used to power decentralized applications.
+
+</details>
