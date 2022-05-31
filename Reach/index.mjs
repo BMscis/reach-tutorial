@@ -41,7 +41,7 @@ const startBidders = async () => {
             //console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
             console.log("Lodging")
         } catch (e) {
-            //console.log(`${who} failed to bid, because ${e} is too high`);
+            //console.log(`${who} failed to bid, because is too high`);
             console.log("Lodging")
         }
         console.log(`${who} balance after is ${await getBal()}`);

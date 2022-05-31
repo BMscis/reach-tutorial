@@ -6,7 +6,7 @@ In this workshop we will design an application that allows a participant to put 
 
 The first step in any program design is to perform a problem analysis working backwards from the problem we want to solve to what we will need to solve it. We also have to assess the constraints and work within the margins of the tools we will use to solve the problem.
 
-In our case, let's ask the questions we will need :
+In our case, let's ask the questions we will need:
 
 1. ### Who is involved in this application ?
 

@@ -11,9 +11,9 @@ the frontend.
 </summary>
 <p>
 
-- In order to implement the **Auction** the `Auctioneer` will have to  provide the following :
+- In order to implement the **Auction** the `Auctioneer` will have to  provide the following:
 
-    > + An NFT token to be auctioned.
+    > + A NFT token to be auctioned.
     > + A starting price for the auction.
     > + A duration for the auction.
 
@@ -30,16 +30,16 @@ the frontend.
         lenInBlocks: UInt,
     })),
     ```
-    Let's decipher the `getSale()` function :
+    Let's decipher the `getSale()` function:
     > - `Fun([], UInt)` is a Reach function that takes no arguments and returns a UInt.
 
-    > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties :
+    > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties:
     
     > - `nftId` is `Type` token.
     > - `minBid` is `Type` UInt.
     > - `lenInBlocks` is `Type` UInt.
 
-- Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties :
+- Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties:
     - `nftId`.
     - `minBid`.
     - `lenInBlocks`.
@@ -70,7 +70,7 @@ the frontend.
     ```
     > `SeeOutcome` sends the winner `Address` and the bid `UInt` to the frontend.
 
-Let's add these function into the `index.rsh` file.
+Let's add this function into the `index.rsh` file.
 
 [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipantInterface/index.rsh)
 

@@ -1,23 +1,26 @@
-# Introduction.
+# Introduction
+
 Welcome to my NFT auction tutorial! This tutorial will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This tutorial will cover the following topics:
 
-1. Creating a new NFT auction
+1. Common Terminologies.
 
-2. Adding items to the auction
+1. Project Initialization.
 
-3. Bidding on items in the auction
+3. Deploying the Backend and the Frontend.
 
-4. Ending the auction
+4. Test the DApp to ensure it works as intended.
 
-5. Withdrawing your winnings
+5. Deploy the DApp on the chosen blockchain platform.
+
+6. Promote the DApp to users and encourage them to use it.
 
 I hope you enjoy this tutorial!
 
-In this tutorial, we will be introducing the NFT auction workshop and the reach programming language. We will be covering the basics of the reach language and how to use it to create smart contracts such as the NFT auction.
+In this tutorial, we will introduce the NFT auction tutorial and the reach programming language.
 
-Here are some of the key concepts that we will be repeating throughout the workshop:
+Here are some of the key concepts that will appear throughout the tutorial:
 
-## [Reach Programming Language](https://docs.reach.sh/rsh/)
+## [What is Reach Programming Language](https://docs.reach.sh/rsh/)
 
 The reach programming language is a language specifically designed for writing smart contracts on the blockchain. It is a statically typed, functional programming language that can be used on multiple blockchains with a focus on safety and security. 
 

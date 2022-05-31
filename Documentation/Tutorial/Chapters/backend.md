@@ -121,9 +121,9 @@ the frontend.
 </summary>
 <p>
 
-- In order to implement the **Auction** the `Auctioneer` will have to  provide the following :
+- In order to implement the **Auction** the `Auctioneer` will have to  provide the following:
 
-    > + An NFT token to be auctioned.
+    > + A NFT token to be auctioned.
     > + A starting price for the auction.
     > + A duration for the auction.
 
@@ -140,16 +140,16 @@ the frontend.
         lenInBlocks: UInt,
     })),
     ```
-    Let's decipher the `getSale()` function :
+    Let's decipher the `getSale()` function:
     > - `Fun([], UInt)` is a Reach function that takes no arguments and returns a UInt.
 
-    > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties :
+    > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties:
     
     > - `nftId` is `Type` token.
     > - `minBid` is `Type` UInt.
     > - `lenInBlocks` is `Type` UInt.
 
-- Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties :
+- Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties:
     - `nftId`.
     - `minBid`.
     - `lenInBlocks`.
@@ -180,7 +180,7 @@ the frontend.
     ```
     > `SeeOutcome` sends the winner `Address` and the bid `UInt` to the frontend.
 
-Let's add these function into the `index.rsh` file.
+Let's add this function into the `index.rsh` file.
 
 [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipantInterface/index.rsh)
 
@@ -238,7 +238,7 @@ The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows
 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
 
-Let's break down the `bid()` function :
+Let's break down the `bid()` function:
 - It takes in a `[UInt]` from the frontend, which is the bid amount.
 - It returns a `Tuple(UInt,Address, UInt)` from the backend, which we will implement later.
 
@@ -328,7 +328,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 
 Since we are building a NFT-auction, we need a NFT to be auctioned. 
 
-As described in the beginning, we will need :
+As described in the beginning, we will need:
 
 - Nft Id
 - Nft price
@@ -511,7 +511,7 @@ Here we will `assert` that the contract balance and consensus time has changed.
 
 Reach provides various checks that we can use to check the current state of the contract.
 
-We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to check wether the `amt` we paid above has been reflected.
+We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to check whether the `amt` we paid above has been reflected.
 
 ```javascript
 assert(balance(nftId) == amt, "balance of NFT is wrong");
@@ -946,7 +946,7 @@ export const main = Reach.App(() => {
 <summary>
 <h3>
 
-Setting up onwership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
+Setting up ownership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
 </h3>
 
 Transferring the NFT to the winner of the auction.

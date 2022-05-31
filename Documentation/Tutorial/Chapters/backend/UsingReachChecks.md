@@ -12,7 +12,7 @@ Here we will `assert` that the contract balance and consensus time has changed.
 
 Reach provides various checks that we can use to check the current state of the contract.
 
-We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to check wether the `amt` we paid above has been reflected.
+We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to check whether the `amt` we paid above has been reflected.
 
 ```javascript
 assert(balance(nftId) == amt, "balance of NFT is wrong");

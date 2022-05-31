@@ -24,10 +24,10 @@ Welcome to my NFT auction workshop! This workshop will teach you the basics of p
 
 I hope you enjoy this workshop!
 
-In this workshop, we will be introducing the NFT auction workshop and the reach programming language..
-> The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step by step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
+In this workshop, we will introduce the NFT auction workshop and the reach programming language.
+> The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step-by-step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
 
-Here are some of the key concepts that we will be repeating throughout the workshop:
+Here are some of the key concepts that will appear throughout the workshop:
 
 ## [What is Reach Programming Language](https://docs.reach.sh/rsh/)
 
@@ -37,8 +37,8 @@ The reach programming language is a language specifically designed for writing s
 
 An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
 
-## [What is an NFT?]()
-An NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+## [What is a NFT?]()
+A NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
 
 ## [What is a DApp?]()
 

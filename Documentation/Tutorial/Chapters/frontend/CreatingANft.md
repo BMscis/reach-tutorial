@@ -17,7 +17,7 @@ If we take a look at `index.rsh` we see that the `Auctioneer`.`getSale` function
 ```javascript
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 ```
-Let's decipher the parameters :
+Let's decipher the parameters:
 - `Account` = `launchToken` expects the account of the auctioneer of the token. In our instance, `accCreator` is the auctioneer of the token.
 - `name` = `launchToken` expects the name of the token. In our instance, `bumple` is the name of the token.
 - `sym` = `launchToken` expects the symbol of the token. In our instance, `NFT` is the symbol of the token.

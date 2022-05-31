@@ -374,7 +374,7 @@ code {
 <p>Here's a summary of what we hope to achieve at the end of this workshop.</p>
 </summary>
 <p>
-<p>The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.</p>
+<p>The purpose of this workshop is to create a NFT auction and get bidders to race to get the highest bid with a limited amount of time.</p>
 <p>Let's breakdown some concepts that we need to understand before we ask critical questions.</p>
 <ol>
 <li>
@@ -447,7 +447,7 @@ Let's run through the objectives :
 <h3>
 <p><a href="">Expected Input.</a></p>
 </h3>
-<p>We expect the decentralized application to handle :</p>
+<p>We expect the decentralized application to handle:</p>
 <ul>
 <li>
 <p>A NFT to be sent to the decentralized app.</p>
@@ -512,7 +512,7 @@ Let's run through the objectives :
 <p>Who will be involved in executing the contract ?</p>
 </li>
 <li>
-<p>What tasks should be completed to make a successful auction ?</p>
+<p>What tasks should be completed to make a successful auction?</p>
 </li>
 <li>
 <p>What data types will be used to hold program information ?</p>
@@ -521,7 +521,7 @@ Let's run through the objectives :
 <p>What functions can we use to help the actors participate ?</p>
 </li>
 <li>
-<p>What algorithms can we use to run an honest auction ?</p>
+<p>What algorithms can we use to run an honest auction?</p>
 </li>
 </ol>
 </p>
@@ -536,7 +536,7 @@ Let's run through the objectives :
 <p>Here we will answer the questions we asked during the problem analysis.</p>
 </summary>
 <p>
-<p>The purpose of this workshop is to create an NFT auction and get bidders to race to get the highest bid with a limited amount of time.</p>
+<p>The purpose of this workshop is to create a NFT auction and get bidders to race to get the highest bid with a limited amount of time.</p>
 <p>Let's breakdown some questions we need to answer before we can design the DAPP.</p>
 <h1 id=""></h1>
 <ol>
@@ -720,7 +720,7 @@ Let's run through the objectives :
 </h5>
 <ul>
 <li>
-<p>In order to add a NFT to the contract, we will need :</p>
+<p>In order to add a NFT to the contract, we will need:</p>
 <ol>
 <li>
 <p>The NFT ID.</p>
@@ -888,7 +888,7 @@ transfer(<span class="hljs-string">`UInt`</span>).to(<span class="hljs-string">`
     <span class="hljs-attr">lenInBlocks</span>: UInt,
 })
 </div></code></pre>
-<p>Let's add this to the function :</p>
+<p>Let's add this to the function:</p>
 <pre class="hljs"><code><div>getSale: Fun([], <span class="hljs-built_in">Object</span>({
     <span class="hljs-attr">nftId</span>: Token,
     <span class="hljs-attr">minBid</span>: UInt,
@@ -901,7 +901,7 @@ transfer(<span class="hljs-string">`UInt`</span>).to(<span class="hljs-string">`
 <p><a href="#place-bid">Allowing a bidder to place a bid.</a></p>
 </h5>
 <ul>
-<li>Bidders will also be expected to place bid i.e. Call a bid function from the frontend.</li>
+<li>Bidders will also be expected to place bid i.e., Call a bid function from the frontend.</li>
 </ul>
 <pre class="hljs"><code><div>
 <span class="hljs-attr">bid</span>: Fun([UInt], Null),
@@ -933,13 +933,13 @@ transfer(<span class="hljs-string">`UInt`</span>).to(<span class="hljs-string">`
 <details>
 <summary>
 <h3>
-<p><a href="">Which tasks should we run to make a successful auction ?</a></p>
+<p><a href="">Which tasks should we run to make a successful auction?</a></p>
 <h2 id=""></h2>
 </h3>
 <p>Introduction to <a href="https://docs.reach.sh/rsh/step/">Reach Steps</a></p>
 </summary>
 <p>Here, we will be introducing new concepts that will be useful to understand how Reach works.</p>
-<p>Reach can be in two states :</p>
+<p>Reach can be in two states:</p>
 <ul>
 <li>Local step</li>
 <li>Consensus step</li>
@@ -969,7 +969,7 @@ now the final step is to add the functions into classes that can perform logic a
 <ol>
 <li>
 <h5>
-<p><a href="">Adding an Auctioneer Pariticipant</a></p>
+<p><a href="">Adding an Auctioneer Participant</a></p>
 </h5>
 <ul>
 <li>In the <a href="#functions">functions</a> section, we saw how we could use input and output functions to collect data, now
@@ -1118,7 +1118,7 @@ Auctioneer.only(<span class="hljs-function"><span class="hljs-params">()</span> 
 </div></code></pre>
 <ul>
 <li>
-<p><code>Auctioneer.[only]()</code> function makes sure that only the <code>Auctioneer</code> i.e the creator of the contract, can access this function.</p>
+<p><code>Auctioneer.[only]()</code> function makes sure that only the <code>Auctioneer</code> i.e., the creator of the contract, can access this function.</p>
 </li>
 <li>
 <p><code>interact</code> is a function used to get information from the frontend.</p>
@@ -1158,7 +1158,7 @@ to share NFT information with the contract.</p>
 <pre class="hljs"><code><div>Auctioneer.publish(nftId, minBid, lenInBlocks);
 </div></code></pre>
 <ul>
-<li><code>Auctioneer.publish()</code> function makes sure that only the <code>Auctioneer</code> i.e the creator of the contract, can publish this information
+<li><code>Auctioneer.publish()</code> function makes sure that only the <code>Auctioneer</code> i.e., the creator of the contract, can publish this information
 onto the contract.</li>
 </ul>
 </li>
@@ -1186,12 +1186,12 @@ commit();
 <pre class="hljs"><code><div>Auctioneer.pay([[<span class="hljs-number">1</span>, nftId]])
 </div></code></pre>
 <ul>
-<li><code>Auctioneer.pay()</code> function makes sure that only the <code>Auctioneer</code> i.e the creator of the contract, can pay.</li>
+<li><code>Auctioneer.pay()</code> function makes sure that only the <code>Auctioneer</code> i.e., the creator of the contract, can pay.</li>
 <li>We are sending one NFT Token to the contract to be auctioned.</li>
 </ul>
 </li>
 <blockquote>
-<p>We send [1] NFT because an NFT should be unique. Instead of directly sending the <code>UInt 1</code>, we can put it in a variable so that we can store the information.</p>
+<p>We send [1] NFT because a NFT should be unique. Instead of directly sending the <code>UInt 1</code>, we can put it in a variable so that we can store the information.</p>
 </blockquote>
 <pre class="hljs"><code><div><span class="hljs-keyword">const</span> amt = <span class="hljs-number">1</span>;
 </div></code></pre>

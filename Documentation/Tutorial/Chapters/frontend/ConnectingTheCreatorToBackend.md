@@ -63,7 +63,7 @@ await ctcCreator.participants.Auctioneer({
 Implementing the `getSale` function.
 </H4>
 
-`getSale` function requires three parameters : `nftId`, `minBid` and `lenInBlocks`.
+`getSale` function requires three parameters: `nftId`, `minBid` and `lenInBlocks`.
 </summary>
 <p>
 

@@ -2,7 +2,7 @@
 <summary>
 <h3>
 
-Setting up onwership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
+Setting up ownership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
 </h3>
 
 Transferring the NFT to the winner of the auction.

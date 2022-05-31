@@ -1,9 +1,7 @@
 <details>
 <summary>
-<h1>
 
-Introduction.
-</h1>
+# Introduction.
 </summary>
 
 Welcome to my NFT auction workshop! This workshop will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
@@ -16,16 +14,11 @@ Welcome to my NFT auction workshop! This workshop will teach you the basics of p
 
 3. Develop the DApp using the chosen blockchain platform’s programming language and tools.
 
-4. Test the DApp to ensure it works as intended.
-
-5. Deploy the DApp on the chosen blockchain platform.
-
-6. Promote the DApp to users and encourage them to use it.
 
 I hope you enjoy this workshop!
 
-In this workshop, we will be introducing the NFT auction workshop and the reach programming language..
-> The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step by step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
+In this workshop, we will be introducing the NFT auction workshop and the reach programming language.
+> The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step-by-step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
 
 Here are some of the key concepts that we will be repeating throughout the workshop:
 
@@ -37,8 +30,8 @@ The reach programming language is a language specifically designed for writing s
 
 An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
 
-## [What is an NFT?]()
-An NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+## [What is a NFT?]()
+a NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
 
 ## [What is a DApp?]()
 
@@ -60,10 +53,8 @@ A blockchain is a distributed database that is used to store data in a secure an
 
 <details>
 <summary>
-<h2>
 
-Defining the Use Case and Requirements.       
-</h2>
+## Defining the Use Case and Requirements.       
 
 </summary>
 <p>
@@ -72,7 +63,7 @@ Defining the Use Case and Requirements.
 
 ## Use Cases
 
-An NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
+A NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
 </li>
 <li>
 
@@ -88,20 +79,16 @@ An NFT auction is a mechanism for exchanging NFTs between participants. The use 
 
 <details>
 <summary>
-<h2>
 
-Choosing a Blockchain Platform.        
-</h2>
+## Choosing a Blockchain Platform.        
 </summary>
 <p>
 
-## Selecting a Blockchain Platform
-
-Reach is a programming language that supports multiple blockchains, including Algorand, Ethereum, and Conflux. This allows developers to create applications that can interact with multiple blockchain networks.This makes Reach a powerful tool for building cross-chain applications.
+Reach is a programming language that supports multiple blockchains, including Algorand, Ethereum, and Conflux. This allows developers to create applications that can interact with multiple blockchain networks. This makes Reach a powerful tool for building cross-chain applications.
 
 What this means is that we can write just one contract and let Reach deal with the complexities of deploying it to multiple blockchains.
 
-You can learn more about that here :
+You can learn more about that here:
 
 👉 [Using Reach with multiple blockchains](https://docs.reach.sh/networks/#ref-network-algo)
 </p>
@@ -109,10 +96,8 @@ You can learn more about that here :
 
 <details>
 <summary>
-<h2>
 
-Developing the DApp.        
-</h2>
+## Developing the DApp.        
 
 Developing the DApp using Problem Analysis and Problem Design.
 </summary>
@@ -120,10 +105,8 @@ Developing the DApp using Problem Analysis and Problem Design.
 
 <details>
 <summary>
-<h3>
 
-Problem Analysis
-</h3>
+### Problem Analysis
 
 Now that we have a basic understanding of the concepts we need to know, we can start to ask some critical questions.
 </summary>
@@ -170,24 +153,22 @@ As a programmer we need to understand the problem that we are trying to solve. H
 
 These questions are pertinent to the development of an internal conversation. However, 
 because we are developing a DApp, we can reframe the problem by limiting the questions 
-to defining the data that we expect the DApp to handle :
+to defining the data that we expect the DApp to handle:
 
 <details>
 <summary>
-<h4>
 
-Performing Data Analysis.
-</h4>
+#### Performing Data Analysis.
 
-Turning the information we know to data.
+Turning the information, we know to data.
 </summary>
 <p>
 <ol>
 <li>
-<h5>
 
-What information does the DApp need to track?
-</h5>
+
+##### What information does the DApp need to track?
+
 
 - The NFT being auctioned.
 
@@ -206,10 +187,10 @@ What information does the DApp need to track?
 - Bidder Address.
 </li>
 <li>
-<h5>
 
-What information does the DApp need to display?
-</h5>
+
+##### What information does the DApp need to display?
+
 
 Each participant in the auction will require the following information:
 
@@ -223,7 +204,7 @@ Each participant in the auction will require the following information:
 
 However, depending on the role of the participant, the auction may limit how much information each participant has access to.
 
-If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as :
+If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as:
 
 - Adding an NFT to the contract.
 
@@ -233,10 +214,10 @@ If the participant is an auctioneer, for example, they can access functions that
 The bidder, on the other hand, does not need to know much. In fact, once a bidder joins the DApp, all they need to see is the highest bid price.
 </li>
 <li>
-<h5>
 
-How should the app handle user input?
-</h5>
+
+##### How should the app handle user input?
+
 
 The DApp needs to differentiate private data and public data. Private data should only be accessible to a local computer while public data can be displayed
 on the blockchain.
@@ -247,54 +228,52 @@ on the blockchain.
 </details>
 <details>
 <summary>
-<h4>
 
-Functional Requirements.
-</h4>
+#### Functional Requirements.
 
 In this section, we look at the functions provided by the Reach language that we can use to run the auction.
 </summary>
 <p>
 <ol>
 <li>
-<h5>
 
-How can we create a new DApp in Reach.
-</h5>
+
+##### How can we create a new DApp in Reach.
+
 
 We'll have to take a look at the Reach syntax to conform to the methods available to us?
 </li>
 <li>
-<h5>
 
-How will we send the NFT to the contract?
-</h5>
+
+##### How will we send the NFT to the contract?
+
 
 To ensure that the DApp is truly decentralized, we'll need the deployer to forfeit ownership of the NFT until the 
 auction is over.
 </li>
 <li>
-<h5>
 
-How can we publish the NFT being auctioned to the blockchain.
-</h5>
+
+##### How can we publish the NFT being auctioned to the blockchain.
+
 
 We'll have to make the NFT information public to all participants.
 </li>
 <li>
-<h5>
 
-How can we allow a bidder to OPT-IN to the DApp.
-</h5>
+
+##### How can we allow a bidder to OPT-IN to the DApp.
+
 
 There has to be a frontend mechanism that allows the bidder to opt-in to the DApp
 and place a bid.
 </li>
 <li>
-<h5>
 
-How will we perform transfers?
-</h5>
+
+##### How will we perform transfers?
+
 
 Once the auction is done, we'll need to transfer the highest bid to the Auctioneer and the NFT to the winner.
 </li>
@@ -303,10 +282,8 @@ Once the auction is done, we'll need to transfer the highest bid to the Auctione
 </details>
 <details>
 <summary>
-<h4>
 
-Consensus Mechanisms.
-</h4>
+#### Consensus Mechanisms.
 
 We'll also need to look at what Reach offers when it comes to consensus.
 </summary>
@@ -316,22 +293,22 @@ Reaching consensus means that all parties involved in a decision-making process 
 
 <ol>
 <li>
-<h5>
 
-How can we ensure that the auction is conducted in a safe and secure manner?
-</h5>
+
+##### How can we ensure that the auction is conducted in a safe and secure manner?
+
 </li>
 <li>
-<h5>
 
-How can we secure data that is private?
-</h5>
+
+##### How can we secure data that is private?
+
 </li>
 <li>
-<h5>
 
-How can we run an open auction on the blockchain?
-</h5>
+
+##### How can we run an open auction on the blockchain?
+
 </li>
 </ol>
 </p>
@@ -340,16 +317,14 @@ How can we run an open auction on the blockchain?
 
 <details>
 <summary>
-<h3>
 
-Problem Design
-</h3>
+### Problem Design
 
 Let us attempt to respond to the questions raised at [Problem Analysis](#problem-analysis).
 </summary>
 <p>
 
-The goal of this workshop is to establish an NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
+The goal of this workshop is to establish a NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
 
 Let's go through some of the questions we need to address before we can start designing the DAPP.
 
@@ -360,12 +335,9 @@ Let's go through some of the questions we need to address before we can start de
 
 <details>
 <summary>
-<h4>
 
-[In which programming language will we build our DAPP?]()
+#### [In which programming language will we build our DAPP?]()
 
-##
-</h4>
 
 [Reach](https://docs.reach.sh/#reach-top) is a domain-specific language for developing distributed applications. 
 </summary>
@@ -374,14 +346,13 @@ Let's go through some of the questions we need to address before we can start de
 <li>
 <details>
 <summary>
-<h5>
 
-[Reach Module](https://docs.reach.sh/rsh/module/)
-</h5>
 
-The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` as it's first line and stored in a `index.rsh` file.
+##### [Reach Module](https://docs.reach.sh/rsh/module/)
 
-##
+
+The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version type` on the first line and stored in a `index.rsh` file.
+
 </summary>
 <p>
 
@@ -400,10 +371,10 @@ The [Reach Module](https://docs.reach.sh/rsh/module/) must begin with a `version
 <li>
 <details>
 <summary>
-<h5>
 
-[Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
-</h5>
+
+##### [Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+
 
 The [Reach App](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) specifies the DAPP in it's entirety. It is the body of the DAPP.
 </summary>
@@ -428,10 +399,10 @@ export const main = Reach.App(() => {
 <li>
 <details>
 <summary>
-<h5>
 
-[Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
-</h5>
+
+##### [Reach Participant](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs).
+
 
 A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor that participates in a DAPP and is assigned an address on the consensus network. A Reach participant is capable of storing persistent data on the local state.
 </summary>
@@ -457,10 +428,10 @@ export const main = Reach.App(() => {
 <li>
 <details>
 <summary>
-<h5>
 
-[Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API).
-</h5>
+
+##### [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API).
+
 
 A [Reach API](https://docs.reach.sh/rsh/appinit/#rsh_API) is a group of [Reach Participants](https://docs.reach.sh/rsh/module/#ref-programs-module-exprs) competing in a DAPP to achieve the same goal.
 </summary>
@@ -494,12 +465,8 @@ export const main = Reach.App(() => {
 
 <details>
 <summary>
-<h4>
 
-[Thinking Data Analysis.](#performing-data-analysis)
-
-##
-</h4>
+#### [Thinking Data Analysis.](#performing-data-analysis)
 
 To decide which types to use to represent our data, we can use reach [Types](https://docs.reach.sh/rsh/compute/#ref-programs-types).
 </summary>
@@ -510,21 +477,20 @@ We can examine our expected input and output and attempt to convert all of that 
 <li>
 <details>
 <summary>
-<h5>
 
 
-Processing Output Data
 
-##
-</h5>
+##### Processing Output Data
+
+
 
 Let's look at the `Reach Types` that we'll be using to represent our output data.
 </summary>
 <p>
-<h5>
 
-Announcing a winner at the end of the auction.
-</h5>
+
+##### Announcing a winner at the end of the auction.
+
 
 - We will need the participant to learn new information in order to announce a winner:
 
@@ -548,22 +514,22 @@ Announcing a winner at the end of the auction.
 
 <details>
 <summary>
-<h5>
 
-Processing Input Data
+
+##### Processing Input Data
 
 ##
-</h5>
+
 
 Let's look at the 'Reach Types' we'll be using to represent our input data.
 </summary>
 <p>
-<h5>
 
-Adding the NFT for the auction.
-</h5>
 
-- We will need the following data to add an NFT to the contract:
+##### Adding the NFT for the auction.
+
+
+- We will need the following data to add a NFT to the contract:
 
   1. The NFT ID.
 
@@ -596,12 +562,8 @@ Adding the NFT for the auction.
 
 <details>
 <summary>
-<h4>
 
-[Testing Functional Requirements.](#functional-requirements)
-
-##
-</h4>
+#### [Testing Functional Requirements.](#functional-requirements)
 
 To decide which types to use to represent our data, we can use the Reach [Functions type](https://docs.reach.sh/rsh/compute/#rsh_Fun).
 </summary>
@@ -613,12 +575,11 @@ Reach [Functions type](https://docs.reach.sh/rsh/compute/#rsh_Fun) will be usefu
 <li>
 <details>
 <summary>
-<h5>
 
-Output Functions.
 
-##
-</h5>
+##### Output Functions.
+
+
 
 Output functions that will notify our frontend.
 </summary>
@@ -626,10 +587,10 @@ Output functions that will notify our frontend.
 <ol>
 
 <li>
-<h5>
 
-[At the end of the auction, a winner is announced.](#show-outcome)
-</h5>
+
+##### [At the end of the auction, a winner is announced.](#show-outcome)
+
 
 - We will need the participant to learn new information in order to announce a winner:
 
@@ -651,10 +612,10 @@ showOutcome: Fun([Address, UInt], Null),
 </li>
 
 <li>
-<h5>
 
-[Transferring the NFT to the winner.](#transfer-nft)
-</h5>
+
+##### [Transferring the NFT to the winner.](#transfer-nft)
+
 
 - We will need to transfer the NFT from the contract to the winner once the auction is completed.
 
@@ -668,10 +629,10 @@ transfer(`UInt`,`Token`).to(`Address`);
 When a condition is met, `transfer` takes a `amount` (`UInt`), a `Token`, and transfers the amount to an `Address`.
 </li>
 <li>
-<h5>
 
-[Transferring the highest bid to the auctioneer.](#transfer-amount)
-</h5>
+
+##### [Transferring the highest bid to the auctioneer.](#transfer-amount)
+
 
 - Once the auction is over, we must transfer the highest bid to the auctioneer.
 
@@ -693,12 +654,11 @@ When a condition is met, `transfer` takes a `amount` (`UInt`) and transfers it t
 <li>
 <details>
 <summary>
-<h5>
 
-Input Functions.
 
-##
-</h5>
+##### Input Functions.
+
+
 
 Input functions will be used to inform our frontend about what the backend expects, as well as to call backend functions from the frontend.
 </summary>
@@ -706,10 +666,10 @@ Input functions will be used to inform our frontend about what the backend expec
 <ol>
 
 <li>
-<h5>
 
-[Receiving the NFT to be auctioned from the frontend.](#get-sale)
-</h5>
+
+##### [Receiving the NFT to be auctioned from the frontend.](#get-sale)
+
 
 Because it is the auctioneers' responsibility to include the NFT in the contract, we will ensure that only the Auctioneer is capable of setting the NFT.
 
@@ -743,7 +703,7 @@ Object({
 })
 ```
 
-Let's add this to the function :
+Let's add this to the function:
 
 ```javascript
 getSale: Fun([], Object({
@@ -755,12 +715,12 @@ getSale: Fun([], Object({
 </li>
 
 <li>
-<h5>
 
-[Allowing a bidder to place a bid.](#place-bid)
-</h5>
 
-- Bidders must also place a bid, i.e. call a bid function from the frontend.
+##### [Allowing a bidder to place a bid.](#place-bid)
+
+
+- Bidders must also place a bid, i.e., call a bid function from the frontend.
 
 ```javascript
 
@@ -772,10 +732,10 @@ bid: Fun([UInt], Null),
 </li>
 
 <li>
-<h5>
 
-[Alerting when the auction is ready.](#auction-ready)
-</h5>
+
+##### [Alerting when the auction is ready.](#auction-ready)
+
 
 - When the auction is ready to begin, we can also notify the Auctioneer.
 
@@ -801,23 +761,19 @@ auctionReady: Fun([], Null),
 
 <details>
 <summary>
-<h4>
 
-[Looking at Consensus Mechanisms.](#consensus-mechanisms)
-
-##
-</h4>
+#### [Looking at Consensus Mechanisms.](#consensus-mechanisms)
 
 Introduction to [Reach Steps](https://docs.reach.sh/rsh/step/)
 </summary>
 
 In this section, we will introduce new concepts that will help you understand how Reach works.
 
-Reach can be in two states :
+Reach can be in two states:
 - Local step
 - Consensus step
 
-The majority of DAPPs include a creator, an actor, a wager, and a condition. Before a contract becomes autonomous, the creator publishes the wager and condition criteria. Once the creator has done this, they have no control over the outcome and cannot pause the contract once it has begun. The bidder can view the contract on the blockchain and decide whether or not to participate.
+The majority of DAPPs include a creator, an actor, a wager, and a condition. Before a contract becomes autonomous, the creator publishes the wager and condition criteria. Once the creator has done this, they have no control over the outcome and cannot pause the contract once it has begun. The bidder can view the contract on the blockchain and decide whether to participate.
 
 Local steps are performed locally by a single actor, whereas consensus steps are performed on the blockchain in consensus.
 Local steps exist to ensure that each actor is unaware of what any other actor is up to in order to improve anonymity and security. 
@@ -831,12 +787,12 @@ Let's go over the tasks that we'll need to complete in order to have a successfu
 <li>
 <details>
 <summary>
-<h5>
 
-[Adding Actors]()
+
+##### [Adding Actors]()
 
 ##
-</h5>
+
 
 We've already decided [how we'll represent our data](#data-types), and we've established [functions that can be used](#functions) to get the necessary data; the last step is to incorporate the functions into classes that can perform logic and store states. They are referred to as [Participants](https://docs.reach.sh/rsh/appinit/#rsh_Participant) in Reach.
 </summary>
@@ -844,10 +800,10 @@ We've already decided [how we'll represent our data](#data-types), and we've est
 <ol>
 
 <li>
-<h5>
 
-[Adding an Auctioneer Pariticipant]()
-</h5>
+
+##### [Adding an Auctioneer Participant]()
+
 
 - We saw how to collect data using input and output functions in the [functions](#functions) section; now let's add the necessary data to our auctioneer participant.
 
@@ -882,10 +838,10 @@ const Auctioneer = Participant('Auctioneer', {
 </li>
 
 <li>
-<h5>
 
-[Adding a Bidder Participant.]()
-</h5>
+
+##### [Adding a Bidder Participant.]()
+
 
 - A participant class will also be used for the bidder. However, unlike the Auctioneer, who is a single actor, we anticipate that multiple bidders will be added to the contract.
 
@@ -918,13 +874,13 @@ const Bidder = API('Bidder', {
 <li>
 <details>
 <summary>
-<h5>
 
 
-[Initializing the contract.](https://docs.reach.sh/rsh/appinit/#init)
+
+##### [Initializing the contract.](https://docs.reach.sh/rsh/appinit/#init)
 
 ##
-</h5>
+
 
 What happens after the actors/participants are created.
 </summary>
@@ -957,13 +913,13 @@ init()
 <li>
 <details>
 <summary>
-<h5>
 
 
-[Using Local Steps.](https://docs.reach.sh/model/#term_local%20step)
+
+##### [Using Local Steps.](https://docs.reach.sh/model/#term_local%20step)
 
 ##
-</h5>
+
 
 What follows the 'init()' statement.
 </summary>
@@ -971,18 +927,18 @@ What follows the 'init()' statement.
 
 <ul>
 <li>
-<h5>
 
-[Local Private](https://docs.reach.sh/model/#p_33) Step.
-</h5>
+
+##### [Local Private](https://docs.reach.sh/model/#p_33) Step.
+
 When the 'init()' statement is executed, the DApp enters a [local private](https://docs.reach.sh/model/#p_33) step.
 This means that any information accessed is only available on the participant's local machine.
 </li>
 <li>
-<h5>
 
-[Local Public](https://docs.reach.sh/model/#p_33) Step.
-</h5>
+
+##### [Local Public](https://docs.reach.sh/model/#p_33) Step.
+
 Local private is not very useful if we have information that we need other actors to access, such as NFT data.
 So, how do we make the transition from local private to local public?
 
@@ -996,7 +952,7 @@ Auctioneer.only(() => {
   const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
 });
 ```
-- `Auctioneer.[only]()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can access this function.
+- `Auctioneer.[only]()` function makes sure that only the `Auctioneer` i.e., the creator of the contract, can access this function.
 
 - `interact` is a function used to get information from the frontend.
 
@@ -1016,13 +972,13 @@ The information is public but it's still local. Let's move to a consensus step t
 <li>
 <details>
 <summary>
-<h5>
 
 
-[Using Consensus Steps.](https://docs.reach.sh/rsh/consensus/#ref-programs-consensus)
+
+##### [Using Consensus Steps.](https://docs.reach.sh/rsh/consensus/#ref-programs-consensus)
 
 ##
-</h5>
+
 
 Publishing information onto the contract.
 </summary>
@@ -1032,17 +988,17 @@ Reach provides a few mechanisms that can assist us in moving from a local step t
 
 <ol>
 <li>
-<h5>
 
-[Publish](https://docs.reach.sh/rsh/consensus/)
-</h5>
+
+##### [Publish](https://docs.reach.sh/rsh/consensus/)
+
 
 We can use [Reach Publish](https://docs.reach.sh/rsh/consensus/) to share NFT information with the contract during the consensus step.
 
 ```javascript
 Auctioneer.publish(nftId, minBid, lenInBlocks);
 ```
-- `Auctioneer.publish()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can publish this information 
+- `Auctioneer.publish()` function makes sure that only the `Auctioneer` i.e., the creator of the contract, can publish this information 
 onto the contract.
 </li>
 
@@ -1063,17 +1019,17 @@ commit();
 ```
 
 <li>
-<h5>
 
-[Pay](https://docs.reach.sh/rsh/step/#rsh_pay)
-</h5>
+
+##### [Pay](https://docs.reach.sh/rsh/step/#rsh_pay)
+
 
 We can now transfer the NFT from the Auctioneer to the contract because we are back in a 'local private' step.
 
 ```javascript
 Auctioneer.pay([[1, nftId]])
 ```
-- The `Auctioneer.pay()` function ensures that only the `Auctioneer`, i.e. the contract's creator, can pay.
+- The `Auctioneer.pay()` function ensures that only the `Auctioneer`, i.e., the contract's creator, can pay.
 - We are submitting one NFT Token for auction to the contract.
 </li>
 
@@ -1107,12 +1063,8 @@ Auctioneer.interact.auctionReady();
 
 <details>
 <summary>
-<h4>
 
-[What consensus transfer can we use for the auction ?](https://docs.reach.sh/guide/ctransfers/#guide-ctransfers)
-
-##
-</h4>
+#### [What consensus transfer can we use for the auction ?](https://docs.reach.sh/guide/ctransfers/#guide-ctransfers)
 
 Now let's take a look at the consensus transfer that we can use for the auction.
 </summary>
@@ -1120,11 +1072,11 @@ Now let's take a look at the consensus transfer that we can use for the auction.
 
 When it comes to consensus transfer, or when multiple actors come together to agree on a single state, we can determine which consensus approach to use by asking ourselves a few [questions](https://docs.reach.sh/guide/ctransfers/#p_10):
 
-1. How many participants can act at a particular time ?
+1. How many participants can act at a particular time?
 
-2. How many things can be done ?
+2. How many things can be done?
 
-3. How many times can it be done ?
+3. How many times can it be done?
 
 ##
 
@@ -1157,10 +1109,10 @@ For now we're going to look at how we can use parallel reduce for the auction.
 
 <ul>
 <li>
-<h5>
 
-[The Invariant](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.invariant)
-</h5>
+
+##### [The Invariant](https://docs.reach.sh/rsh/consensus/#rsh_parallelReduce.invariant)
+
 
 ```javascript
 .invatiant(balance() == 0)
@@ -1168,10 +1120,10 @@ For now we're going to look at how we can use parallel reduce for the auction.
 After each iteration, the invariant is checked to ensure that the parallel reduce is still valid. We're checking to see if the balance is zero.
 </li>
 <li>
-<h5>
 
-[The While loop](https://docs.reach.sh/rsh/consensus/#rsh_while)
-</h5>
+
+##### [The While loop](https://docs.reach.sh/rsh/consensus/#rsh_while)
+
 
 ```javascript
 .while(lastConsensusTime() < timeOut)

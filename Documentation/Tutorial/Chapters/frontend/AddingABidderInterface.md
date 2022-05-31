@@ -48,7 +48,7 @@ const startBidders = async () => {
             const [ latestBid,lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
             console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
         } catch (e) {
-            console.log(`${who} failed to bid, because ${e} is too high`);
+            console.log(`${who} failed to bid, because is too high`);
         }
         console.log(`${who} balance after is ${await getBal()}`);
     };
@@ -115,7 +115,7 @@ const startBidders = async () => {
     ```
 - `console.log("${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}.");` prints the `Bidder` name and the `Bidder` name of the last `Bidder` who bid.
 
-- `console.log("${who} failed to bid, because ${e} is too high");`. If the bid is to low, the `try` statement will catch the error from the backend.
+- `console.log("${who} failed to bid, because is too high");`. If the bid is to low, the `try` statement will catch the error from the backend.
 
 - `console.log("${who} balance after is ${await getBal()}");` prints the `Bidder` name and the balance after the bid.
 
@@ -139,7 +139,7 @@ To test the auction, let's add three `Bidder`s, **Alice**, **Bob**, and **Claire
 Running the Auction
 </H4>
 
-How will we run the auction ?
+How will we run the auction?
 </summary>
 <p>
 

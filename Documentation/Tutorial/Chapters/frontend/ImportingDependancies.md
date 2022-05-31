@@ -29,7 +29,7 @@ We also need to import the backend.
 ```shell
 ./reach compile
 ```
-Reach will transpile the `index.rsh` file to `index.main.mjs` and output it to `build/index.main.mjs`. The `index.main.mjs` file will contain all the code we need to interact with our backend contract. We can now import `index.main.mjs` into our application
+Reach will trans pile the `index.rsh` file to `index.main.mjs` and output it to `build/index.main.mjs`. The `index.main.mjs` file will contain all the code we need to interact with our backend contract. We can now import `index.main.mjs` into our application
 
 ```javascript
 import * as backend from './build/index.main.mjs';

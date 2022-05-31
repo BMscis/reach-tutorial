@@ -54,7 +54,7 @@ const startBidders = async () => {
             const [ latestBid,lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
             console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
         } catch (e) {
-            console.log(`${who} failed to bid, because ${e} is too high`);
+            console.log(`${who} failed to bid, because is too high`);
         }
         console.log(`${who} balance after is ${await getBal()}`);
     };

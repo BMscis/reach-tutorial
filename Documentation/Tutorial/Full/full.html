@@ -5,7 +5,7 @@
 [NFT AUCTION](https://github.com/BMscis/reach-tutorial/) WITH [REACH](https://docs.reach.sh/#reach-top)lang.
 </h1>
 
-Implementing an NFT auction with REACH on Algorand and Ethereum.
+Implementing a NFT auction with REACH on Algorand and Ethereum.
 </summary>
 <p>
 <ul>
@@ -35,7 +35,7 @@ Let's summarize what we will be implementing.
 
 1. A `Auctioneer` will initialize the contract and provide three variables:
 
-    - An NFT Token.
+    - A NFT Token.
     - An initial bid.
     - A time limit.
 
@@ -200,9 +200,9 @@ the frontend.
 </summary>
 <p>
 
-- In order to implement the **Auction** the `Auctioneer` will have to  provide the following :
+- In order to implement the **Auction** the `Auctioneer` will have to  provide the following:
 
-    > + An NFT token to be auctioned.
+    > + A NFT token to be auctioned.
     > + A starting price for the auction.
     > + A duration for the auction.
 
@@ -219,16 +219,16 @@ the frontend.
         lenInBlocks: UInt,
     })),
     ```
-    Let's decipher the `getSale()` function :
+    Let's decipher the `getSale()` function:
     > - `Fun([], UInt)` is a Reach function that takes no arguments and returns a UInt.
 
-    > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties :
+    > - `Object({nftId: Token,minBid: UInt,lenInBlocks: UInt,})` is a Reach object that has the following properties:
     
     > - `nftId` is `Type` token.
     > - `minBid` is `Type` UInt.
     > - `lenInBlocks` is `Type` UInt.
 
-- Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties :
+- Therefore, the `getSale()` function will be called by the backend, and it will expect the frontend to return an `Object` with the following properties:
     - `nftId`.
     - `minBid`.
     - `lenInBlocks`.
@@ -259,7 +259,7 @@ the frontend.
     ```
     > `SeeOutcome` sends the winner `Address` and the bid `UInt` to the frontend.
 
-Let's add these function into the `index.rsh` file.
+Let's add this function into the `index.rsh` file.
 
 [`index.rsh`](https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/backend/AddingAParticipantInterface/index.rsh)
 
@@ -317,7 +317,7 @@ The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows
 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
 
-Let's break down the `bid()` function :
+Let's break down the `bid()` function:
 - It takes in a `[UInt]` from the frontend, which is the bid amount.
 - It returns a `Tuple(UInt,Address, UInt)` from the backend, which we will implement later.
 
@@ -407,7 +407,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 
 Since we are building a NFT-auction, we need a NFT to be auctioned. 
 
-As described in the beginning, we will need :
+As described in the beginning, we will need:
 
 - Nft Id
 - Nft price
@@ -590,7 +590,7 @@ Here we will `assert` that the contract balance and consensus time has changed.
 
 Reach provides various checks that we can use to check the current state of the contract.
 
-We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to check wether the `amt` we paid above has been reflected.
+We can use reach [assert](https://docs.reach.sh/rsh/compute/#rsh_assert) to check whether the `amt` we paid above has been reflected.
 
 ```javascript
 assert(balance(nftId) == amt, "balance of NFT is wrong");
@@ -1025,7 +1025,7 @@ export const main = Reach.App(() => {
 <summary>
 <h3>
 
-Setting up onwership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
+Setting up ownership [Transfer](https://docs.reach.sh/rsh/consensus/#rsh_transfer)
 </h3>
 
 Transferring the NFT to the winner of the auction.
@@ -1221,7 +1221,7 @@ We also need to import the backend.
 ```shell
 ./reach compile
 ```
-Reach will transpile the `index.rsh` file to `index.main.mjs` and output it to `build/index.main.mjs`. The `index.main.mjs` file will contain all the code we need to interact with our backend contract. We can now import `index.main.mjs` into our application
+Reach will trans pile the `index.rsh` file to `index.main.mjs` and output it to `build/index.main.mjs`. The `index.main.mjs` file will contain all the code we need to interact with our backend contract. We can now import `index.main.mjs` into our application
 
 ```javascript
 import * as backend from './build/index.main.mjs';
@@ -1290,7 +1290,7 @@ Creating a NFT with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken
 
 </h3>
 
-Adding an NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
+Adding a NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
 </summary>
 <p>
 
@@ -1301,7 +1301,7 @@ If we take a look at `index.rsh` we see that the `Auctioneer`.`getSale` function
 ```javascript
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 ```
-Let's decipher the parameters :
+Let's decipher the parameters:
 - `Account` = `launchToken` expects the account of the auctioneer of the token. In our instance, `accCreator` is the auctioneer of the token.
 - `name` = `launchToken` expects the name of the token. In our instance, `bumple` is the name of the token.
 - `sym` = `launchToken` expects the symbol of the token. In our instance, `NFT` is the symbol of the token.
@@ -1377,7 +1377,7 @@ await ctcCreator.participants.Auctioneer({
 Implementing the `getSale` function.
 </H4>
 
-`getSale` function requires three parameters : `nftId`, `minBid` and `lenInBlocks`.
+`getSale` function requires three parameters: `nftId`, `minBid` and `lenInBlocks`.
 </summary>
 <p>
 
@@ -1721,7 +1721,7 @@ const startBidders = async () => {
             const [ latestBid,lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
             console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
         } catch (e) {
-            console.log(`${who} failed to bid, because ${e} is too high`);
+            console.log(`${who} failed to bid, because is too high`);
         }
         console.log(`${who} balance after is ${await getBal()}`);
     };
@@ -1788,7 +1788,7 @@ const startBidders = async () => {
     ```
 - `console.log("${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}.");` prints the `Bidder` name and the `Bidder` name of the last `Bidder` who bid.
 
-- `console.log("${who} failed to bid, because ${e} is too high");`. If the bid is to low, the `try` statement will catch the error from the backend.
+- `console.log("${who} failed to bid, because is too high");`. If the bid is to low, the `try` statement will catch the error from the backend.
 
 - `console.log("${who} balance after is ${await getBal()}");` prints the `Bidder` name and the balance after the bid.
 
@@ -1812,7 +1812,7 @@ To test the auction, let's add three `Bidder`s, **Alice**, **Bob**, and **Claire
 Running the Auction
 </H4>
 
-How will we run the auction ?
+How will we run the auction?
 </summary>
 <p>
 
@@ -1898,7 +1898,7 @@ const startBidders = async () => {
             const [ latestBid,lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
             console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
         } catch (e) {
-            console.log(`${who} failed to bid, because ${e} is too high`);
+            console.log(`${who} failed to bid, because is too high`);
         }
         console.log(`${who} balance after is ${await getBal()}`);
     };
@@ -1965,7 +1965,7 @@ const startBidders = async () => {
     ```
 - `console.log("${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}.");` prints the `Bidder` name and the `Bidder` name of the last `Bidder` who bid.
 
-- `console.log("${who} failed to bid, because ${e} is too high");`. If the bid is to low, the `try` statement will catch the error from the backend.
+- `console.log("${who} failed to bid, because is too high");`. If the bid is to low, the `try` statement will catch the error from the backend.
 
 - `console.log("${who} balance after is ${await getBal()}");` prints the `Bidder` name and the balance after the bid.
 
@@ -1989,7 +1989,7 @@ To test the auction, let's add three `Bidder`s, **Alice**, **Bob**, and **Claire
 Running the Auction
 </H4>
 
-How will we run the auction ?
+How will we run the auction?
 </summary>
 <p>
 
@@ -2102,7 +2102,7 @@ const startBidders = async () => {
             const [ latestBid,lastBidder, lastBid ] = await ctc.apis.Bidder.bid(bid);
             console.log(`${who} out bid ${lastBidder} who bid ${stdlib.formatCurrency(lastBid)}. with ${stdlib.formatCurrency(latestBid)}`);
         } catch (e) {
-            console.log(`${who} failed to bid, because ${e} is too high`);
+            console.log(`${who} failed to bid, because is too high`);
         }
         console.log(`${who} balance after is ${await getBal()}`);
     };

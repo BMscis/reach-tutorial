@@ -11,7 +11,7 @@ Let's summarize what we will be implementing.
 
 1. A `Auctioneer` will initialize the contract and provide three variables:
 
-    - An NFT Token.
+    - A NFT Token.
     - An initial bid.
     - A time limit.
 

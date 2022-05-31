@@ -4,7 +4,7 @@ To get started,the reach programming language. You can find instructions on how 
 
 [Reach Quick Start](https://docs.nftworkshop.com/en/latest/getting-started.html).
 
-You can also find a working example here :
+You can also find a working example here:
 
 👇
 

@@ -61,7 +61,7 @@ As a programmer we need to understand the problem that we are trying to solve. H
 
 These questions are pertinent to the development of an internal conversation. However, 
 because we are developing a DApp, we can reframe the problem by limiting the questions 
-to defining the data that we expect the DApp to handle :
+to defining the data that we expect the DApp to handle:
 
 <details>
 <summary>
@@ -70,7 +70,7 @@ to defining the data that we expect the DApp to handle :
 Performing Data Analysis.
 </h4>
 
-Turning the information we know to data.
+Turning the information, we know to data.
 </summary>
 <p>
 <ol>
@@ -114,9 +114,9 @@ Each participant in the auction will require the following information:
 
 However, depending on the role of the participant, the auction may limit how much information each participant has access to.
 
-If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as :
+If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as:
 
-- Adding an NFT to the contract.
+- Adding a NFT to the contract.
 
 - Deciding when the auction will start.
 
@@ -240,7 +240,7 @@ Let us attempt to respond to the questions raised at [Problem Analysis](#problem
 </summary>
 <p>
 
-The goal of this workshop is to establish an NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
+The goal of this workshop is to establish a NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
 
 Let's go through some of the questions we need to address before we can start designing the DAPP.
 
@@ -454,7 +454,7 @@ Let's look at the 'Reach Types' we'll be using to represent our input data.
 Adding the NFT for the auction.
 </h5>
 
-- We will need the following data to add an NFT to the contract:
+- We will need the following data to add a NFT to the contract:
 
   1. The NFT ID.
 
@@ -634,7 +634,7 @@ Object({
 })
 ```
 
-Let's add this to the function :
+Let's add this to the function:
 
 ```javascript
 getSale: Fun([], Object({
@@ -651,7 +651,7 @@ getSale: Fun([], Object({
 [Allowing a bidder to place a bid.](#place-bid)
 </h5>
 
-- Bidders must also place a bid, i.e. call a bid function from the frontend.
+- Bidders must also place a bid, i.e., call a bid function from the frontend.
 
 ```javascript
 
@@ -704,11 +704,11 @@ Introduction to [Reach Steps](https://docs.reach.sh/rsh/step/)
 
 In this section, we will introduce new concepts that will help you understand how Reach works.
 
-Reach can be in two states :
+Reach can be in two states:
 - Local step
 - Consensus step
 
-The majority of DAPPs include a creator, an actor, a wager, and a condition. Before a contract becomes autonomous, the creator publishes the wager and condition criteria. Once the creator has done this, they have no control over the outcome and cannot pause the contract once it has begun. The bidder can view the contract on the blockchain and decide whether or not to participate.
+The majority of DAPPs include a creator, an actor, a wager, and a condition. Before a contract becomes autonomous, the creator publishes the wager and condition criteria. Once the creator has done this, they have no control over the outcome and cannot pause the contract once it has begun. The bidder can view the contract on the blockchain and decide whether to participate.
 
 Local steps are performed locally by a single actor, whereas consensus steps are performed on the blockchain in consensus.
 Local steps exist to ensure that each actor is unaware of what any other actor is up to in order to improve anonymity and security. 
@@ -737,7 +737,7 @@ We've already decided [how we'll represent our data](#data-types), and we've est
 <li>
 <h5>
 
-[Adding an Auctioneer Pariticipant]()
+[Adding an Auctioneer Participant]()
 </h5>
 
 - We saw how to collect data using input and output functions in the [functions](#functions) section; now let's add the necessary data to our auctioneer participant.
@@ -887,7 +887,7 @@ Auctioneer.only(() => {
   const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
 });
 ```
-- `Auctioneer.[only]()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can access this function.
+- `Auctioneer.[only]()` function makes sure that only the `Auctioneer` i.e., the creator of the contract, can access this function.
 
 - `interact` is a function used to get information from the frontend.
 
@@ -933,7 +933,7 @@ We can use [Reach Publish](https://docs.reach.sh/rsh/consensus/) to share NFT in
 ```javascript
 Auctioneer.publish(nftId, minBid, lenInBlocks);
 ```
-- `Auctioneer.publish()` function makes sure that only the `Auctioneer` i.e the creator of the contract, can publish this information 
+- `Auctioneer.publish()` function makes sure that only the `Auctioneer` i.e., the creator of the contract, can publish this information 
 onto the contract.
 </li>
 
@@ -964,11 +964,11 @@ We can now transfer the NFT from the Auctioneer to the contract because we are b
 ```javascript
 Auctioneer.pay([[1, nftId]])
 ```
-- The `Auctioneer.pay()` function ensures that only the `Auctioneer`, i.e. the contract's creator, can pay.
+- The `Auctioneer.pay()` function ensures that only the `Auctioneer`, i.e., the contract's creator, can pay.
 - We are submitting one NFT Token for auction to the contract.
 </li>
 
-> Because an NFT should be unique, we send [1] NFT. Rather than sending the 'UInt 1' directly, we can store the information in a variable.
+> Because a NFT should be unique, we send [1] NFT. Rather than sending the 'UInt 1' directly, we can store the information in a variable.
 
 ```javascript
 const amt = 1;
@@ -1000,7 +1000,7 @@ Auctioneer.interact.auctionReady();
 <summary>
 <h4>
 
-[What consensus transfer can we use for the auction ?](https://docs.reach.sh/guide/ctransfers/#guide-ctransfers)
+[What consensus transfer can we use for the auction?](https://docs.reach.sh/guide/ctransfers/#guide-ctransfers)
 
 ##
 </h4>
@@ -1011,11 +1011,11 @@ Now let's take a look at the consensus transfer that we can use for the auction.
 
 When it comes to consensus transfer, or when multiple actors come together to agree on a single state, we can determine which consensus approach to use by asking ourselves a few [questions](https://docs.reach.sh/guide/ctransfers/#p_10):
 
-1. How many participants can act at a particular time ?
+1. How many participants can act at a particular time?
 
-2. How many things can be done ?
+2. How many things can be done?
 
-3. How many times can it be done ?
+3. How many times can it be done?
 
 ##
 

@@ -53,7 +53,7 @@ export const main = Reach.App(() => {
 });
 ```
 
-Let's break down the `bid()` function :
+Let's break down the `bid()` function:
 - It takes in a `[UInt]` from the frontend, which is the bid amount.
 - It returns a `Tuple(UInt,Address, UInt)` from the backend, which we will implement later.
 
