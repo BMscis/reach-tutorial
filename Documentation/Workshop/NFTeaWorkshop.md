@@ -1,7 +1,8 @@
+# [NFT WORKSHOP WITH REACH](#nft-workshop-with-reach)
 <details>
 <summary>
 
-# Introduction.
+# [Introduction](#introduction)
 </summary>
 
 Welcome to my NFT auction workshop! This workshop will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
@@ -20,41 +21,41 @@ I hope you enjoy this workshop!
 In this workshop, we will be introducing the NFT auction workshop and the reach programming language.
 > The purpose of the workshop is to walk you through the thought process that went into developing the DApp. If you are looking for a step-by-step approach, please refer to the [NFT Auction Tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/full.md).
 
-Here are some of the key concepts that we will be repeating throughout the workshop:
-
-## [What is Reach Programming Language](https://docs.reach.sh/rsh/)
-
-The reach programming language is a language specifically designed for writing smart contracts on the blockchain. It is a statically typed, functional programming language that can be used on multiple blockchains with a focus on safety and security. 
-
-## [What is an auction?]()
-
-An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
-
-## [What is a NFT?]()
-a NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
-
-## [What is a DApp?]()
-
- A DApp is a type of decentralized application that is governed by a set of rules encoded on the blockchain.
-
-## [What is a smart contract?]()
-
-A smart contract is a computer program that runs on the blockchain and automatically executes transactions when certain conditions are met.
-
-## [What is a token?]()
-
-A token is a digital asset that is used to represent a stake in a decentralized application. Tokens can be used to purchase goods and services, or to participate in governance.
-
-## [What is a blockchain?]()
-
-A blockchain is a distributed database that is used to store data in a secure and tamper-proof way. Blockchains are used to power decentralized applications.
-
 </details>
+<details>
 
+<summary>
+
+# [Common Terminologies](#common-terminologies)
+</summary>
+
+  ## [What is an auction?]()
+
+  An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
+
+  ## [What is a NFT?]()
+  A NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+
+  ## [What is a DApp?]()
+
+  A DApp is a type of decentralized application that is governed by a set of rules encoded on the blockchain.
+
+  ## [What is a smart contract?]()
+
+  A smart contract is a computer program that runs on the blockchain and automatically executes transactions when certain conditions are met.
+
+  ## [What is a token?]()
+
+  A token is a digital asset that is used to represent a stake in a decentralized application. Tokens can be used to purchase goods and services, or to participate in governance.
+
+  ## [What is a blockchain?]()
+
+  A blockchain is a distributed database that is used to store data in a secure and tamper-proof way. Blockchains are used to power decentralized applications.
+</details>
 <details>
 <summary>
 
-## Defining the Use Case and Requirements.       
+## [Defining the Use Case and Requirements](#defining-the-use-case-and-requirements)  
 
 </summary>
 <p>
@@ -80,7 +81,7 @@ A NFT auction is a mechanism for exchanging NFTs between participants. The use c
 <details>
 <summary>
 
-## Choosing a Blockchain Platform.        
+## [Choosing a Blockchain Platform](#choosing-a-blockchain-platform)       
 </summary>
 <p>
 
@@ -97,7 +98,7 @@ You can learn more about that here:
 <details>
 <summary>
 
-## Developing the DApp.        
+## [Developing the DApp](#developing-the-dapp)       
 
 Developing the DApp using Problem Analysis and Problem Design.
 </summary>
@@ -1049,6 +1050,25 @@ The DApp now has the information it needs to conduct an auction. The auction log
 ```javascript
 Auctioneer.interact.auctionReady();
 ```
+<li>
+
+#### [Timeout](https://docs.reach.sh/rsh/step/#rsh_timeout)
+
+Every auction has a time limit, our auction is no exception. 
+
+An important concept in a blockchain is that of time. Reach keeps track of time in various ways, one way is to record the last time the contract was in consensus. What this means is any time a contract moves from a local step and uses a consensus step, it is recorded. Reach provides a function to get the last consensus time.
+
+```javascript
+const lastConsensus = lastConsensusTime();
+```
+In order, to set our timeout, we are going to get the `lastConsensusTime` and add the `lenInBlocks` to it.
+
+```javascript
+const end = lastConsensus + lenInBlocks;
+```
+
+We have established our timeout, we will see how to use it in the next step.
+</li>
 </ol>
 </p>
 </details>
@@ -1130,6 +1150,84 @@ After each iteration, the invariant is checked to ensure that the parallel reduc
 ```
 The while loop is active as long as the [lastConsensusTime](https://docs.reach.sh/rsh/compute/#rsh_lastConsensusTime) is less than the time-out value.
 > The time of the last consensus step is represented by the lastConsensusTime (The last time a pay, publish or transfer was used).
+</li>
+<li>
+
+#### [The api function](https://docs.reach.sh/rsh/step/#p_41)
+
+Parallel reduce accommodates functions that can be called at each iteration of the while loop. One such function is the `.api()` function.
+
+This functions can be used to call any function from the API interface. Remember our Bidder interface:
+
+```javascript
+const Bidder = API('Bidder', {
+  //Bidder interface.
+  bid: Fun([UInt], Tuple(UInt,Address, UInt)),
+});
+```
+We can now call the `bid` function from within the parallel reduce.
+But before we do that, let's look at the expected structure of the `.api()` function.
+
+```javascript
+.api(API_EXPR,
+  API_ASSUME_EXPR,
+  API_PAY_EXPR | [API_PAY_EXPR, PAY_REQUIRE_EXPR],
+  API_CONSENSUS_EXPR)
+```
+- `API_EXPR` is the function that is being called. In our case, the `API_EXPR` will be:
+```javascript
+.api(Bidder.bid)
+```
+- `API_ASSUME_EXPR` calls [Reach Assume](https://docs.reach.sh/rsh/local/#rsh_assume), a boolean function. In our case, we'll use this to confirm whether the latest bid is larger than the last bid in a **local step**.
+
+```javascript
+((bid) => { assume(bid > lastPrice, "bid is too low"); })
+```
+- `API_PAY_EXPR` is the `api pay` expression that sends money to the contract.
+```javascript
+((bid) => bid)
+```
+- `API_CONSENSUS_EXPR` is consensus expression that checks that all participants are in consensus and can also be used to notify the frontend of the API call.
+```javascript
+((bid, notify) => {
+    require(bid > lastPrice, "bid is too low");
+    notify([bid,highestBidder, lastPrice]);
+    if ( ! isFirstBid ) {
+        transfer(lastPrice).to(highestBidder);
+    }
+    Auctioneer.interact.seeBid(this, bid);
+    return [this, bid, false];
+})
+```
+  - We [`require`](https://docs.reach.sh/rsh/consensus/#rsh_require) that the bid is larger than the last bid on the **consensus network**.
+
+  - We [`notify`](https://docs.reach.sh/rsh/consensus/#rsh_notify) the [bid, highestBidder, lastPrice] to the API caller frontend.
+
+  - We do a check to see if the bid is the first bid. If it is not the first bid, we transfer the last price to the highest bidder. In other words, we return the last bid back to the bidders' wallet.
+
+  - We interact with the Auctioneers' frontend and call the `seeBid` function, showing him the latest bid.
+
+  - Finally, we return the `bidderAddress`, the `bid` and a boolean value of `false` to indicate that the bid is not the first bid.
+</li>
+<li>
+
+#### [Calling Timeout](https://docs.reach.sh/rsh/step/#p_46)
+
+Just like any other auction, we need a time limit. Parallel reduce can also be used to time out.
+
+```javascript
+.timeout(absoluteTime(end), () => {
+  Auctioneer.publish()
+  return [highestBidder, lastPrice, isFirstBid]; 
+});
+```
+- [`absoluteTime(end)`](https://docs.reach.sh/rsh/compute/#rsh_absoluteTime) is the consensus time at which the auction will end.
+
+- If the time is reached, we call the `publish` function on the Auctioneer. Which changes the `lastConsensusTime` to the current time. Making our while loop argument `false`.
+
+- Then finally, we return the `highestBidder`, the `lastPrice` and a boolean value of `false`.
+
+Great, now that we have a basic understanding of some key concepts, you can now head over to the [tutorial](https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Full/NFTeaTutorial.md) and see the DApp in action.
 </li>
 </ul>
 </p>
