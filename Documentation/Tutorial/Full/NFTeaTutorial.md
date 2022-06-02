@@ -180,7 +180,7 @@ The reach programming language is a language specifically designed for writing s
 
                 export const main = Reach.App(() => {
 
-                    //++ Add Auctioneer.
+                    // Add Auctioneer.
                     const Auctioneer = Participant('Auctioneer', {
                         //Implement Auctioneer interact interface here.
                     });
@@ -210,7 +210,7 @@ The reach programming language is a language specifically designed for writing s
                 #### [Step 1.]() The `Auctioneer` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
 
                 ```javascript
-                //++ Add getSale function.
+                // Add getSale function.
                 getSale: Fun([], Object({
                     nftId: Token,
                     minBid: UInt,
@@ -234,7 +234,7 @@ The reach programming language is a language specifically designed for writing s
                 #### [Step 2.]() Once the contract has been published onto the blockchain, we will need to notify the `Auctioneer`'s frontend that the auction is ready to be deployed.
 
                 ```javascript
-                //++ Add auctionReady function.
+                // Add auctionReady function.
                 auctionReady: Fun([], Null)
                 ```
                 #### [Step 3.]() We also need to allow the Auctioneer to see each bid in the auction.
@@ -242,14 +242,14 @@ The reach programming language is a language specifically designed for writing s
                 SeeBid sends a `Bidder`.`Address` and the latest bid `UInt` to the frontend.
 
                 ```javascript
-                //++ Add seeBid function.
+                // Add seeBid function.
                 seeBid: Fun([Address, UInt], Null),
                 ```
 
                 #### [Step 4.]() Finally, we will also allow the auctioneer to see the outcome of the auction.
 
                 ```javascript
-                //++ Add showOutcome function.
+                // Add showOutcome function.
                 seeOutcome: Fun([], Object({
                     winner: Address,
                     bid: UInt,
@@ -269,19 +269,19 @@ The reach programming language is a language specifically designed for writing s
                     
                     // Deployer of the contract.
                     const Auctioneer = Participant('Auctioneer', {
-                        //++ Add getSale function.
+                        // Add getSale function.
                         getSale: Fun([], Object({
                             nftId: Token,
                             minBid: UInt,
                             lenInBlocks: UInt,
                         })),
-                        //++ Add auctionReady function.
+                        // Add auctionReady function.
                         auctionReady: Fun([], Null),
 
-                        //++ Add seeBid function.
+                        // Add seeBid function.
                         seeBid: Fun([Address, UInt], Null),
 
-                        //++ Add showOutcome function.
+                        // Add showOutcome function.
                         showOutcome: Fun([Address, UInt], Null),
                     });
 
@@ -297,7 +297,7 @@ The reach programming language is a language specifically designed for writing s
                 > This is how the function looks.
 
                 ```javascript
-                //++ Add this function to the Bidder interface.
+                // Add this function to the Bidder interface.
 
                 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
                 ```
@@ -416,7 +416,7 @@ The reach programming language is a language specifically designed for writing s
                     
                     init();
 
-                    //++ Add declassify function.
+                    // Add declassify function.
                     Auctioneer.only(() => {
                         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
                     });
@@ -491,19 +491,19 @@ The reach programming language is a language specifically designed for writing s
                         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
                     });
 
-                    //++ Add publish contract.
+                    // Add publish contract.
                     Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-                    //++ Add NFT amount.
+                    // Add NFT amount.
                     const amt = 1;
 
-                    //++ Add step into local-step.
+                    // Add step into local-step.
                     commit();
 
-                    //++ Add send NFT to contract.
+                    // Add send NFT to contract.
                     Auctioneer.pay([[amt, nftId]]);
 
-                    //++ Add notify frontend that contract is ready.
+                    // Add notify frontend that contract is ready.
                     Auctioneer.interact.auctionReady();
                 });
                 ```
@@ -587,13 +587,13 @@ The reach programming language is a language specifically designed for writing s
                 //notify frontend that contract is ready.
                 Auctioneer.interact.auctionReady();
 
-                //++ Add assertion to check NFT balance
+                // Add assertion to check NFT balance
                 assert(balance(nftId) == amt, "balance of NFT is wrong");
 
-                //++ Add checkpoint to set last publish time.
+                // Add checkpoint to set last publish time.
                 const lastConsensus = lastConsensusTime();
 
-                //++ Add blocktime to set auction duration.
+                // Add blocktime to set auction duration.
                 const end = lastConsensus + lenInBlocks;
             });
             ```
@@ -821,7 +821,7 @@ The reach programming language is a language specifically designed for writing s
                 // blocktime to set auction duration.
                 const end = lastConsensus + lenInBlocks;
 
-                //++ Add parallel reduce
+                // Add parallel reduce
                 const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
                 .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
                 .while(lastConsensusTime() < end)
@@ -959,7 +959,7 @@ The reach programming language is a language specifically designed for writing s
             return [highestBidder, lastPrice, isFirstBid]; 
         });
 
-        //++ Add Transfer NFT
+        // Add Transfer NFT
         transfer(amt, nftId).to(highestBidder);
 
         // Transfer Amount
@@ -1015,13 +1015,13 @@ The reach programming language is a language specifically designed for writing s
             > This is how it looks.
 
             ```javascript
-            //++ Add Import reach stdlib
+            // Add Import reach stdlib
             import { loadStdlib } from '@reach-sh/stdlib';
 
-            //++ Add Import contract backend
+            // Add Import contract backend
             import * as backend from './build/index.main.mjs';
 
-            //++ Add Load stdlib
+            // Add Load stdlib
             const stdlib = loadStdlib();
             ```
 
@@ -1032,10 +1032,10 @@ The reach programming language is a language specifically designed for writing s
             We will use reach standard library to create a test account with a starting balance of 100 network tokens.
 
             ```javascript
-            //++Add generate starting balance
+            //Add generate starting balance
             const startingBalance = stdlib.parseCurrency(100);
 
-            //++Add create test account
+            //Add create test account
             const accCreator = await stdlib.newTestAccount(startingBalance);
             ```
 
@@ -1066,7 +1066,7 @@ The reach programming language is a language specifically designed for writing s
             Now we will connect the test account to the backend.
 
             ```javascript
-            //++ Add connect account to backend contract.
+            // Add connect account to backend contract.
             const ctcCreator = accCreator.contract(backend);
             ```
             > `accCreator.contract(backend);` returns a ***Reach Contract*** that contains the contract address.
@@ -1076,7 +1076,7 @@ The reach programming language is a language specifically designed for writing s
             We can now connect to the backend `Auctioneer` interface with :
 
             ```javascript
-            //++ Add setting up the `Auctioneer` interface.
+            // Add setting up the `Auctioneer` interface.
             await ctcCreator.participants.Auctioneer({
                 // Specify Auctioneer interact interface here
             })
@@ -1090,7 +1090,7 @@ The reach programming language is a language specifically designed for writing s
                 `getSale` function requires three parameters: `nftId`, `minBid` and `lenInBlocks`.
 
                 ```javascript
-                //++ Add NFT params expected by the `getSale` function.
+                // Add NFT params expected by the `getSale` function.
                 const nftId = theNFT.id
                 const minBid = stdlib.parseCurrency(2);
                 let lenInBlocks = 10;
@@ -1101,7 +1101,7 @@ The reach programming language is a language specifically designed for writing s
 
 
                 ```javascript
-                //++ Add putting them in an object.
+                // Add putting them in an object.
                 const params = { 
                 nftId:nftId,
                 minBid:minBid,
@@ -1115,9 +1115,9 @@ The reach programming language is a language specifically designed for writing s
                 Let's add the `params` object to the `Auctioneer` interface.
 
                 ```javascript
-                //++ Add setting up the `Auctioneer` interface.
+                // Add setting up the `Auctioneer` interface.
                 await ctcCreator.participants.Auctioneer({
-                    // ++ Add get sale function.
+                    //  Add get sale function.
                     getSale: () => {
                         return params;
                     },
@@ -1132,11 +1132,11 @@ The reach programming language is a language specifically designed for writing s
 
                 ```javascript
                 await ctcCreator.participants.Auctioneer({
-                    // ++ Add get sale function.
+                    //  Add get sale function.
                     getSale: () => {
                         return params;
                     },
-                    // ++ Add seeBid function.
+                    //  Add seeBid function.
                     seeBid: (who, amt) => {
                         let newBidder = stdlib.formatAddress(who)
                         let newBid = stdlib.formatCurrency(amt)
@@ -1153,17 +1153,17 @@ The reach programming language is a language specifically designed for writing s
 
                 ```javascript
                 await ctcCreator.participants.Auctioneer({
-                    // ++ Add get sale function.
+                    //  Add get sale function.
                     getSale: () => {
                         return params;
                     },
-                    // ++ Add seeBid function.
+                    //  Add seeBid function.
                     seeBid: (who, amt) => {
                         let newBidder = stdlib.formatAddress(who)
                         let newBid = stdlib.formatCurrency(amt)
                         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
                     },
-                    // ++ Add showOutcome function.
+                    //  Add showOutcome function.
                     showOutcome: (winner, amt) => {
                         let newWinner = stdlib.formatAddress(winner)
                         let newAmt = stdlib.formatCurrency(amt)
@@ -1198,34 +1198,34 @@ The reach programming language is a language specifically designed for writing s
             // NFT asset.
             const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
-            //++ Add connect account to backend contract.
+            // Add connect account to backend contract.
             const ctcCreator = accCreator.contract(backend);
 
-            //++ Add NFT params expected by the `getSale` function.
+            // Add NFT params expected by the `getSale` function.
             const nftId = theNFT.id
             const minBid = stdlib.parseCurrency(2);
             let lenInBlocks = 10;
 
-            //++ Add putting them in an object.
+            // Add putting them in an object.
             const params = { 
                 nftId:nftId,
                 minBid:minBid,
                 lenInBlocks:lenInBlocks,
             };
 
-            //++ Add setting up the `Auctioneer` interface.
+            // Add setting up the `Auctioneer` interface.
             await ctcCreator.participants.Auctioneer({
-                // ++ Add get sale function.
+                //  Add get sale function.
                 getSale: () => {
                     return params;
                 },
-                // ++ Add seeBid function.
+                //  Add seeBid function.
                 seeBid: (who, amt) => {
                     let newBidder = stdlib.formatAddress(who)
                     let newBid = stdlib.formatCurrency(amt)
                     console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
                 },
-                // ++ Add showOutcome function.
+                //  Add showOutcome function.
                 showOutcome: (winner, amt) => {
                     let newWinner = stdlib.formatAddress(winner)
                     let newAmt = stdlib.formatCurrency(amt)
@@ -1240,7 +1240,7 @@ The reach programming language is a language specifically designed for writing s
             Let's create a test account for the `Bidder` `api` just as we did with the `Auctioneer`.
 
             ```javascript
-            // ++ Add test currrency.
+            //  Add test currrency.
             const startingBalance = stdlib.parseCurrency(100);
             // create test account
             const accBidder = await stdlib.newTestAccount(startingBalance);
@@ -1403,23 +1403,23 @@ The reach programming language is a language specifically designed for writing s
 
                 ```javascript
                 await ctcCreator.participants.Auctioneer({
-                    // ++ Add get sale function.
+                    //  Add get sale function.
                     getSale: () => {
                         return params;
                     },
-                    // ++ Add seeBid function.
+                    //  Add seeBid function.
                     seeBid: (who, amt) => {
                         let newBidder = stdlib.formatAddress(who)
                         let newBid = stdlib.formatCurrency(amt)
                         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
                     },
-                    // ++ Add showOutcome function.
+                    //  Add showOutcome function.
                     showOutcome: (winner, amt) => {
                         let newWinner = stdlib.formatAddress(winner)
                         let newAmt = stdlib.formatCurrency(amt)
                         console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
                     },
-                    // ++ Add startBidders function.
+                    //  Add startBidders function.
                     auctionReady: () => {
                         console.log("Auctioneer sees that the auction is ready.");
                         startBidders();
@@ -1467,7 +1467,7 @@ The reach programming language is a language specifically designed for writing s
         lenInBlocks:lenInBlocks,
     };
 
-    //++ Add Bidder Interface.
+    // Add Bidder Interface.
     let done = false;
     const bidders = [];
     const startBidders = async () => {
@@ -1521,7 +1521,7 @@ The reach programming language is a language specifically designed for writing s
             let newAmt = stdlib.formatCurrency(amt)
             console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
         },
-        // ++ Add startBidders function.
+        //  Add startBidders function.
         auctionReady: () => {
             console.log("Auctioneer sees that the auction is ready.");
             startBidders();

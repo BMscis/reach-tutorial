@@ -57,7 +57,7 @@ export const main = Reach.App(() => {
     // blocktime to set auction duration.
     const end = lastConsensus + lenInBlocks;
 
-    //++ Add parallel reduce
+    // Add parallel reduce
     const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)

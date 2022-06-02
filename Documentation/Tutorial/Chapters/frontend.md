@@ -174,7 +174,7 @@ Let's add what we have so far into [`index.rsh`](https://raw.githubusercontent.c
 
 export const main = Reach.App(() => {
 
-    //++ Add Auctioneer.
+    // Add Auctioneer.
     const Auctioneer = Participant('Auctioneer', {
         //Implement Auctioneer interact interface here.
     });
@@ -212,7 +212,7 @@ the frontend.
 
 1. The `Auctioneer` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
     ```javascript
-    //++ Add getSale function.
+    // Add getSale function.
     getSale: Fun([], Object({
         nftId: Token,
         minBid: UInt,
@@ -236,7 +236,7 @@ the frontend.
 2. Once the contract has been published onto the blockchain, we will need to notify the `Auctioneer`'s frontend that the auction is ready to be deployed.
 
     ```javascript
-    //++ Add auctionReady function.
+    // Add auctionReady function.
     auctionReady: Fun([], Null)
     ```
 3. We also need to allow the Auctioneer to see each bid in the auction.
@@ -244,14 +244,14 @@ the frontend.
     - SeeBid sends a `Bidder`.`Address` and the latest bid `UInt` to the frontend.
 
     ```javascript
-    //++ Add seeBid function.
+    // Add seeBid function.
     seeBid: Fun([Address, UInt], Null),
     ```
 
 4. Finally, we will also allow the auctioneer to see the outcome of the auction.
 
     ```javascript
-    //++ Add showOutcome function.
+    // Add showOutcome function.
     seeOutcome: Fun([], Object({
         winner: Address,
         bid: UInt,
@@ -272,19 +272,19 @@ export const main = Reach.App(() => {
     
     // Deployer of the contract.
     const Auctioneer = Participant('Auctioneer', {
-        //++ Add getSale function.
+        // Add getSale function.
         getSale: Fun([], Object({
             nftId: Token,
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        //++ Add auctionReady function.
+        // Add auctionReady function.
         auctionReady: Fun([], Null),
 
-        //++ Add seeBid function.
+        // Add seeBid function.
         seeBid: Fun([Address, UInt], Null),
 
-        //++ Add showOutcome function.
+        // Add showOutcome function.
         showOutcome: Fun([Address, UInt], Null),
     });
 
@@ -312,7 +312,7 @@ The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows
 > This is how the function looks.
 
 ```javascript
-//++ Add this function to the Bidder interface.
+// Add this function to the Bidder interface.
 
 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
@@ -466,7 +466,7 @@ export const main = Reach.App(() => {
     
     init();
 
-    //++ Add declassify function.
+    // Add declassify function.
     Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
@@ -554,19 +554,19 @@ export const main = Reach.App(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
-    //++ Add publish contract.
+    // Add publish contract.
     Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //++ Add NFT amount.
+    // Add NFT amount.
     const amt = 1;
 
-    //++ Add step into local-step.
+    // Add step into local-step.
     commit();
 
-    //++ Add send NFT to contract.
+    // Add send NFT to contract.
     Auctioneer.pay([[amt, nftId]]);
 
-    //++ Add notify frontend that contract is ready.
+    // Add notify frontend that contract is ready.
     Auctioneer.interact.auctionReady();
 });
 ```
@@ -677,13 +677,13 @@ export const main = Reach.App(() => {
     //notify frontend that contract is ready.
     Auctioneer.interact.auctionReady();
 
-    //++ Add assertion to check NFT balance
+    // Add assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
-    //++ Add checkpoint to set last publish time.
+    // Add checkpoint to set last publish time.
     const lastConsensus = lastConsensusTime();
 
-    //++ Add blocktime to set auction duration.
+    // Add blocktime to set auction duration.
     const end = lastConsensus + lenInBlocks;
 });
 ```
@@ -991,7 +991,7 @@ export const main = Reach.App(() => {
     // blocktime to set auction duration.
     const end = lastConsensus + lenInBlocks;
 
-    //++ Add parallel reduce
+    // Add parallel reduce
     const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)
@@ -1244,13 +1244,13 @@ Let's add what we have done so far into the [`index.mjs`](https://raw.githubuser
 > This is how it looks.
 
 ```javascript
-//++ Add Import reach stdlib
+// Add Import reach stdlib
 import { loadStdlib } from '@reach-sh/stdlib';
 
-//++ Add Import contract backend
+// Add Import contract backend
 import * as backend from './build/index.main.mjs';
 
-//++ Add Load stdlib
+// Add Load stdlib
 const stdlib = loadStdlib();
 ```
 </p>
@@ -1271,10 +1271,10 @@ Let's add a test account to our [`index.mjs`]((https://raw.githubusercontent.com
 We will use reach standard library to create a test account with a starting balance of 100 network tokens.
 
 ```javascript
-//++Add generate starting balance
+//Add generate starting balance
 const startingBalance = stdlib.parseCurrency(100);
 
-//++Add create test account
+//Add create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 ```
 
@@ -1337,7 +1337,7 @@ Now we will connect the test account to the backend.
 <p>
 
 ```javascript
-//++ Add connect account to backend contract.
+// Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 ```
 > `accCreator.contract(backend);` returns a ***Reach Contract*** that contains the contract address.
@@ -1357,7 +1357,7 @@ We can now connect to the backend `Auctioneer` interface with :
 <p>
 
 ```javascript
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
     // Specify Auctioneer interact interface here
 })
@@ -1382,7 +1382,7 @@ Implementing the `getSale` function.
 <p>
 
 ```javascript
-//++ Add NFT params expected by the `getSale` function.
+// Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 let lenInBlocks = 10;
@@ -1393,7 +1393,7 @@ let lenInBlocks = 10;
 
 
 ```javascript
-//++ Add putting them in an object.
+// Add putting them in an object.
 const params = { 
 nftId:nftId,
 minBid:minBid,
@@ -1419,9 +1419,9 @@ Let's add the `params` object to the `Auctioneer` interface.
 <p>
 
 ```javascript
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
@@ -1447,11 +1447,11 @@ Ass you recall, the `seeBid` function from the [`backend`](https://raw.githubuse
 
 ```javascript
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
@@ -1480,17 +1480,17 @@ The `showOutcome` function will notify the frontend, when the contract is ready 
 
 ```javascript
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
@@ -1536,34 +1536,34 @@ const accCreator = await stdlib.newTestAccount(startingBalance);
 // NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
-//++ Add connect account to backend contract.
+// Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-//++ Add NFT params expected by the `getSale` function.
+// Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 let lenInBlocks = 10;
 
-//++ Add putting them in an object.
+// Add putting them in an object.
 const params = { 
     nftId:nftId,
     minBid:minBid,
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
@@ -1594,7 +1594,7 @@ This how a bidder test account will look like.
 Let's create a test account for the `Bidder` `api` just as we did with the `Auctioneer`.
 
 ```javascript
-// ++ Add test currrency.
+//  Add test currrency.
 const startingBalance = stdlib.parseCurrency(100);
 // create test account
 const accBidder = await stdlib.newTestAccount(startingBalance);
@@ -1820,23 +1820,23 @@ Remember the auctioneer interface, we are going to add the `startBidders` functi
 
 ```javascript
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
-    // ++ Add startBidders function.
+    //  Add startBidders function.
     auctionReady: () => {
         console.log("Auctioneer sees that the auction is ready.");
         startBidders();
@@ -1997,23 +1997,23 @@ Remember the auctioneer interface, we are going to add the `startBidders` functi
 
 ```javascript
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
-    // ++ Add startBidders function.
+    //  Add startBidders function.
     auctionReady: () => {
         console.log("Auctioneer sees that the auction is ready.");
         startBidders();
@@ -2079,7 +2079,7 @@ const params = {
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add Bidder Interface.
+// Add Bidder Interface.
 let done = false;
 const bidders = [];
 const startBidders = async () => {
@@ -2133,7 +2133,7 @@ await ctcCreator.participants.Auctioneer({
         let newAmt = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
-    // ++ Add startBidders function.
+    //  Add startBidders function.
     auctionReady: () => {
         console.log("Auctioneer sees that the auction is ready.");
         startBidders();

@@ -28,7 +28,7 @@ export const main = Reach.App(() => {
     
     init();
 
-    //++ Add declassify function.
+    // Add declassify function.
     Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });

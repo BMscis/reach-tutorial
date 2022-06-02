@@ -23,7 +23,7 @@ Now we will connect the test account to the backend.
 <p>
 
 ```javascript
-//++ Add connect account to backend contract.
+// Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 ```
 > `accCreator.contract(backend);` returns a ***Reach Contract*** that contains the contract address.
@@ -43,7 +43,7 @@ We can now connect to the backend `Auctioneer` interface with :
 <p>
 
 ```javascript
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
     // Specify Auctioneer interact interface here
 })
@@ -68,7 +68,7 @@ Implementing the `getSale` function.
 <p>
 
 ```javascript
-//++ Add NFT params expected by the `getSale` function.
+// Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 let lenInBlocks = 10;
@@ -79,7 +79,7 @@ let lenInBlocks = 10;
 
 
 ```javascript
-//++ Add putting them in an object.
+// Add putting them in an object.
 const params = { 
 nftId:nftId,
 minBid:minBid,
@@ -105,9 +105,9 @@ Let's add the `params` object to the `Auctioneer` interface.
 <p>
 
 ```javascript
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
@@ -133,11 +133,11 @@ Ass you recall, the `seeBid` function from the [`backend`](https://raw.githubuse
 
 ```javascript
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
@@ -166,17 +166,17 @@ The `showOutcome` function will notify the frontend, when the contract is ready 
 
 ```javascript
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)
@@ -222,34 +222,34 @@ const accCreator = await stdlib.newTestAccount(startingBalance);
 // NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
-//++ Add connect account to backend contract.
+// Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-//++ Add NFT params expected by the `getSale` function.
+// Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 let lenInBlocks = 10;
 
-//++ Add putting them in an object.
+// Add putting them in an object.
 const params = { 
     nftId:nftId,
     minBid:minBid,
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)

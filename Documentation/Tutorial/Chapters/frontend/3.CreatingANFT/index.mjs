@@ -13,5 +13,5 @@ const startingBalance = stdlib.parseCurrency(100);
 // create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 
-// ++Add NFT asset.
+// Add NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });

@@ -2,7 +2,7 @@
 
 export const main = Reach.App(() => {
 
-    //++ Add Auctioneer.
+    // Add Auctioneer.
     const Auctioneer = Participant('Auctioneer', {
         //Implement Auctioneer interact interface here.
     });

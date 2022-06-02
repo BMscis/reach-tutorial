@@ -78,15 +78,15 @@ export const main = Reach.App(() => {
         return [highestBidder, lastPrice, isFirstBid]; 
     });
 
-    //++Add Transfer
+    //Add Transfer
     if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
 
-    //++Add auctioneer show outcome.
+    //Add auctioneer show outcome.
     Auctioneer.interact.showOutcome(highestBidder, lastPrice);
 
-    //++Add step to local-step.
+    //Add step to local-step.
     commit();
 
-    //++Add exit contract.
+    //Add exit contract.
     exit();
 });

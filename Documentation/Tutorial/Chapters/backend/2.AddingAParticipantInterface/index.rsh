@@ -4,19 +4,19 @@ export const main = Reach.App(() => {
     
     // Deployer of the contract.
     const Auctioneer = Participant('Auctioneer', {
-        //++ Add getSale function.
+        // Add getSale function.
         getSale: Fun([], Object({
             nftId: Token,
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        //++ Add auctionReady function.
+        // Add auctionReady function.
         auctionReady: Fun([], Null),
 
-        //++ Add seeBid function.
+        // Add seeBid function.
         seeBid: Fun([Address, UInt], Null),
 
-        //++ Add showOutcome function.
+        // Add showOutcome function.
         showOutcome: Fun([Address, UInt], Null),
     });
 

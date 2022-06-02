@@ -95,7 +95,7 @@ Let's add what we have so far into [`index.rsh`](https://raw.githubusercontent.c
 
 export const main = Reach.App(() => {
 
-    //++ Add Auctioneer.
+    // Add Auctioneer.
     const Auctioneer = Participant('Auctioneer', {
         //Implement Auctioneer interact interface here.
     });
@@ -133,7 +133,7 @@ the frontend.
 
 1. The `Auctioneer` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
     ```javascript
-    //++ Add getSale function.
+    // Add getSale function.
     getSale: Fun([], Object({
         nftId: Token,
         minBid: UInt,
@@ -157,7 +157,7 @@ the frontend.
 2. Once the contract has been published onto the blockchain, we will need to notify the `Auctioneer`'s frontend that the auction is ready to be deployed.
 
     ```javascript
-    //++ Add auctionReady function.
+    // Add auctionReady function.
     auctionReady: Fun([], Null)
     ```
 3. We also need to allow the Auctioneer to see each bid in the auction.
@@ -165,14 +165,14 @@ the frontend.
     - SeeBid sends a `Bidder`.`Address` and the latest bid `UInt` to the frontend.
 
     ```javascript
-    //++ Add seeBid function.
+    // Add seeBid function.
     seeBid: Fun([Address, UInt], Null),
     ```
 
 4. Finally, we will also allow the auctioneer to see the outcome of the auction.
 
     ```javascript
-    //++ Add showOutcome function.
+    // Add showOutcome function.
     seeOutcome: Fun([], Object({
         winner: Address,
         bid: UInt,
@@ -193,19 +193,19 @@ export const main = Reach.App(() => {
     
     // Deployer of the contract.
     const Auctioneer = Participant('Auctioneer', {
-        //++ Add getSale function.
+        // Add getSale function.
         getSale: Fun([], Object({
             nftId: Token,
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        //++ Add auctionReady function.
+        // Add auctionReady function.
         auctionReady: Fun([], Null),
 
-        //++ Add seeBid function.
+        // Add seeBid function.
         seeBid: Fun([Address, UInt], Null),
 
-        //++ Add showOutcome function.
+        // Add showOutcome function.
         showOutcome: Fun([Address, UInt], Null),
     });
 
@@ -233,7 +233,7 @@ The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows
 > This is how the function looks.
 
 ```javascript
-//++ Add this function to the Bidder interface.
+// Add this function to the Bidder interface.
 
 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
@@ -387,7 +387,7 @@ export const main = Reach.App(() => {
     
     init();
 
-    //++ Add declassify function.
+    // Add declassify function.
     Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
@@ -475,19 +475,19 @@ export const main = Reach.App(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
-    //++ Add publish contract.
+    // Add publish contract.
     Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //++ Add NFT amount.
+    // Add NFT amount.
     const amt = 1;
 
-    //++ Add step into local-step.
+    // Add step into local-step.
     commit();
 
-    //++ Add send NFT to contract.
+    // Add send NFT to contract.
     Auctioneer.pay([[amt, nftId]]);
 
-    //++ Add notify frontend that contract is ready.
+    // Add notify frontend that contract is ready.
     Auctioneer.interact.auctionReady();
 });
 ```
@@ -598,13 +598,13 @@ export const main = Reach.App(() => {
     //notify frontend that contract is ready.
     Auctioneer.interact.auctionReady();
 
-    //++ Add assertion to check NFT balance
+    // Add assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
-    //++ Add checkpoint to set last publish time.
+    // Add checkpoint to set last publish time.
     const lastConsensus = lastConsensusTime();
 
-    //++ Add blocktime to set auction duration.
+    // Add blocktime to set auction duration.
     const end = lastConsensus + lenInBlocks;
 });
 ```
@@ -912,7 +912,7 @@ export const main = Reach.App(() => {
     // blocktime to set auction duration.
     const end = lastConsensus + lenInBlocks;
 
-    //++ Add parallel reduce
+    // Add parallel reduce
     const [highestBidder, lastPrice, isFirstBid] = parallelReduce([Auctioneer, minBid, true])
     .invariant(balance(nftId) == amt && balance() == (isFirstBid ? 0 : lastPrice))
     .while(lastConsensusTime() < end)

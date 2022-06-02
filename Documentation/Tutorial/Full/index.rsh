@@ -78,7 +78,7 @@
             return [highestBidder, lastPrice, isFirstBid]; 
         });
 
-        //++ Add Transfer NFT
+        // Add Transfer NFT
         transfer(amt, nftId).to(highestBidder);
 
         // Transfer Amount

@@ -48,12 +48,12 @@ export const main = Reach.App(() => {
     //notify frontend that contract is ready.
     Auctioneer.interact.auctionReady();
 
-    //++ Add assertion to check NFT balance
+    // Add assertion to check NFT balance
     assert(balance(nftId) == amt, "balance of NFT is wrong");
 
-    //++ Add checkpoint to set last publish time.
+    // Add checkpoint to set last publish time.
     const lastConsensus = lastConsensusTime();
 
-    //++ Add blocktime to set auction duration.
+    // Add blocktime to set auction duration.
     const end = lastConsensus + lenInBlocks;
 });

@@ -31,7 +31,7 @@ const params = {
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add Bidder Interface.
+// Add Bidder Interface.
 let done = false;
 const bidders = [];
 const startBidders = async () => {
@@ -85,7 +85,7 @@ await ctcCreator.participants.Auctioneer({
         let newAmt = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newWinner} won with ${newAmt}`)
     },
-    // ++ Add startBidders function.
+    //  Add startBidders function.
     auctionReady: () => {
         console.log("Auctioneer sees that the auction is ready.");
         startBidders();

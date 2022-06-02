@@ -62,7 +62,7 @@ export const main = Reach.App(() => {
 
     // Any subsequent bidder.
     const Bidder = API('Bidder', {
-        //++ Add this function to the Bidder interface.
+        // Add this function to the Bidder interface.
         bid: Fun([UInt], Tuple(UInt,Address, UInt)),
     });
     
@@ -73,19 +73,19 @@ export const main = Reach.App(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
 
-    //++ Add publish contract.
+    // Add publish contract.
     Auctioneer.publish(nftId, minBid, lenInBlocks);
 
-    //++ Add NFT amount.
+    // Add NFT amount.
     const amt = 1;
 
-    //++ Add step into local-step.
+    // Add step into local-step.
     commit();
 
-    //++ Add send NFT to contract.
+    // Add send NFT to contract.
     Auctioneer.pay([[amt, nftId]]);
 
-    //++ Add notify frontend that contract is ready.
+    // Add notify frontend that contract is ready.
     Auctioneer.interact.auctionReady();
 });
 ```

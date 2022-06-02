@@ -12,7 +12,7 @@ The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows
 > This is how the function looks.
 
 ```javascript
-//++ Add this function to the Bidder interface.
+// Add this function to the Bidder interface.
 
 bid: Fun([UInt], Tuple(UInt,Address, UInt)),
 ```
@@ -45,7 +45,7 @@ export const main = Reach.App(() => {
 
     // Any subsequent bidder.
     const Bidder = API('Bidder', {
-        //++ Add this function to the Bidder interface.
+        // Add this function to the Bidder interface.
         bid: Fun([UInt], Tuple(UInt,Address, UInt)),
     });
     

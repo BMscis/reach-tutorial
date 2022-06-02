@@ -66,13 +66,13 @@ export const main = Reach.App(() => {
 
     // Any subsequent bidder.
     const Bidder = API('Bidder', {
-        //++ Add this function to the Bidder interface.
+        // Add this function to the Bidder interface.
         bid: Fun([UInt], Tuple(UInt,Address, UInt)),
     });
     
     init();
 
-    //++ Add declassify function.
+    // Add declassify function.
     Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });

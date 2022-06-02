@@ -16,34 +16,34 @@ const accCreator = await stdlib.newTestAccount(startingBalance);
 // NFT asset.
 const theNFT = await stdlib.launchToken(accCreator, "bumple", "NFT", { supply: 1 });
 
-//++ Add connect account to backend contract.
+// Add connect account to backend contract.
 const ctcCreator = accCreator.contract(backend);
 
-//++ Add NFT params expected by the `getSale` function.
+// Add NFT params expected by the `getSale` function.
 const nftId = theNFT.id
 const minBid = stdlib.parseCurrency(2);
 let lenInBlocks = 10;
 
-//++ Add putting them in an object.
+// Add putting them in an object.
 const params = { 
     nftId:nftId,
     minBid:minBid,
     lenInBlocks:lenInBlocks,
 };
 
-//++ Add setting up the `Auctioneer` interface.
+// Add setting up the `Auctioneer` interface.
 await ctcCreator.participants.Auctioneer({
-    // ++ Add get sale function.
+    //  Add get sale function.
     getSale: () => {
         return params;
     },
-    // ++ Add seeBid function.
+    //  Add seeBid function.
     seeBid: (who, amt) => {
         let newBidder = stdlib.formatAddress(who)
         let newBid = stdlib.formatCurrency(amt)
         console.log(`Auctioneer saw that ${newBidder} bid ${newBid}.`);
     },
-    // ++ Add showOutcome function.
+    //  Add showOutcome function.
     showOutcome: (winner, amt) => {
         let newWinner = stdlib.formatAddress(winner)
         let newAmt = stdlib.formatCurrency(amt)

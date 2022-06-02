@@ -23,7 +23,7 @@ the frontend.
 
 1. The `Auctioneer` will be responsible for providing NFT data from the frontend. So let's add this function to the Creators interface and call it `getSale()`.
     ```javascript
-    //++ Add getSale function.
+    // Add getSale function.
     getSale: Fun([], Object({
         nftId: Token,
         minBid: UInt,
@@ -47,7 +47,7 @@ the frontend.
 2. Once the contract has been published onto the blockchain, we will need to notify the `Auctioneer`'s frontend that the auction is ready to be deployed.
 
     ```javascript
-    //++ Add auctionReady function.
+    // Add auctionReady function.
     auctionReady: Fun([], Null)
     ```
 3. We also need to allow the Auctioneer to see each bid in the auction.
@@ -55,14 +55,14 @@ the frontend.
     - SeeBid sends a `Bidder`.`Address` and the latest bid `UInt` to the frontend.
 
     ```javascript
-    //++ Add seeBid function.
+    // Add seeBid function.
     seeBid: Fun([Address, UInt], Null),
     ```
 
 4. Finally, we will also allow the auctioneer to see the outcome of the auction.
 
     ```javascript
-    //++ Add showOutcome function.
+    // Add showOutcome function.
     seeOutcome: Fun([], Object({
         winner: Address,
         bid: UInt,
@@ -83,19 +83,19 @@ export const main = Reach.App(() => {
     
     // Deployer of the contract.
     const Auctioneer = Participant('Auctioneer', {
-        //++ Add getSale function.
+        // Add getSale function.
         getSale: Fun([], Object({
             nftId: Token,
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        //++ Add auctionReady function.
+        // Add auctionReady function.
         auctionReady: Fun([], Null),
 
-        //++ Add seeBid function.
+        // Add seeBid function.
         seeBid: Fun([Address, UInt], Null),
 
-        //++ Add showOutcome function.
+        // Add showOutcome function.
         showOutcome: Fun([Address, UInt], Null),
     });
 

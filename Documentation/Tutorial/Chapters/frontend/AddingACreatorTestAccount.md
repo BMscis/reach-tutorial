@@ -12,10 +12,10 @@ Let's add a test account to our [`index.mjs`]((https://raw.githubusercontent.com
 We will use reach standard library to create a test account with a starting balance of 100 network tokens.
 
 ```javascript
-//++Add generate starting balance
+//Add generate starting balance
 const startingBalance = stdlib.parseCurrency(100);
 
-//++Add create test account
+//Add create test account
 const accCreator = await stdlib.newTestAccount(startingBalance);
 ```
 
