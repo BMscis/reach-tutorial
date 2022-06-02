@@ -116,7 +116,7 @@ As a programmer we need to understand the problem that we are trying to solve. H
 
 1. What is the purpose of the auction?
 
-> Our purpose is to create a DApp that autonomously runs a safe and secure auction that allows users to buy and sell items.
+> The purpose is to create a DApp that autonomously runs a safe and secure auction that allows users to buy and sell items.
 
 2. What is the value of the NFT being auctioned?
 
@@ -1128,8 +1128,8 @@ After each iteration, the invariant is checked to ensure that the parallel reduc
 ```javascript
 .while(lastConsensusTime() < timeOut)
 ```
-The while loop is active as long as the [lastConsensusTime](https://docs.reach.sh/rsh/compute/#rsh_lastConsensusTime) is less than the time out value.
-> The time of the last consensus step is represented by the lastConsensusTime (The last time a pay,publish or transfer was used).
+The while loop is active as long as the [lastConsensusTime](https://docs.reach.sh/rsh/compute/#rsh_lastConsensusTime) is less than the time-out value.
+> The time of the last consensus step is represented by the lastConsensusTime (The last time a pay, publish or transfer was used).
 </li>
 </ul>
 </p>
