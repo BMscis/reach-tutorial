@@ -1,10 +1,9 @@
 <script>
-const states = ["Initializing Contract","Creating Nft","Deploying Contract","Publishing Contract","Publishing Contract","Paying for Contract","Payment Successful","Auction Start","Auction End"]
 export let auctionState
 export let isSide = false
 </script>
     <div id="deployment-state" style="bottom:{isSide?"-80px":"0"};">
-    <p>{states[auctionState]}</p>
+    <p>{auctionState}</p>
 </div>
 <style>
     #deployment-state {

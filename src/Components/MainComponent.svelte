@@ -5,7 +5,8 @@
     import RIGHTBLOCK from "./RIGHTBLOCK/RIGHTBLOCK.svelte";
     import { reachStdlib, walletAddress } from "../Stores/Wallet/WalletStore";
     import CENTRALBLOCK from "./CENTRALBLOCK/CENTRALBLOCK.svelte";
-import { consologger } from '../Utilities/utilities';
+    import { consologger } from '../Utilities/utilities';
+import { dataStoreObserver, nftSubscriptionCreate } from '../WebSockets/nftUpdates';
 let hasActiveNft = false
 
 let id
@@ -27,12 +28,14 @@ let nftContractAddress
 //let nftName
 let style
 let cards
+let newOwner
 nftCardList.subscribe((value) => {
     if(value.length > 0){
         cards = value
     let activeComp = value.find((v) => v.active === true);
     hasActiveNft = false
     if(activeComp){
+        newOwner = activeComp
         hasActiveNft = activeComp.active
         id = activeComp.id
         awsUserId = activeComp.awsUserId
@@ -53,13 +56,13 @@ nftCardList.subscribe((value) => {
     }}
 })
 reachStdlib.subscribe((value) => {
-    consologger("MainComponent.svelte","reachStdlib", value)
+    //consologger("MainComponent.svelte","reachStdlib", value)
     if(value){
         let nftCL = get(nftCardList)
         reach = value
-        let wallet = get(walletAddress)
+        let walletAccount = get(walletAddress)
         
-        let ownerList = nftCL.filter((card) => reach.addressEq(wallet, card.nftAssetOwner))
+        let ownerList = nftCL.filter((card) => walletAccount === card.nftAssetOwner)
         ownerList.forEach(element => {
             element.isOwner = true
         });
@@ -67,10 +70,13 @@ reachStdlib.subscribe((value) => {
 
     }
 })
+const [createSocket,websocketUnsubscribe] = nftSubscriptionCreate()
+createSocket()
+dataStoreObserver()
 onDestroy(() => {return [nftCardList,reachStdlib]})
 
 </script>
-<RIGHTBLOCK {hasActiveNft} {nftWalletName} {isOwner} 
+<RIGHTBLOCK {hasActiveNft} {nftWalletName} {isOwner} {newOwner}
 {id }{awsUserId }{nftImage }{nftPrice }{nftAssetOwner }{nftContractAddress }{nftLikes }{nftId}{style}{nftPrevAssetOwner }{nftAuctionDuration }{awsName }{nftDescription }{awsUserPicture}></RIGHTBLOCK>
 <CENTRALBLOCK {cards} {hasActiveNft}></CENTRALBLOCK>
 

@@ -28,10 +28,9 @@ export async function connectMyAlgo(){
 
         try{
         const account = await lib.reach.getDefaultAccount()
-        walletAddress.set(account.networkAccount.addr)
         wallet.set(account)
+        const balance = await getBalance(account.networkAccount.addr,lib)
         lib.setLib()
-        const balance = await getBalance(account,"ALGO")
         let gotInfo = await algoDetailClient();
         if(gotInfo){
             return true

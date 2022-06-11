@@ -6,6 +6,7 @@ export let margin = "auto"
 export let dark = false
 export let fontSize = 12
 export let isPrice = false
+export let chain = "ALGO"
 export let position = "relative"
 export let top= 0
 export let right = 0
@@ -22,7 +23,7 @@ right:{right}px;
 ">
     <span style="background: {hide?"#2453c2":"transparent"};padding: 5px;border-radius: 5px;">{label}</span>
 {#if isPrice}
-    <span>&bsim;</span><span>ALGO</span>
+    <span>&bsim;</span><span>{chain}</span>
 {/if}
 </p>
 

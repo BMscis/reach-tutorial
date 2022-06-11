@@ -3,3 +3,9 @@ Describe NFT,
 Describe blockchain
 transfer(amt, nftId).to(highestBidder);
 An API is a source of publications that do not correspond to any participant and are therefore like asynchronous events
+//
+reach update
+reach hashes
+
+npm install @reach-sh/stdlib@latest
+npm list @reach-sh/stdlib

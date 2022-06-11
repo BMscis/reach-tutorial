@@ -37,13 +37,7 @@ const sendImage = async () => {
     successUpload = await sendToStore(uploadImage,'public')
     return
 }
-const closeImage = async () => {
-    setTimeout(() => {
-        tryUpload = !auctionState === 8
-        trySend = !auctionState === 8
-    }, 2000);
-    return false
-}
+
 const unsubscribeMount = tryMountImage.subscribe(value => {
         value  ? tryUpload = value : null
         return
@@ -51,7 +45,7 @@ const unsubscribeMount = tryMountImage.subscribe(value => {
 contractState.subscribe(value=>{
     auctionState = value
     if(trySend){
-        trySend = !(auctionState === 8)
+        trySend = !(auctionState === 4)
         tryUpload = !trySend
     }
 })
@@ -79,7 +73,7 @@ onDestroy(() => {
                 <div id="result-container">
                     <Loading isLarge={true} dark={true}></Loading>
                     <ContractDeploy {auctionState} ></ContractDeploy>
-                    {#if auctionState === 8 || successUpload}
+                    {#if successUpload}
                         <SuccessIcon position="absolute"></SuccessIcon>
                     {/if}
                 </div>

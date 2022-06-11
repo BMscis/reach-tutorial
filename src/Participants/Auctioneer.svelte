@@ -1,16 +1,12 @@
 <script>
 import { onDestroy } from "svelte";
-import InputContainer from "../Components/INPUTS/InputContainer.svelte";
 import Loading from "../Components/Loading.svelte";
 import MenuBar from "../Components/MenuBar.svelte";
 import Timer from "../Components/Timer.svelte";
-import { bidNFT } from "../ReachContract/nftContract";
-import { Creator } from "../ReachContract/pt";
-import { auctionReady, contractState, creatorSeeBid } from "../ReachContract/reachStore";
+import { Auctioneer } from "../ReachContract/pt";
+import { contractState, creatorSeeBid } from "../ReachContract/reachStore";
 import { bidderInfo } from "../Stores//Wallet/PrincipalStore";
 import ContractDeploy from "../Participants/ContractDeploy.svelte";
-import { nftContractId } from "../Stores/Wallet/WalletStore";
-import { updateNFTeaCard } from "../STORAGE/nftCardMutations";
 import { consologger } from "../Utilities/utilities";
 export let nftId
 export let clicked
@@ -20,8 +16,6 @@ export let cardWidth
 export let cardHeight
 export let cardCotnainerHeight
 
-const ownedBy = newOwner
-let isAuctionReady
 let auctionState
 let getContract
 let bidPrice
@@ -39,11 +33,11 @@ const askContract = async () => {
     previewPage = true
 }
 const awaitContract = async () => {
-    let newOwnerNext = "3G2IC23R6N2XC3PZPX7IJUB2KNMRML4C2DIEERGH6XNV3VFOW3GU4L3EDI"
-    let prevOwner = newOwner.nftAssetOwner
-    await updateNFTeaCard(ownedBy, newOwnerNext,prevOwner,5)
-    //getContract = new Creator(ownedBy)
-    //let [pb, cA] = await getContract.waitContract(nftId,nftPrice)
+    //let newOwnerNext = "DB6FNNDM52SZNQ563N43GMMGLCCWKV7QLSVEZZMVZPAV5VNDRLN3HY54XI"
+    //let prevOwner = newOwner.nftAssetOwner
+    //await updateNFTeaCard(ownedBy, newOwnerNext,prevOwner,5)
+    getContract = new Auctioneer(newOwner)
+    let [pb, cA] = await getContract.waitContract(nftId,nftPrice)
     return placeBid
 }
 
@@ -51,15 +45,12 @@ const unsubscribeBidder = bidderInfo.subscribe(value => {
 if(value){
 bidderClass = value
 }})
-auctionReady.subscribe(value => {
-    isAuctionReady = value
-})
 contractState.subscribe(value=>{
-    consologger("Creator.svelte","AUCTION STATE", value)
+    //consologger("Auctioneer.svelte","AUCTION STATE", value)
     auctionState = value
 })
 creatorSeeBid.subscribe(value=>{
-    consologger("Creator.svelte","BID LIST", value)
+    //consologger("Auctioneer.svelte","BID LIST", value)
     if(value.length > 1){
         bidderList = value
         bidderList.sort((a, b) => b - a);
@@ -67,10 +58,10 @@ creatorSeeBid.subscribe(value=>{
         bidderList = value
     }
 })
-nftContractId.subscribe(value=>{
-    nftContractAddress = value
-})
-onDestroy(()=> {return [unsubscribeBidder,contractState,auctionReady]})
+// nftContractId.subscribe(value=>{
+//     nftContractAddress = value
+// })
+onDestroy(()=> {return [unsubscribeBidder,contractState]})
 
 </script>
 <div id="auctioneer-block" style="left:{cardWidth-11}px;width:{cardWidth - 40}px;height:{cardCotnainerHeight}px;"class:active={clicked}>
@@ -81,14 +72,13 @@ onDestroy(()=> {return [unsubscribeBidder,contractState,auctionReady]})
     {#await awaitContract()}
     <div style="display: none;"></div>
     {/await}
-    {#if auctionState <= 5}
+    {#if auctionState != "Auction Started"}
     <Loading></Loading>
     <ContractDeploy isSide={false} {auctionState} ></ContractDeploy>
     {/if}
-    {#if auctionState >= 6}
+    {#if auctionState === "Auction Started"}
     <div id="contract-cover">
-        <div>Copy contract address</div>
-        <input type="text" bind:value={nftContractAddress} >
+        <div>{auctionState}</div>
     </div>
     <div id="bidder-space" style="height:{cardHeight}px;">
         <div id="top-bid-bar">
@@ -98,7 +88,7 @@ onDestroy(()=> {return [unsubscribeBidder,contractState,auctionReady]})
             <ul>
                 {#each bidderList as bid}
                 <li>
-                <MenuBar menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"   val={bid}></MenuBar>
+                <MenuBar biddersBar={true} menuBarWidth={innerWidth} menuBarHeight={innerHeight} margin="0 auto"   val={bid}></MenuBar>
                 </li>
                 {/each}
             </ul>
@@ -114,7 +104,6 @@ onDestroy(()=> {return [unsubscribeBidder,contractState,auctionReady]})
         padding: 10px;
         position: absolute;
         top: 10%;
-        left: 5px;
     }
 form{
     position: absolute;
@@ -161,9 +150,6 @@ ul{padding: 0;}
 }
 #send-nft-bid:hover{
     background: var(--spectacular-orange);
-}
-#mid-bid-bar{
-    height: 40%;
 }
 #bidder-space{
     display: block;

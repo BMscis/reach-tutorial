@@ -32,7 +32,7 @@ export let isLarge = false
 export let labelDark = false
 export let blockHeight = 500
 
-let newOwner
+export let newOwner
 let nftCard
 let contractAddress
 let cardHeight = (blockHeight*0.7).toFixed(2)
@@ -44,7 +44,11 @@ let cardImage
 let profilePic
 const getImages = async () => {
     cardImage = await pic(nftImage)
-    profilePic = await getImagesProtected(awsUserPicture,awsUserId)
+    try {
+        profilePic = await getImagesProtected(awsUserPicture,awsUserId)
+    } catch (error) {
+        console.log("nftCard.svelte: getImages: ",error)
+    }
 }
 const enlarge = () => {
 nftCard.scrollIntoView(false)
@@ -52,26 +56,21 @@ nftValidator(!clicked)
 }
 
 const startAuction = async () => {
-    const create = new Auctioneer()
+    const create = new Auctioneer(newOwner)
     if(create.wallet != undefined){
         await create.deployContract(`${contractAddress}`)
     }
 }
 
-const [nftSubscriber,nftValidator] = 
-createNft(id,awsUserId,nftDescription,nftImage,nftPrice,nftAssetOwner,nftPrevAssetOwner,nftAuctionDuration,nftContractAddress,nftLikes,nftId,awsUserPicture,awsName,nftWalletName)
+const  nftValidator = createNft(
+    id,awsUserId,nftDescription,nftImage,nftPrice,nftAssetOwner,nftPrevAssetOwner,
+    nftAuctionDuration,nftContractAddress,nftLikes,nftId,awsUserPicture,awsName,nftWalletName
+    )
 
-const unsubNFT = nftSubscriber.subscribe((value) => {
-    consologger("NftCard.svelte","Owner", value)
-    newOwner = value
-    id = value.id
-})
 afterUpdate(() => {
-    console.log("ISOWNER: ", isOwner)
     try {
         if(get(walletAddress) == nftAssetOwner){
         isOwner = true
-        console.log("ISOWNER WALLET: ", isOwner)
     }else{
         isOwner = false
     }
@@ -79,7 +78,7 @@ afterUpdate(() => {
         console.log("ERROR NFT no walletAddress: ",error)   
     }
 })
-onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
+//onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
 
 </script>
 {#await getImages()}
@@ -90,7 +89,7 @@ onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
     <div id="nft-card" style="height:{cardHeight}px;width:{cardWidth}px;position:relative;grid-template-rows:10% {imageHeight}px 1fr .5fr">
     <CardImage {imageHeight} nftImage={cardImage}></CardImage>
     <CardDescription {nftWalletName} {isLarge} {nftDescription} {nftPrevAssetOwner} {nftPrice} {nftAssetOwner} ></CardDescription>
-    <CardHeader {awsName} {awsUserPicture}  {nftPrice}  isLarge={isLarge} labelDark={labelDark} labelMargin={0} position="relative" ></CardHeader>
+    <CardHeader {nftDescription} {awsName} {awsUserPicture}  {nftPrice}  isLarge={isLarge} labelDark={labelDark} labelMargin={0} position="relative" ></CardHeader>
     {#if clicked && isLarge}
     <button class="gg-backspace" on:click={() => {enlarge()}}></button>
     {/if}
@@ -104,9 +103,13 @@ onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
         </form>
     {/if}
     {/if}
-    {:else}
+    {:else if nftWalletName === "true"}
     {#if !clicked && !isLarge}
     <button id="bid" on:click={()=>{enlarge()}}>BID</button>
+    {/if}
+    {:else }
+    {#if !clicked && !isLarge}
+    <button id="auction-time-clock" on:click={()=>{enlarge()}}>NOT YET</button>
     {/if}
     {/if}
     </div>
@@ -115,7 +118,7 @@ onDestroy(()=> {return [nftSubscriber,nftValidator,unsubNFT]})
         {#if isOwner}
         <Auctioneer {newOwner} {nftPrice} {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Auctioneer>
         {:else}
-        <Bidder {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Bidder>
+        <Bidder {nftContractAddress} {nftId} {clicked} {cardWidth} {cardHeight} {cardCotnainerHeight}></Bidder>
         {/if}
     {/if}
     </div>

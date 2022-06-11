@@ -6,7 +6,7 @@ import { rightBlock } from "../../Stores/allDimension";
 let bidBoxWidth
 let bidBoxHeight
 export let hasActiveNft = false
-
+export let newOwner
 export let id 
 export let nftId
 export let style
@@ -41,7 +41,7 @@ onDestroy(() => {return [unsubsrcibeBlock]})
 <div id="right-block" class:active={hasActiveNft} style={style}>
     <div id="bid-box" style="width: {bidBoxWidth * 2}px;height: {bidBoxHeight}px;">
         {#if hasActiveNft}
-            <NftCard {blockHeight} isLarge={true} labelDark={true} clicked={hasActiveNft} {nftWalletName} {isOwner}
+            <NftCard {newOwner} {blockHeight} isLarge={true} labelDark={true} clicked={hasActiveNft} {nftWalletName} {isOwner}
             {id}{awsUserId }{nftDescription }{nftImage }{nftPrice }{nftAssetOwner }{nftPrevAssetOwner }{nftAuctionDuration }{nftContractAddress }{nftLikes}{nftId}{awsName }{awsUserPicture}
             ></NftCard>
         {/if}

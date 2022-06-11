@@ -1,6 +1,7 @@
 <script>
 import { get } from "svelte/store";
 import { openNFTBox } from "../../Stores/movment";
+import { chain } from "../../Stores/Wallet/WalletStore";
 import {formNumber, nftDescription, nftName, nftPrice, nftSymbol, nftImage} from "./nftFormSvelte"
 export let formz
 let nftdescription
@@ -37,11 +38,11 @@ let nftimage
             nftPrice.set(nftprice)
             break;
             case "nft-description":
-            nftDescription.set(nftdescription)
+            nftDescription.set({description:nftdescription, chain:get(chain)})
             break;
             case "nft-image":
             nftImage.set({
-                url:"https://nfshow.s3.eu-west-2.amazonaws.com/public/"+nftimage[0].name,
+                url:"https://rnftea175013-staging.s3.amazonaws.com/public/"+nftimage[0].name,
                 image:nftimage}
             )
             break;

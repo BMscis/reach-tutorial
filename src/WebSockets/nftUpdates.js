@@ -5,11 +5,13 @@ import * as subscriptions from "../graphql/subscriptions";
 import { getImagesProtected,pic } from "../STORAGE/storage";
 import { get } from "svelte/store";
 import { ASKNFTEA } from "../models";
+import { cyberuser, walletAddress } from "../Stores/Wallet/WalletStore";
+import { updateNFTeaName } from "../STORAGE/nftCardMutations";
 //Subscribe to creation of NFTea
 let datastoreCount = 0
 let updateNFTCount = 0
 export const nftSubscriptionCreate = () => {
-    consologger("NFTSUBSCRIPTION",0)
+    //consologger("NFTSUBSCRIPTION",0)
     const socket = () => API.graphql(
         graphqlOperation(subscriptions.onCreateASKNFTEA)
     ).subscribe({
@@ -22,7 +24,7 @@ export const nftSubscriptionCreate = () => {
     return [socket,unsubscribe]
 }
 export const nftSubscriptionUpdate = () => {
-    consologger("NFTSUBSCRIPTION",0)
+    //consologger("NFTSUBSCRIPTION",0)
     const socket = () => API.graphql(
         graphqlOperation(subscriptions.onUpdateASKNFTEA)
     ).subscribe({
@@ -35,13 +37,11 @@ export const nftSubscriptionUpdate = () => {
     return [socket,unsubscribe]
 }
 const setNFT = async (provider,nftModel) => {
-    consologger("nftUpdates.js","setNFT",{provider,nftModel})
-    //console.log("++++++++++",{provider,nftModel},"++++++++++")
-    consologger("nftUpdates.js","setNFT",{provider,nftModel})
+    //consologger("nftUpdates.js","setNFT",{provider,nftModel})
     createNft(
         nftModel.id,
         nftModel.awsUserId,
-        nftModel.nftDescription,
+        JSON.parse(nftModel.nftDescription),
         nftModel.nftImage,
         nftModel.nftPrice,
         nftModel.nftAssetOwner,
@@ -56,38 +56,45 @@ const setNFT = async (provider,nftModel) => {
     )
     return 
 }
-export const dataStoreObserver = (previousId) => {
+export const dataStoreObserver = () => {
     DataStore.observe(ASKNFTEA).subscribe(msg => {
-        console.log("DataStoreCount",datastoreCount += 1)
-        consologger("nftUpdates.js","dataStoreObserver",msg)
         if(msg.opType == "UPDATE"){
-            updateNFT(msg.opType, msg.element,previousId)
+            updateNFT(msg.opType, msg.element)
         }
       });
 }
-const updateNFT = async (opType,nftModel,previousId) => {
-    console.log("updateNFT",updateNFTCount += 1)
-    consologger("nftUpdates.js",opType,nftModel)
+const updateNFT = async (opType,nftModel) => {
     let cardList = get(nftCardList)
-    let component = cardList.find((v) => v.id === previousId);
+    let imageName = nftModel.nftImage
+    let component = cardList.find((v) => v.nftImage === imageName);
     try {
         let componentChecker  = nftDictionary(component)
         let modelChecker = nftDictionary(nftModel)
         if(componentChecker.nftPrevAssetOwner !== modelChecker.nftPrevAssetOwner){
-            component.id = nftModel.id
-            component.nftAssetOwner = nftModel.nftAssetOwner
-            component.nftPrevAssetOwner = nftModel.nftPrevAssetOwner
+            if((nftModel.nftAssetOwner === get(walletAddress) && (nftModel.awsName !== get(cyberuser).attributes.name))){
+                updateNFTeaName(nftModel, get(cyberuser).attributes.name)
+            }
+            component.id = modelChecker.id
+            component.nftAssetOwner = modelChecker.nftAssetOwner
+            component.nftPrevAssetOwner = modelChecker.nftPrevAssetOwner
+            component.nftPrice = modelChecker.nftPrice
+            component.nftWalletName = modelChecker.nftWalletName
             nftCardList.update((n) => (n = n));
-            console.log("updateNFT UPDATED +++++++++++++")
-            console.log(componentChecker)
-            console.log()
-            console.log(modelChecker)
             return true
+        }else if (componentChecker.nftContractAddress !== modelChecker.nftContractAddress){
+            component.id = modelChecker.id
+            component.nftContractAddress = modelChecker.nftContractAddress
+            component.nftWalletName = modelChecker.nftWalletName
+            nftCardList.update((n) => (n = n));
+            return true
+        }else if(componentChecker.awsName !== modelChecker.awsName){
+            component.awsName = modelChecker.awsName
+            component.awsUserId = modelChecker.awsUserId
+            component.awsUserPicture = modelChecker.awsUserPicture
+            component.nftPrice = modelChecker.nftPrice
+            component.nftWalletName = modelChecker.nftWalletName
+            nftCardList.update((n) => (n = n));
         }else{
-            console.log("updateNFT SIMILAR +++++++++++++")
-            console.log(componentChecker)
-            console.log()
-            console.log(modelChecker)
             return false
         }
     } catch (error) {

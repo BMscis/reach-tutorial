@@ -91,7 +91,7 @@ export async function fundAccount(chain) {
   //this.setState({ view: "DeployerOrAttacher" });
 }
 export async function getBalance(address,chain){
-  const lib = new LoadLib(chain)
+  const lib = chain
   try {
       let balAtomic = await lib.reach.balanceOf(address)
       const bal = lib.reach.formatCurrency(balAtomic)
@@ -100,6 +100,7 @@ export async function getBalance(address,chain){
       //let algoBalance = bal/MICRO_ALGOS_RATIO
       //console.log("Ballaaaance: ",algoBalance)
       balance.set(bal)
+      walletAddress.set(address)
       return bal
   } catch (error) {
       console.log("GetBalance: ",error);

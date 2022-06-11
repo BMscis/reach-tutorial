@@ -13,7 +13,7 @@ export const sendToStore = async (image, protectionLevel) => {
     let [imageSplit, imageType] = imageName.split('.')
     let setNft = new ASKNFTEA({
         "awsUserId":get(cyberuser).username,
-        "nftDescription":get(nftDescription),
+        "nftDescription":JSON.stringify(get(nftDescription)),
         "nftImage": imageName,
         "nftPrice":get(nftPrice),
         "nftAssetOwner":get(walletAddress),
@@ -27,7 +27,7 @@ export const sendToStore = async (image, protectionLevel) => {
         "nftWalletName":get(nftName),
         //"nftName": nftName
     })
-    consologger("Send To Store: ", 0)
+    //consologger("storage.js/Send To Store: ", "UPLOADING IMAGE",setNft)
     const uploadResult = await creatNFTeaCard(setNft,imageName, image[0],imageType,level)
     if (uploadResult){
             return true
@@ -102,15 +102,12 @@ export const pic =async (modl) => {
 const queryNFT = async () => {
     try {
         const models = await DataStore.query(ASKNFTEA);
-        models.forEach(element => {
-            //console.log("MOD: ", JSON.stringify(element))
-        });
         //map models onto nftStore
         models.map( async (model) => {
                 createNft(
                     model.id,
                     model.awsUserId,
-                    model.nftDescription,
+                    JSON.parse(model.nftDescription),
                     model.nftImage,
                     model.nftPrice,
                     model.nftAssetOwner,
@@ -127,7 +124,7 @@ const queryNFT = async () => {
         })
         return models
     } catch (error) {
-        alert("Query Get models Error: ", error)
+        console("Query Get models Error: ", error)
         return error
     }
 }
@@ -142,7 +139,6 @@ const getImages = async (imageName) => {
             contentType: `image/${imageType}` // set return content type, eg "text/html"
           }
         )
-        //console.log("Get Images Result: ", imageResult)
         return imageResult
     } catch (error) {
         console.log("Get Image Error: ", error)

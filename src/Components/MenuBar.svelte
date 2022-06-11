@@ -9,9 +9,10 @@ export let margin = "auto"
 export let menuBarHeight = 40
 export let menuBarWidth = 124
 export let innerComponent = Bid
+export let biddersBar = false
 export let setTransparent = false
 </script>
-<div id="menu-bar" class:mtr={setTransparent} style="width:{menuBarWidth}px;height:{menuBarHeight}px;display:grid;grid-gap:{gridGap}px;margin:{margin};">
+<div id="menu-bar" class:mtr={setTransparent} class:bidder-bar={biddersBar} style="width:{menuBarWidth}px;height:{menuBarHeight}px;display:grid;grid-gap:{gridGap}px;margin:{margin};">
 <IconContainer isLarge={false} isRound={true} innerComponent={innerComponent}></IconContainer>
 <MenuLabel label="{val}" dark={true}></MenuLabel>
 </div>

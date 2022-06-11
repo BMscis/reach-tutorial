@@ -51,5 +51,6 @@ export const createNft = ((id,awsUserId,nftDescription,nftImage,nftPrice,nftAsse
           }
         }
       }
-    return [{subscribe},action]
+    return action
+    return
 })

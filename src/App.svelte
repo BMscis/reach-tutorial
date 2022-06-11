@@ -33,7 +33,11 @@
 	const closeAllOpen = () => {
 		displayWallet.set(false)
 		let sBar = document.querySelector('#sidebarBlock')
-		sBar.classList.remove('open')
+		try {
+			sBar.classList.remove('open')
+		} catch (error) {
+			console.log(error)
+		}
 	}
 	onMount(() => {
 		document.body.setAttribute("style", 
@@ -54,7 +58,7 @@
 			}
 		}),
 		Hub.listen('storage',(event) => {
-			consologger("App.svelte","STORAGE EVENT", event)
+			//consologger("App.svelte","STORAGE EVENT", event)
 		}),
 		cyberuser.subscribe((value) => {
 			//if value.signInUserSession is null, then no current user

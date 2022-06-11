@@ -1,15 +1,16 @@
 <script>
     import Avatar from "../Avatar.svelte";
+    import HeartIcon from "../HeartIcon.svelte";
     import MenuLabel from "../MenuLabel.svelte";
     import CardButton from "./CardButton.svelte";
     import MenuSubLabel from "../MenuSubLabel.svelte";
-import HeartIcon from "../HeartIcon.svelte";
     export let nftPrice
     export let awsName
     //export let nftName
     export let awsUserPicture
     export let isLarge = true;
     export let labelDark = false;
+    export let nftDescription
     export let labelMargin = "auto";
     export let position = "absolute";
 </script>
@@ -24,7 +25,7 @@ import HeartIcon from "../HeartIcon.svelte";
     <div id="card-label-box" style="margin: auto;display:flex; flex-direction:{isLarge? "column":"row"}">
         <MenuLabel label={awsName} dark={labelDark} margin={labelMargin} fontSize=9/>
         {#if isLarge}
-            <MenuSubLabel label="{nftPrice} ALGO" dark={labelDark} margin={labelMargin} fontSize=9/>
+            <MenuSubLabel label="{nftPrice} {nftDescription.chain}" dark={labelDark} margin={labelMargin} fontSize=9/>
         {/if}
     </div>
     <HeartIcon></HeartIcon>

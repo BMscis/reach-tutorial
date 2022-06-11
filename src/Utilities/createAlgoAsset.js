@@ -147,7 +147,7 @@ export class CreateAlgoAsset {
         //console.log("==> CLOSE OUT OWNER'S ALGOS TO DISPENSER");
         let accountInfo = await algodClient.accountInformation(this.walletAddress).do();
         console.log("Owner Account balance: %d microAlgos", accountInfo.amount);
-        consologger("createAlgoAsset.js","closeoutowner-accountinfo", accountInfo.amount)
+        //consologger("createAlgoAsset.js","closeoutowner-accountinfo", accountInfo.amount)
         const startingAmount = accountInfo.amount;
         // Construct the transaction
         const params = await algodClient.getTransactionParams().do();
@@ -221,10 +221,10 @@ const printCreatedAsset = async function (account, assetid) {
         let scrutinizedAsset = accountInfo['created-assets'][idx];
         if (scrutinizedAsset['index'] == assetid) {
             //console.log("AssetID = " + scrutinizedAsset['index']);
-            consologger("createAlgoAsset.js","printCreatedAsset", "AssetID = " + scrutinizedAsset['index']);
+            //consologger("createAlgoAsset.js","printCreatedAsset", "AssetID = " + scrutinizedAsset['index']);
             let myparms = JSON.stringify(scrutinizedAsset['params'], undefined, 2);
             //console.log("parms = " + myparms);
-            consologger("createAlgoAsset.js","printCreatedAsset", "parms = " + myparms);
+            //consologger("createAlgoAsset.js","printCreatedAsset", "parms = " + myparms);
             break;
         }
     }
@@ -242,7 +242,7 @@ const printAssetHolding = async function (account, assetid) {
         if (scrutinizedAsset['asset-id'] == assetid) {
             let myassetholding = JSON.stringify(scrutinizedAsset, undefined, 2);
             //console.log("assetholdinginfo = " + myassetholding);
-            consologger("createAlgoAsset.js","printAssetHolding", "assetholdinginfo = " + myassetholding);
+            //consologger("createAlgoAsset.js","printAssetHolding", "assetholdinginfo = " + myassetholding);
             break;
         }
     }

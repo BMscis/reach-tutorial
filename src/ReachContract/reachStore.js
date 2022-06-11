@@ -1,5 +1,4 @@
 import { writable } from "svelte/store";
 
-export const contractState = writable(0)
-export const auctionReady = writable(false)
+export const contractState = writable("")
 export const creatorSeeBid = writable([])

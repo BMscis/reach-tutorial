@@ -81,6 +81,9 @@ padding: var(--label-padding);
 font:var(--font-heading);
 color: black;
 }
+ .input-rect-input.white{
+  color: white;
+}
 .input-rect-input:focus-within,
 .input-rect-input:focus-visible
 {

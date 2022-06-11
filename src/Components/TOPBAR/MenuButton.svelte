@@ -10,7 +10,11 @@ switch (bPosition) {
         style = "width:24px;height:24px;"
         sideBar = () => {
             let sBar = document.querySelector('#sidebarBlock')
-            open ? sBar.classList.add('open') : sBar.classList.remove('open')
+            try {
+                open ? sBar.classList.add('open') : sBar.classList.remove('open')
+            } catch (error) {
+                console.log(error)
+            }
         }
         onMount(() => {
             openSidebar.subscribe((value) => {

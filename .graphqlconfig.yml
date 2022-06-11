@@ -1,6 +1,6 @@
 projects:
-  NFteaReachProject:
-    schemaPath: amplify/backend/api/NFteaReachProject/build/schema.graphql
+  RNFTEA:
+    schemaPath: amplify/backend/api/RNFTEA/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -10,9 +10,6 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
-        region: eu-west-2
+        region: us-east-1
         apiId: null
         maxDepth: 2
-extensions:
-  amplify:
-    version: 3

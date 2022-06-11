@@ -8,32 +8,52 @@ export const main = Reach.App(() => {
             minBid: UInt,
             lenInBlocks: UInt,
         })),
-        //timeout: Fun([], Null),
-        auctionReady: Fun([], Null),
-        seeBid: Fun([Address, UInt], Null),
-        showOutcome: Fun([Address, UInt], Null),
+        setNewOwner: Fun([Address, UInt], Null),
     });
     const Bidder = API('Bidder', {
         bid: Fun([UInt], Tuple(UInt,Address, UInt)),
     });
+    const Logger = Events({
+        showBid: [Bytes(7),Address, UInt],
+        auctionTime: [Bytes(11),UInt],
+        contractState: [Bytes(13),Bytes(8)],
+        showOutcome: [Bytes(11), Address, UInt],
+        timesUp: [Bytes(7)],
+    })
     init();
+
+    //log
+    Auctioneer.interact.log(1)
     
-    Auctioneer.interact.log(2)
     Auctioneer.only(() => {
         const {nftId, minBid, lenInBlocks} = declassify(interact.getSale());
     });
-    Auctioneer.interact.log(3)
+
     Auctioneer.publish(nftId, minBid, lenInBlocks);
-    Auctioneer.interact.log(4)
+
+    //log
+    Logger.contractState("contractState","NFTpubli")
+
     const amt = 1;
+
     commit();
-    Auctioneer.interact.log(5)
+
+    //log
+    Auctioneer.interact.log(2)
+
     Auctioneer.pay([[amt, nftId]]);
-    Auctioneer.interact.log(6)
-    Auctioneer.interact.auctionReady();
-    Auctioneer.interact.log(7)
+
+    
+
+    //Log
+    Logger.contractState("contractState","Checkbal")
     assert(balance(nftId) == amt, "balance of NFT is wrong");
+
     const end = lastConsensusTime() + lenInBlocks;
+
+    //log
+    Logger.contractState("contractState","auctionR")
+
     const [
         highestBidder, 
         lastPrice,
@@ -50,18 +70,27 @@ export const main = Reach.App(() => {
                 if ( ! isFirstBid ) {
                     transfer(lastPrice).to(highestBidder);
                 }
-                Auctioneer.interact.seeBid(this, bid);
+                Logger.showBid("showBid",this, bid);
+
+                Logger.auctionTime("auctionTime",end - thisConsensusTime());
+
                 return [this, bid, false];
             })
         ).timeout(absoluteTime(end), () => {
-            //Auctioneer.interact.timeout();
-            Auctioneer.publish()
-            return [highestBidder, lastPrice, isFirstBid]; 
+          Auctioneer.publish()
+          return [highestBidder, lastPrice, isFirstBid]; 
         });
-
+        
         transfer(amt, nftId).to(highestBidder);
+        
+        Logger.timesUp("timesUp");
+
         if ( ! isFirstBid ) { transfer(lastPrice).to(Auctioneer); }
-        Auctioneer.interact.showOutcome(highestBidder, lastPrice);
+
+        Logger.showOutcome("showOutcome",highestBidder, lastPrice);
+
+        Auctioneer.interact.setNewOwner(highestBidder, lastPrice);
+
     commit();
     exit();
 });

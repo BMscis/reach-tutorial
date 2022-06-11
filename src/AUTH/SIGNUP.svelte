@@ -56,22 +56,22 @@
     <div id="signup-container">
         <form on:submit|preventDefault={trySignUp}>
             <InputContainer>
-                <input autocomplete  slot="input-slot" class="input-rect-input" type="text" name="name" bind:value={name} placeholder="username" />
+                <input autocomplete  slot="input-slot" class="input-rect-input white" type="text" name="name" bind:value={name} placeholder="username" />
             </InputContainer>
             <InputContainer>
-                <input autocomplete  slot="input-slot"  class="input-rect-input" type="password" name="password"      bind:value={password} placeholder="password" />
+                <input autocomplete  slot="input-slot"  class="input-rect-input white" type="password" name="password"      bind:value={password} placeholder="password" />
             </InputContainer>
             <InputContainer>
-                <input autocomplete  slot="input-slot"  class="input-rect-input" type="email" name="email"            bind:value={email} placeholder="email" />
+                <input autocomplete  slot="input-slot"  class="input-rect-input white" type="email" name="email"            bind:value={email} placeholder="email" />
             </InputContainer>
             <InputContainer>
-                <input autocomplete  slot="input-slot"  class="input-rect-input" type="telephone" name="phone_number" bind:value={phone_number} placeholder="Mobile" />
+                <input autocomplete  slot="input-slot"  class="input-rect-input white" type="telephone" name="phone_number" bind:value={phone_number} placeholder="Mobile" />
             </InputContainer>
             <InputContainer >
-                <input autocomplete  slot="input-slot" class="input-rect-input" type="file" id="image" name="image" accept="image/*" bind:files={uploadImage} style="color: white;"/>
+                <input autocomplete  slot="input-slot" class="input-rect-input white" type="file" id="image" name="image" accept="image/*" bind:files={uploadImage} style="color: white;"/>
             </InputContainer>
             <InputContainer >
-                <input autocomplete  slot="input-slot" class="input-rect-input" type="submit" value="Sign Up"/>
+                <input autocomplete  slot="input-slot" class="input-rect-input white" type="submit" value="Sign Up"/>
             </InputContainer>
         </form>
         <h5>Already Have an account? <section><button id="signup-text" on:click={()=>{goToSignUp()}}><h6>SignIn</h6></button></section></h5>
@@ -81,10 +81,10 @@
     <form on:submit|preventDefault={verifySignUp}>
         <h5>Please check your Email</h5>
         <InputContainer>
-        <input autocomplete  type="text" slot="input-slot" class="input-rect-input" bind:value={code} name="authCode">
+        <input autocomplete  type="text" slot="input-slot" class="input-rect-input white" bind:value={code} name="authCode">
         </InputContainer>
         <InputContainer>
-        <button slot="input-slot" class="input-rect-input" type="submit" style="color: white;">Enter Code</button>
+        <button slot="input-slot" class="input-rect-input white" type="submit" style="color: white;">Enter Code</button>
         </InputContainer>
     </form>
     {/if}
@@ -92,13 +92,13 @@
     <form >
         <h5>Sign In with your email</h5>
         <InputContainer>
-            <input autocomplete  type="text" name="email" slot="input-slot" class="input-rect-input" bind:value={email} placeholder="email" />
+            <input autocomplete  type="text" name="email" slot="input-slot" class="input-rect-input white" bind:value={email} placeholder="email" />
         </InputContainer>
         <InputContainer>
-            <input autocomplete  type="password" name="password" slot="input-slot" class="input-rect-input" bind:value={password} placeholder="password" />
+            <input autocomplete  type="password" name="password" slot="input-slot" class="input-rect-input white" bind:value={password} placeholder="password" />
         </InputContainer>
         <InputContainer>
-            <button id="sign-up"  slot="input-slot" class="input-rect-input" on:click={()=> {trySignIn()}} >Sign In</button>
+            <button id="sign-up"  slot="input-slot" class="input-rect-input white" on:click={()=> {trySignIn()}} >Sign In</button>
         </InputContainer>
     </form>
     <h5>Don't Have an account? <section><button id="signup-text" on:click={()=>{try_sign_in = try_sign_up; try_sign_up = !try_sign_up}}><h6>SignUp</h6></button></section></h5>
