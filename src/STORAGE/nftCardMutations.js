@@ -92,7 +92,7 @@ export const updateNFTeaName = async (oldNft,awsName) => {
             item.awsName = awsName
             item.awsUserId = get(cyberuser).username
             item.awsUserPicture = get(cyberuser).attributes.picture
-            item.nftWalletName =  false
+            item.nftWalletName =  "false"
         // Update the values on {item} variable to update DataStore entry
         }));
         //consologger("nftCardMutations.js","UPDATE CARD AFTER", ds)
