@@ -163,10 +163,23 @@ export class Auctioneer extends Participant {
                     nftId.set(JSON.stringify(this.nft.id))
                     break;
                 case "ALGO":
-                    this.algoAsset = new CreateAlgoAsset()
-                    const nftIdAlgo = await this.algoAsset.createAsset()
-                    this.nftId = nftIdAlgo
+                    this.nft = await this.stdlib.launchToken(
+                        this.wallet,
+                        get(nftName),
+                        get(nftSymbol), {
+                        total: 1,
+                        decimals: 0,
+                        supply: 1,
+                        url: get(nftImage).url,
+                    });
+                    let nftJSON2 = JSON.stringify(this.nft.id)
+                    nftId.set(JSON.stringify(this.nft.id))
                     break;
+                // case "ALGO":
+                //     this.algoAsset = new CreateAlgoAsset()
+                //     const nftIdAlgo = await this.algoAsset.createAsset()
+                //     this.nftId = nftIdAlgo
+                //     break;
             }
             return true
         } catch (error) {

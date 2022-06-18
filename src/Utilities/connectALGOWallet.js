@@ -13,7 +13,6 @@ export const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPor
 export async function connectMyAlgo(){
     chain.set('ALGO')
     const lib = new LoadLib("ALGO");
-    //let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
     let providerEnv = {
             ALGO_TOKEN:algodToken,
             ALGO_SERVER:algodServer,
@@ -24,18 +23,15 @@ export async function connectMyAlgo(){
         }
 
     lib.reach.setWalletFallback(lib.reach.walletFallback({
-    providerEnv: providerEnv, MyAlgoConnect })); 
+    providerEnv: "TestNet", MyAlgoConnect })); 
 
         try{
         const account = await lib.reach.getDefaultAccount()
         wallet.set(account)
         const balance = await getBalance(account.networkAccount.addr,lib)
         lib.setLib()
-        let gotInfo = await algoDetailClient();
-        if(gotInfo){
-            return true
-        }else{return false}
-
+        //let gotInfo = await algoDetailClient();
+        return true
     }catch(error){
         console.log("Error connecting to MyAlgo:", error);
         return false
@@ -46,7 +42,6 @@ async function algoDetailClient(){
         let algoParams = await algodClient.accountInformation(get(walletAddress)).do();
         //console.log("AlgoParams: ", algoParams);
         accountInformation.set(algoParams)
-        algosdk.makeAsset
         return true
     } catch (error) {
         console.log("Error getting account information:", error);

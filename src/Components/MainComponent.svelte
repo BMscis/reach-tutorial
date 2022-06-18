@@ -3,9 +3,9 @@
     import { afterUpdate, onDestroy } from "svelte";
     import {nftCardList} from "../Stores/nftCard"
     import RIGHTBLOCK from "./RIGHTBLOCK/RIGHTBLOCK.svelte";
-    import { reachStdlib, walletAddress } from "../Stores/Wallet/WalletStore";
+    import { reachStdlib, wallet, walletAddress } from "../Stores/Wallet/WalletStore";
     import CENTRALBLOCK from "./CENTRALBLOCK/CENTRALBLOCK.svelte";
-    import { consologger } from '../Utilities/utilities';
+    import { consologger, getBalance } from '../Utilities/utilities';
 import { dataStoreObserver, nftSubscriptionCreate } from '../WebSockets/nftUpdates';
 let hasActiveNft = false
 
@@ -29,7 +29,7 @@ let nftContractAddress
 let style
 let cards
 let newOwner
-nftCardList.subscribe((value) => {
+nftCardList.subscribe(async (value) => {
     if(value.length > 0){
         cards = value
     let activeComp = value.find((v) => v.active === true);
