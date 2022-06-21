@@ -5,7 +5,7 @@
 [NFT AUCTION](https://github.com/BMscis/reach-tutorial/) WITH [REACH](https://docs.reach.sh/#reach-top)lang.
 </h1>
 
-Implementing a NFT auction with REACH on Algorand and Ethereum.
+Implementing an NFT auction with REACH on Algorand and Ethereum.
 </summary>
 <p>
 <ul>
@@ -35,7 +35,7 @@ Let's summarize what we will be implementing.
 
 1. A `Auctioneer` will initialize the contract and provide three variables:
 
-    - A NFT Token.
+    - AN NFT Token.
     - An initial bid.
     - A time limit.
 
@@ -202,7 +202,7 @@ the frontend.
 
 - In order to implement the **Auction** the `Auctioneer` will have to  provide the following:
 
-    > + A NFT token to be auctioned.
+    > + AN NFT token to be auctioned.
     > + A starting price for the auction.
     > + A duration for the auction.
 
@@ -405,7 +405,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 </summary>
 <p>
 
-Since we are building a NFT-auction, we need a NFT to be auctioned. 
+Since we are building an NFT-auction, we need an NFT to be auctioned. 
 
 As described in the beginning, we will need:
 
@@ -1286,11 +1286,11 @@ const accCreator = await stdlib.newTestAccount(startingBalance);
 <summary>
 <h3>
 
-Creating a NFT with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
+Creating an NFT with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
 
 </h3>
 
-Adding a NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
+Adding an NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
 </summary>
 <p>
 

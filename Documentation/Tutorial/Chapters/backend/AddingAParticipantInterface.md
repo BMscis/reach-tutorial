@@ -13,7 +13,7 @@ the frontend.
 
 - In order to implement the **Auction** the `Auctioneer` will have to  provide the following:
 
-    > + A NFT token to be auctioned.
+    > + AN NFT token to be auctioned.
     > + A starting price for the auction.
     > + A duration for the auction.
 

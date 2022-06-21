@@ -6,7 +6,7 @@ Introduction.
 </h1>
 </summary>
 
-Welcome to my NFT auction workshop! This workshop will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
+Welcome to my NFT auction workshop! This workshop will teach you the basics of programming an NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
 
 1. Common Terminologies.
 
@@ -37,8 +37,8 @@ The reach programming language is a language specifically designed for writing s
 
 An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
 
-## [What is a NFT?]()
-A NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+## [What is an NFT?]()
+AN NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
 
 ## [What is a DApp?]()
 

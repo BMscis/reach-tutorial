@@ -25,8 +25,8 @@ An auction is a process of buying and selling goods or services by offering them
 </li>
 <li>
     
-## [What is a NFT?]()
-A NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+## [What is an NFT?]()
+AN NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
 </li>
 <li>
 

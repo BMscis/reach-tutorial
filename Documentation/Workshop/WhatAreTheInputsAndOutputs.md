@@ -2,7 +2,7 @@
 
 What do we expect to achieve with the auction?
 
-1. We expect to create a contract that auction a NFT.
+1. We expect to create a contract that auction an NFT.
 
 2. We expect a bidder to be able to bid on the NFT.
 
@@ -14,6 +14,6 @@ What do we expect to achieve with the auction?
 
 ## What is the expected input ?
 
-1. We expect a NFT to be auctioned.
+1. We expect an NFT to be auctioned.
 
 2. We expect a bid.

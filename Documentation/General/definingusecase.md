@@ -12,7 +12,7 @@ Defining the Use Case and Requirements.
 
 ## Use Cases
 
-A NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
+AN NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
 </li>
 <li>
 

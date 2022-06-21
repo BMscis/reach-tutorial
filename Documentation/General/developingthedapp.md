@@ -116,7 +116,7 @@ However, depending on the role of the participant, the auction may limit how muc
 
 If the participant is an auctioneer, for example, they can access functions that only they have access to. Such as:
 
-- Adding a NFT to the contract.
+- Adding an NFT to the contract.
 
 - Deciding when the auction will start.
 
@@ -240,7 +240,7 @@ Let us attempt to respond to the questions raised at [Problem Analysis](#problem
 </summary>
 <p>
 
-The goal of this workshop is to establish a NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
+The goal of this workshop is to establish an NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
 
 Let's go through some of the questions we need to address before we can start designing the DAPP.
 
@@ -454,7 +454,7 @@ Let's look at the 'Reach Types' we'll be using to represent our input data.
 Adding the NFT for the auction.
 </h5>
 
-- We will need the following data to add a NFT to the contract:
+- We will need the following data to add an NFT to the contract:
 
   1. The NFT ID.
 
@@ -968,7 +968,7 @@ Auctioneer.pay([[1, nftId]])
 - We are submitting one NFT Token for auction to the contract.
 </li>
 
-> Because a NFT should be unique, we send [1] NFT. Rather than sending the 'UInt 1' directly, we can store the information in a variable.
+> Because an NFT should be unique, we send [1] NFT. Rather than sending the 'UInt 1' directly, we can store the information in a variable.
 
 ```javascript
 const amt = 1;

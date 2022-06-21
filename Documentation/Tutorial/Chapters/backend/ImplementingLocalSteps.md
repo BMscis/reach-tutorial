@@ -11,7 +11,7 @@ Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after 
 </summary>
 <p>
 
-Since we are building a NFT-auction, we need a NFT to be auctioned. 
+Since we are building an NFT-auction, we need an NFT to be auctioned. 
 
 As described in the beginning, we will need:
 

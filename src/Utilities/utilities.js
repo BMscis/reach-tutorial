@@ -115,10 +115,10 @@ export async function checkUploadNft(){
     if (isUser.attributes.name){
       user = true
     }else{
-      alet("You must create an account before creating a NFT.")
+      alet("You must create an account before creating an NFT.")
     }
   } catch (error) {
-      alet("You must create an account before creating a NFT.")
+      alet("You must create an account before creating an NFT.")
       return false
   }
   try {
@@ -126,10 +126,10 @@ export async function checkUploadNft(){
       hasWallet = true
     }else{
       hasWallet = false
-      alert("You must login to a wallet before creating a NFT.")  
+      alert("You must login to a wallet before creating an NFT.")  
     }
   } catch (error) {
-    alert("You must login to a wallet before creating a NFT.")
+    alert("You must login to a wallet before creating an NFT.")
     return false
   }
   try {

@@ -2,11 +2,11 @@
 <summary>
 <h3>
 
-Creating a NFT with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
+Creating an NFT with [launchtoken](https://docs.reach.sh/frontend/#js_launchToken)
 
 </h3>
 
-Adding a NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
+Adding an NFT to our [`index.mjs`]((https://raw.githubusercontent.com/BMscis/reach-tutorial/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
 </summary>
 <p>
 

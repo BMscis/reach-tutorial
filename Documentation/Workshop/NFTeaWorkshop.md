@@ -5,7 +5,7 @@
 # [Introduction](#introduction)
 </summary>
 
-Welcome to my NFT auction workshop! This workshop will teach you the basics of programming a NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
+Welcome to my NFT auction workshop! This workshop will teach you the basics of programming an NFT auction using the reach programming language. Reach is a powerful and easy to use programming language that is perfect for creating NFT auctions. This workshop will cover the following topics:
 
 1. Common Terminologies.
 
@@ -33,8 +33,8 @@ In this workshop, we will be introducing the NFT auction workshop and the reach 
 
   An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
 
-  ## [What is a NFT?]()
-  A NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+  ## [What is an NFT?]()
+  AN NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
 
   ## [What is a DApp?]()
 
@@ -64,7 +64,7 @@ In this workshop, we will be introducing the NFT auction workshop and the reach 
 
 ## Use Cases
 
-A NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
+AN NFT auction is a mechanism for exchanging NFTs between participants. The use case is to allow two or more parties to trade NFTs without the need for a third-party intermediary. The requirements are that the auction be secure, transparent, and efficient.
 </li>
 <li>
 
@@ -325,7 +325,7 @@ Let us attempt to respond to the questions raised at [Problem Analysis](#problem
 </summary>
 <p>
 
-The goal of this workshop is to establish a NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
+The goal of this workshop is to establish an NFT auction and have bidders race to see who can make the biggest bid in the shortest amount of time.
 
 Let's go through some of the questions we need to address before we can start designing the DAPP.
 
@@ -530,7 +530,7 @@ Let's look at the 'Reach Types' we'll be using to represent our input data.
 ##### Adding the NFT for the auction.
 
 
-- We will need the following data to add a NFT to the contract:
+- We will need the following data to add an NFT to the contract:
 
   1. The NFT ID.
 

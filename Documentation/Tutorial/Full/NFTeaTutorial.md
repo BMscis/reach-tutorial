@@ -1,11 +1,11 @@
 
 # [NFT AUCTION WITH REACH](https://github.com/BMscis/reach-tutorial/)
 
-Implementing a NFT auction with REACH on Algorand and Ethereum.
+Implementing an NFT auction with REACH on Algorand and Ethereum.
 
 ## Introduction
 
-Welcome to our tutorial on deploying a NFT auction on the blockchain. This tutorial will walk you through the process of setting up a NFT auction on the blockchain. We will cover the basics of setting up a smart contract, deploying it to the blockchain, and interacting with it to auction off a NFT. By the end of this tutorial, you should have a good understanding of how to deploy a NFT auction on the blockchain. This tutorial will cover the following topics:
+Welcome to our tutorial on deploying an NFT auction on the blockchain. This tutorial will walk you through the process of setting up an NFT auction on the blockchain. We will cover the basics of setting up a smart contract, deploying it to the blockchain, and interacting with it to auction off an NFT. By the end of this tutorial, you should have a good understanding of how to deploy an NFT auction on the blockchain. This tutorial will cover the following topics:
 
 1. Common Terminologies.
 
@@ -32,8 +32,8 @@ The reach programming language is a language specifically designed for writing s
 
     An auction is a process of buying and selling goods or services by offering them up for bid, taking bids, and then selling the item to the highest bidder.
 
-    ## [What is a NFT?]()
-    A NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
+    ## [What is an NFT?]()
+    AN NFT is a non-fungible token. This means that each NFT is unique and not interchangeable with any other NFT.
 
     ## [What is a DApp?]()
 
@@ -102,7 +102,7 @@ The reach programming language is a language specifically designed for writing s
 
         1. A `Auctioneer` will initialize a contract and provide three variables:
 
-            - A NFT Token[`nftId`].
+            - AN NFT Token[`nftId`].
 
             - An initial bid[`minBid`].
 
@@ -199,7 +199,7 @@ The reach programming language is a language specifically designed for writing s
 
                 - In order to implement the **Auction** the `Auctioneer` will have to provide the following:
 
-                    > + A NFT token to be auctioned.
+                    > + AN NFT token to be auctioned.
                     > + A starting price for the auction.
                     > + A duration for the auction.
 
@@ -354,7 +354,7 @@ The reach programming language is a language specifically designed for writing s
 
                 Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after `initialization`.
 
-                Since we are building a NFT-auction, we need a NFT to be auctioned. 
+                Since we are building an NFT-auction, we need an NFT to be auctioned. 
 
                 As described in the beginning, we will need:
 
@@ -1039,10 +1039,10 @@ The reach programming language is a language specifically designed for writing s
             const accCreator = await stdlib.newTestAccount(startingBalance);
             ```
 
-        3. ### [Creating a NFT with `launchtoken`](https://docs.reach.sh/frontend/#js_launchToken)
+        3. ### [Creating an NFT with `launchtoken`](https://docs.reach.sh/frontend/#js_launchToken)
 
 
-            Adding a NFT to our [`index.mjs`]((https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
+            Adding an NFT to our [`index.mjs`]((https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Chapters/frontend/3.CreatingANFT/index.mjs)) file.
 
             If we take a look at `index.rsh` we see that the `Auctioneer`.`getSale` function expects a `nftId`, a `minBid` and `lenInBlocks` as parameters.
 
@@ -1560,7 +1560,7 @@ The reach programming language is a language specifically designed for writing s
     ```
 
     <p align="left">
-    <img src="https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Asset/reach-compile.png" width="40%"  alt="reach-run" />
+    <img src="https://github.com/BMscis/reach-tutorial/blob/workshop/Documentation/Tutorial/Asset/reach-run.png" width="40%"  alt="reach-run" />
     </p>
 
     Congratulations! You have successfully created a DApp NFT auction on Reach.
