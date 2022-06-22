@@ -98,7 +98,7 @@ The reach programming language is a language specifically designed for writing s
 
     1. ## [Walk Through](#walk-through)
 
-        Let's summarize what we will be implementing.
+        Since we are deploying an NFT auction, we will need an NFT, in reality, we only need an NFT ID and query the blockchain for the NFT. Don't worry, all we need to do is to provide an NFT ID, an NFT price and a duration, then, **reach** takes care of the rest. 
 
         1. A `Auctioneer` will initialize a contract and provide three variables:
 
@@ -129,7 +129,7 @@ The reach programming language is a language specifically designed for writing s
 
     2. ## [Implementing the Backend](#implementing-the-backend)
 
-        Let's see how we'll implement the reach backend.
+        The backend contains `.rsh` files. This is where all the reach code will go. We will go through adding code to the `.rsh` file. This will be our backend. We will also show how to integrate the backend and the frontend.
                 
         1. ### Adding Reach [Expressions](https://docs.reach.sh/rsh/appinit/#ref-programs-appinit-exprs).
                     
@@ -160,6 +160,8 @@ The reach programming language is a language specifically designed for writing s
                 A [Participant](https://docs.reach.sh/model/#term_participant) is a logical actor who takes part in a DApp and is associated with an account on the consensus network.
 
                 A **Participant** is a class that represent an account connected to the contract as well as a user connected to the frontend.
+
+                This means that all functions that will be included in the `participant` class will have counterparts in the frontend that fulfill the corresponding backend function in the frontend.
 
                 ```javascript
                 const Auctioneer = Participant('Auctioneer', {
@@ -289,10 +291,16 @@ The reach programming language is a language specifically designed for writing s
                 });
                 ```
                 ___
+            
+            > ### NOTE :
+            > For each function (`getSale`, `auctionReady`, `seeBid`, `showOutcome`) there will be a corresponding function in the frontend which we will implement later in the tutorial.
+
 
             - #### Adding a [`Bidder` Interface]().
 
                 The `Bidder` is an [API](https://docs.reach.sh/rsh/appinit/#rsh_API) that allows the frontend to interact with the backend.
+
+                The difference between a reach `api` and a reach `participant` is that an `api` can be called from the frontend.
 
                 > This is how the function looks.
 
@@ -353,6 +361,8 @@ The reach programming language is a language specifically designed for writing s
                 A local step refers to an action taken by a single `Participant` outside the blockchain.
 
                 Each reach program is in a [local step](https://docs.reach.sh/rsh/local/) after `initialization`.
+
+                Local steps are private and localized to a particular user. Thus, all functions that require increased security are called from the local step.
 
                 Since we are building an NFT-auction, we need an NFT to be auctioned. 
 
@@ -603,6 +613,9 @@ The reach programming language is a language specifically designed for writing s
 
             Here we implement a [parallel reduce](https://docs.reach.sh/rsh/consensus/#parallelreduce) to run the auction until auction time runs out.
 
+            The main process in parallel reduce is the while loop which changes state once certain conditions are met. Parallel reduce runs as long as the while condition is true, or the timeout function has clocked out.
+            We are using parallel reduce since we are running an auction, and we expect multiple bidders to run at the same time. Parallel reduce runs in consensus and ensures for a fair race where the winner of the auction is the result of the parallel reduce.
+            
             1. All `Bidder`s will be competing against each other to make the highest bid while simultaneously racing against the auction time. 
 
             2. We will use a `while` loop that keeps the auction active as long as the auction time is not over.
